@@ -39,8 +39,8 @@ vue2 + webapp
 +   ----components vue 组件
 +   ----libs 第三方的 js 依赖
 +   ----store 
-+     -- api 接口的前缀
-+     -- modules 每个页面的实际动作
++     --- api 接口的前缀
++     --- modules 每个页面的实际动作
 +   ----views 每个功能页面
 + --statics 自己的css 或 下载css
 +   ---- css 
