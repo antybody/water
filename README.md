@@ -61,4 +61,11 @@ vue2 + webapp
       所有切换的路由都在这里展示
 
 ### _HomeView.vue_
+      由组件 
+
+### _headbar.vue_
+      页面头部，带标题
+### _headback.vue_
+       带回退的，带标题
+
 
