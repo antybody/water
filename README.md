@@ -61,9 +61,24 @@ vue2 + webapp
       所有切换的路由都在这里展示
 
 ### _HomeView.vue_
-      由组件 headbar 
+      首页由组件 headbar 
 ### _RedView.vue_
-      由组件 headbar ,doufu
+      红线由组件 headbar ,doufu
+### _RouteView.vue_    
+      巡查页面
+
+### _RedView-water.vue_
+      子页面,取水总量
+### _RedView-query.vue_    
+      子页面，查询和列表 
+### _RedView-qsh-details.vue_    
+      子页面，取水户详情页面 
+### _RouteView-plan.vue_    
+      子页面，巡检计划
+### _RouteView-alert.vue_    
+      子页面，报警站点
+### _RouteView-reback-details.vue_    
+      子页面，巡检反馈
 
 ### _headbar.vue_
       页面头部组件，带标题
@@ -71,5 +86,12 @@ vue2 + webapp
       带回退的组件，带标题
 ### _doufu.vue_
       豆腐块组件
-
+### _topquery.vue_
+      下拉式弹出查询组件
+### _redlists.vue_
+      红线列表组件
+### _routelists.vue_
+      巡查列表组件
+### _redmap.vue_
+      地图组件
 
