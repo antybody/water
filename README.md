@@ -33,22 +33,22 @@ vue2 + webapp
 
 # 目录
  
- --config
-   ----dev-server.js 开发测试
- --src
-   ----components vue 组件
-   ----libs 第三方的 js 依赖
-   ----store 
-     -- api 接口的前缀
-     -- modules 每个页面的实际动作
-   ----views 每个功能页面
- --statics 自己的css 或 下载css
-   ---- css 
-   ---- images
-   ---- fonts
- ----index.html 用于注入的index模板
- ----package.json 依赖信息
- ----webpack.config.js 打包信息
++ --config
++   ----dev-server.js 开发测试
++ --src
++   ----components vue 组件
++   ----libs 第三方的 js 依赖
++   ----store 
++     -- api 接口的前缀
++     -- modules 每个页面的实际动作
++   ----views 每个功能页面
++ --statics 自己的css 或 下载css
++   ---- css 
++   ---- images
++   ---- fonts
++ ----index.html 用于注入的index模板
++ ----package.json 依赖信息
++ ----webpack.config.js 打包信息
 
 # 待研究的内容
   + 1 拍照上传
