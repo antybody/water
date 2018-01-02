@@ -43,7 +43,7 @@ vue2 + webapp
      -- modules 每个页面的实际动作
    ----views 每个功能页面
  --statics 自己的css 或 下载css
-   ---- css
+   ---- css 
    ---- images
    ---- fonts
  ----index.html 用于注入的index模板
