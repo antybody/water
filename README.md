@@ -42,6 +42,7 @@ vue2 + webapp
 +     --- api 接口的前缀
 +     --- modules 每个页面的实际动作
 +   ----views 每个功能页面
++   ----main.js 路由规则及全局变量的注入
 + --statics 自己的css 或 下载css
 +   ---- css 
 +   ---- images
@@ -53,4 +54,11 @@ vue2 + webapp
 # 待研究的内容
   + 1 拍照上传
   + 2 app 增量打包
+
+# 页面详细说明
+
+### _App.vue_
+      --所有切换的路由都在这里展示
+
+### _HomeView.vue_
 
