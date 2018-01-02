@@ -5,6 +5,11 @@ import vueResource from 'vue-resource'
 import store from './store'
 
 import App from './App.vue'
+import VueAmazeui from 'vue-amazeui'
+import 'vue-amazeui/dist/static/css/vue-amazeui.css'
+
+
+Vue.use(VueAmazeui)
 
 Vue.use(VueRouter)
 Vue.use(vueResource)
