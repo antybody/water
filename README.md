@@ -1,7 +1,7 @@
 # water
 vue2
 
-#安装依赖
+# 安装依赖
 npm install
 
 # 测试
