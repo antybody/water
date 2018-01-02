@@ -32,7 +32,7 @@ vue2 + webapp
 
 
 # 目录
- > 待补充
+ 
  --config
    ----dev-server.js 开发测试
  --src
