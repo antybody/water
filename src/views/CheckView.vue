@@ -1,5 +1,5 @@
 <template>
-   <div>首页，敬请期待，建设中</div>
+   <div>管理考核功能，敬请期待，建设中</div>
 </template>
 
 <script>

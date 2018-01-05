@@ -23,6 +23,11 @@ vue2 + webapp
   + 5 vue-amazeui 界面框架
   + 6 
 
+# 开发前准备，请自行百度
+  + 1 安装 node.js
+  + 2 安装 cnpm
+  + 3 vs code 开发工具
+
 # 开发日志
 
 ### _2018-1-2 至 2018-1-5_ 
@@ -55,6 +60,7 @@ vue2 + webapp
   + 1 拍照上传
   + 2 app 增量打包
 
+
 # 页面详细说明
 
 ### _App.vue_
@@ -66,6 +72,8 @@ vue2 + webapp
       红线由组件 headbar ,doufu
 ### _RouteView.vue_    
       巡查页面
+### _CheckView.vue_    
+      考核管理页面
 
 ### _RedView-water.vue_
       子页面,取水总量
@@ -80,8 +88,8 @@ vue2 + webapp
 ### _RouteView-reback-details.vue_    
       子页面，巡检反馈
 
-### _headbar.vue_
-      页面头部组件，带标题
+### _searchbar.vue_
+      头部搜索组件
 ### _headback.vue_
       带回退的组件，带标题
 ### _doufu.vue_
@@ -95,3 +103,7 @@ vue2 + webapp
 ### _redmap.vue_
       地图组件
 
+
+# 组件BUG待解决
+  + 1 tabbar在active和href并存的时候，有切换失灵的情况出现
+  + 2 vue-amazeui 样式不全满足，需要重新发布一个自己的
