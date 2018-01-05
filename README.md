@@ -85,8 +85,7 @@ vue2 + webapp
       子页面，巡检计划
 ### _RouteView-alert.vue_    
       子页面，报警站点
-### _RouteView-reback-details.vue_    
-      子页面，巡检反馈
+### _RouteView-reback-details.vue_          子页面，巡检反馈
 
 ### _searchbar.vue_
       头部搜索组件

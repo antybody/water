@@ -11,3 +11,11 @@ ul{
     list-style: none;
     margin:0rem;
 }
+.pad-left-10{
+    padding-left:0.625rem;
+}
+/** 对组件的修改**/
+.group-clear{
+    margin:0rem !important;
+    /* margin-bottom: 1.25rem !important; */
+} 

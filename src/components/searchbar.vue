@@ -1,4 +1,7 @@
 <template>
+<div style="position:relative;height:65px;
+      z-index:1010;
+      background: #ffffff;">
     <div class="searchbar_tags">
         <form class="searchbar_tags_form">
             <input type="search" id="keyword" class="searchbar_text"
@@ -6,12 +9,17 @@
             <i class="searchbar_clear"></i>
         </form>
           <span class="searchbar_btn">搜索</span>
+          
     </div>
+        <div style="padding-left:10px;">  
+                  {{totaldesc}}
+        </div>
+</div>
 </template>
 
 <script>
 export default {
-   
+   props:['totaldesc']
 }
 </script>
 

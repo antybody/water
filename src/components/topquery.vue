@@ -1,7 +1,9 @@
 
-<template>    
-        <ul>
-            <li class="q-item" v-for="item in items">
+<template> 
+<div> 
+ <div class="filterWrap">  
+        <ul class="topquery">
+            <li class="q-item" :class="{cur:isActive == index}" v-for="(item,index) in items" @click="itemClick(index)">
                 <a href="javascript:void(0)">
                     <span>
                         {{item.title}}
@@ -9,7 +11,16 @@
                     </span>
                 </a>
             </li>
-        </ul>    
+        </ul> 
+        <div class="item_options" v-show="isActive != -1">
+            <ul><li>aa</li><li>aa</li></ul>
+        </div>
+        <!-- <offcanvas silde="bottom" :open="offcanvas4" @Close="close('offcanvas4')">
+            <p>向下显示 OffCanvas 内容</p>
+        </offcanvas> -->
+ </div>
+ <div v-show="isActive != -1" class="modal-backdrop" @click="offcanvasClose" @touchmove.stop></div>  
+</div>
 </template>
 
 <script>
@@ -17,20 +28,58 @@ export default {
     props: ['items'],
     data () {
       return {
-        // id: this.item.id
+           isActive: -1
       }
+    },
+    methods:{
+         itemClick(index){
+             this.isActive = index
+            //  console.log(this.$children[index]);
+         },
+         offcanvasClose() {
+                this.isActive = -1
+         }
     }
 }
 </script>
 
 <style>
-  ul{
+    .filterWrap{
+       height: 45px;
+       position: relative; 
+       z-index:1010;
+       background-color:#fff;
+    }
+  .item_options{
+      margin-top:-1px;
+      position:relative;
+      width:100%;
+      color:#333;
+      background-color:#fff;
+      overflow: hidden;
+      overflow-y:auto;
+      z-index:  1;
+      box-sizing:border-box;
+      border:1px solid #e5e5e5;
+  }
+  .topquery{
     box-sizing:border-box;
     position: relative;
     padding:10px 5px 10px 15px;
     height: 45px;
     text-align: center;
-  }  
+  }
+  /* .topquery::before{
+      content:"";
+      position: absolute;
+      pointer-events: none;
+      background-color:#e5e5e5;
+      height: 1px;
+      left: 0;
+      right: 0;
+      bottom:0;
+      z-index:2;
+  }   */
   .q-item{
       float: left;
       width:25%;
@@ -46,6 +95,33 @@ export default {
       color:#666;
       background-color: #f2f2f7;
       border-radius:2px;
+  }
+  .q-item.cur a{
+      height: 35px;
+      background-color:#fff;
+  }
+  .q-item.cur a::before{
+      content:"";
+      position: absolute;
+      z-index:  1;
+      pointer-events:none;
+      background-color:#e5e5e5;
+      border:1px solid #ddd;
+      top:0;
+      bottom:0;
+      left: 0;
+      right: 0;
+      background: none;
+      border-color:#e5e5e5;
+      border-radius:2px 2px 0 0;
+  }
+  .q-item.cur a::after{
+      content:"";
+      position: absolute;
+      left: 1px;right: 1px;
+      bottom:0; height: 4px;
+      background: #ffffff;
+      z-index:2;
   }
   .q-item span{
       overflow: hidden;
@@ -69,5 +145,11 @@ export default {
   }
   em,i{
       font-style: normal;
+  }
+  .barTab{
+      min-height:45px;
+      font-size:12px;
+      overflow: auto;
+      background-color:#fff;
   }
 </style>

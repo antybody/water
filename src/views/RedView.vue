@@ -8,7 +8,7 @@
             <div class="cell-1"><div class="cell"> 年度水功能区达标率 <span class="col-red"> 62.9</span>%</div></div>
         </div>
         <group header="用水总量" noPadded>
-            <grid avg="4" bordered>
+            <grid avg="4" bordered  class="textcenter">
                 <cell v-for="item in items" :key="item.id">                  
                     
                     <router-link :to='item.href'>
@@ -23,7 +23,7 @@
             </grid>
         </group>
         <group header="用水效率" noPadded>
-            <grid avg="4" bordered>
+            <grid avg="4" bordered class="textcenter">
                 <cell v-for="item in items" :key="item.id">
                     <router-link :to='item.href'>
                         <div>
@@ -36,7 +36,7 @@
             </grid>
         </group>
         <group header="纳污总量" noPadded>
-            <grid avg="4" bordered>
+            <grid avg="4" bordered class="textcenter">
                 <cell v-for="item in items" :key="item.id">
                     <router-link :to='item.href'>
                         <div>
@@ -49,7 +49,7 @@
             </grid>
         </group>
         <group header="监测考核" noPadded>
-            <grid avg="4" bordered>
+            <grid avg="4" bordered class="textcenter">
                 <cell v-for="item in items" :key="item.id">
                     <router-link :to='item.href'>
                         <div>
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style>
-  .group-body{
+  .textcenter{
       text-align:center!important;
   }
   .cell-1{
