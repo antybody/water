@@ -43,7 +43,7 @@ module.exports = {
         loader: ExtractTextPlugin.extract({fallback:"style-loader", use:"css-loader",publicPath:"../"})
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)(\?.*)?$/,
+        test: /\.(woff|svg|eot|ttf)\??.*$/,
         loader: 'file-loader',
         options: {
           limit: 10000,
