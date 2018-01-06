@@ -4,6 +4,9 @@
           取水总量
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>
         </navbar>
+        <div>
+           
+        </div>
    </vue-view>
 </template>
 
