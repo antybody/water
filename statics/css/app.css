@@ -19,3 +19,55 @@ ul{
     margin:0rem !important;
     /* margin-bottom: 1.25rem !important; */
 } 
+
+.layui-timeline{
+    padding-left:5px;
+}
+.layui-timeline-item{
+    position: relative;
+    padding-bottom: 20px;
+}
+.layui-timeline-item:first-child:before{
+    display: block;
+}
+.layui-timeline-item:before{
+    content:'';
+    position: absolute;
+    left:5px;
+    top:0;
+    z-index:0;
+    width:1px;
+    height:100%;
+}
+.layui-timeline-item:before, hr{
+    background-color:#e6e6e6;
+}
+.layui-circle{
+    position: absolute;
+    left:1px;
+    top:8px;   
+    width:10px;
+    height:10px;
+    background-color:#0e90d2;
+    border-radius:5px; /* 图形的半径 */
+}
+.layui-timeline-axis{
+    position: absolute;
+    left:-5px;
+    top:0;
+    z-index:10;
+    width:20px;
+    height:20px;
+    line-height: 20px;
+    background-color: #5fb878;
+    color:#5fb878;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 10px;   
+}
+.layui-timeline-content{
+    padding-left:25px;
+}

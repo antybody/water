@@ -5,11 +5,6 @@
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>
 
         </navbar>
-        <div>
-           
-        </div>
-
-       </navbar>
        <!--下方显示区域-->
        <div id="myCharts" :style="{width:'410px',height:'300px'}"></div>
 
@@ -17,7 +12,7 @@
 </template>
 
 <script>
-    import echarts from 'echarts'
+import echarts from 'echarts'
 export default {
     name:'chart',
     data(){
