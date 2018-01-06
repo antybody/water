@@ -32,7 +32,7 @@ export default {
                {title:'监控级别'},{title:'发证单位'},{title:'颁证水量'},{title:'取水用途'}
            ],
            lists:[
-               {title:'上海宝信软件',href:'/redwater'},{title:'上海嘛哩屋',href:'/redwater'}
+               {title:'上海宝信软件',href:'/redmap'},{title:'上海嘛哩屋',href:'/qshDetail'}
                ,{title:'上海报亭',href:'/redwater'},{title:'上海报亭',href:'/redwater'}
                ,{title:'上海报亭',href:'/redwater'}
                ,{title:'上海报亭',href:'/redwater'}

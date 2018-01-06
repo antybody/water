@@ -3,7 +3,8 @@
        <navbar slot="header" blue>
           取水总量
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>
-       </navbar>
+
+        </navbar>
        <!--上方统计图-->
        <card title="2017 年度取水总量(亿m³)">
            <div id="myCharts" :style="{width:'100%',height:'180px'}"></div>
