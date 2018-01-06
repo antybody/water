@@ -24,6 +24,9 @@ export default {
 </script>
 
 <style>
+    .modal-backdrop{
+        background:rgba(0,0,0,.6) !important;
+    }
   .searchbar_tags{
       position: relative;
       box-sizing: border-box;
