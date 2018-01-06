@@ -7,13 +7,13 @@
         <group noPadded class="group-clear">
             <div>
                 <searchbar :totaldesc="totaldesc"></searchbar>
-             
+
             <topquery :items="items">  </topquery>
             </div>
             <redlists :lists="lists"></redlists>
-        </group>    
-        
-        
+        </group>
+
+
    </vue-view>
 </template>
 
