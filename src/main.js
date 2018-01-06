@@ -20,6 +20,8 @@ import check from './views/CheckView'
 import route from './views/RouteView'
 import qsh from './views/redview/RedView-query'
 import redwater from './views/redview/RedView-water'
+//巡检部分
+import routeStation from './views/routeview/RouteView-station'
 // 配置相关的路由规则
 // 子页面的规则，第一个都为details / home (这个根据当前子页面属于哪个父下面来决定) / 看是否需要参数
 const router = new VueRouter({
@@ -46,7 +48,11 @@ const router = new VueRouter({
         { 
             path:'/redwater',
             component:redwater
-        }  
+        },
+        {
+            path: '/routeStation',
+            component: routeStation
+        }
     ]
 })
 
