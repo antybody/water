@@ -16,6 +16,7 @@ Vue.use(vueResource)
 
 import home from './views/HomeView'
 import red from './views/RedView'
+import redv1 from './views/RedView-v1'
 import check from './views/CheckView'
 import route from './views/RouteView'
 import qsh from './views/redview/RedView-query'
@@ -37,6 +38,10 @@ const router = new VueRouter({
         { 
             path:'/red',
             component:red
+        },
+        { 
+            path:'/redv1',
+            component:redv1
         },
         { 
             path:'/check',
@@ -62,8 +67,7 @@ const router = new VueRouter({
         { 
             path:'/qshDetail',
             component:qshDetail
-        },    
-
+        }, 
         {
             path: '/routeStation',
             component: routeStation

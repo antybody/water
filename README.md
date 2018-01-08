@@ -21,7 +21,7 @@ vue2 + webapp
   + 3 vuex 管理状态
   + 4 vue-resource ajax获取数据
   + 5 vue-amazeui 界面框架
-  + 6 
+  + 6 http://vue.ydui.org 使用部分组件做界面框架
 
 # 开发前准备，请自行百度
   + 1 安装 node.js
@@ -35,6 +35,12 @@ vue2 + webapp
  + 1 搭建框架、梳理引用
  + 2 设计目录、页面关系
 
+### _2018-1-8 至 2018-1-12_
+
+ + 1 调整首页+三条红线的样式
+ + 2 完成地图模块跟数据的联动
+ + 3 完成查询组件的事件切换
+ + 4 搭建condova环境
 
 # 目录
  
@@ -70,6 +76,8 @@ vue2 + webapp
       首页由组件 headbar 
 ### _RedView.vue_
       红线由组件 headbar ,doufu
+### _RedView-v1.vue_
+      三条红线，新的界面样式
 ### _RouteView.vue_    
       巡查页面
 ### _CheckView.vue_    
@@ -85,7 +93,8 @@ vue2 + webapp
       子页面，巡检计划
 ### _RouteView-alert.vue_    
       子页面，报警站点
-### _RouteView-reback-details.vue_          子页面，巡检反馈
+### _RouteView-reback-details.vue_          
+      子页面，巡检反馈
 
 ### _searchbar.vue_
       头部搜索组件

@@ -19,7 +19,11 @@ ul{
     margin:0rem !important;
     /* margin-bottom: 1.25rem !important; */
 } 
+.tabbar{
+    background: #ffffff !important;
+}
 
+/****/
 .layui-timeline{
     padding-left:5px;
 }
