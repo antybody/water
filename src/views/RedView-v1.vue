@@ -20,7 +20,7 @@
            </div>
        </group>
        <!--可拖动的方框-->
-       <group noPadded class="group-clear">
+       <group noPadded class="group-clear group-top-10">
            <div style="padding:0.625rem 0">
                <h5 class="wt-title">
                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>红线指标</span></div>
@@ -34,7 +34,7 @@
            </div>
        </group>
        <!--新闻列表-->
-       <group noPadded class="group-clear">
+       <group noPadded class="group-top-10">
            <h5 class="wt-title">
                    <div class="wt-title-center"><i class="wt-bar-i-16 red-news"></i><span>水利热点</span></div>
            </h5>

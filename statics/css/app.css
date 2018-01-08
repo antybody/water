@@ -18,6 +18,10 @@ ul{
 .group-clear{
     margin:0rem !important;
     /* margin-bottom: 1.25rem !important; */
+}
+.group-top-10{
+    margin-top:0.625rem !important;
+    /* margin-bottom: 1.25rem !important; */
 } 
 .tabbar{
     background: #ffffff !important;
