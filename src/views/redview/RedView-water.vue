@@ -5,47 +5,103 @@
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>
 
         </navbar>
-       <!--下方显示区域-->
-       <div id="myCharts" :style="{width:'410px',height:'300px'}"></div>
-
+       <!--上方统计图-->
+       <card title="2017 年度取水总量(亿m³)">
+           <div id="myCharts" :style="{width:'100%',height:'180px'}"></div>
+       </card>
+       <!--下方图表-->
+       <card title="2017 月度取水总量(亿m³)">
+           <div id="myCharts2" :style="{width:'45%',height:'300px'}"></div>
+           <div :style="{width: '45%'}">
+               <grid align="center">
+                   <cell cells="2">cells: 2</cell>
+                   <cell cells="2">cells: 2</cell>
+               </grid>
+           </div>
+       </card>
    </vue-view>
 </template>
 
 <script>
-import echarts from 'echarts'
-export default {
-    name:'chart',
-    data(){
-        return{
-        }
-    },
-    mounted(){
-        let myChart = echarts.init(document.getElementById('myCharts'));
-        var options = {
-            color: ['#3398DB'],
-            title: {
-                text: '2017年度取水总量(亿m³)',
-                left: 'center',
-                top: '10px'
-            },
-            tooltip: {},
-            legend: {
-               show: false
-            },
-            xAxis: {
-                data: ["一月","二月","三月","四月","五月","六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
-            },
-            yAxis: {},
-            series: [{
-                name: '取水量',
-                type: 'bar',
-                data: [5, 6, 6, 10, 9, 8, 5, 6, 6, 12, 9, 8]
-            }]
-        };
-        myChart.setOption(options);
-    }
+    import echarts from 'echarts'
+    export default {
+        name:'chart',
+        data(){
+            return{
+            }
+        },
+        mounted(){
+            let myChart = echarts.init(document.getElementById('myCharts'));
+            var options = {
+                color: ['#3398DB'],
+                title: {
+                    show: false
+                },
+                grid:{
+                    x: -1,
+                    y: 0,
+                    x2: 0,
+                    y2: 20,
+                    borderWidth: 1
+                },
+                tooltip: {},
+                legend: {
+                    show: false
+                },
+                xAxis: {
+                    data: ["一月","二月","三月","四月","五月","六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+                },
+                yAxis: {},
+                series: [{
+                    name: '取水量',
+                    type: 'bar',
+                    data: [5, 6, 6, 10, 9, 8, 5, 6, 6, 12, 9, 8]
+                }]
+            };
+            myChart.setOption(options);
 
-}
+            let myChart2 = echarts.init(document.getElementById('myCharts2'));
+            var options2 = {
+                color: ['#3398DB'],
+                title: {
+                    show: false
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    show: false
+                },
+                grid: {
+                    left: '1%',
+                    right: '2%',
+                    bottom: '3%',
+                    top: '0.5%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    boundaryGap: [0, 0.01]
+                },
+                yAxis: {
+                    type: 'category',
+                    data: ["十二月","十一月","十月","九月","八月","七月", "六月", "五月", "四月", "三月", "二月", "一月"]
+                },
+                series: [
+                    {
+                        name: '2011年',
+                        type: 'bar',
+                        data: [5, 6, 6, 10, 9, 8, 5, 6, 6, 12, 9, 8]
+                    }
+                ]
+            };
+            myChart2.setOption(options2);
+        }
+
+    }
 </script>
 
 <style>
