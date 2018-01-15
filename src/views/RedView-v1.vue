@@ -1,12 +1,17 @@
 <!--新的界面样式-->
 <template>
    <vue-view>
+       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
+          上海水资源
+          <icon name="more-vertical" slot="left" ></icon>
+          <icon name="person" slot="right" href="/"></icon>
+        </navbar>
        <!--圆形-->
        <group noPadded class="group-clear">
-           <div class="wt-header wt-linear-blue">
-               <div class="wt-text text-center">
-                   <span class="wt-h-15"></span>
-               </div>
+           <div class="wt-header">
+               <!-- <div class="wt-text text-center">
+                   <span class="wt-h-15">上海水资源</span>
+               </div> -->
                 <grid avg="4" align="center">
                     <cell :class="text-center" v-for="item in clists" :key="item.id">
                          <div class="wt-text">
@@ -39,7 +44,11 @@
                    <div class="wt-title-center"><i class="wt-bar-i-16 red-news"></i><span>水利热点</span></div>
            </h5>
            <list>
-              <list-item :key="item.id" v-for="item in newlists" :title="item.title" :href="item.href" :after="item.date"></list-item>
+              <list-item :key="item.id" v-for="item in newlists" :title="item.title" :href="item.href" :after="item.date">
+                   <span slot="subTitle">
+                        <span class="list-label label-red">最新</span>
+                    </span>
+              </list-item>
            </list>
        </group>
    </vue-view>
@@ -50,7 +59,7 @@ export default {
    data(){
        return {
            clists:[
-                {href:'',img:'wt-bar-i-46 wt-bar-1',title:'地表取水户'}, {href:'',img:'wt-bar-i-46 wt-bar-2',title:'地下取水户'},
+                {href:'/qsh',img:'wt-bar-i-46 wt-bar-1',title:'地表取水户'}, {href:'',img:'wt-bar-i-46 wt-bar-2',title:'地下取水户'},
                 {href:'',img:'wt-bar-i-46 wt-bar-3',title:'取水许可证'}, {href:'',img:'wt-bar-i-46 wt-bar-4',title:'取水监测站'},
                 {href:'',img:'wt-bar-i-46 wt-bar-5',title:'水源地'}, {href:'',img:'wt-bar-i-46 wt-bar-6',title:'水功能区'},
                 {href:'',img:'wt-bar-i-46 wt-bar-7',title:'放江泵站'}, {href:'',img:'wt-bar-i-46 wt-bar-8',title:'大用水户'}
@@ -78,7 +87,8 @@ export default {
 
 <style>
   .wt-header{
-      height:12.4375rem;
+      height:12.3125rem;
+      color:#3b3b3b;
   }
   .wt-linear-blue{
       color:#ffffff;
@@ -93,7 +103,11 @@ export default {
   }
   .wt-h-15{
       display: block;
-      height:0.9375rem;
+      height:2.875rem;
+      line-height: 2.875rem;
+      font-size:1rem;
+      text-align: left;
+      padding-left:1.25rem;
   }
   .wt-bar-i-46{
       display: block;
@@ -141,7 +155,7 @@ export default {
       line-height: .3466666667rem;
   }
   .wt-text a{
-      color:#ffffff;
+      /* color:#ffffff; */
   }
   .wt-title{
       color:#434f65;

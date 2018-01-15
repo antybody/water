@@ -7,6 +7,7 @@ import App from './App.vue'
 import VueAmazeui from 'vue-amazeui'
 import 'vue-amazeui/dist/static/css/vue-amazeui.css'
 import '../statics/css/app.css'
+import store from './store'
 
 
 Vue.use(VueAmazeui)
@@ -23,6 +24,7 @@ import qsh from './views/redview/RedView-query'
 import redwater from './views/redview/RedView-water'
 
 import redmap from './views/redview/RedView-map'
+import sredmap from './views/redview/RedView-smap'
 import qshDetail from './views/redview/RedView-qshDetail'
 
 //巡检部分
@@ -59,18 +61,23 @@ const router = new VueRouter({
             path:'/redwater',
             component:redwater
         },
-
         { 
-            path:'/redmap',
+            path:'/redmap/:kt',
+            name:'redmap',
             component:redmap
         },
         { 
-            path:'/qshDetail',
+            path:'/qshDetail/:id',
             component:qshDetail
         }, 
         {
             path: '/routeStation',
             component: routeStation
+        },
+        { 
+            path:'/smap',
+            name:'smap',
+            component:sredmap
         }
 
     ]
@@ -80,5 +87,6 @@ const router = new VueRouter({
 new Vue({
     el: '#app',
     router:router, //使用路由对象实例
+    store:store,
     render: h => h(App)
   })

@@ -1,19 +1,17 @@
 <template>
    <vue-view>
-       <navbar slot="header" blue style="z-index:1010;">
+       <navbar slot="header" class="wt-linear-blue" style="z-index:1010;">
           取水户
-          <icon name="left-nav" slot="left" titleRight="返回" back></icon>
+          <icon name="left-nav" slot="left" titleRight="返回" back></icon>          
+          <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/dbqsh"></icon>
         </navbar>
         <group noPadded class="group-clear">
             <div>
-                <searchbar :totaldesc="totaldesc"></searchbar>
-
-            <topquery :items="items">  </topquery>
+                <searchbar :totaldesc="listInfo.desc"></searchbar>
+                <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
             </div>
-            <redlists :lists="lists"></redlists>
+            <redlists :lists="listInfo.lists"></redlists>
         </group>
-
-
    </vue-view>
 </template>
 
@@ -21,24 +19,41 @@
 import searchbar from '../../components/searchbar'
 import redlists from '../../components/redlists'
 import topquery from '../../components/topquery'
+
+import { mapState, mapActions } from 'vuex'
+import Vue from 'vue'
+
 export default {
    components: {
       searchbar,topquery,redlists
     },
    data(){
        return{
-           totaldesc:'共计300户，颁证水量15万立方米',
-           items:[
-               {title:'监控级别'},{title:'发证单位'},{title:'颁证水量'},{title:'取水用途'}
-           ],
-           lists:[
-               {title:'上海宝信软件',href:'/redmap'},{title:'上海嘛哩屋',href:'/qshDetail'}
-               ,{title:'上海报亭',href:'/redwater'},{title:'上海报亭',href:'/redwater'}
-               ,{title:'上海报亭',href:'/redwater'}
-               ,{title:'上海报亭',href:'/redwater'}
-               ,{title:'上海报亭',href:'/redwater'}
-           ]
+           
        }
+   },
+   computed:{
+       ...mapState({
+            loading: state => state.qshInfo.loading,
+            listInfo: state => state.qshInfo.listInfo,
+            queryMenu:state => state.qshInfo.queryMenu
+      })
+   },
+   methods:{
+        ...mapActions([
+            'getLists','getQueryMenu'
+        ]),
+        menuQuery:function(val){
+            // 这里引用 带条件的查询
+            console.log("----- 查询了我-----");
+            console.log(val);
+            this.$store.dispatch({type:'getListsByParams',param:val})
+              .then(res =>{
+                  if(res.status === 200){
+                      console.log('获取数据');
+                  }
+              });
+        }
    }
 }
 </script>

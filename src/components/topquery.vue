@@ -3,7 +3,7 @@
 <div> 
  <div class="filterWrap">  
         <ul class="topquery">
-            <li class="q-item" :class="{cur:isActive == index}" v-for="(item,index) in items" @click="itemClick(index)">
+            <li class="q-item" :class="{cur:isActive == index}" v-for="(item,index) in items" @click="itemClick(item,index)">
                 <a href="javascript:void(0)">
                     <span>
                         {{item.title}}
@@ -12,8 +12,18 @@
                 </a>
             </li>
         </ul> 
-        <div class="item_options" v-show="isActive != -1">
-            <ul><li>aa</li><li>aa</li></ul>
+        <div class="filter-panel" v-show="isActive != -1">
+            <ul>
+                <li v-if="queryDetail.type == 'checkbox'" class="filter-panel-item" v-for="item in queryDetail.children" :key="item.index" @click="queryClickCheck(item)">
+                    <em :class="{'wt-dblue':item.checked == true}">{{item.title}}</em>
+                    <div  :class="['checkbox',{'checkbox-active':item.checked == true} ]">
+                        <i class="checked-icon icons-ea4c"></i>
+                    </div>
+                </li>
+                <li v-if="queryDetail.type == 'radio'" class="filter-panel-item" v-for="item in queryDetail.children" :key="item.index" @click="queryClickRadio(item)">
+                    <em :class="{'wt-dblue':item.checked == true}">{{item.title}}</em>
+                </li>
+            </ul>
         </div>
         <!-- <offcanvas silde="bottom" :open="offcanvas4" @Close="close('offcanvas4')">
             <p>向下显示 OffCanvas 内容</p>
@@ -24,26 +34,106 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
     props: ['items'],
     data () {
       return {
-           isActive: -1
+           isActive: -1,
+           queryDetail:{}
       }
     },
+    watch:{
+        selected:function(val,oldval){
+            console.log("------ 监听变化 -----");
+            this.$emit('menuQuery',val);
+        }
+    },
+    computed:{
+        selected:function(){
+            // 循环最外层的数据
+            var ret ={};
+            this.items.forEach(element => {
+                ret[element.key] = [];
+                element.children.forEach(ele => {
+                    if (ele.checked == true)
+                      ret[element.key].push(ele.key);
+                });
+            });
+
+            return ret;
+        }
+    },
     methods:{
-         itemClick(index){
-             this.isActive = index
+         itemClick(item,index){
+             this.isActive = index;
+             this.queryDetail = item;
             //  console.log(this.$children[index]);
          },
          offcanvasClose() {
-                this.isActive = -1
+             this.isActive = -1
+         },
+         queryClickCheck(item){ // 多选
+             console.log(item.key);             
+             Vue.set(item,'checked',!item.checked);
+             // 对 “不限” 特殊处理
+             if (item.key == '-1'){
+                 this.queryDetail.children.forEach(element => {
+                     if (element.key !=-1)
+                      Vue.set(element,'checked',false);
+                 });
+             }else{
+                 this.queryDetail.children.forEach(element => {
+                     if (element.key ==-1)
+                      Vue.set(element,'checked',false);
+                 });
+             }
+         },
+         queryClickRadio(item){ // 单选
+            Vue.set(item,'checked',!item.checked);
+            this.queryDetail.children.forEach(element => {
+                if (element.key != item.key)
+                      Vue.set(element,'checked',false);
+            });
          }
     }
 }
 </script>
 
 <style>
+    .filter-panel-item em{
+        display: block;
+        -webkit-box-flex:1;
+    }
+    .checkbox .checked-icon{
+        display: none;
+    }
+    .checkbox{
+        width:15px;
+        height: 15px;
+        position: relative;
+        margin-right:10px;
+        box-sizing:border-box;
+        border:1px solid #ccc;
+    }
+    .checkbox input{
+        display: none;
+    }
+    .checkbox-active{
+        border:1px solid #5d85ff;        
+    }
+    .checkbox-active .checked-icon{
+        display: block;
+        position: absolute;
+        top:-15px;
+        left:-1px;
+        font-size:12px;
+        color:#5d85ff;
+    }
+    .icons-ea4c:before{
+        content:"\e992"
+    }
     .filterWrap{
        height: 45px;
        position: relative; 
@@ -69,17 +159,7 @@ export default {
     height: 45px;
     text-align: center;
   }
-  /* .topquery::before{
-      content:"";
-      position: absolute;
-      pointer-events: none;
-      background-color:#e5e5e5;
-      height: 1px;
-      left: 0;
-      right: 0;
-      bottom:0;
-      z-index:2;
-  }   */
+
   .q-item{
       float: left;
       width:25%;

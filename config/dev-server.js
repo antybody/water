@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
 var port = process.env.PORT || 3000;
- 
+var router = express.Router();
 /**
 * 引入webpack 及其 配置config
 */
@@ -30,3 +30,13 @@ throw err;
 }
 console.log('Listening at http://localhost:' + port + '\n')
 })
+
+// 注册JSON 数据
+var mapsData = require('../data/map.json')
+router.get("/map", function (req,res) {
+  res.json(mapsData) 
+})
+app.use('/api',router)
+
+
+

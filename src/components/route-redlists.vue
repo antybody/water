@@ -24,23 +24,10 @@ export default {
 </script>
 
 <style>
-   .list-label{
-      margin:0 0.1rem;
-      display: inline-block;
-      height: 1.125rem;
-      line-height: 1.125rem;
-      padding:0 0.2rem;
-      font-size:0.75rem;
-      border-radius:0.2rem;
-   }
    /*新消息提醒*/
    .label-new{
        border: 1px solid red;
        color: red;
-   }
-   .label-blue{
-       background-color:#EEF8FF;
-       color:#A9CAF7;
    }
    .label-error{
        border: 1px solid #ee8934;
