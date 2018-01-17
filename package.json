@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "echarts": "^3.8.5",
+    "exif-js": "^2.3.0",
+    "fastclick": "^1.0.6",
     "leaflet": "^1.2.0",
+    "lodash": "^4.17.4",
     "use-iconfonts": "^1.9.15",
     "vue": "^2.1.8",
     "vue-lazyload": "^1.0.0-rc4",

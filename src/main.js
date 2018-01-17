@@ -8,8 +8,10 @@ import VueAmazeui from 'vue-amazeui'
 import 'vue-amazeui/dist/static/css/vue-amazeui.css'
 import '../statics/css/app.css'
 import store from './store'
+import FastClick from 'fastclick'
 
 
+FastClick.attach(document.body);
 Vue.use(VueAmazeui)
 
 Vue.use(VueRouter)
@@ -29,7 +31,8 @@ import qshDetail from './views/redview/RedView-qshDetail'
 
 //巡检部分
 import routeStation from './views/routeview/RouteView-station'
-
+import routeReback from './views/routeview/RouteView-reback'
+import routeDone from './views/routeview/RouteView-done'
 // 配置相关的路由规则
 // 子页面的规则，第一个都为details / home (这个根据当前子页面属于哪个父下面来决定) / 看是否需要参数
 const router = new VueRouter({
@@ -78,6 +81,16 @@ const router = new VueRouter({
             path:'/smap',
             name:'smap',
             component:sredmap
+        },
+        { 
+            path:'/reback',
+            name:'reback',
+            component:routeReback
+        },
+        { 
+            path:'/redone',
+            name:'redone',
+            component:routeDone
         }
 
     ]

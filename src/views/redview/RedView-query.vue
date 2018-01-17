@@ -7,11 +7,19 @@
         </navbar>
         <group noPadded class="group-clear">
             <div>
-                <searchbar :totaldesc="listInfo.desc"></searchbar>
+                <!-- <searchbar :totaldesc="listInfo.desc"></searchbar> -->
+                <div class="wt-top-search">
+                    <div class="h-search" @click="searchBar()">
+                        <i class="h-search-ico"></i>
+                        搜索取水户
+                    </div>
+                    <span>{{listInfo.desc}}</span>
+                </div>
                 <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
             </div>
             <redlists :lists="listInfo.lists"></redlists>
         </group>
+        <searchbar :open="openSearch" inputtext="请输入取水户名称" searchtype="dbsqsh" @closeBar="closeBar"></searchbar>
    </vue-view>
 </template>
 
@@ -29,7 +37,7 @@ export default {
     },
    data(){
        return{
-           
+           openSearch:false
        }
    },
    computed:{
@@ -40,6 +48,9 @@ export default {
       })
    },
    methods:{
+       searchBar:function(){
+           this.openSearch = true;
+       },
         ...mapActions([
             'getLists','getQueryMenu'
         ]),
@@ -53,14 +64,51 @@ export default {
                       console.log('获取数据');
                   }
               });
+        },
+        closeBar(){
+            this.openSearch = false;
         }
    }
 }
 </script>
 
 <style>
-  
+  .wt-top-search{
+      margin-left:0.625rem;
+      padding-top:0.625rem;
+  }
   .querygroup{
       background-color: #e5e5e5;
+  }
+  .h-search{
+      -webkit-box-flex:1;
+      background-color:#f2f2f7;
+      height: 30px;
+      line-height: 30px;
+      border-radius:4px;
+      color:#999;
+      text-align: center;
+      margin-right:10px;
+      font-size:0.75rem;
+  }
+  .h-search-ico{
+      display:inline-block;
+      height: 10px;
+      width:4%;
+      border-radius:100%;
+      border:1px solid #999;
+      position: relative;
+      margin-right:6px;
+  }
+  .h-search-ico::after{
+      content:'';
+      position: absolute;
+      left: 11px;
+      top:10px;
+      height: 4px;
+      width:1px;
+      background:#999;
+      -webkit-transform:rotate(-35deg);
+      transform:rotate(-35deg);
   }
 </style>

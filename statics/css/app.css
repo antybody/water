@@ -28,6 +28,14 @@
     content:"\e600";
     font-size:1.5rem;
 }
+.icons-e616:before{
+    content:"\e616";
+    font-size:1rem;
+}
+.icons-e621:before{
+    content:"\e621";
+    font-size:1rem;
+}
 
 .wt-green{
     color:#62ab00;
