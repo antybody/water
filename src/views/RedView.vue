@@ -1,12 +1,38 @@
 <template>
    <vue-view>
        <navbar slot="header" blue>三条红线</navbar>
-        <div class="grid">
-            <div class="cell-1"><router-link to="/redwater"><div class="cell"> 年度取水总量 <span class="col-red"> 62.9</span>亿立方米</div></router-link></div>
-            <div class="cell-1"><div class="cell"> 超许可取水 <span class="col-red">&nbsp;62</span>户</div></div>
-            <div class="cell-1"><div class="cell"> 取水许可超期 <span class="col-red"> 10</span>本</div></div>
-            <div class="cell-1"><div class="cell"> 年度水功能区达标率 <span class="col-red"> 62.9</span>%</div></div>
-        </div>
+        <!--<div class="grid">-->
+            <!--<div class="cell-1"><router-link to="/redwater"><div class="cell"> 年度取水总量 <span class="col-red"> 62.9</span>亿立方米</div></router-link></div>-->
+            <!--<div class="cell-1"><div class="cell"> 超许可取水 <span class="col-red">&nbsp;62</span>户</div></div>-->
+            <!--<div class="cell-1"><div class="cell"> 取水许可超期 <span class="col-red"> 10</span>本</div></div>-->
+            <!--<div class="cell-1"><div class="cell"> 年度水功能区达标率 <span class="col-red"> 62.9</span>%</div></div>-->
+        <!--</div>-->
+       <grid avg="4" bordered>
+           <cell>
+               <router-link to="/redwater">
+                <!--<icon name="back"></icon>-->年度取水
+                <div class="sk-icon-name text-truncate">69亿m³</div>
+               </router-link>
+           </cell>
+           <cell>
+               <router-link to="/redwater">
+                   <!--<icon name="back"></icon>-->超许可取水
+                   <div class="sk-icon-name text-truncate">69户</div>
+               </router-link>
+           </cell>
+           <cell>
+               <router-link to="/redwater">
+                   <!--<icon name="back"></icon>-->取水许可超期
+                   <div class="sk-icon-name text-truncate">10张</div>
+               </router-link>
+           </cell>
+           <cell>
+               <router-link to="/redwater">
+                   <!--<icon name="back"></icon>-->水功能区年度达标率
+                   <div class="sk-icon-name text-truncate">69%</div>
+               </router-link>
+           </cell>
+       </grid>
         <group header="用水总量" noPadded>
             <grid avg="4" bordered  class="textcenter">
                 <cell v-for="item in items" :key="item.id">                  

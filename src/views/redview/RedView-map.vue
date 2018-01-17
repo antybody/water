@@ -13,9 +13,12 @@ import redmap from '../../components/redmap'
 export default {
     data(){
         return{
-            mapPoints:[{lng:121.372882,lat:31.176523,name:'上海宝信'},
-            {lng:121.604799,lat:31.217459,name:'上海宝信'},
-            {lng:121.403122,lat:31.317181,name:'上海宝信'}]
+            mapPoints:
+                [
+                    {lng:121.372882,lat:31.176523,name:'上海宝信'},
+                    {lng:121.604799,lat:31.217459,name:'上海宝信'},
+                    {lng:121.403122,lat:31.317181,name:'上海宝信'}
+                ]
        }
     },    
     components: {
