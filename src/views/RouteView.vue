@@ -1,7 +1,7 @@
 <template>
    <vue-view>
       <!--页面头部区域-->
-      <navbar class="header" blue>
+      <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
          巡检运维
       </navbar>
       <!--巡检首页面头部方块切换页面-->
@@ -43,7 +43,7 @@ export default {
                 {icon:'home',txt:'报警站点',href:'routeStation'},
                 {icon:'bars',txt:'巡检计划',href:'#'},
                 {icon:'home',txt:'巡检记录',href:'#'},
-                {icon:'bars',txt:'即时反馈',href:'#'}
+                {icon:'bars',txt:'即时反馈',href:'reback'}
             ],
             totaldesc:'共计300户，颁证水量15万立方米',
             queryItems:[

@@ -67,13 +67,13 @@ export default {
         })
         // 创建地图上的点
         for(var i=0;i< this.points.length;i++){
-           console.log(this.points.lng);
+           console.log(this.points[i].lng);
            let marker = new AMap.Marker({
                 position: [this.points[i].lng,this.points[i].lat],
                 title: this.points.name,
                 map: map
             });
-            marker.content = '我是第' + (i + 1) + '个Marker';
+            marker.content = this.points[i].name + this.points[i].desc;
             marker.on('click', markerClick =>{
                 infoWindow.setContent(markerClick.target.content);
                 infoWindow.open(map, markerClick.target.getPosition());

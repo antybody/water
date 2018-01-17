@@ -2,15 +2,63 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d20b9ef1-0ab4-4ecf-8768-f388315ebcaa" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/qs.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/water.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/echarts-bar.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/fonts/iconfont.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/fonts/iconfont.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/fonts/iconfont.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/icon/566511008dc90.ai" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/icon/start.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/icon/start.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/icon/start1080.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/icon/start720.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/icon/water.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/1-48.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/2-48.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/3-48.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/4-48.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/5-48.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/6-48.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/7-48.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/8-48.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/bars16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/base.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/line16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/new16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/news16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/notice16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/round16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/images/share16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/map.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/imgpreview.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/libs/imageUpload.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/libs/logger.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/libs/utils.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/store/modules/qshInfo.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/store/modules/redmap.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/store/modules/searchBar.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/views/RedView-v1.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/views/redview/RedView-smap.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/views/routeview/RouteView-done.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/views/routeview/RouteView-reback.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statics/fonts/iconfont.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/dev-server.js" afterPath="$PROJECT_DIR$/config/dev-server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/RedView.vue" afterPath="$PROJECT_DIR$/src/views/RedView.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.vue" afterPath="$PROJECT_DIR$/src/App.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/redlists.vue" afterPath="$PROJECT_DIR$/src/components/redlists.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/redmap.vue" afterPath="$PROJECT_DIR$/src/components/redmap.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/route-redlists.vue" afterPath="$PROJECT_DIR$/src/components/route-redlists.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/searchbar.vue" afterPath="$PROJECT_DIR$/src/components/searchbar.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/topquery.vue" afterPath="$PROJECT_DIR$/src/components/topquery.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.js" afterPath="$PROJECT_DIR$/src/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/index.js" afterPath="$PROJECT_DIR$/src/store/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/CheckView.vue" afterPath="$PROJECT_DIR$/src/views/CheckView.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/HomeView.vue" afterPath="$PROJECT_DIR$/src/views/HomeView.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/RouteView.vue" afterPath="$PROJECT_DIR$/src/views/RouteView.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/redview/RedView-map.vue" afterPath="$PROJECT_DIR$/src/views/redview/RedView-map.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/redview/RedView-qshDetail.vue" afterPath="$PROJECT_DIR$/src/views/redview/RedView-qshDetail.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/redview/RedView-query.vue" afterPath="$PROJECT_DIR$/src/views/redview/RedView-query.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/statics/css/app.css" afterPath="$PROJECT_DIR$/statics/css/app.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,11 +72,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RedView-map.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RedView-map.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/redview/RedView-map.vue">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+              <folding>
+                <marker date="1516158157000" expanded="true" signature="7864:7872" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dev-server.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/dev-server.js">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
-              <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="remoteLoad.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/remoteLoad.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -59,7 +129,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
               <caret line="17" column="47" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="47" />
-              <folding />
+              <folding>
+                <marker date="1516158157000" expanded="true" signature="410:2703" ph="{...}" />
+                <marker date="1516158157000" expanded="true" signature="615:2379" ph="{...}" />
+                <marker date="1516158157000" expanded="true" signature="645:2370" ph="{...}" />
+                <marker date="1516158157000" expanded="true" signature="853:2363" ph="{...}" />
+                <marker date="1516158157000" expanded="true" signature="1779:2354" ph="{...}" />
+                <marker date="1516158157000" expanded="true" signature="2133:2287" ph="{...}" />
+                <marker date="1516158157000" expanded="true" signature="2400:2701" ph="{...}" />
+                <marker date="1516158157000" expanded="true" signature="2467:2525" ph="{...}" />
+                <marker date="1516158157000" expanded="true" signature="2531:2697" ph="{...}" />
+                <marker date="1516158157000" expanded="true" signature="2732:3253" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -78,8 +159,10 @@
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-              <folding />
+              <caret line="22" column="24" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+              <folding>
+                <marker date="1516158157000" expanded="true" signature="401:752" ph="{&quot;echarts&quot;: &quot;^3.8.5&quot;...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,7 +171,7 @@
         <entry file="file://$PROJECT_DIR$/node_modules/vue-amazeui/src/App.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
-              <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+              <caret line="34" column="9" lean-forward="false" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -111,7 +194,6 @@
       <list>
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/src/views/routeview/RouteView-topswitch.vue" />
-        <option value="$PROJECT_DIR$/config/dev-server.js" />
         <option value="$PROJECT_DIR$/src/views/routeview/RouteView-topSwitch.vue" />
         <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/src/views/routeview/RouteView-station.vue" />
@@ -120,9 +202,10 @@
         <option value="$PROJECT_DIR$/src/components/route-redlists.vue" />
         <option value="$PROJECT_DIR$/src/components/echarts-bar.vue" />
         <option value="$PROJECT_DIR$/src/views/redview/RedView-water.vue" />
-        <option value="$PROJECT_DIR$/src/views/redview/RedView-map.vue" />
         <option value="$PROJECT_DIR$/src/views/RedView.vue" />
         <option value="$PROJECT_DIR$/node_modules/vue-amazeui/src/components/group/group.vue" />
+        <option value="$PROJECT_DIR$/src/views/redview/RedView-map.vue" />
+        <option value="$PROJECT_DIR$/config/dev-server.js" />
       </list>
     </option>
   </component>
@@ -172,6 +255,11 @@
             <path>
               <item name="water" type="b2602c69:ProjectViewProjectNode" />
               <item name="water" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="water" type="b2602c69:ProjectViewProjectNode" />
+              <item name="water" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="water" type="b2602c69:ProjectViewProjectNode" />
@@ -266,12 +354,12 @@
       <option name="presentableId" value="Default" />
       <updated>1515207464692</updated>
       <workItem from="1515207465963" duration="14540000" />
-      <workItem from="1516157788561" duration="341000" />
+      <workItem from="1516157788561" duration="438000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14881000" />
+    <option name="totallyTimeSpent" value="14978000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="127" y="23" width="1491" height="868" extended-state="0" />
@@ -323,7 +411,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
+          <folding>
+            <marker date="1516158157000" expanded="true" signature="7864:7872" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -339,7 +429,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="47" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="47" />
-          <folding />
+          <folding>
+            <marker date="1516158157000" expanded="true" signature="410:2703" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="615:2379" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="645:2370" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="853:2363" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="1779:2354" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="2133:2287" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="2400:2701" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="2467:2525" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="2531:2697" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="2732:3253" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -388,13 +489,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/dev-server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="1" lean-forward="true" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/routeview/RouteView-topSwitch.vue" />
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -423,10 +517,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="48" lean-forward="true" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
-          <folding>
-            <element signature="n#style#0;n#navbar#0;n#vue-view#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="e#489#539#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -527,13 +618,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/remoteLoad.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-327">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/redview/RedView-qshDetail.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -544,7 +628,7 @@
     <entry file="file://$PROJECT_DIR$/node_modules/vue-amazeui/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
-          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+          <caret line="34" column="9" lean-forward="false" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -576,8 +660,10 @@
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-          <folding />
+          <caret line="22" column="24" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+          <folding>
+            <marker date="1516158157000" expanded="true" signature="401:752" ph="{&quot;echarts&quot;: &quot;^3.8.5&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -585,7 +671,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="47" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="47" />
-          <folding />
+          <folding>
+            <marker date="1516158157000" expanded="true" signature="410:2703" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="615:2379" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="645:2370" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="853:2363" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="1779:2354" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="2133:2287" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="2400:2701" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="2467:2525" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="2531:2697" ph="{...}" />
+            <marker date="1516158157000" expanded="true" signature="2732:3253" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -599,8 +696,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/redview/RedView-map.vue">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding>
+            <marker date="1516158157000" expanded="true" signature="7864:7872" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/dev-server.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/remoteLoad.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
