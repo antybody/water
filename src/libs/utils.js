@@ -48,3 +48,30 @@ exports.buildJson = (str) =>{
     return mapArr;
 
 }
+
+/**
+ * 存储localStorage
+ */
+exports.setStore = (name, content) => {
+	if (!name) return;
+	if (typeof content !== 'string') {
+		content = JSON.stringify(content);
+	}
+	window.localStorage.setItem(name, content);
+}
+
+/**
+ * 获取localStorage
+ */
+exports.getStore = name => {
+	if (!name) return;
+	return window.localStorage.getItem(name);
+}
+
+/**
+ * 删除localStorage
+ */
+exports.removeStore = name => {
+	if (!name) return;
+	window.localStorage.removeItem(name);
+}

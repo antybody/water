@@ -38,14 +38,6 @@ import Vue from 'vue'
 export default {
     data(){
         return{
-<<<<<<< HEAD
-            mapPoints:
-                [
-                    {lng:121.372882,lat:31.176523,name:'上海宝信'},
-                    {lng:121.604799,lat:31.217459,name:'上海宝信'},
-                    {lng:121.403122,lat:31.317181,name:'上海宝信'}
-                ]
-=======
             // mapPoints:[{lng:121.372882,lat:31.176523,name:'上海宝信'},
             // {lng:121.604799,lat:31.217459,name:'上海宝信'},
             // {lng:121.403122,lat:31.317181,name:'上海宝信'}],
@@ -56,7 +48,6 @@ export default {
             //     {cl:'filter-nav-query',title:'图例'},
             //     {cl:'filter-nav-item',title:'搜索'}
             // ]
->>>>>>> 0dc7a0bc3807e29c4dda6566855ebae92f9090c2
        }
     },    
     components: {
