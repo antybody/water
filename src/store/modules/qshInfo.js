@@ -11,7 +11,7 @@ import Vue from 'vue'
  *  6、获取搜索组件信息
  */
 const state = {
-    listInfo: {desc:'共计查询xx',lists:[{title:'上海宝信软件',href:'/qshDetail/1',tag1:'1',tag2:'1',tag3:'1'},{title:'上海嘛哩屋',href:'/qshDetail/2'}
+    listInfo: {total:'10',desc:'共计查询xx',lists:[{title:'上海宝信软件',href:'/qshDetail/1',tag1:'1',tag2:'1',tag3:'1'},{title:'上海嘛哩屋',href:'/qshDetail/2'}
     ,{title:'上海报亭',href:'/qshDetail/3',tag1:'11111',tag2:'111',tag3:'111'},{title:'上海报亭',href:'/qshDetail/4',tag1:'1',tag2:'1',tag3:'1'}
     ,{title:'上海报亭',href:'/qshDetail/5',tag1:'111',tag2:'221',tag3:'111'}
     ,{title:'上海报亭',href:'/qshDetail/6',tag1:'111',tag2:'221',tag3:'111'}

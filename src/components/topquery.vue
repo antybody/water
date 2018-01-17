@@ -1,6 +1,6 @@
 
 <template> 
-<div> 
+<div>
  <div class="filterWrap">  
         <ul class="topquery">
             <li class="q-item" :class="{cur:isActive == index}" v-for="(item,index) in items" @click="itemClick(item,index)">

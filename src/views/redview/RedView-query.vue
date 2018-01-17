@@ -1,4 +1,5 @@
 <template>
+
    <vue-view>
        <navbar slot="header" class="wt-linear-blue" style="z-index:1010;">
           取水户
@@ -6,7 +7,8 @@
           <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/dbqsh"></icon>
         </navbar>
         <group noPadded class="group-clear">
-            <div>
+            
+            
                 <!-- <searchbar :totaldesc="listInfo.desc"></searchbar> -->
                 <div class="wt-top-search">
                     <div class="h-search" @click="searchBar()">
@@ -15,29 +17,35 @@
                     </div>
                     <span>{{listInfo.desc}}</span>
                 </div>
+            <pull-to :bottom-load-method="refresh" :is-top-bounce="topB" @bottom-state-change="stateChange">
                 <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
-            </div>
-            <redlists :lists="listInfo.lists"></redlists>
+            
+                <redlists :lists="listInfo.lists"></redlists>
+
+            </pull-to>
         </group>
         <searchbar :open="openSearch" inputtext="请输入取水户名称" searchtype="dbsqsh" @closeBar="closeBar"></searchbar>
    </vue-view>
+
 </template>
 
 <script>
 import searchbar from '../../components/searchbar'
 import redlists from '../../components/redlists'
 import topquery from '../../components/topquery'
+import PullTo from 'vue-pull-to'
 
 import { mapState, mapActions } from 'vuex'
 import Vue from 'vue'
 
 export default {
    components: {
-      searchbar,topquery,redlists
+      searchbar,topquery,redlists,PullTo
     },
    data(){
        return{
-           openSearch:false
+           openSearch:false,
+           topB:false
        }
    },
    computed:{
@@ -67,7 +75,20 @@ export default {
         },
         closeBar(){
             this.openSearch = false;
-        }
+        },
+        refresh(loaded) {
+            console.log('刷新');
+            loaded('done');
+        },
+        stateChange(state) {
+            if (state === 'pull' || state === 'trigger') {
+            this.iconLink = '#icon-arrow-bottom';
+            } else if (state === 'loading') {
+            this.iconLink = '#icon-loading';
+            } else if (state === 'loaded-done') {
+            this.iconLink = '#icon-finish';
+            }
+      }
    }
 }
 </script>
@@ -110,5 +131,26 @@ export default {
       background:#999;
       -webkit-transform:rotate(-35deg);
       transform:rotate(-35deg);
+  }
+
+  .bottom-load-wrapper {
+    line-height: 50px;
+    text-align: center;
+  }
+  .icon-arrow {
+    transition: .2s;
+    transform: rotate(180deg);
+  }
+  .icon-loading {
+    transform: rotate(0deg);
+    animation-name: loading;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  @keyframes loading
+  {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
   }
 </style>
