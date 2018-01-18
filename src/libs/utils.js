@@ -63,8 +63,18 @@ exports.setStore = (name, content) => {
 /**
  * 获取localStorage
  */
+exports.getJStore = name => {
+  if (!name) return;
+  console.log(JSON.parse(window.localStorage.getItem(name)))
+	return JSON.parse(window.localStorage.getItem(name));
+}
+
+/**
+ * 获取localStorage
+ */
 exports.getStore = name => {
-	if (!name) return;
+  if (!name) return;
+  // console.log(JSON.parse(window.localStorage.getItem(name)))
 	return window.localStorage.getItem(name);
 }
 
