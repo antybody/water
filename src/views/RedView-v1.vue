@@ -4,7 +4,7 @@
        <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
           上海水资源
           <icon name="more-vertical" slot="left" ></icon>
-          <icon name="person" slot="right" href="/"></icon>
+          <!-- <icon name="person" slot="right" href="/home"></icon> -->
         </navbar>
        <!--圆形-->
        <group noPadded class="group-clear">

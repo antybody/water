@@ -5,10 +5,12 @@ import redmap from './modules/redmap'
 import qshInfo from './modules/qshInfo'
 import searchBar from './modules/searchBar'
 import login from './modules/login'
+import red from './modules/red'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    redmap,qshInfo,searchBar,login
+    redmap,qshInfo,searchBar,login,red
   }
 })

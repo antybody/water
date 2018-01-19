@@ -1,14 +1,13 @@
 <template>
-
+   <!-- <pull-to :bottom-load-method="refresh" :is-top-bounce="topB" @bottom-state-change="stateChange"> -->
    <vue-view>
-       <navbar slot="header" class="wt-linear-blue" style="z-index:1010;">
+       <navbar slot="header" class="wt-linear-blue">
           取水户
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>          
           <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/dbqsh"></icon>
         </navbar>
-        <group noPadded class="group-clear">
-            
-            
+        <group noPadded class="group-clear" ref="viewbox">
+                        
                 <!-- <searchbar :totaldesc="listInfo.desc"></searchbar> -->
                 <div class="wt-top-search">
                     <div class="h-search" @click="searchBar()">
@@ -17,36 +16,37 @@
                     </div>
                     <span>{{listInfo.desc}}</span>
                 </div>
-            <pull-to :bottom-load-method="refresh" :is-top-bounce="topB" @bottom-state-change="stateChange">
                 <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
             
-                <redlists :lists="listInfo.lists"></redlists>
-
-            </pull-to>
+                <redlists :lists="listInfo.lists" :next="currentPage" :total="listInfo.total" @loadMore="loadMore"></redlists>
         </group>
-        <searchbar :open="openSearch" inputtext="请输入取水户名称" searchtype="dbsqsh" @closeBar="closeBar"></searchbar>
    </vue-view>
-
+   <!-- </pull-to> -->
 </template>
 
 <script>
-import searchbar from '../../components/searchbar'
 import redlists from '../../components/redlists'
 import topquery from '../../components/topquery'
-import PullTo from 'vue-pull-to'
 
 import { mapState, mapActions } from 'vuex'
 import Vue from 'vue'
 
 export default {
    components: {
-      searchbar,topquery,redlists,PullTo
+      topquery,redlists
     },
    data(){
        return{
            openSearch:false,
-           topB:false
+           topB:false,
+           currentPage:1
        }
+   },
+   mounted(){
+       let t = document.body;
+       t.addEventListener('scroll', function(){
+           console.log("监听了");
+       })
    },
    computed:{
        ...mapState({
@@ -57,7 +57,8 @@ export default {
    },
    methods:{
        searchBar:function(){
-           this.openSearch = true;
+        //    this.openSearch = true;
+            this.$router.push({name:'search',params:{text:'请搜索取水户名称',t:'dbsqsh'}});
        },
         ...mapActions([
             'getLists','getQueryMenu'
@@ -73,13 +74,6 @@ export default {
                   }
               });
         },
-        closeBar(){
-            this.openSearch = false;
-        },
-        refresh(loaded) {
-            console.log('刷新');
-            loaded('done');
-        },
         stateChange(state) {
             if (state === 'pull' || state === 'trigger') {
             this.iconLink = '#icon-arrow-bottom';
@@ -88,6 +82,10 @@ export default {
             } else if (state === 'loaded-done') {
             this.iconLink = '#icon-finish';
             }
+      },
+      loadMore(){
+          this.currentPage +=1;
+          console.log('下一页');
       }
    }
 }
@@ -115,7 +113,7 @@ export default {
   .h-search-ico{
       display:inline-block;
       height: 10px;
-      width:4%;
+      width:3.4%;
       border-radius:100%;
       border:1px solid #999;
       position: relative;

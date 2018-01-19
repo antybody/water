@@ -27,6 +27,7 @@ import route from './views/RouteView'
 import qsh from './views/redview/RedView-query'
 import redwater from './views/redview/RedView-water'
 
+import search from './views/redview/SearchView'
 import redmap from './views/redview/RedView-map'
 import sredmap from './views/redview/RedView-smap'
 import qshDetail from './views/redview/RedView-qshDetail'
@@ -76,6 +77,11 @@ const router = new VueRouter({
         { 
             path:'/redwater',
             component:redwater
+        },
+        { 
+            path:'/search',
+            name:'search',
+            component:search
         },
         { 
             path:'/redmap/:kt',
