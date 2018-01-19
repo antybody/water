@@ -2,23 +2,30 @@
   login 
  */
 <template>
-   <vue-view>
-       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
+   <div>
+       <navbar slot="header" class="wt-linear-blue">
           密码登录
           <icon v-show="isShow" name="left-nav" slot="left" titleRight="返回" back></icon>
        </navbar>
        <group class="group-clear group-top-10">
-           <form style="margin-bottom:0.625rem;">
-               <input type="text" placeholder="账号" v-model="username">
+           <list>
+               <!-- <input type="text" placeholder="账号" v-model="username"> -->
+               <list-item nested="input">
+               <field-input placeholder="账号" v-model="username"></field-input>
+               </list-item>
+               <list-item nested="input">
                <input v-if="showPassword" type="password" v-model="pwd" placeholder="密码">
                <input v-else type="text" placeholder="密码" v-model="pwd">
-                <a @click="showPwd()" class="wt-link-bt wt-dblue" href="javascript:void(0)">{{showText}}</a>
-           </form>
+               </list-item>
+               <list-item>
+                <a slot="subTitle" @click="showPwd()" class="wt-link-bt wt-dblue" href="javascript:void(0)">{{showText}}</a>
+               </list-item>
+           </list>
            <vue-button block green @buttonClick="login()"> 登录 </vue-button>
        </group>
 
         <modal role="alert" title="提示信息" :isOpen="open2" @Close="modalOutFun('open2')">{{alertText}}</modal>
-   </vue-view>
+   </div>
 </template>
 
 <script>
