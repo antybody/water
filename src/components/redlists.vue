@@ -8,7 +8,7 @@
                 <span class="list-label label-blue">{{item.tag3}}</span>
             </span>
         </list-item>
-        <list-item>
+        <list-item v-show='showMore'>
                <div slot="subTitle" @click="loadMore()" class="wt-desc">
                 <span>{{loadText}}</span>
                </div>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-    props: ['lists','next','total'],
+    props: ['lists','next','total','showMore'],
     data () {
       return {
         // id: this.item.id

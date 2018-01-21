@@ -65,7 +65,7 @@ export default {
                 {href:'',img:'wt-bar-i-46 wt-bar-7',title:'放江泵站'}, {href:'',img:'wt-bar-i-46 wt-bar-8',title:'大用水户'}
                ],
            tablists:[
-               {href:'',cl:'wt-linear-red',num:'30',text:'年度取水总量'},
+               {href:'redwater',cl:'wt-linear-red',num:'30',text:'年度取水总量'},
                {href:'',cl:'wt-linear-dblue',num:'30',text:'超许可取水'},
                {href:'',cl:'wt-linear-purple',num:'30',text:'取水许可超期'},
                {href:'',cl:'wt-linear-lgreen',num:'30%',text:'水功能区达标率'}

@@ -18,7 +18,7 @@
                 </div>
                 <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
             
-                <redlists :lists="listInfo.lists" :next="currentPage" :total="listInfo.total" @loadMore="loadMore"></redlists>
+                <redlists :showMore="showMore" :lists="listInfo.lists" :next="currentPage" :total="listInfo.total" @loadMore="loadMore"></redlists>
         </group>
    </vue-view>
    <!-- </pull-to> -->
@@ -39,7 +39,8 @@ export default {
        return{
            openSearch:false,
            topB:false,
-           currentPage:1
+           currentPage:1,
+           showMore:true
        }
    },
    mounted(){
