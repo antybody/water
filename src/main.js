@@ -32,8 +32,13 @@ import redmap from './views/redview/RedView-map'
 import sredmap from './views/redview/RedView-smap'
 import qshDetail from './views/redview/RedView-qshDetail'
 
+//首页
+import xkz from './views/homeview/HomeView-xkz'
+import cxksl from './views/homeview/HomeView-cxksl'
+
 //巡检部分
 import routeStation from './views/routeview/RouteView-station'
+import routePlan from './views/routeview/RouteView-plan'
 import routeReback from './views/routeview/RouteView-reback'
 import routeDone from './views/routeview/RouteView-done'
 
@@ -74,6 +79,14 @@ const router = new VueRouter({
             path:'/qsh',
             component:qsh
         },
+        {
+            path: '/xkz',
+            component: xkz
+        },
+        {
+            path: '/cxksl',
+            component: cxksl
+        },
         { 
             path:'/redwater',
             component:redwater
@@ -95,6 +108,10 @@ const router = new VueRouter({
         {
             path: '/routeStation',
             component: routeStation
+        },
+        {
+            path: '/routePlan',
+            component: routePlan
         },
         { 
             path:'/smap',

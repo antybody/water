@@ -60,14 +60,14 @@ export default {
        return {
            clists:[
                 {href:'/qsh',img:'wt-bar-i-46 wt-bar-1',title:'地表取水户'}, {href:'',img:'wt-bar-i-46 wt-bar-2',title:'地下取水户'},
-                {href:'',img:'wt-bar-i-46 wt-bar-3',title:'取水许可证'}, {href:'',img:'wt-bar-i-46 wt-bar-4',title:'取水监测站'},
+                {href:'/xkz',img:'wt-bar-i-46 wt-bar-3',title:'取水许可证'}, {href:'',img:'wt-bar-i-46 wt-bar-4',title:'取水监测站'},
                 {href:'',img:'wt-bar-i-46 wt-bar-5',title:'水源地'}, {href:'',img:'wt-bar-i-46 wt-bar-6',title:'水功能区'},
                 {href:'',img:'wt-bar-i-46 wt-bar-7',title:'放江泵站'}, {href:'',img:'wt-bar-i-46 wt-bar-8',title:'大用水户'}
                ],
            tablists:[
                {href:'redwater',cl:'wt-linear-red',num:'30',text:'年度取水总量'},
-               {href:'',cl:'wt-linear-dblue',num:'30',text:'超许可取水'},
-               {href:'',cl:'wt-linear-purple',num:'30',text:'取水许可超期'},
+               {href:'/cxksl',cl:'wt-linear-dblue',num:'30',text:'超许可取水'},
+               {href:'/xkz',cl:'wt-linear-purple',num:'30',text:'取水许可超期'},
                {href:'',cl:'wt-linear-lgreen',num:'30%',text:'水功能区达标率'}
            ],
            newlists:[

@@ -46,7 +46,10 @@ export default {
         if (this.lat && this.lng) {
           mapConfig.center = [this.lng, this.lat]
         }
-        let infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
+        let infoWindow = new AMap.InfoWindow({
+//            isCustom: true,
+            offset: new AMap.Pixel(0, -30)
+        });
         let map = new AMap.Map('js-container', mapConfig)
         // 加载地图搜索插件
         // AMap.service('AMap.PlaceSearch', () => {
@@ -67,11 +70,12 @@ export default {
         })
         // 创建地图上的点
         for(var i=0;i< this.points.length;i++){
-           console.log(this.points[i].lng);
+           console.log(this.points[i]);
            let marker = new AMap.Marker({
                 position: [this.points[i].lng,this.points[i].lat],
                 title: this.points.name,
-                map: map
+                map: map,
+                icon: this.points[i].icon,
             });
             marker.content = this.points[i].name + this.points[i].desc;
             marker.on('click', markerClick =>{
