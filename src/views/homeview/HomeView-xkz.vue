@@ -21,11 +21,22 @@
             <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
             <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
             <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
+            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
+            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
+            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
+            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
         </table>
         <!--过期情况图表-->
-        <div class="charts" id="myCharts" :style="{width:'70%',height:'38%'}"></div>
-        <div class="charts" :style="{width:'30%',height:'38%'}">
-
+        <div class="pies-month">
+            <div class="pies" id="myCharts"></div>
+            <div class="month">
+                <span class="title">一个月后过期</span>
+                <span class="content">20份</span>
+            </div>
+            <div class="month">
+                <span class="title">三个月后过期</span>
+                <span class="content">30份</span>
+            </div>
         </div>
     </vue-view>
 </template>
@@ -38,10 +49,9 @@
         data(){
             return{
                 tabsItem: [
-                    {"name":"金山区"},
-                    {"name":"金山区"},
-                    {"name":"金山区"},
-                    {"name":"金山区"}
+                    {"name":"全部"},
+                    {"name":"地表水"},
+                    {"name":"地下水"}
                 ]
             }
         },
@@ -96,8 +106,11 @@
 </script>
 
 <style>
-    .btn{
+    .btn {
         border: 0px !important;
+    }
+    .btn :active{
+        background-color: #1df2ff !important;
     }
     .tabs{
         margin: 0 0;
@@ -106,17 +119,53 @@
         width: 100%;
         height: 57%;
         background-color: #ffffff;
-        border: 1px solid #d5e7f1;
+        /*border: 1px solid #d5e7f1;*/
+        /*margin-left: 10px;*/
     }
     tr{
         text-align: center;
     }
+    th{
+        background-color: #dff1fc;
+    }
     td{
         border-top: 1px solid #d5e7f1;
-        border-bottom: 1px solid #d5e7f1;
+        border-bottom: 1px solid #dff1fc;
     }
-    .charts{
+    .pies-month{
         float: left;
+        width: 100%;
+        height: 38%;
         background-color: #FFFFFF;
+        padding: 10px 10px 10px 10px;
+    }
+    .pies{
+        width: 60%;
+        height: 100%;
+        float: left;
+        border: solid 1px #d5e7f1;
+    }
+    .month{
+        float: right;
+        width: calc(40% - 10px);
+        height: calc(50% - 5px);
+        margin-bottom: 10px;
+        border: dashed 1px #fecf63;
+    }
+    .month span{
+        height: 30%;
+        line-height: 20%;
+        text-align: center;
+        display: block;
+    }
+    .title{
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 30px;
+    }
+    .content{
+        font-size: 18px;
+        font-weight: 600;
+        color: red;
     }
 </style>
