@@ -5,17 +5,11 @@
          巡检运维
       </navbar>
       <!--巡检首页面头部方块切换页面-->
-      <grid avg="4" bordered  class="textcenter">
-         <cell v-for="item in titleItems" :key="titleItems.id">
-            <router-link :to='item.href'>
-               <div>
-                  <icon :name='item.icon' :href='item.href'>
-                  </icon>
-               </div>
-               {{item.txt}}
-            </router-link>
-         </cell>
-      </grid>
+      <tabs v-model="selected">
+         <tabs-item v-for="tabitem in titleItems" slot="tabs" blue hollow>
+            {{tabitem.txt}}
+         </tabs-item>
+      </tabs>
       <!--下方列表显示区域-->
       <!--条件筛选区域-->
       <group noPadded class="group-clear">
@@ -82,7 +76,13 @@ export default {
 </script>
 
 <style>
-
+   .tabs{
+      margin: 0 0;
+   }
+   .btn {
+      border: 0px !important;
+      background-color: #f9f9f9;
+   }
 </style>
 
 
