@@ -1,7 +1,7 @@
 <!--巡检运维列表标签组件-->
 <template>
     <list style="margin-top:0px">
-        <list-item v-for="item in lists" :key="item.id" :title="item.title" :href="item.href">
+        <list-item v-if="!item.progress" v-for="item in lists" :key="item.id" :title="item.title" :href="item.href">
             <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt="">
             <span slot="subTitle">
                 <span class="list-label label-new">New</span>

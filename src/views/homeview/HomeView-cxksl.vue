@@ -13,12 +13,6 @@
             <icon class="icons-ea25"><span>{{listInfo.desc}}</span></icon>
         </div>
         <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
-        <tabs v-model="selected">
-            <tabs-item v-for="tabitem in tabsItem" slot="tabs" blue hollow>
-                {{tabitem.name}}
-            </tabs-item>
-        </tabs>
-        <!--<progress-bar type="line" ref="line" :options="options"></progress-bar>-->
         <routeRedlists :lists="lists"></routeRedlists>
     </vue-view>
 </template>
@@ -27,10 +21,6 @@
     import routeRedlists from '../../components/route-redlists'
     import topquery from '../../components/topquery'
     import { mapState, mapActions } from 'vuex'
-    import Vue from 'vue'
-   // 进度条
-    import VueProgress from 'vue-progress'
-    Vue.use(VueProgress)
 
     export default {
         components: {
@@ -45,18 +35,8 @@
                     ,{title:'上海报亭',errorType: '数据异常', xjType: '巡检中', progress: 'cxksl', color:'red', width1: '70%', width2: '40%'}
                     ,{title:'上海报亭',errorType: '数据中断', xjType: '未加入巡检计划', progress: 'cxksl', color:'#fecf63', width1: '40%', width2: '60%'}
                     ,{title:'上海报亭',errorType: '数据中断', xjType: '未加入巡检计划', progress: 'cxksl', color:'red', width1: '70%', width2: '40%'}
-                    ,{title:'上海报亭',errorType: '数据中断', xjType: '未加入巡检计划', progress: 'cxksl', color:'#fecf63', width1: '100%', width2: '50%'}
-                ],
-                options: {
-                    color: '#ff457b',
-                    strokeWidth: 1.5,
-                    text: {
-                        value: ""
-                    },
-                    style: {
-                        left: '20%'
-                    }
-                }
+                    ,{title:'上海报亭',errorType: '数据中断', xjType: '未加入巡检计划', progress: 'cxksl', color:'#fecf63', width1: '80%', width2: '50%'}
+                ]
             }
         },
         mounted(){
@@ -64,7 +44,6 @@
             t.addEventListener('scroll', function(){
                 console.log("监听了");
             });
-            this.$refs.line.animate(0.5)
         },
         computed:{
             ...mapState({
