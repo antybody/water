@@ -68,7 +68,7 @@ export default {
                {href:'redwater',cl:'wt-linear-red',num:'30',text:'年度取水总量'},
                {href:'/cxksl',cl:'wt-linear-dblue',num:'30',text:'超许可取水'},
                {href:'/xkz',cl:'wt-linear-purple',num:'30',text:'取水许可超期'},
-               {href:'',cl:'wt-linear-lgreen',num:'30%',text:'水功能区达标率'}
+               {href:'/sgnq',cl:'wt-linear-lgreen',num:'30%',text:'水功能区达标率'}
            ],
            newlists:[
                {href:'/',title:'供水行业全力落实防寒潮各项防冻保暖措施',date:'2018-01-08'},

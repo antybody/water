@@ -7,6 +7,9 @@
     url('//at.alicdn.com/t/font_527810_ncu2p4lz3erk9.svg#iconfont') format('svg');
 }
 
+body{
+    background: #fff;
+}
 .iconfont {
     font-family:"iconfont" !important;
     font-size:1.125rem;

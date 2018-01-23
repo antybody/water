@@ -24,7 +24,7 @@
 import redlists from './redlists'
 import { mapState, mapActions } from 'vuex'
 import Vue from 'vue'
-import lodash from 'lodash'
+import {debounce} from 'lodash'
 
 export default {
    components: {
@@ -59,7 +59,7 @@ export default {
    },
    methods:{
        // 这里有个阻止继续操作的事件，防止多次点击
-       itemQuery:lodash.debounce(function(){
+       itemQuery:debounce(function(){
             // 这里引用 带条件的查询
             console.log("----- 查询了我-----");
             console.log(this.searchItem);

@@ -42,12 +42,13 @@
 </template>
 
 <script>
-    import echarts from 'echarts';
+    // import echarts from 'echarts';
     export default {
         components: {
         },
         data(){
             return{
+                selected:false,
                 tabsItem: [
                     {"name":"全部"},
                     {"name":"地表水"},

@@ -38,9 +38,9 @@ import Vue from 'vue'
 export default {
     data(){
         return{
-            // mapPoints:[{lng:121.372882,lat:31.176523,name:'上海宝信'},
-            // {lng:121.604799,lat:31.217459,name:'上海宝信'},
-            // {lng:121.403122,lat:31.317181,name:'上海宝信'}],
+            mapPoints:[{lng:121.372882,lat:31.176523,name:'上海宝信'},
+            {lng:121.604799,lat:31.217459,name:'上海宝信'},
+            {lng:121.403122,lat:31.317181,name:'上海宝信'}],
             isActive:-1
             // mapQuery:[
             //     {cl:'filter-nav-item',title:'类别'},
@@ -64,7 +64,7 @@ export default {
     computed: {
       ...mapState({
             loading: state => state.redmap.loading,
-            mapPoints: state => state.redmap.mapPoints,
+            // mapPoints: state => state.redmap.mapPoints,
             mapQuery:state => state.redmap.mapQuery,
             queryDetail:state => state.redmap.mapQueryDetails
       }),
@@ -84,7 +84,7 @@ export default {
       }
     },
     created(){
-        this.getMapPoints();
+        // this.getMapPoints();
         console.log(this.urlParam);
     },
     mounted(){

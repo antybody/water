@@ -80,7 +80,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Vue from 'vue'
-import echarts from 'echarts'
+// import echarts from 'echarts'xl
 export default {
     data(){
         return{
