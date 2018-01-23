@@ -75,15 +75,15 @@ export default {
                   }
               });
         },
-        stateChange(state) {
-            if (state === 'pull' || state === 'trigger') {
-            this.iconLink = '#icon-arrow-bottom';
-            } else if (state === 'loading') {
-            this.iconLink = '#icon-loading';
-            } else if (state === 'loaded-done') {
-            this.iconLink = '#icon-finish';
-            }
-      },
+    //     stateChange(state) {
+    //         if (state === 'pull' || state === 'trigger') {
+    //         this.iconLink = '#icon-arrow-bottom';
+    //         } else if (state === 'loading') {
+    //         this.iconLink = '#icon-loading';
+    //         } else if (state === 'loaded-done') {
+    //         this.iconLink = '#icon-finish';
+    //         }
+    //   },
       loadMore(){
           this.currentPage +=1;
           console.log('下一页');
