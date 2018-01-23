@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+import Vue from 'vue'
 export default {
    data(){
        return {
@@ -71,7 +73,7 @@ export default {
                {href:'/sgnq',cl:'wt-linear-lgreen',num:'30%',text:'水功能区达标率'}
            ],
            newlists:[
-               {href:'/',title:'供水行业全力落实防寒潮各项防冻保暖措施',date:'2018-01-08'},
+               {href:'/newDetail/12233',title:'供水行业全力落实防寒潮各项防冻保暖措施',date:'2018-01-08'},
                {href:'/',title:'供水行业全力落实防寒潮各项防冻保暖措施',date:'2018-01-08'},
                {href:'/',title:'供水行业全力落实防寒潮各项防冻保暖措施',date:'2018-01-08'},
                {href:'/',title:'供水行业全力落实防寒潮各项防冻保暖措施',date:'2018-01-08'},
@@ -81,6 +83,12 @@ export default {
 
            ]
        }
+   },
+   computed(){
+
+   },
+   methods(){
+
    }
 }
 </script>

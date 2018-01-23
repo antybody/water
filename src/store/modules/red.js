@@ -4,7 +4,8 @@
 import * as API from '../api/api'
 const state = {
     tablists:[],
-    newlists:[]
+    newlists:[],
+    newDetail:{}
 }
 
 const mutations = {
@@ -13,6 +14,9 @@ const mutations = {
     },
     getNewLists (state,payload) {
         state.newlists = payload.res
+    },
+    getNewDetail (state,payload) {
+        state.newDetail = payload.res
     }
 }
 
@@ -46,6 +50,17 @@ const actions = {
                 reject(err);
             })
        })
+    },
+    getNewDetail({commit}) {
+        return new Promise((resolve,reject) =>{
+            Vue.http.jsonp(API.HOME_NEWDETAIL)
+               .then(res => {
+                   commit({
+                       type:'getNewDetail',
+                       res:res.body.results
+                   })
+               })
+        })
     }
 }
 

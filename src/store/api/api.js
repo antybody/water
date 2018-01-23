@@ -6,3 +6,5 @@
  export const HOME_TABLIST = '';
 
  export const HOME_NEWLIST = '';
+
+ export const HOME_NEWDETAIL = ''
