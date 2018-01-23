@@ -130,6 +130,7 @@
         background-color: #dff1fc;
     }
     td{
+        font-size: 14px;
         border-top: 1px solid #d5e7f1;
         border-bottom: 1px solid #dff1fc;
     }

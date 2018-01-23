@@ -94,8 +94,9 @@ export default {
 
 <style>
   .wt-top-search{
-      margin-left:0.625rem;
-      padding-top:0.625rem;
+      padding: 0.625rem 0rem 0rem 0.625rem;
+      background-color: #FFFFFF;
+
   }
   .querygroup{
       background-color: #e5e5e5;
