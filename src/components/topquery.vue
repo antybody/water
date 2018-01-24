@@ -102,9 +102,24 @@ export default {
 </script>
 
 <style>
+    .filter-panel{
+        background:#fff;
+    }
+    .filter-panel ul{
+        padding:0;margin:0;
+    }
     .filter-panel-item em{
         display: block;
         -webkit-box-flex:1;
+    }
+    .filter-panel-item{
+        position: relative;
+        border-top: 1px solid #e6e6e6;
+        overflow:hidden;
+        padding:10px;
+        display:-webkit-box;
+        -webkit-box-align: center;
+        box-sizing:border-box;
     }
     .checkbox .checked-icon{
         display: none;
@@ -126,7 +141,7 @@ export default {
     .checkbox-active .checked-icon{
         display: block;
         position: absolute;
-        top:-15px;
+        top:-10px;
         left:-1px;
         font-size:12px;
         color:#5d85ff;
