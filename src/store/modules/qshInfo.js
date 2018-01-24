@@ -11,10 +11,11 @@ import Vue from 'vue'
  *  6、获取搜索组件信息
  */
 const state = {
-    listInfo: {desc:'共计查询xx',lists:[{title:'上海宝信软件',href:'/qshDetail/1',tag1:'1',tag2:'1',tag3:'1'},{title:'上海嘛哩屋',href:'/qshDetail/2'}
+    listInfo: {total:'30',desc:'共计查询xx',lists:[{title:'上海宝信软件',href:'/qshDetail/1',tag1:'1',tag2:'1',tag3:'1'},{title:'上海嘛哩屋',href:'/qshDetail/2'}
     ,{title:'上海报亭',href:'/qshDetail/3',tag1:'11111',tag2:'111',tag3:'111'},{title:'上海报亭',href:'/qshDetail/4',tag1:'1',tag2:'1',tag3:'1'}
     ,{title:'上海报亭',href:'/qshDetail/5',tag1:'111',tag2:'221',tag3:'111'}
     ,{title:'上海报亭',href:'/qshDetail/6',tag1:'111',tag2:'221',tag3:'111'}
+    ,{title:'上海报亭',href:'/qshDetail/7',tag1:'111',tag2:'331',tag3:'3331'}
     ,{title:'上海报亭',href:'/qshDetail/7',tag1:'111',tag2:'331',tag3:'3331'}]},
     listDetail:{name:'上海城投发展有限公司',wtnum:345.33,yt:'工业用水',
                 pcode:'123455',addr:'上海宝山友谊路1016号',lng:121.372882,lat:31.176523,
