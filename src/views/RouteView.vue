@@ -6,7 +6,7 @@
       </navbar>
       <!--巡检首页面头部方块切换页面-->
       <tabs v-model="selected">
-         <tabs-item v-for="tabitem in titleItems" slot="tabs" blue hollow>
+         <tabs-item  v-for="tabitem in titleItems" v-bind:key="tabitem.index" slot="tabs" blue hollow class="newbtn">
             {{tabitem.txt}}
          </tabs-item>
       </tabs>
@@ -79,7 +79,7 @@ export default {
    .tabs{
       margin: 0 0;
    }
-   .btn {
+   .newbtn {
       border: 0px !important;
       background-color: #f9f9f9;
    }
