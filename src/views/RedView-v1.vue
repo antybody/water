@@ -71,10 +71,10 @@ export default {
                 {href:'',img:'wt-bar-i-46 wt-bar-7',title:'放江泵站'}, {href:'',img:'wt-bar-i-46 wt-bar-8',title:'大用水户'}
                ],
            tablists:[
-               {href:'redwater',cl:'wt-linear-red',num:'30',text:'年度取水总量'},
-               {href:'/cxksl',cl:'wt-linear-dblue',num:'30',text:'超许可取水'},
-               {href:'/xkz',cl:'wt-linear-purple',num:'30',text:'取水许可超期'},
-               {href:'/sgnq',cl:'wt-linear-lgreen',num:'30%',text:'水功能区达标率'}
+               {href:'redwater',cl:'wt-linear-purple',num:'30',text:'年度取水总量'},
+               {href:'/cxksl',cl:'wt-linear-blue',num:'30',text:'超许可取水'},
+               {href:'/xkz',cl:'wt-linear-red',num:'30',text:'取水许可超期'},
+               {href:'/sgnq',cl:'wt-linear-yellow',num:'30%',text:'水功能区达标率'}
            ],
            newlists:[
                {href:'/newDetail/12233',title:'供水行业全力落实防寒潮各项防冻保暖措施',date:'2018-01-08'},
@@ -150,28 +150,44 @@ export default {
       /* box-shadow: 0 0 5px rgba(250,0,0,0.5); */
   }
   .wt-bar-1{
-      background: url('../../statics/images/1-48.png')      
+      background: url('../../statics/images/1.png') no-repeat;
+      background-size: 70%;   
+      background-position: 10px 10px;
   }
   .wt-bar-2{
-      background: url('../../statics/images/2-48.png')      
+      background: url('../../statics/images/2.png')  no-repeat;  
+      background-size: 70%;   
+      background-position: 10px 10px; 
   }
   .wt-bar-7{
-      background: url('../../statics/images/7-48.png')      
+      background: url('../../statics/images/7.png')   no-repeat;      
+      background-size: 70%;   
+      background-position: 10px 10px; 
   }
   .wt-bar-3{
-      background: url('../../statics/images/3-48.png')      
+      background: url('../../statics/images/3.png')   no-repeat; 
+            background-size: 70%;   
+      background-position: 10px 10px;      
   }
   .wt-bar-4{
-      background: url('../../statics/images/4-48.png')      
+      background: url('../../statics/images/4.png')   no-repeat;  
+      background-size: 70%;   
+      background-position: 10px 10px;     
   }
   .wt-bar-5{
-      background: url('../../statics/images/5-48.png')      
+      background: url('../../statics/images/5.png')   no-repeat; 
+      background-size: 70%;   
+      background-position: 10px 10px;      
   }
   .wt-bar-6{
-      background: url('../../statics/images/6-48.png')      
+      background: url('../../statics/images/6.png')  no-repeat;  
+      background-size: 70%;   
+      background-position: 10px 10px;      
   }
   .wt-bar-8{
-      background: url('../../statics/images/8-48.png')      
+      background: url('../../statics/images/8.png')    no-repeat; 
+      background-size: 70%;   
+      background-position: 10px 10px;     
   }
   .icon-title{
       font-size:.875rem;
@@ -212,23 +228,33 @@ export default {
   }
   .wt-linear-red{
       color:#ffffff;
-      background-image:-webkit-linear-gradient(90deg, #f5835d, #fe5758); 
-      background-image:linear-gradient(90deg,#f5835d,#fe5758);
+      background-image:-webkit-linear-gradient(270deg, #ff935c, #ff6e69); 
+      background-image:linear-gradient(270deg,#ff935c,#ff6e69);
   }
   .wt-linear-dblue{
       color:#ffffff;
       background-image:-webkit-linear-gradient(90deg, #4fa1f5, #3d61f5); 
       background-image:linear-gradient(90deg,#4fa1f5,#3d61f5);
   }
+  .wt-linear-blue{
+      color:#ffffff;
+      background-image:-webkit-linear-gradient(270deg, #5ccfff, #69baff); 
+      background-image:linear-gradient(270deg,#5ccfff,#69baff);
+  }
   .wt-linear-purple{
       color:#ffffff;
-      background-image:-webkit-linear-gradient(90deg, #cc96fa, #b165f3); 
-      background-image:linear-gradient(90deg,#cc96fa,#b165f3);
+      background-image:-webkit-linear-gradient(270deg, #8cb4ff, #699eff); 
+      background-image:linear-gradient(270deg,#8cb4ff,#699eff);
   }
   .wt-linear-lgreen{
       color:#ffffff;
       background-image:-webkit-linear-gradient(90deg, #56f1dd, #21e1ce); 
       background-image:linear-gradient(90deg,#56f1dd,#21e1ce);
+  }
+  .wt-linear-yellow{
+      color:#ffffff;
+      background-image:-webkit-linear-gradient(270deg, #fbb24f, #f9a32d); 
+      background-image:linear-gradient(270deg,#fbb24f,#f9a32d);
   }
   h3{
       color:#3b3b3b;

@@ -111,7 +111,7 @@ export default {
     background-size:cover;
  }
  .wt-person{
-    background: url("../../statics/images/new16.png") no-repeat;
+    /* background: url("../../statics/images/new16.png") no-repeat; */
     background-size:cover;
  }
  .wt-login-link{

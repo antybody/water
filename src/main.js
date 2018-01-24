@@ -127,6 +127,14 @@ const cxksl = resolve => {
       },'group-home')
 }
 
+const sgnq = resolve => {
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/homeview/HomeView-sgnq.vue'))
+        Indicator.close()
+      },'group-home')
+}
+
 //巡检部分
 // import routeStation from './views/routeview/RouteView-station'
 const routeStation = resolve => {
@@ -225,6 +233,11 @@ const router = new VueRouter({
         { 
             path:'/redwater',
             component:redwater
+        },
+        { 
+            path:'/sgnq',
+            name:'sgnq',
+            component:sgnq
         },
         { 
             path:'/search',
