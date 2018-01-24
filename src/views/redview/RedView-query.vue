@@ -75,15 +75,15 @@ export default {
                   }
               });
         },
-        stateChange(state) {
-            if (state === 'pull' || state === 'trigger') {
-            this.iconLink = '#icon-arrow-bottom';
-            } else if (state === 'loading') {
-            this.iconLink = '#icon-loading';
-            } else if (state === 'loaded-done') {
-            this.iconLink = '#icon-finish';
-            }
-      },
+    //     stateChange(state) {
+    //         if (state === 'pull' || state === 'trigger') {
+    //         this.iconLink = '#icon-arrow-bottom';
+    //         } else if (state === 'loading') {
+    //         this.iconLink = '#icon-loading';
+    //         } else if (state === 'loaded-done') {
+    //         this.iconLink = '#icon-finish';
+    //         }
+    //   },
       loadMore(){
           this.currentPage +=1;
           console.log('下一页');
@@ -94,8 +94,9 @@ export default {
 
 <style>
   .wt-top-search{
-      margin-left:0.625rem;
-      padding-top:0.625rem;
+      padding: 0.625rem 0rem 0rem 0.625rem;
+      background-color: #FFFFFF;
+
   }
   .querygroup{
       background-color: #e5e5e5;

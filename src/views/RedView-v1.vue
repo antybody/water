@@ -39,18 +39,22 @@
            </div>
        </group>
        <!--新闻列表-->
-       <group noPadded class="group-top-10">
+       <group noPadded class="group-clear group-top-10">
            <h5 class="wt-title">
                    <div class="wt-title-center"><i class="wt-bar-i-16 red-news"></i><span>水利热点</span></div>
            </h5>
            <list>
               <list-item :key="item.id" v-for="item in newlists" :title="item.title" :href="item.href" :after="item.date">
                    <span slot="subTitle">
-                        <span class="list-label label-red">最新</span>
+                        <span class="list-label label-red">3小时前</span>
                     </span>
               </list-item>
            </list>
        </group>
+
+           <div class="get-more theme-blue">
+               <a href="javascript:void(0)" >更新新闻</a>
+           </div>
    </vue-view>
 </template>
 
@@ -84,16 +88,27 @@ export default {
            ]
        }
    },
-   computed(){
-
+   computed:{
+        // ...mapState({
+        //     tablists:state => state.red.tablists,
+        //     newlists:state => state.red.newlists
+        // })  
    },
-   methods(){
-
+   created(){
+       
+   },
+   methods:{
+       ...mapActions([
+            'getTabLists','getNewLists'
+        ])
    }
 }
 </script>
 
 <style>
+  .list-label{
+      border-radius:1px;      
+  }
   .wt-header{
       height:12.3125rem;
       color:#3b3b3b;
@@ -172,10 +187,12 @@ export default {
       margin:0;
   }
   .wt-title .red-c{
-      background: url('../../statics/images/line16.png') no-repeat;
+      background: url('../../statics/images/article.png') no-repeat;
+      background-size:4px;
   }
   .red-news{
-      background: url('../../statics/images/share16.png') no-repeat;
+      background: url('../../statics/images/article.png') no-repeat;
+      background-size:4px;
   }
   .wt-title-center{
       display: block;
@@ -216,5 +233,26 @@ export default {
   h3{
       color:#3b3b3b;
       font-size:0.875rem;
+  }
+  .get-more{
+      text-align: center;
+      padding:10px 0 20px 0;
+  }
+  .get-more.theme-blue a{
+      background-color:#498bf8;
+      color:#fff;
+  }
+  .get-more a{
+      display: inline-block;
+      height:28px;
+      line-height:28px;
+      padding:0 20px;
+      border:1px solid #498bf8;
+      border-radius:14px;
+      font-size:12px;
+      text-decoration: none;
+      box-sizing:content-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select:none;
   }
 </style>

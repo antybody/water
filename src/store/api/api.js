@@ -9,3 +9,7 @@
  export const HOME_NEWLIST = '';
 
  export const HOME_NEWDETAIL = ''
+
+ // 取水户 都以qsh 开头
+
+ export const QSH_LIST = ' '

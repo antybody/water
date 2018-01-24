@@ -19,6 +19,7 @@ Vue.use(VueAmazeui)
 
 Vue.use(VueRouter)
 Vue.use(vueResource)
+Vue.use(Indicator)
 
 // tab 切换
 
@@ -91,6 +92,13 @@ const redv1 = resolve => {
     Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/RedView-v1.vue'))
+        Indicator.close()
+      },'group-home')
+}
+const newDetail = resolve => {
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/newview.vue'))
         Indicator.close()
       },'group-home')
 }
@@ -187,6 +195,11 @@ const router = new VueRouter({
         { 
             path:'/redv1',
             component:redv1
+        },
+        {
+            path:'/newDetail/:id',
+            name:'newDetail',
+            component:newDetail
         },
         { 
             path:'/check',
