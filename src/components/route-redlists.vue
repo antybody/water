@@ -27,7 +27,6 @@
 </template>
 
 <script>
-    import VueButton from "../../node_modules/vue-amazeui/src/components/button/button.vue"
     import * as util from '../libs/utils'
 export default {
     components: {VueButton},

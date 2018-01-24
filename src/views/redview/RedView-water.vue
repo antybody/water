@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    import echarts from 'echarts'
+    // import echarts from 'echarts'
     import VueDatepickerLocal from 'vue-datepicker-local'
     // import datePicker from 'vue-birthday-picker'
     export default {

@@ -50,6 +50,12 @@ body{
 .wt-dblue{
     color:#5d85ff;
 }
+.wt-b-dblue{
+    background:#5d85ff;
+}
+.wt-b-yellow{
+    background:#fcbe60;
+}
 
 /** redview */
 .col-red{
