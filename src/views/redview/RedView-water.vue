@@ -65,14 +65,18 @@
                     y2: 20,
                     borderWidth: 1
                 },
-                tooltip: {},
-                legend: {
-                    show: false
+                tooltip: {
+                    trigger: 'axis',
+                    position: function (pt) {
+                        return [pt[0], '10%'];
+                    }
                 },
                 xAxis: {
                     data: ["2015","2016","2017","2018"]
                 },
-                yAxis: {},
+                yAxis: {
+                    type: 'value' 
+                },
                 series: [{
                     name: '取水量',
                     type: 'line',
@@ -80,6 +84,12 @@
                     itemStyle: {
                         normal: {
                             color: '#4bafed'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
                         }
                     },
                     areaStyle: {
@@ -106,9 +116,7 @@
                 },
                 tooltip: {
                     trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
+                    dataIndex:1
                 },
                 legend: {
                     show: false
@@ -121,33 +129,33 @@
                     borderWidth: 1,
                     containLabel: true
                 },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月", "12月"]
-                    },
-                    series: [
-                        { // For shadow
-                            type: 'bar',
-                            itemStyle: {
-                                normal: {color: 'rgba(0,0,0,0.05)'}
-                            },
-                            barGap:'-100%',
-                            barCategoryGap:'40%',
-                            data: [12,12,12,12,12,12,12,12,12,12,12,12],
-                            animation: false
+                yAxis: {
+                    type: 'value'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月", "12月"]
+                },
+                series: [
+                    { // For shadow
+                        type: 'bar',
+                        itemStyle: {
+                            normal: {color: 'rgba(0,0,0,0.05)'}
                         },
-                        {
-                            type: 'bar',
-                            itemStyle: {
-                                normal: {
-                                    color: '#ffab3d'
-                                }
-                            },
-                        data: [5, 6, 6, 10, 9, 8, 5, 6, 6, 12, 9, 8]
-                    }
+                        barGap:'-100%',
+                        barCategoryGap:'40%',
+                        data: [12,12,12,12,12,12,12,12,12,12,12,12],
+                        animation: false
+                    },
+                    {
+                        type: 'bar',
+                        itemStyle: {
+                            normal: {
+                                color: '#ffab3d'
+                            }
+                        },
+                    data: [5, 6, 6, 10, 9, 8, 5, 6, 6, 12, 9, 8]
+                }
                 ]
             };
             myChart2.setOption(options2);
