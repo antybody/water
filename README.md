@@ -123,10 +123,6 @@ vue2 + webapp
 
 ### _searchbar.vue_
       头部搜索组件
-### _headback.vue_
-      带回退的组件，带标题
-### _doufu.vue_
-      豆腐块组件
 ### _topquery.vue_
       下拉式弹出查询组件
 ### _redlists.vue_
