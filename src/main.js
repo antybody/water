@@ -57,7 +57,7 @@ const qsh = resolve => {
 }
 // import search from './views/redview/SearchView'
 const search = resolve => {
-    IndicatorIndicator.open();
+    Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/SearchView.vue'))
         Indicator.close()
