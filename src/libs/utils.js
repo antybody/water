@@ -57,16 +57,16 @@ exports.buildSgnq =(str)=>{
     let mapPoint = {};
     if (!str) return [];
 
-    for(var i=0;i<str.qsk.length;i++){
+    for(var i=0;i<str.zb.length;i++){
       let kPoint = {};
       kPoint.id = i+1;
-      kPoint.lng = str.qsk[i].x;
-      kPoint.lat = str.qsk[i].y;
-      kPoint.name = str.qsk[i].qskname;
-      kPoint.desc = '<div>'+str.qsk[i].xksl+'</div>';
+      kPoint.lng = str.zb[i].x;
+      kPoint.lat = str.zb[i].y;
+      kPoint.name = str.zb[i].name;
+      // kPoint.desc = '<div>'+str.qsk[i].xksl+'</div>';
       mapArr.push(kPoint);
     }
-
+    return mapArr;
 }
 
 /**

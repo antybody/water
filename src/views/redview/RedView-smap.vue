@@ -26,10 +26,11 @@ export default {
       mapPoints:function(){
           console.log(this.$route.params.t);
           let map;
+          let t = this.$route.params.t
           if(t == 'qsh')
            map = utils.buildJson(this.$route.params.list);
           if(t == 'sgnq')
-           map = this.$route.params.list;
+           map = utils.buildSgnq(this.$route.params.list);
           console.log(map);
           return map
       }
