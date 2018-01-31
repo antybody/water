@@ -3,6 +3,7 @@
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010;">
           水功能区基本信息
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>
+          <icon name="edit" slot="right" href="/sgnqreback"></icon>
         </navbar>
        <group noPadded class="group-clear">
            <div style="padding:5px 15px 0">

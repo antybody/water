@@ -102,6 +102,13 @@ const sgnqDetail = resolve => {
         Indicator.close()
       },'group-qsh')
 }
+const sgnqReback = resolve => {
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/RedView-reback.vue'))
+        Indicator.close()
+      },'group-qsh')
+}
 
 //首页
 // import redv1 from './views/RedView-v1' // 主页面
@@ -274,6 +281,11 @@ const router = new VueRouter({
             path:'/sgnqDetail/:id',
             component:sgnqDetail
         },  
+        { 
+            path:'/sgnqreback',
+            name:'sgnqreback',
+            component:sgnqReback
+        },
         {
             path: '/routeStation',
             component: routeStation
