@@ -97,6 +97,8 @@ export default {
                 switch(pm){
                     case 'dbqsh': return '地表水取水';break;
                     case 'ysh': return '用水户';break;
+                    case 'syd': return '水源地';break;
+                    case 'sgnq': return '水功能区';break;
                 }
             }else{
                 return val;

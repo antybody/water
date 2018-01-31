@@ -76,7 +76,9 @@ const actions = {
                    type:'getQueryDetail',
                    res:[{key:'dbqsh',name:'地表水取水户',},
                         {key:'dxqsh',name:'地下水取水户'},
-                        {key:'dysh',name:'大用水户'}],
+                        {key:'dysh',name:'大用水户'},
+                        {key:'syd',name:'水源地'},
+                        {key:'sgnq',name:'水功能区'}],
                    root:payload.root
                })
                break;

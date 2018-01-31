@@ -119,6 +119,13 @@ const redsyd = resolve => {
         Indicator.close()
       },'group-qsh')
 }
+const sydDetail = resolve => {
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/RedView-sydDetail.vue'))
+        Indicator.close()
+      },'group-qsh')
+}
 
 //首页
 // import redv1 from './views/RedView-v1' // 主页面
@@ -358,6 +365,11 @@ const router = new VueRouter({
             path:'/redsyd',
             name:'redsyd',
             component:redsyd
+        },
+        { 
+            path:'/sydDetail/:id',
+            name:'sydDetail',
+            component:sydDetail
         }
     ]
 })
