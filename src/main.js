@@ -110,6 +110,16 @@ const sgnqReback = resolve => {
       },'group-qsh')
 }
 
+// 水源地
+const redsyd = resolve => {
+    // console.log(Indicator);
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/RedView-syd.vue'))
+        Indicator.close()
+      },'group-qsh')
+}
+
 //首页
 // import redv1 from './views/RedView-v1' // 主页面
 const redv1 = resolve => {
@@ -344,7 +354,11 @@ const router = new VueRouter({
             name:'redsgnq',
             component:redsgnq
         },
-
+        { 
+            path:'/redsyd',
+            name:'redsyd',
+            component:redsyd
+        }
     ]
 })
 
