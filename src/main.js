@@ -86,6 +86,23 @@ const qshDetail = resolve => {
       },'group-qsh')
 }
 
+// 三条红线水功能区
+const redsgnq = resolve => {
+    // console.log(Indicator);
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/RedView-sgnq.vue'))
+        Indicator.close()
+      },'group-qsh')
+}
+const sgnqDetail = resolve => {
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/RedView-sgnqDetail.vue'))
+        Indicator.close()
+      },'group-qsh')
+}
+
 //首页
 // import redv1 from './views/RedView-v1' // 主页面
 const redv1 = resolve => {
@@ -252,7 +269,11 @@ const router = new VueRouter({
         { 
             path:'/qshDetail/:id',
             component:qshDetail
-        }, 
+        },
+        { 
+            path:'/sgnqDetail/:id',
+            component:sgnqDetail
+        },  
         {
             path: '/routeStation',
             component: routeStation
@@ -305,7 +326,12 @@ const router = new VueRouter({
             path:'/person',
             name:'person',
             component:person
-        }
+        },
+        { 
+            path:'/redsgnq',
+            name:'redsgnq',
+            component:redsgnq
+        },
 
     ]
 })

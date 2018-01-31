@@ -65,9 +65,9 @@ export default {
    data(){
        return {
            clists:[
-                {href:'/qsh',img:'wt-bar-i-46 wt-bar-1',title:'地表取水户'}, {href:'',img:'wt-bar-i-46 wt-bar-2',title:'地下取水户'},
+                {href:'/qsh',img:'wt-bar-i-46 wt-bar-1',title:'地表取水户'}, {href:'/qsh',img:'wt-bar-i-46 wt-bar-2',title:'地下取水户'},
                 {href:'/xkz',img:'wt-bar-i-46 wt-bar-3',title:'取水许可证'}, {href:'',img:'wt-bar-i-46 wt-bar-4',title:'取水监测站'},
-                {href:'',img:'wt-bar-i-46 wt-bar-5',title:'水源地'}, {href:'',img:'wt-bar-i-46 wt-bar-6',title:'水功能区'},
+                {href:'/syd',img:'wt-bar-i-46 wt-bar-5',title:'水源地'}, {href:'/redsgnq',img:'wt-bar-i-46 wt-bar-6',title:'水功能区'},
                 {href:'',img:'wt-bar-i-46 wt-bar-7',title:'放江泵站'}, {href:'',img:'wt-bar-i-46 wt-bar-8',title:'大用水户'}
                ],
            tablists:[

@@ -165,10 +165,7 @@
 </script>
 
 <style>
-.cell-box{
-    border-bottom:1px solid #e3e3e3;
-    text-align: center;
-}
+
 .wt-font-700{
     font-weight: 700;
 }

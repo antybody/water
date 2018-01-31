@@ -220,3 +220,13 @@ ul{
     padding:0 0.625rem;
     line-height: 1.55rem;
 }
+
+.cell-box-left{
+    border-bottom:1px solid #e3e3e3;
+    text-align: left;
+}
+
+.cell-box{
+    border-bottom:1px solid #e3e3e3;
+    text-align: center;
+}

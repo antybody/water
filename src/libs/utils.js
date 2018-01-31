@@ -46,6 +46,26 @@ exports.buildJson = (str) =>{
     }
 
     return mapArr;
+}
+
+/**
+ *  转换水功能区测站的坐标信息
+ */
+exports.buildSgnq =(str)=>{
+
+    let mapArr = [];
+    let mapPoint = {};
+    if (!str) return [];
+
+    for(var i=0;i<str.qsk.length;i++){
+      let kPoint = {};
+      kPoint.id = i+1;
+      kPoint.lng = str.qsk[i].x;
+      kPoint.lat = str.qsk[i].y;
+      kPoint.name = str.qsk[i].qskname;
+      kPoint.desc = '<div>'+str.qsk[i].xksl+'</div>';
+      mapArr.push(kPoint);
+    }
 
 }
 
