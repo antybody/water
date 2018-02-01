@@ -105,3 +105,4 @@ exports.removeStore = name => {
 	if (!name) return;
 	window.localStorage.removeItem(name);
 }
+
