@@ -40,6 +40,9 @@
 <script>
     import echarts from 'echarts'
     import VueDatepickerLocal from 'vue-datepicker-local'
+    import { mapState, mapActions } from 'vuex'
+    import Vue from 'vue'
+    import * as API from '../../store/api/api'
     // import datePicker from 'vue-birthday-picker'
     export default {
         name:'chart',

@@ -12,4 +12,4 @@
 
  // 取水户 都以qsh 开头
 
- export const QSH_LIST = ' '
+ export const QSH_LIST = 'http://31.16.10.185:7001/dwater/dwater/newhome/qslfndList?access_token=[b36680850768ff1b]'
