@@ -18,7 +18,7 @@
 import remoteLoad from '../../config/remoteLoad.js'
 import { MapKey, MapCityName } from  '../../config/config'
 export default {
-  props: ['points','lng'],
+  props: ['points','type'],
   data () {
     return {
       searchKey: '',
@@ -77,7 +77,7 @@ export default {
                 map: map,
                 icon: this.points[i].icon,
             });
-            marker.content = this.points[i].name + this.points[i].desc;
+            marker.content = this.getContent(this.points[i].name,this.points[i].desc).join("");
             marker.on('click', markerClick =>{
                 infoWindow.setContent(markerClick.target.content);
                 infoWindow.open(map, markerClick.target.getPosition());
@@ -86,6 +86,20 @@ export default {
         }
 
       })
+    },
+    getContent(name,desc){
+       let t = this.type;
+       console.log(t);
+       let content = [];
+       content.push('<div class="infowindow-content">');
+       content.push('<h4 class="amap-info-header">');
+       content.push(name);
+       content.push('</h4>');
+       content.push('<div>');
+       content.push(desc);
+       content.push('</div>');
+       content.push('</div>');
+       return content;
     }
     
   },

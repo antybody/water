@@ -14,13 +14,15 @@ export default {
     data(){
         return {
             inputtext:'',
-            t:'dbsqsh',
+            t:'',
             openSearch:true
         }
     },
     mounted(){
+        console.log(this.$route.params.t);
         this.inputtext = this.$route.params.text
         this.t = this.$route.params.t
+        console.log(this.t);
     },
     methods:{
         searchBar:function(){

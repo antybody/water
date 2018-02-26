@@ -2,9 +2,8 @@
    <!-- <pull-to :bottom-load-method="refresh" :is-top-bounce="topB" @bottom-state-change="stateChange"> -->
    <vue-view>
        <navbar slot="header" class="wt-linear-blue">
-          取水户
+          水功能区
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>          
-          <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/dbqsh"></icon>
         </navbar>
         <group noPadded class="group-clear" ref="viewbox">
                         
@@ -12,7 +11,7 @@
                 <div class="wt-top-search">
                     <div class="h-search" @click="searchBar()">
                         <i class="h-search-ico"></i>
-                        搜索取水户
+                        搜索水功能区
                     </div>
                     <span>{{listInfo.desc}}</span>
                 </div>
@@ -51,15 +50,15 @@ export default {
    },
    computed:{
        ...mapState({
-            loading: state => state.qshInfo.loading,
-            listInfo: state => state.qshInfo.listInfo,
-            queryMenu:state => state.qshInfo.queryMenu
+            loading: state => state.sgnqInfo.loading,
+            listInfo: state => state.sgnqInfo.listInfo,
+            queryMenu:state => state.sgnqInfo.queryMenu
       })
    },
    methods:{
        searchBar:function(){
         //    this.openSearch = true;
-            this.$router.push({name:'search',params:{text:'请搜索取水户名称',t:'dbsqsh'}});
+            this.$router.push({name:'search',params:{text:'请搜索水功能区',t:'sgnq'}});
        },
         ...mapActions([
             'getLists','getQueryMenu'

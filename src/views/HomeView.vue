@@ -23,10 +23,10 @@
         <group noPadded class="group-clear group-top-10">            
              <list style="margin-top:0px">
                  <list-item title="帮助中心" href="/help">
-                     <i slot="img" width="32" class="wt-bar-i-16 wt-help"></i>
+                     <i slot="img" width="32" class="wt-bar-i-24 wt-help"></i>
                  </list-item>
                  <list-item title="个人信息" href="/person">
-                     <i slot="img" width="32" class="wt-bar-i-16 wt-person"></i>
+                     <i slot="img" width="32" class="wt-bar-i-24 wt-person"></i>
                  </list-item>
              </list>
         </group>
@@ -107,11 +107,11 @@ export default {
 
 <style>
  .wt-help{
-    background: url("../../statics/images/description.png") no-repeat;
+    background: url("../../statics/images/help-40.png") no-repeat;
     background-size:cover;
  }
  .wt-person{
-    background: url("../../statics/images/new16.png") no-repeat;
+    background: url("../../statics/images/person-40.png") no-repeat;
     background-size:cover;
  }
  .wt-login-link{

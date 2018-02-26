@@ -1,8 +1,9 @@
 <template>
   <vue-view>
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010;">
-          取水户基本信息
+          水功能区基本信息
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>
+          <icon name="edit" slot="right" href="/sgnqreback"></icon>
         </navbar>
        <group noPadded class="group-clear">
            <div style="padding:5px 15px 0">
@@ -12,23 +13,29 @@
                 <div class="wt-title-line"></div>
                 <div class="wt-list-info">
                         <div class="wt-list-line">
-                            <label>颁证水量：</label>
+                            <label>目标水质：</label>
                             <p class="g-overflow">
-                                <span class="wt-list-red">{{listInfo.wtnum}}</span>
-                                万m³
+                                <span class="wt-list-red">{{listInfo.sz}}</span>
+                                类
                             </p>
                         </div>
                         <div class="wt-list-line">
-                            <label>日&nbsp;&nbsp;水&nbsp;&nbsp;量：</label>
-                            <p class="g-overflow">{{listInfo.pcode}}（本年监测累计 {{listInfo.pcode}}）</p>
+                            <label>评价水质：</label>
+                            <p class="g-overflow"><span class="wt-list-red">{{listInfo.pj}}</span>
+                              类</p>
                         </div>
                         <div class="wt-list-line">
-                            <label>取水用途：</label>
-                            <p class="g-overflow">{{listInfo.yt}}</p>
+                            <label>主导功能：</label>
+                            <p class="g-overflow">{{listInfo.zdgn}}</p>
                         </div>
                         <div class="wt-list-line">
-                            <label>单位地址：</label>
-                            <p class="g-overflow">{{listInfo.addr}}                                
+                            <label>所在水体：</label>
+                            <p class="g-overflow">{{listInfo.addrwater}}                                
+                            </p>
+                        </div>
+                        <div class="wt-list-line">
+                            <label>起止断面：</label>
+                            <p class="g-overflow">{{listInfo.sdm}} ~ {{listInfo.edm}}                                 
                             </p>
                             <i class="icons-ea25 wt-dblue" @click="toMap"></i>
                         </div>
@@ -37,8 +44,8 @@
                 <div class="wt-title-line"></div>
                 <div class="wt-list-info lpextend" v-show="isShow">
                     <div class="wt-list-line">
-                            <label>法人代表：</label>
-                            <p class="g-overflow">{{listInfo.yt}}</p>
+                            <label>XXXXX：</label>
+                            <p class="g-overflow">{{listInfo.sdm}}</p>
                     </div>
                 </div>
            </div>
@@ -46,14 +53,15 @@
        <group class="group-clear group-top-10" noPadded>
            <div style="padding:5px 15px 0">
            <h5 class="wt-title" style="padding:0.625rem 0 ">
-                        <div class="wt-title-center"><span>取水口</span></div>
+                        <div class="wt-title-center"><span>监测站（人工和自动站）</span></div>
            </h5>
            <div class="wt-title-line"></div>
            <ul class="layui-timeline">
-               <li class="layui-timeline-item" v-for="item in listInfo.qsk" :key="item.index">
+               <li @click.stop="stationClick(item)" class="layui-timeline-item" v-for="item in listInfo.jcz" :key="item.index">
                    <div class="layui-circle"></div>
                    <div  class="layui-timeline-content" >
-                       {{item.qskname}}：{{item.xkz}} <span class="wt-list-reds">{{item.xksl}}</span>立方米
+                       <span>{{item.name}}：目标水质 {{item.zb}}，评价水质 <span class="wt-list-reds">{{item.pj}}</span>类
+                       </span>
                     </div>
                 </li>
            </ul>
@@ -62,16 +70,12 @@
        <group class="group-top-10" noPadded>
            <div style="padding:5px 15px 0">
                 <h5 class="wt-title" style="padding:0.625rem 0 ">
-                    <div class="wt-title-center"><span>监测水量</span></div>
+                    <div class="wt-title-center"><span>{{selectStation}}&nbsp;采样情况</span></div>
                 </h5>
-                <div class="wt-title-line"></div>
-                <div class="classify-tags">
-                    <div class="tags-wrap">
-                        <a :class="{select:isSelect == 'm'}" @click="tagChange('m')">月水量</a>
-                        <a :class="{select:isSelect == 'y'}" @click="tagChange('y')">年水量</a>
-                    </div>
-                </div>
-                <div id="myCharts" :style="{width:'410px',height:'300px'}"></div>
+                <div class="wt-title-line"></div>  
+                <grid avg="2">
+                    <cell class="cell-box-left" v-for="item in jcInfo.name" :key="item.index">{{item}}</cell>
+                </grid>
            </div>
        </group>
   </vue-view>
@@ -84,17 +88,17 @@ import Vue from 'vue'
 export default {
     data(){
         return{
-            isSelect:'m',
             isShow:false,
-            listmore:'更多信息'
+            listmore:'更多信息',
+            selectStation:'白鹤'
         }
     },
     mounted(){
-        this.loadChart({x:['1月','2月'],y:['333','222'],t:'line'});
     },
     computed:{
         ...mapState({
-            listInfo:state => state.qshInfo.listDetail
+            listInfo:state => state.sgnqInfo.listDetail,
+            jcInfo:state => state.sgnqInfo.jcInfo
         })        
     },
     methods:{
@@ -102,59 +106,14 @@ export default {
             'getListsDetail'
         ]),
         toMap:function(){
-            this.$router.push({name:'smap',params:{list:this.listInfo,t:'qsh'}});
+            this.$router.push({name:'smap',params:{list:this.listInfo,t:'sgnq'}});
         },
         isShowEvent:function(){
             this.isShow = !this.isShow;
         },
-        tagChange:function(val){
-            this.isSelect = val;
-            // 切换图表
-            switch(val){
-                case 'm':this.loadChart({x:['1月','2月'],y:['333','222'],t:'line'});break;
-                case 'y':this.loadChart({x:['2015','2016','2017'],y:['333','222','22'],t:'bar'});break;
-            }        
-
-        },
-        loadChartData:function(val){
-            this.$store.dispatch({type:'getQslInfo',type:val})
-              .then(res =>{
-                  if(res.status === 200){
-                      console.log('获取数据');
-                  }
-              });
-        },
-        loadChart:function(val){
-             let myChart = echarts.init(document.getElementById('myCharts'));
-             var options = {
-                color: ['#3398DB'],
-                tooltip: {},
-                legend: {
-                    show: false
-                },
-                grid:{
-                    left: '10%',
-                    right: '14%',
-                    bottom: '13%',
-                    top:'5%'
-                },
-                xAxis: {
-                    data: val.x
-                },
-                yAxis: {},
-                series: [{
-                    name: '取水量',
-                    type: val.t,
-                    data: val.y,
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'top'
-                        }
-                    }
-                }]
-            };
-            myChart.setOption(options);
+        stationClick:function(item){
+            console.log(item.name);
+            this.selectStation = item.name;
         }
     }
 }

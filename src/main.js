@@ -57,7 +57,7 @@ const qsh = resolve => {
 }
 // import search from './views/redview/SearchView'
 const search = resolve => {
-    IndicatorIndicator.open();
+    Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/SearchView.vue'))
         Indicator.close()
@@ -82,6 +82,47 @@ const qshDetail = resolve => {
     Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/RedView-qshDetail.vue'))
+        Indicator.close()
+      },'group-qsh')
+}
+
+// 三条红线水功能区
+const redsgnq = resolve => {
+    // console.log(Indicator);
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/RedView-sgnq.vue'))
+        Indicator.close()
+      },'group-qsh')
+}
+const sgnqDetail = resolve => {
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/RedView-sgnqDetail.vue'))
+        Indicator.close()
+      },'group-qsh')
+}
+const sgnqReback = resolve => {
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/RedView-reback.vue'))
+        Indicator.close()
+      },'group-qsh')
+}
+
+// 水源地
+const redsyd = resolve => {
+    // console.log(Indicator);
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/RedView-syd.vue'))
+        Indicator.close()
+      },'group-qsh')
+}
+const sydDetail = resolve => {
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/redview/RedView-sydDetail.vue'))
         Indicator.close()
       },'group-qsh')
 }
@@ -123,6 +164,14 @@ const cxksl = resolve => {
     Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/homeview/HomeView-cxksl.vue'))
+        Indicator.close()
+      },'group-home')
+}
+
+const sgnq = resolve => {
+    Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/homeview/HomeView-sgnq.vue'))
         Indicator.close()
       },'group-home')
 }
@@ -227,6 +276,11 @@ const router = new VueRouter({
             component:redwater
         },
         { 
+            path:'/sgnq',
+            name:'sgnq',
+            component:sgnq
+        },
+        { 
             path:'/search',
             name:'search',
             component:search
@@ -239,7 +293,16 @@ const router = new VueRouter({
         { 
             path:'/qshDetail/:id',
             component:qshDetail
-        }, 
+        },
+        { 
+            path:'/sgnqDetail/:id',
+            component:sgnqDetail
+        },  
+        { 
+            path:'/sgnqreback',
+            name:'sgnqreback',
+            component:sgnqReback
+        },
         {
             path: '/routeStation',
             component: routeStation
@@ -292,8 +355,22 @@ const router = new VueRouter({
             path:'/person',
             name:'person',
             component:person
+        },
+        { 
+            path:'/redsgnq',
+            name:'redsgnq',
+            component:redsgnq
+        },
+        { 
+            path:'/redsyd',
+            name:'redsyd',
+            component:redsyd
+        },
+        { 
+            path:'/sydDetail/:id',
+            name:'sydDetail',
+            component:sydDetail
         }
-
     ]
 })
 

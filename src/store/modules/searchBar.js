@@ -27,8 +27,16 @@ const actions ={
             case 'dbsqsh':
             commit({
                 type: 'getDefalutLists',
-                res: [{title:'上海宝信',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'},
-                {title:'上海宝信',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'}]
+                res: [{title:'测试',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'},
+                {title:'测试',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'}]
+            })
+            state.searchUrl = '';
+            break;
+            case 'sgnq':
+            commit({
+                type: 'getDefalutLists',
+                res: [{title:'吴淞江',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'},
+                {title:'吴淞江',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'}]
             })
             state.searchUrl = '';
             break;

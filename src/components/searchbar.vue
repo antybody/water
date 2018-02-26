@@ -33,8 +33,10 @@ export default {
    props:['open','inputtext','searchtype'],
    created(){
        // 获得默认的数据
-       console.log(this.searchtype);
-       this.$store.dispatch({type:'getDefalutLists',param:this.searchtype})
+       console.log("获取前端数据"+this.searchtype);
+       this.$nextTick(
+         function(){this.$store.dispatch({type:'getDefalutLists',param:this.searchtype})}
+       )
    },
    watch:{
        searchItem:function(val,oldval){

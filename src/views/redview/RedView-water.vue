@@ -9,7 +9,7 @@
             <vue-datepicker-local v-model="time" format="YYYY"></vue-datepicker-local>
         </card>
        <!--上方年度-->
-       <card title="2017 年度取水总量(亿m³)">
+       <card title="至 2017 年度取水总量(亿m³)">
            <div id="myCharts" :style="{width:'100%',height:'180px'}"></div>
        </card>
        <!--下方月度-->
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    import echarts from 'echarts'
+    // import echarts from 'echarts'
     import VueDatepickerLocal from 'vue-datepicker-local'
     import { mapState, mapActions } from 'vuex'
     import Vue from 'vue'
@@ -68,21 +68,43 @@
                     y2: 20,
                     borderWidth: 1
                 },
-                tooltip: {},
-                legend: {
-                    show: false
+                tooltip: {
+                    trigger: 'axis',
+                    position: function (pt) {
+                        return [pt[0], '10%'];
+                    }
                 },
                 xAxis: {
-                    data: ["一月","二月","三月","四月","五月","六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+                    data: ["2015","2016","2017","2018"]
                 },
-                yAxis: {},
+                yAxis: {
+                    type: 'value' 
+                },
                 series: [{
                     name: '取水量',
-                    type: 'bar',
+                    type: 'line',
+                    smooth:true,
                     itemStyle: {
-                                normal: {
-                                    color: '#2894ff'
-                                }
+                        normal: {
+                            color: '#4bafed'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#d2f0fa'
+                            }, {
+                                offset: 1,
+                                color: '#f7fcff'
+                            }])
+                        }
                     },
                     data: [5, 6, 6, 10, 9, 8, 5, 6, 6, 12, 9, 8]
                 }]
@@ -97,39 +119,46 @@
                 },
                 tooltip: {
                     trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
+                    dataIndex:1
                 },
                 legend: {
                     show: false
                 },
                 grid: {
-                    left: '1%',
-                    right: '2%',
-                    bottom: '3%',
-                    top: '0.5%',
+                    x: -1,
+                    y: 0,
+                    x2: 0,
+                    y2: 20,
+                    borderWidth: 1,
                     containLabel: true
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月", "12月"]
+                },
+                series: [
+                    { // For shadow
+                        type: 'bar',
+                        itemStyle: {
+                            normal: {color: 'rgba(0,0,0,0.05)'}
+                        },
+                        barGap:'-100%',
+                        barCategoryGap:'40%',
+                        data: [12,12,12,12,12,12,12,12,12,12,12,12],
+                        animation: false
                     },
-                    xAxis: {
-                        type: 'value',
-                        boundaryGap: [0, 0.01]
-                    },
-                    yAxis: {
-                        type: 'category',
-                        data: ["十二月","十一月","十月","九月","八月","七月", "六月", "五月", "四月", "三月", "二月", "一月"]
-                    },
-                    series: [
-                        {
-                            name: '2011年',
-                            type: 'bar',
-                            itemStyle: {
-                                normal: {
-                                    color: '#46a3ff'
-                                }
-                            },
-                        data: [5, 6, 6, 10, 9, 8, 5, 6, 6, 12, 9, 8]
-                    }
+                    {
+                        type: 'bar',
+                        itemStyle: {
+                            normal: {
+                                color: '#ffab3d'
+                            }
+                        },
+                    data: [5, 6, 6, 10, 9, 8, 5, 6, 6, 12, 9, 8]
+                }
                 ]
             };
             myChart2.setOption(options2);
@@ -139,10 +168,7 @@
 </script>
 
 <style>
-.cell-box{
-    border-bottom:1px solid #e3e3e3;
-    text-align: center;
-}
+
 .wt-font-700{
     font-weight: 700;
 }

@@ -24,7 +24,7 @@
         <div class="wt-map-list">
             <icon name="list" href="/qsh"></icon>
         </div>
-       <redmap :points="mapPoints"></redmap>
+       <redmap :points="mapPoints" :type="urlParam"></redmap>
       <div v-show="isActive != -1" class="modal-backdrop" @click="offcanvasClose" @touchmove.stop></div>  
       <loader v-show="loading" class="modal-loading" orange rounded></loader>
    </vue-view>
@@ -38,9 +38,9 @@ import Vue from 'vue'
 export default {
     data(){
         return{
-            mapPoints:[{lng:121.372882,lat:31.176523,name:'上海宝信'},
-            {lng:121.604799,lat:31.217459,name:'上海宝信'},
-            {lng:121.403122,lat:31.317181,name:'上海宝信'}],
+            mapPoints:[{lng:121.372882,lat:31.176523,name:'上海宝信',desc:'地址：11111,监测水量：34343'},
+            {lng:121.604799,lat:31.217459,name:'上海宝信',desc:'地址：11111,监测水量：34343'},
+            {lng:121.403122,lat:31.317181,name:'上海宝信',desc:'地址：11111,监测水量：34343'}],
             isActive:-1
             // mapQuery:[
             //     {cl:'filter-nav-item',title:'类别'},
@@ -97,6 +97,8 @@ export default {
                 switch(pm){
                     case 'dbqsh': return '地表水取水';break;
                     case 'ysh': return '用水户';break;
+                    case 'syd': return '水源地';break;
+                    case 'sgnq': return '水功能区';break;
                 }
             }else{
                 return val;
