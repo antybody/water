@@ -53,9 +53,9 @@
             </list>
         </group>
 
-        <div class="get-more theme-blue">
-            <a href="javascript:void(0)">更新新闻</a>
-        </div>
+        <!--<div class="get-more theme-blue">-->
+            <!--<a href="javascript:void(0)">更新新闻</a>-->
+        <!--</div>-->
     </vue-view>
 </template>
 
