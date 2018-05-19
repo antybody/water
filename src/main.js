@@ -27,20 +27,20 @@ Vue.use(Indicator)
 // import check from './views/CheckView'
 const check = resolve => {
     // console.log(Indicator);
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/CheckView'))
-        Indicator.close()
+        // Indicator.close()
       },'group-check')
 }
 // 巡检
 // import route from './views/RouteView'
 const route = resolve => {
     // console.log(Indicator);
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/RouteView'))
-        Indicator.close()
+        // Indicator.close()
       },'group-route')
 }
 
@@ -49,174 +49,176 @@ const route = resolve => {
 // import qsh from './views/redview/RedView-query'
 const qsh = resolve => {
     // console.log(Indicator);
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/RedView-query.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-qsh')
 }
 // import search from './views/redview/SearchView'
 const search = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/SearchView.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-qsh')
 }
 // import redmap from './views/redview/RedView-map'
 const redmap = r => {
-    Indicator.open();
-    require.ensure([], () => {r(require('./views/redview/RedView-map.vue')); Indicator.close() }
+    // Indicator.open();
+    require.ensure([], () => {r(require('./views/redview/RedView-map.vue')); 
+    // Indicator.close() 
+    }
     ,'group-qsh')
 }
 // import sredmap from './views/redview/RedView-smap'
 const sredmap = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/RedView-smap.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-qsh')
 }
 // import qshDetail from './views/redview/RedView-qshDetail'
 const qshDetail = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/RedView-qshDetail.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-qsh')
 }
 
 // 三条红线水功能区
 const redsgnq = resolve => {
     // console.log(Indicator);
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/RedView-sgnq.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-qsh')
 }
 const sgnqDetail = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/RedView-sgnqDetail.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-qsh')
 }
 const sgnqReback = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/RedView-reback.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-qsh')
 }
 
 // 水源地
 const redsyd = resolve => {
     // console.log(Indicator);
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/RedView-syd.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-qsh')
 }
 const sydDetail = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/RedView-sydDetail.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-qsh')
 }
 
 //首页
 // import redv1 from './views/RedView-v1' // 主页面
 const redv1 = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/RedView-v1.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-home')
 }
 const newDetail = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/redview/newview.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-home')
 }
 // import redwater from './views/redview/RedView-water' // 取水量
 const redwater = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/RedView/RedView-water.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-home')
 }
 // import xkz from './views/homeview/HomeView-xkz' // 许可
 const xkz = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/homeview/HomeView-xkz.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-home')
 }
 // import cxksl from './views/homeview/HomeView-cxksl' // 超许可
 const cxksl = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/homeview/HomeView-cxksl.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-home')
 }
 
 const sgnq = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/homeview/HomeView-sgnq.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-home')
 }
 
 //巡检部分
 // import routeStation from './views/routeview/RouteView-station'
 const routeStation = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-station.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-route')
 }
 // import routePlan from './views/routeview/RouteView-plan'
 const routePlan = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-plan.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-route')
 }
 // import routeReback from './views/routeview/RouteView-reback'
 const routeReback = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-reback.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-route')
 }
 // import routeDone from './views/routeview/RouteView-done'
 const routeDone = resolve => {
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-done.vue'))
-        Indicator.close()
+        // Indicator.close()
       },'group-route')
 }
 
 // 页面权限部分
 // import home from './views/HomeView'
 const home = resolve => { 
-    Indicator.open();
+    // Indicator.open();
       require.ensure([], () => {
         resolve(require('./views/HomeView'))
-        Indicator.close()
+        // Indicator.close()
       },'group-home')
 }
 // import forbidden from './views/userview/forbidden'
