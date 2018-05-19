@@ -1,5 +1,5 @@
 /**
-新闻详情
+*新闻详情
 */
 <template>
     <div>
@@ -7,30 +7,21 @@
             <icon name="left-nav" slot="left" back></icon>
         </navbar>
         <div class="primary">
-            <h1 class="title">最近5天 20省份29名政府副职履新</h1>
-            <div class="meta">
-                <div class="pubtime">2018 - 01 - 23
-                11
-                :
-                58
-                :
-                59</div>
+            <h1 class="title">{{newsInfo.title}}</h1>
+            <div class="meta pubtime">
+                <span class="pubtime">来源：{{newsInfo.info_source}}</span>
+                <span class="pubtime">时间：{{newsInfo.publish_time}}</span>
             </div>
             <div class="cont">
                 <p class="text">
-                    <img src="">
+                    <!--<img src="">-->
                     <span class="image-desc"></span>
                 </p>
-                <p class="text">近日，各省份的政府副职密集调整。</p>
-                <p class="text">近日，各省份的政府副职密集调整。</p>
-                <p class="text">近日，各省份的政府副职密集调整。</p>
-                <p class="text">近日，各省份的政府副职密集调整。</p>
-                <p class="text">近日，各省份的政府副职密集调整。</p>
-                <p class="text">近日，各省份的政府副职密集调整。</p>
+                <p v-html="newsInfo.content"></p>
             </div>
         </div>
         <div class="isom">
-            作者：水利水务事业部
+            <span blue>作者：{{newsInfo.author_name}}</span>
         </div>
     </div>
 </template>
@@ -58,13 +49,14 @@
         mounted() {
             let infoid = this.$route.params.id;
             console.log(infoid);
-            let params = {
+            let paramData = {
                 infoid: infoid
             }
-            this.$http.jsonp(API.NEWS_CONTENT, {params: params}).then(
+            paramData = encodeURIComponent(JSON.stringify(paramData));
+            this.$http.jsonp(API.NEWS_CONTENT + "&params=" + paramData).then(
                 response => {
-                    console.log(response.data.data);
-                    this.newsInfo = response.data.data;
+                    console.log(response.data.data[0]);
+                    this.newsInfo = response.data.data[0];
                 }, response => {
                     console.log("error");
                 });
@@ -74,6 +66,9 @@
 </script>
 
 <style>
+    * {
+        overflow: auto !important;
+    }
     .primary {
         background: #fff;
         padding: 0 13px 0 13px;
