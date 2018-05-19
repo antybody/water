@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="isom">
-            <span blue>作者：{{newsInfo.author_name}}</span>
+            <span>作者：{{newsInfo.author_name}}</span>
         </div>
     </div>
 </template>
