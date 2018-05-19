@@ -30,7 +30,7 @@ const actions ={
                 res: [{title:'测试',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'},
                 {title:'测试',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'}]
             })
-            state.searchUrl = '';
+            state.searchUrl = '123';
             break;
             case 'sgnq':
             commit({

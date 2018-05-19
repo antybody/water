@@ -1,5 +1,5 @@
 import Vue from 'vue'
-// import  * as api from '../api/api'
+import  * as API from '../api/api'
 /**
  *  1、获取取水户的详情信息：
  *  包括 基础信息、取水口
@@ -11,8 +11,10 @@ import Vue from 'vue'
  *  6、获取搜索组件信息
  */
 const state = {
-    listInfo: {total:'30',desc:'共计查询xx',lists:[{title:'上海宝信软件',href:'/qshDetail/1',tag1:'1',tag2:'1',tag3:'1'},{title:'上海嘛哩屋',href:'/qshDetail/2'}
-    ,{title:'上海报亭',href:'/qshDetail/3',tag1:'11111',tag2:'111',tag3:'111'},{title:'上海报亭',href:'/qshDetail/4',tag1:'1',tag2:'1',tag3:'1'}
+    listInfo: {total:'30',desc:'共计查询xx1',lists:[{title:'上海宝信软件',href:'/qshDetail/1',tag1:'1',tag2:'1',tag3:'1'}
+    ,{title:'上海嘛哩屋',href:'/qshDetail/2'}
+    ,{title:'上海报亭',href:'/qshDetail/3',tag1:'11111',tag2:'111',tag3:'111'}
+    ,{title:'上海报亭',href:'/qshDetail/4',tag1:'1',tag2:'1',tag3:'1'}
     ,{title:'上海报亭',href:'/qshDetail/5',tag1:'111',tag2:'221',tag3:'111'}
     ,{title:'上海报亭',href:'/qshDetail/6',tag1:'111',tag2:'221',tag3:'111'}
     ,{title:'上海报亭',href:'/qshDetail/7',tag1:'111',tag2:'331',tag3:'3331'}
@@ -48,7 +50,7 @@ const mutations = {
     // 下拉加载 ，就相当于翻页一次
     loadMore (state,payload){
         state.listInfo = state.listInfo.contact(payload.res)
-        state.pageStart +=1
+        state.pageStart += 1
     },
     getListsDetail(state,payload) {
         state.listDetail = payload.res;
@@ -62,16 +64,25 @@ const mutations = {
 }
 
 const actions = {
-    getLists({commit}){
-        commit({
-            type: 'getLists',
-            res: res.body.results
+    getLists({commit}, payload){
+        return new Promise((resolve,reject) =>{
+            Vue.http.post(API.QSH_LIST,{params:payload.param,page:0})
+                .then(res => {
+                    commit({
+                        type: 'getLists',
+                        res: res.body.results
+                    })
+                    resolve(res);
+                }).catch(err => {
+                console.log(err);
+                reject(err);
+            })
         })
     },
-    // 这个查询默认就是 从0 开始的10条
+    // 这个查询默认就是 从0 开始的10条 根据条件查询取水户列表
     getListsByParams({commit},payload){
         return new Promise((resolve,reject) =>{
-            Vue.http.get('/api/map',{param:payload.param,page:0})
+            Vue.http.post(API.QSH_LIST,{params:payload.param,page:0})
                 .then(res => {
                     commit({
                         type: 'getListsByParams',
@@ -116,9 +127,18 @@ const actions = {
        })       
     },
     getQueryMenu({commit}){
-        commit({
-            type: 'getQueryMenu',
-            res: res.body.results
+        return new Promise((resolve,reject) =>{
+            Vue.http.post(API.QSH_QSL,{params:payload.param,page:0})
+                .then(res => {
+                    commit({
+                        type: 'getQueryMenu',
+                        res: res.body.results
+                    })
+                    resolve(res);
+                }).catch(err => {
+                console.log(err);
+                reject(err);
+            })
         })
     },
     getQslInfo({commit},payload){

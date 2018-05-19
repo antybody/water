@@ -15,5 +15,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     redmap,qshInfo,searchBar,login,red,homeview,sgnqInfo,sydInfo
-  }
+  },
+  proxyTable: {
+        '/api': {
+            target: 'http://localhost:8080',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/api': ''
+            }
+        }
+    }
 })
+

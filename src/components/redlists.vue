@@ -1,11 +1,11 @@
 <template>
     <list style="margin-top:0px">
-        <list-item v-for="item in lists" :key="item.id" :title="item.title" :href="item.href">
+        <list-item v-for="item in lists" :key="item.watuserId" :title="item.watuserName" :href="item.href">
             <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
             <span slot="subTitle">
-                <span class="list-label label-orange">{{item.tag1}}</span>
-                <span class="list-label label-white">{{item.tag2}}</span>
-                <span class="list-label label-blue">{{item.tag3}}</span>
+                <span class="list-label label-orange">{{item.watuserWatapp}}</span>
+                <span class="list-label label-white">{{item.watuserWorktype}}</span>
+                <span class="list-label label-blue">{{item.wiuTp}}</span>
             </span>
         </list-item>
         <list-item v-show='showMore'>

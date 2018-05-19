@@ -52,7 +52,7 @@ export default {
        ...mapState({
             loading: state => state.sgnqInfo.loading,
             listInfo: state => state.sgnqInfo.listInfo,
-            queryMenu:state => state.sgnqInfo.queryMenu
+            queryMenu: state => state.sgnqInfo.queryMenu
       })
    },
    methods:{
