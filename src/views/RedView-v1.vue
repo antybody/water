@@ -116,7 +116,11 @@
         mounted() {
             this.$http.jsonp(API.NEWS_LIST).then(
                 response => {
-                    console.log(response.data.data);
+                    //循环设置跳转地址 href
+                    for (let value of response.data.data) {
+                        value.href = "/newDetail/" + value.id;
+                        console.log(value);
+                    }
                     this.newlists = response.data.data;
                 }, response => {
                     console.log("error");

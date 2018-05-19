@@ -14,7 +14,7 @@ import * as Url from "../url/url"
  * @name 取水相关新闻详细内容
  * @param infoid
  * */
- export const NEWS_CONTENT = BASE_URL + '/app/waternews/getWaterNewsInfo?access_token=[b36680850768ff1b]';
+ export const NEWS_CONTENT = BASE_URL + '/app/waternews/getWaterNewsInfo?access_token=[b36680850768ff1b]&';
  /**取水户 都以qsh 开头*/
  /**
   * @name 取水户列表
