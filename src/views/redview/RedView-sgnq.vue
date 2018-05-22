@@ -29,6 +29,7 @@ import topquery from '../../components/topquery'
 
 import { mapState, mapActions } from 'vuex'
 import Vue from 'vue'
+import * as API from '../../store/api/api'
 
 export default {
    components: {
@@ -46,12 +47,22 @@ export default {
        let t = document.body;
        t.addEventListener('scroll', function(){
            console.log("监听了");
-       })
+       });
+       var paramsData = {};
+       paramsData = encodeURIComponent(JSON.stringify(paramsData));
+       this.$http.jsonp(API.SGNQ_LIST + "&params=" + paramsData).then(
+           response => {
+               //循环设置跳转地址 href
+               this.listInfo = response.data.data;
+               console.log(response.data.data);
+           }, response => {
+               console.log("error");
+           });
    },
    computed:{
        ...mapState({
             loading: state => state.sgnqInfo.loading,
-            listInfo: state => state.sgnqInfo.listInfo,
+            // listInfo: state => state.sgnqInfo.listInfo,
             queryMenu: state => state.sgnqInfo.queryMenu
       })
    },

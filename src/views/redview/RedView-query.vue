@@ -59,7 +59,7 @@
                 watuserCom: ""
             };
             params = encodeURIComponent(JSON.stringify(params));
-            this.$http.jsonp(API.QSH_LIST, {params: params}).then(
+            this.$http.jsonp(API.QSH_LIST + "&params=" + params).then(
                 response => {
                     console.log(response.data.data);
                     this.listInfo = response.data.data;
