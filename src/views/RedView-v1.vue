@@ -87,7 +87,14 @@
                         href: '',
                         img: 'wt-bar-i-46 wt-bar-8',
                         title: '大用水户'
-                    }
+                    },
+                    {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-5', title: '水功能区监测'}
+                    ,
+                    {href: '/', img: '', title: ''}
+                    ,
+                    {href: '/', img: '', title: ''}
+                    ,
+                    {href: '/', img: '', title: ''}
                 ],
                 tablists: [
                     {href: 'redwater', cl: 'wt-linear-purple', num: '30', text: '年度取水总量'},
@@ -125,6 +132,35 @@
                 }, response => {
                     console.log("error");
                 });
+            // this.$http.jsonp(API.NEWS_LIST) .then(function (res){
+            //     console.log(res)
+            // }, function (res) {
+            //     console.log(res)
+            // });
+            // var params = {
+            //     page_url:'this is a to',  //页面路径 用于注册接口
+            //     type: "delete"
+            // };
+            // params = encodeURIComponent(JSON.stringify(params));
+            // $.ajax({
+            //     type:'POST',
+            //     dataType:'json',
+            //     url: API.NEWS_LIST,
+            //     // async: false,
+            //     data:{
+            //         params: params
+            //     },
+            //     success: function (data) {
+            //         if(data.code === 0){
+            //            alert();
+            //         }else{
+            //             alert();
+            //         }
+            //     },
+            //     error: function(data){
+            //         alert();
+            //     }
+            // });
         },
         created() {
 
@@ -143,7 +179,7 @@
     }
 
     .wt-header {
-        height: 12.3125rem;
+        height: 18.3125rem;
         color: #3b3b3b;
     }
 

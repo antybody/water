@@ -4,7 +4,7 @@
 import * as Url from "../url/url"
  //后台接口地址
  // const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
- const BASE_URL = 'http://localhost:8080'
+ const BASE_URL = 'http://localhost:8080/wrmsApp'
  /**
   * @name 取水相关新闻列表
   * @param
@@ -38,3 +38,13 @@ import * as Url from "../url/url"
   * @params pjlb pjsj jcnf indicator_num
   * */
  export const SGNQ_DBL = BASE_URL + '/app/waterarea/getWaterAreaPj?access_token=[b36680850768ff1b]';
+/**
+ * @name 水源地列表
+ * @params pjlb pjsj jcnf indicator_num
+ * */
+export const SYD_LIST = BASE_URL + '/app/waterred/getWaterSydList?access_token=[b36680850768ff1b]';
+/**
+ * @name 水功能区列表
+ * @params pjlb pjsj jcnf indicator_num
+ * */
+export const SGNQ_LIST = BASE_URL + '/app/waterred/getWaterRedCzList?access_token=[b36680850768ff1b]';
