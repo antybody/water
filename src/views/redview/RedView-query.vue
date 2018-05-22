@@ -17,8 +17,7 @@
             </div>
             <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
 
-            <redlists :showMore="showMore" :lists="listInfo" :next="currentPage"
-                      @loadMore="loadMore"></redlists>
+            <redlists :showMore="showMore" :lists="listInfo" :next="currentPage" @loadMore="loadMore"></redlists>
         </group>
     </vue-view>
     <!-- </pull-to> -->
@@ -53,16 +52,22 @@
             let params = {
                 type: "query",
                 rowNumStar: "1",
-                rowNumEnd: "10",
-                wiuTp: "",
+                rowNumEnd: "11",
+                wiuTp: "地表水",
                 watuserDivname: "",
                 watuserCom: ""
             };
-            params = encodeURIComponent(JSON.stringify(params));
-            this.$http.jsonp(API.QSH_LIST, {params: params}).then(
+            // params = encodeURIComponent(JSON.stringify(params));
+            params = encodeURI(encodeURI(JSON.stringify(params)));
+            this.$http.jsonp(API.QSH_LIST + "&params=" + params).then(
                 response => {
                     console.log(response.data.data);
                     this.listInfo = response.data.data;
+                    //循环设置跳转地址 href
+                    for (let value of response.data.data) {
+                        value.href = "/qshDetail/" + value.watuserId;
+                        // console.log(value);
+                    }
                 }, response => {
                     console.log("error");
                 });

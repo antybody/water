@@ -50,10 +50,10 @@
            </h5>
            <div class="wt-title-line"></div>
            <ul class="layui-timeline">
-               <li class="layui-timeline-item" v-for="item in listInfo.qsk" :key="item.index">
+               <li class="layui-timeline-item" v-for="item in qskInfo" :key="item.index">
                    <div class="layui-circle"></div>
                    <div  class="layui-timeline-content" >
-                       {{item.qskname}}：{{item.xkz}} <span class="wt-list-reds">{{item.xksl}}</span>立方米
+                       {{item.int_nm}}：<br/>{{item.license_id}} <span class="wt-list-reds">{{item.qsl}}</span>万m³
                     </div>
                 </li>
            </ul>
@@ -79,6 +79,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import * as API from '../../store/api/api'
 import Vue from 'vue'
 // import echarts from 'echarts'xl
 export default {
@@ -86,11 +87,24 @@ export default {
         return{
             isSelect:'m',
             isShow:false,
-            listmore:'更多信息'
+            listmore:'更多信息',
+            qskInfo: []
         }
     },
     mounted(){
         this.loadChart({x:['1月','2月'],y:['333','222'],t:'line'});
+        let watuser_id = this.$route.params.id;
+        let paramData = {
+            watuser_id: watuser_id,
+            wiuTp: '03060001'
+        }
+        paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+        this.$http.jsonp(API.QSH_QSK + "&params=" + paramData).then(
+            response => {
+                this.qskInfo = response.data.data;
+            }, response => {
+                console.log("error");
+            });
     },
     computed:{
         ...mapState({

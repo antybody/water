@@ -13,11 +13,11 @@
                         <i class="h-search-ico"></i>
                         搜索水功能区
                     </div>
-                    <span>{{listInfo.desc}}</span>
+
                 </div>
                 <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
             
-                <redlists :showMore="showMore" :lists="listInfo.lists" :next="currentPage" :total="listInfo.total" @loadMore="loadMore"></redlists>
+                <redlists :showMore="showMore"  :lists="sgnqList" :next="currentPage" :total="dataType" @loadMore="loadMore"></redlists>
         </group>
    </vue-view>
    <!-- </pull-to> -->
@@ -29,6 +29,7 @@ import topquery from '../../components/topquery'
 
 import { mapState, mapActions } from 'vuex'
 import Vue from 'vue'
+import * as API from '../../store/api/api'
 
 export default {
    components: {
@@ -39,19 +40,30 @@ export default {
            openSearch:false,
            topB:false,
            currentPage:1,
-           showMore:true
+           showMore:true,
+           sgnqList: [],
+           dataType: []
        }
    },
    mounted(){
        let t = document.body;
        t.addEventListener('scroll', function(){
            console.log("监听了");
-       })
+       });
+       var paramsData = {};
+       paramsData = encodeURIComponent(JSON.stringify(paramsData));
+       this.$http.jsonp(API.SGNQ_LIST + "&params=" + paramsData).then(
+           response => {
+               this.sgnqList = response.data.data;
+               console.log(response.data.data);
+           }, response => {
+               console.log("error");
+           });
    },
    computed:{
        ...mapState({
             loading: state => state.sgnqInfo.loading,
-            listInfo: state => state.sgnqInfo.listInfo,
+            // listInfo: state => state.sgnqInfo.listInfo,
             queryMenu: state => state.sgnqInfo.queryMenu
       })
    },
