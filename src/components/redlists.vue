@@ -18,6 +18,7 @@
                 <span class="list-label label-blue">{{item.engManCd}}</span>
             </span>
         </list-item>
+        <!--底部操作栏-->
         <list-item v-show='showMore'>
             <div slot="subTitle" @click="loadMore()" class="wt-desc">
                 <span>{{loadText}}</span>
