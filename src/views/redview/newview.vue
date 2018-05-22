@@ -69,6 +69,7 @@
     * {
         overflow: auto !important;
     }
+
     .primary {
         background: #fff;
         padding: 0 13px 0 13px;

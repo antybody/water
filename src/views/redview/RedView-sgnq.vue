@@ -13,11 +13,11 @@
                         <i class="h-search-ico"></i>
                         搜索水功能区
                     </div>
-                    <span>{{listInfo.desc}}</span>
+
                 </div>
                 <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
             
-                <redlists :showMore="showMore" :lists="listInfo.lists" :next="currentPage" :total="listInfo.total" @loadMore="loadMore"></redlists>
+                <redlists :showMore="showMore"  :lists="sgnqList" :next="currentPage" :total="dataType" @loadMore="loadMore"></redlists>
         </group>
    </vue-view>
    <!-- </pull-to> -->
@@ -40,7 +40,9 @@ export default {
            openSearch:false,
            topB:false,
            currentPage:1,
-           showMore:true
+           showMore:true,
+           sgnqList: [],
+           dataType: []
        }
    },
    mounted(){
@@ -52,8 +54,7 @@ export default {
        paramsData = encodeURIComponent(JSON.stringify(paramsData));
        this.$http.jsonp(API.SGNQ_LIST + "&params=" + paramsData).then(
            response => {
-               //循环设置跳转地址 href
-               this.listInfo = response.data.data;
+               this.sgnqList = response.data.data;
                console.log(response.data.data);
            }, response => {
                console.log("error");

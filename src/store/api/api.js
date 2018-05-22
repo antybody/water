@@ -21,6 +21,7 @@ import * as Url from "../url/url"
   * @params rowNumStar rowNumEnd wiuTp watuserDivname watuserCom
   * */
  export const QSH_LIST = BASE_URL + '/app/water/getWaterUser?access_token=[b36680850768ff1b]';
+ export const QSH_QSK = BASE_URL + '/app/water/getQskInfo?access_token=[b36680850768ff1b]';
  /**
   * @name 取水许可证
   * @params
