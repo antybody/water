@@ -54,6 +54,10 @@ export default {
        paramsData = encodeURIComponent(JSON.stringify(paramsData));
        this.$http.jsonp(API.SGNQ_LIST + "&params=" + paramsData).then(
            response => {
+               for (let value of response.data.data) {
+                   value.href = "/sgnqDetail/" + value.wfzNb;
+                   // console.log(value);
+               }
                this.sgnqList = response.data.data;
                console.log(response.data.data);
            }, response => {

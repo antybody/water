@@ -10,12 +10,12 @@
             </span>
         </list-item>
         <!--水功能区-->
-        <list-item v-if="routeName == '/redsgnq'" v-for="item in lists" :key="item.wrReg2" :title="item.wfzNm" :href="item.href">
+        <list-item v-if="routeName == '/redsgnq'" v-for="item in lists" :key="item.wfzNb" :title="item.wfzNm" :href="item.href">
             <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
             <span slot="subTitle">
                 <span class="list-label label-orange">{{item.wtType}}</span>
                 <span class="list-label label-white">{{item.belRiv}}</span>
-                <span class="list-label label-blue">{{item.engManCd}}</span>
+                <span class="list-label label-blue">{{item.tgWq}}</span>
             </span>
         </list-item>
         <!--咸潮-->
@@ -23,9 +23,9 @@
             <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
             <span slot="subTitle">
                 <span class="list-label label-orange">暂无</span>
-
             </span>
         </list-item>
+        <!--底部操作栏-->
         <list-item v-show='showMore'>
             <div slot="subTitle" @click="loadMore()" class="wt-desc">
                 <span>{{loadText}}</span>
