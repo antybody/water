@@ -91,6 +91,8 @@
                 // 这里引用 带条件的查询
                 console.log("-----查询了我-----");
                 console.log(val);
+
+                this.listInfo = [];
                 this.$store.dispatch({type: 'getListsByParams', param: val})
                     .then(res => {
                         if (res.status === 200) {

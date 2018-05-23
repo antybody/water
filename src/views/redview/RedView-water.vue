@@ -51,7 +51,11 @@
         mounted() {
             let myChart = echarts.init(document.getElementById('myCharts'));
             let myChart2 = echarts.init(document.getElementById('myCharts2'));
-            this.$http.jsonp(API.QSH_QSL).then(
+            let paramData = {
+                year: '2018'
+            }
+            paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+            this.$http.jsonp(API.QSH_QSL + "&params=" + paramData).then(
                 response => {
                     console.log(response.data.data);
                     this.monthSl = response.data.data;

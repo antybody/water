@@ -8,34 +8,34 @@
        <group noPadded class="group-clear">
            <div style="padding:5px 15px 0">
                 <h5 class="wt-title" style="padding:0.625rem 0 ">
-                        <div class="wt-title-center"><span>{{listInfo.name}}</span></div>
+                        <div class="wt-title-center"><span>{{jichuInfo.wfz_nm}}</span></div>
                 </h5>
                 <div class="wt-title-line"></div>
                 <div class="wt-list-info">
                         <div class="wt-list-line">
                             <label>目标水质：</label>
                             <p class="g-overflow">
-                                <span class="wt-list-red">{{listInfo.sz}}</span>
+                                <span class="wt-list-red">{{jichuInfo.tgwq}}</span>
                                 类
                             </p>
                         </div>
                         <div class="wt-list-line">
                             <label>评价水质：</label>
                             <p class="g-overflow"><span class="wt-list-red">{{listInfo.pj}}</span>
-                              类</p>
+                            </p>
                         </div>
                         <div class="wt-list-line">
                             <label>主导功能：</label>
-                            <p class="g-overflow">{{listInfo.zdgn}}</p>
+                            <p class="g-overflow">{{jichuInfo.ldft}}</p>
                         </div>
                         <div class="wt-list-line">
                             <label>所在水体：</label>
-                            <p class="g-overflow">{{listInfo.addrwater}}                                
+                            <p class="g-overflow">{{jichuInfo.end_seg}}
                             </p>
                         </div>
                         <div class="wt-list-line">
                             <label>起止断面：</label>
-                            <p class="g-overflow">{{listInfo.sdm}} ~ {{listInfo.edm}}                                 
+                            <p class="g-overflow">{{jichuInfo.bg_seg}} ~ {{jichuInfo.bg_seg}}
                             </p>
                             <i class="icons-ea25 wt-dblue" @click="toMap"></i>
                         </div>
@@ -44,8 +44,8 @@
                 <div class="wt-title-line"></div>
                 <div class="wt-list-info lpextend" v-show="isShow">
                     <div class="wt-list-line">
-                            <label>XXXXX：</label>
-                            <p class="g-overflow">{{listInfo.sdm}}</p>
+                            <label>水功能区编码：</label>
+                            <p class="g-overflow">{{jichuInfo.wfz_nb}}</p>
                     </div>
                 </div>
            </div>
@@ -84,21 +84,40 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Vue from 'vue'
+import * as API from '../../store/api/api'
 // import echarts from 'echarts'xl
 export default {
     data(){
         return{
             isShow:false,
             listmore:'更多信息',
-            selectStation:'白鹤'
+            selectStation:'白鹤',
+            dmInfo: []
+            // ,jcInfo:[]
+            ,jichuInfo: []
+
         }
     },
     mounted(){
+        let wfzNb = this.$route.params.id;
+        let paramData = {
+            wfzNb: wfzNb
+        }
+        paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+        this.$http.jsonp(API.SGNQ_CONTENT + "&params=" + paramData).then(
+            response => {
+                this.dmInfo = response.data.dmxx;
+                this.jichuInfo = response.data.jcxx[0];
+                console.log(response.data.dmxx);
+                console.log(response.data.jcxx[0]);
+            }, response => {
+                console.log("error");
+            });
     },
     computed:{
         ...mapState({
-            listInfo:state => state.sgnqInfo.listDetail,
-            jcInfo:state => state.sgnqInfo.jcInfo
+            listInfo:state => state.sgnqInfo.listDetail
+            ,jcInfo:state => state.sgnqInfo.jcInfo
         })        
     },
     methods:{
