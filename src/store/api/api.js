@@ -47,7 +47,17 @@ import * as Url from "../url/url"
  * */
 export const SYD_LIST = BASE_URL + '/app/waterred/getWaterSydList?access_token=[b36680850768ff1b]';
 /**
+ * @name 水源地曲线
+ * @params pjlb pjsj jcnf indicator_num
+ * */
+export const SYD_CHART = BASE_URL + '/app/waterred/getWaterSydChart?access_token=[b36680850768ff1b]';
+/**
  * @name 水功能区列表
  * @params pjlb pjsj jcnf indicator_num
  * */
-export const SGNQ_LIST = BASE_URL + '/app/waterred/getWaterRedCzList?access_token=[b36680850768ff1b]';
+export const SGNQJC_LIST = BASE_URL + '/app/waterred/getWaterRedCzList?access_token=[b36680850768ff1b]';
+/**
+ * @name 咸潮列表
+ * @params pjlb pjsj jcnf indicator_num
+ * */
+export const XC_LIST = BASE_URL + '/app/waterred/getWaterXcList?access_token=[b36680850768ff1b]';
