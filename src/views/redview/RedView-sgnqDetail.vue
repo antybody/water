@@ -21,7 +21,7 @@
                         </div>
                         <div class="wt-list-line">
                             <label>评价水质：</label>
-                            <p class="g-overflow"><span class="wt-list-red">{{listInfo.pj}}</span>
+                            <p class="g-overflow"><span class="wt-list-red">{{jichuInfo.szzk}}</span>
                             </p>
                         </div>
                         <div class="wt-list-line">
@@ -57,10 +57,10 @@
            </h5>
            <div class="wt-title-line"></div>
            <ul class="layui-timeline">
-               <li @click.stop="stationClick(item)" class="layui-timeline-item" v-for="item in listInfo.jcz" :key="item.index">
+               <li @click.stop="stationClick(item)" class="layui-timeline-item" v-for="item in dmInfo" :key="item.seg_numb">
                    <div class="layui-circle"></div>
                    <div  class="layui-timeline-content" >
-                       <span>{{item.name}}：目标水质 {{item.zb}}，评价水质 <span class="wt-list-reds">{{item.pj}}</span>类
+                       <span>{{item.seg_nm}}：目标水质 {{item.mbsz}}，评价水质 <span class="wt-list-reds">{{item.dbzk}}</span>
                        </span>
                     </div>
                 </li>
@@ -74,7 +74,16 @@
                 </h5>
                 <div class="wt-title-line"></div>  
                 <grid avg="2">
-                    <cell class="cell-box-left" v-for="item in jcInfo.name" :key="item.index">{{item}}</cell>
+                    <cell class="cell-box-left"  >采样时间：</cell>        <cell class="cell-box-left"  >{{spt}}</cell>
+                    <cell class="cell-box-left"  >水温：</cell>            <cell class="cell-box-left"  >{{wt}}</cell>
+                    <cell class="cell-box-left"  >ph：</cell>              <cell class="cell-box-left"  >{{ph}}</cell>
+                    <cell class="cell-box-left"  >溶解氧：</cell>           <cell class="cell-box-left"  >{{dox}}</cell>
+                    <cell class="cell-box-left"  >高锰酸盐指数：</cell>    <cell class="cell-box-left"  >{{codmn}}</cell>
+                    <cell class="cell-box-left"  >化学需氧量：</cell>      <cell class="cell-box-left"  >{{codcr}}</cell>
+                    <cell class="cell-box-left"  >五日生化需氧量：</cell>   <cell class="cell-box-left"  >{{bod5}}</cell>
+                    <cell class="cell-box-left"  >氨氮：</cell>            <cell class="cell-box-left"  >{{nh3n}}</cell>
+                    <cell class="cell-box-left"  >总磷：</cell>            <cell class="cell-box-left"  >{{tp}}</cell>
+                    <cell class="cell-box-left"  >总氮：</cell>            <cell class="cell-box-left"  >{{tn}}</cell>
                 </grid>
            </div>
        </group>
@@ -91,11 +100,20 @@ export default {
         return{
             isShow:false,
             listmore:'更多信息',
-            selectStation:'白鹤',
-            dmInfo: []
+            selectStation:'',
+            dmInfo: [],
             // ,jcInfo:[]
-            ,jichuInfo: []
-
+            jichuInfo: [],
+            spt:'',
+            wt:'',
+            ph:'',
+            dox:'',//溶解氧
+            codmn:'',//高锰酸盐
+            nh3n:'',//氨氮
+            tp:'',//总磷
+            tn:'',//总氮
+            bod5:'',//五日生化需氧量
+            codcr:''//化学需氧量
         }
     },
     mounted(){
@@ -108,17 +126,29 @@ export default {
             response => {
                 this.dmInfo = response.data.dmxx;
                 this.jichuInfo = response.data.jcxx[0];
-                console.log(response.data.dmxx);
-                console.log(response.data.jcxx[0]);
+                this.selectStation = response.data.dmxx[0].seg_nm;
+
+                this.spt= response.data.dmxx[0].spt;
+                this.wt= response.data.dmxx[0].wt;
+                this.ph= response.data.dmxx[0].ph;
+                this.dox= response.data.dmxx[0].dox;
+                this.codmn= response.data.dmxx[0].codmn;
+                this.nh3n= response.data.dmxx[0].nh3n;
+                this.tp= response.data.dmxx[0].tp;
+                this.tn= response.data.dmxx[0].tn;
+                this.bod5= response.data.dmxx[0].bod5;
+                this.codcr= response.data.dmxx[0].codcr;
+                //console.log(response.data.dmxx);
+                //console.log(response.data.jcxx[0]);
             }, response => {
                 console.log("error");
             });
     },
     computed:{
-        ...mapState({
-            listInfo:state => state.sgnqInfo.listDetail
-            ,jcInfo:state => state.sgnqInfo.jcInfo
-        })        
+        // ...mapState({
+        //     listInfo:state => state.sgnqInfo.listDetail
+        //     ,jcInfo:state => state.sgnqInfo.jcInfo
+        // })
     },
     methods:{
         ...mapActions([
@@ -131,8 +161,18 @@ export default {
             this.isShow = !this.isShow;
         },
         stationClick:function(item){
-            console.log(item.name);
-            this.selectStation = item.name;
+            console.log(item.seg_nm);
+            this.selectStation = item.seg_nm;
+            this.spt= item.spt;
+            this.wt= item.wt;
+            this.ph= item.ph;
+            this.dox= item.dox;
+            this.codmn= item.codmn;
+            this.nh3n= item.nh3n;
+            this.tp= item.tp;
+            this.tn= item.tn;
+            this.bod5= item.bod5;
+            this.codcr= item.codcr;
         }
     }
 }

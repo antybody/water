@@ -65,30 +65,50 @@ export default {
            });
    },
    computed:{
-      //  ...mapState({
-      //       loading: state => state.sgnqInfo.loading,
+        ...mapState({
+             loading: state => state.sgnqInfo.loading,
       //       // listInfo: state => state.sgnqInfo.listInfo,
-      //       queryMenu: state => state.sgnqInfo.queryMenu
-      // })
+             queryMenu: state => state.sgnqInfo.queryMenu
+       })
    },
    methods:{
        searchBar:function(){
         //    this.openSearch = true;
             this.$router.push({name:'search',params:{text:'请搜索水功能区',t:'sgnq'}});
+            //alert('搜索框点击');
        },
         ...mapActions([
             'getLists','getQueryMenu'
         ]),
         menuQuery:function(val){
+            var wtType = val.wtType,
+                tgWq = val.tgWq;
             // 这里引用 带条件的查询
-            console.log("----- 查询了我-----");
-            console.log(val);
-            this.$store.dispatch({type:'getListsByParams',param:val})
-              .then(res =>{
-                  if(res.status === 200){
-                      console.log('获取数据');
-                  }
-              });
+            if (val.wtType[0] === "-1" || val.wtType.length === 0) {
+                wtType = '';
+            }
+            if (val.tgWq[0] === "-1" || val.tgWq.length === 0) {
+                tgWq = '';
+            }
+            //取水户列表查询所需要的参数
+            let params = {
+                wtType: wtType,
+                tgWq: tgWq
+            };
+            // params = encodeURIComponent(JSON.stringify(params));
+            params = encodeURI(encodeURI(JSON.stringify(params)));
+            this.$http.jsonp(API.SGNQ_LIST + "&params=" + params).then(
+                response => {
+                    console.log(response.data.data);
+                    this.sgnqList = response.data.data;
+                    //循环设置跳转地址 href
+                    for (let value of response.data.data) {
+                        value.href = "/sgnqDetail/" + value.wfzNb;
+                        // console.log(value);
+                    }
+                }, response => {
+                    console.log("error");
+                });
         },
     //     stateChange(state) {
     //         if (state === 'pull' || state === 'trigger') {

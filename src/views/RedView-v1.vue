@@ -70,26 +70,12 @@
                 clists: [
                     {href: '/qsh', img: 'wt-bar-i-46 wt-bar-1', title: '地表取水户'},
                     {href: '/xkz', img: 'wt-bar-i-46 wt-bar-3', title: '取水许可证'},
-<<<<<<< HEAD
-                    {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-5', title: '水文测站'},
-                    {href: '/redsyd', img: 'wt-bar-i-46 wt-bar-5', title: '水源地'}, {
-                        href: '/redsgnq',
-                        img: 'wt-bar-i-46 wt-bar-6',
-                        title: '水功能区'
-                    },
-                    {href: '/redxc', img: 'wt-bar-i-46 wt-bar-7', title: '咸潮'}, {
-                        href: '',
-                        img: 'wt-bar-i-46 wt-bar-8',
-                        title: '大用水户'
-                    }
-=======
                     {href: '/redsyd', img: 'wt-bar-i-46 wt-bar-5', title: '水源地'},
                     {href: '/dysh', img: 'wt-bar-i-46 wt-bar-8', title: '大用水户'},
                     {href: '/redsyd', img: 'wt-bar-i-46 wt-bar-5', title: '水源地'},
                     {href: '/redsgnq', img: 'wt-bar-i-46 wt-bar-6', title: '水功能区'},
                     {href: '/redxc', img: 'wt-bar-i-46 wt-bar-7', title: '咸潮'},
                     {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-5', title: '水文测站'}
->>>>>>> 9529a685ff9198307d0cd3cd915c5fbf7e3f5508
 
                 ],
                 tablists: [

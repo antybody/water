@@ -204,6 +204,15 @@ const sgnq = resolve => {
       },'group-home')
 }
 
+//大用水户
+const dysh = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-dysh.vue'))
+        // Indicator.close()
+    },'group-home')
+}
+
 //巡检部分
 // import routeStation from './views/routeview/RouteView-station'
 const routeStation = resolve => {
@@ -302,6 +311,10 @@ const router = new VueRouter({
         {
             path: '/cxksl',
             component: cxksl
+        },
+        {
+            path: '/dysh',
+            component: dysh
         },
         { 
             path:'/redwater',
