@@ -6,7 +6,16 @@
             <span slot="subTitle">
                 <span class="list-label label-orange">{{item.watuserWatapp}}</span>
                 <span class="list-label label-white">{{item.watuserWorktype}}</span>
-                <span class="list-label label-blue">{{item.wiuTp}}</span>
+                <span class="list-label label-blue">{{item.watuserDivname}}</span>
+            </span>
+        </list-item>
+        <!--大用水户-->
+        <list-item v-if="routeName == '/dysh'" v-for="item in lists" :key="item.id" :title="item.companyname" :href="item.href">
+            <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
+            <span slot="subTitle">
+                <span class="list-label label-orange">{{item.szysjqmc}}</span>
+                <span class="list-label label-white">{{item.yslx}}</span>
+                <span class="list-label label-blue">{{item.jclx}}</span>
             </span>
         </list-item>
         <!--水功能区-->
