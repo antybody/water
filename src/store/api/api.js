@@ -49,3 +49,10 @@ export const SGNQ_CONTENT = BASE_URL + '/app/sgn/querySglXq?access_token=[b36680
  * @params pjlb pjsj jcnf indicator_num
  * */
 export const SYD_LIST = BASE_URL + '/app/waterred/getWaterSydList?access_token=[b36680850768ff1b]';
+
+
+/**
+ * @name 大用水户
+ * @params
+ * */
+export const DYSH_LIST = BASE_URL + '/app/wateruser/getDysh?access_token=[b36680850768ff1b]';
