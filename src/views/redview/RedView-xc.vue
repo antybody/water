@@ -61,11 +61,11 @@ export default {
            });
    },
    computed:{
-      //  ...mapState({
-      //       loading: state => state.sgnqInfo.loading,
+       ...mapState({
+            loading: state => state.sgnqInfo.loading,
       //       // listInfo: state => state.sgnqInfo.listInfo,
-      //       queryMenu: state => state.sgnqInfo.queryMenu
-      // })
+            queryMenu: state => state.sgnqInfo.queryMenu
+      })
    },
    methods:{
        searchBar:function(){

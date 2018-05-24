@@ -60,7 +60,7 @@
                     this.listInfo = response.data.data;
                     //循环设置跳转地址 href
                     for (let value of response.data.data) {
-                        value.href = "/dyshDetail/" + value.watuserId;
+                        value.href = "/dyshDetail/" + value.id;
                         // console.log(value);
                     }
                 }, response => {

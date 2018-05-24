@@ -1,83 +1,83 @@
 <template>
   <vue-view>
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010;">
-          取水户基本信息
+          大用水户基本信息
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>
         </navbar>
-       <group noPadded class="group-clear">
-           <div style="padding:5px 15px 0">
-                <h5 class="wt-title" style="padding:0.625rem 0 ">
-                        <div class="wt-title-center"><span>{{jcInfo.watuserName}}</span></div>
-                </h5>
-                <div class="wt-title-line"></div>
-                <div class="wt-list-info">
-                        <div class="wt-list-line">
-                            <label>颁证水量：</label>
-                            <p class="g-overflow">
-                                <span class="wt-list-red">{{qshContent.bzsl}}</span>
-                                万m³
-                            </p>
-                        </div>
-                        <div class="wt-list-line">
-                            <label>日&nbsp;&nbsp;水&nbsp;&nbsp;量：</label>
-                            <p class="g-overflow">{{qshContent.rsl}}（本年监测累计 {{qshContent.nsl}}）</p>
-                        </div>
-                        <div class="wt-list-line">
-                            <label>取水用途：</label>
-                            <p class="g-overflow">{{jcInfo.watuserWatapp}}</p>
-                        </div>
-                        <div class="wt-list-line">
-                            <label>单位地址：</label>
-                            <p class="g-overflow">{{jcInfo.watuserAddr}}
-                            </p>
-                            <i class="icons-ea25 wt-dblue" @click="toMap"></i>
-                        </div>
-                        <div class="wt-list-more" @click="isShowEvent">{{isShow?'收起信息':'更多信息'}}</div>
-                </div>
-                <div class="wt-title-line"></div>
-                <div class="wt-list-info lpextend" v-show="isShow">
-                    <div class="wt-list-line">
-                            <label>法人代表：</label>
-                            <p class="g-overflow">{{jcInfo.watuserLegrep}}</p>
-                    </div>
-                    <div class="wt-list-line">
-                        <label>单位类型：</label>
-                        <p class="g-overflow">{{jcInfo.watuserWorktype}}</p>
-                    </div>
-                </div>
-           </div>
-       </group>
-       <group class="group-clear group-top-10" noPadded>
-           <div style="padding:5px 15px 0">
-           <h5 class="wt-title" style="padding:0.625rem 0 ">
-                        <div class="wt-title-center"><span>取水口</span></div>
-           </h5>
-           <div class="wt-title-line"></div>
-           <ul class="layui-timeline">
-               <li class="layui-timeline-item" v-for="item in qskInfo" :key="item.index">
-                   <div class="layui-circle"></div>
-                   <div  class="layui-timeline-content" >
-                       {{item.int_nm}}：<br/>{{item.license_id}} <span class="wt-list-reds">{{item.qsl}}</span>万m³
-                    </div>
-                </li>
-           </ul>
-           </div>
-       </group>
-       <group class="group-top-10" noPadded>
-           <div style="padding:5px 15px 0">
-                <h5 class="wt-title" style="padding:0.625rem 0 ">
-                    <div class="wt-title-center"><span>监测水量（亿m³）</span></div>
-                </h5>
-                <div class="wt-title-line"></div>
-                <div class="classify-tags">
-                    <div class="tags-wrap">
-                        <a :class="{select:isSelect == 'm'}" @click="tagChange('m')">月水量</a>
-                        <a :class="{select:isSelect == 'y'}" @click="tagChange('y')">年水量</a>
-                    </div>
-                </div>
-                <div id="myCharts" :style="{width:'410px',height:'300px'}"></div>
-           </div>
-       </group>
+       <!--<group noPadded class="group-clear">-->
+           <!--<div style="padding:5px 15px 0">-->
+                <!--<h5 class="wt-title" style="padding:0.625rem 0 ">-->
+                        <!--<div class="wt-title-center"><span>{{jcInfo.watuserName}}</span></div>-->
+                <!--</h5>-->
+                <!--<div class="wt-title-line"></div>-->
+                <!--<div class="wt-list-info">-->
+                        <!--<div class="wt-list-line">-->
+                            <!--<label>颁证水量：</label>-->
+                            <!--<p class="g-overflow">-->
+                                <!--<span class="wt-list-red">{{qshContent.bzsl}}</span>-->
+                                <!--万m³-->
+                            <!--</p>-->
+                        <!--</div>-->
+                        <!--<div class="wt-list-line">-->
+                            <!--<label>日&nbsp;&nbsp;水&nbsp;&nbsp;量：</label>-->
+                            <!--<p class="g-overflow">{{qshContent.rsl}}（本年监测累计 {{qshContent.nsl}}）</p>-->
+                        <!--</div>-->
+                        <!--<div class="wt-list-line">-->
+                            <!--<label>取水用途：</label>-->
+                            <!--<p class="g-overflow">{{jcInfo.watuserWatapp}}</p>-->
+                        <!--</div>-->
+                        <!--<div class="wt-list-line">-->
+                            <!--<label>单位地址：</label>-->
+                            <!--<p class="g-overflow">{{jcInfo.watuserAddr}}-->
+                            <!--</p>-->
+                            <!--<i class="icons-ea25 wt-dblue" @click="toMap"></i>-->
+                        <!--</div>-->
+                        <!--<div class="wt-list-more" @click="isShowEvent">{{isShow?'收起信息':'更多信息'}}</div>-->
+                <!--</div>-->
+                <!--<div class="wt-title-line"></div>-->
+                <!--<div class="wt-list-info lpextend" v-show="isShow">-->
+                    <!--<div class="wt-list-line">-->
+                            <!--<label>法人代表：</label>-->
+                            <!--<p class="g-overflow">{{jcInfo.watuserLegrep}}</p>-->
+                    <!--</div>-->
+                    <!--<div class="wt-list-line">-->
+                        <!--<label>单位类型：</label>-->
+                        <!--<p class="g-overflow">{{jcInfo.watuserWorktype}}</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+           <!--</div>-->
+       <!--</group>-->
+       <!--<group class="group-clear group-top-10" noPadded>-->
+           <!--<div style="padding:5px 15px 0">-->
+           <!--<h5 class="wt-title" style="padding:0.625rem 0 ">-->
+                        <!--<div class="wt-title-center"><span>取水口</span></div>-->
+           <!--</h5>-->
+           <!--<div class="wt-title-line"></div>-->
+           <!--<ul class="layui-timeline">-->
+               <!--<li class="layui-timeline-item" v-for="item in qskInfo" :key="item.index">-->
+                   <!--<div class="layui-circle"></div>-->
+                   <!--<div  class="layui-timeline-content" >-->
+                       <!--{{item.int_nm}}：<br/>{{item.license_id}} <span class="wt-list-reds">{{item.qsl}}</span>万m³-->
+                    <!--</div>-->
+                <!--</li>-->
+           <!--</ul>-->
+           <!--</div>-->
+       <!--</group>-->
+       <!--<group class="group-top-10" noPadded>-->
+           <!--<div style="padding:5px 15px 0">-->
+                <!--<h5 class="wt-title" style="padding:0.625rem 0 ">-->
+                    <!--<div class="wt-title-center"><span>监测水量（亿m³）</span></div>-->
+                <!--</h5>-->
+                <!--<div class="wt-title-line"></div>-->
+                <!--<div class="classify-tags">-->
+                    <!--<div class="tags-wrap">-->
+                        <!--<a :class="{select:isSelect == 'm'}" @click="tagChange('m')">月水量</a>-->
+                        <!--<a :class="{select:isSelect == 'y'}" @click="tagChange('y')">年水量</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div id="myCharts" :style="{width:'410px',height:'300px'}"></div>-->
+           <!--</div>-->
+       <!--</group>-->
   </vue-view>
 </template>
 
@@ -100,46 +100,23 @@ export default {
         }
     },
     mounted(){
-        let watuser_id = this.$route.params.id;
+        let id = this.$route.params.id;
         let paramData = {
-            watuser_id: watuser_id,
-            wiuTp: '03060001',
+            id: id,
             year: '2018'
         }
         paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-        this.$http.jsonp(API.QSH_QSK + "&params=" + paramData).then(
-            response => {
-                this.qskInfo = response.data.data;
-            }, response => {
-                console.log("error");
-            });
-        this.$http.jsonp(API.QSH_CONTENT + "&params=" + paramData).then(
+
+        this.$http.jsonp(API.DYSH_CONTENT + "&params=" + paramData).then(
             response => {
                 console.log(response.data);
-                this.qshContent = response.data;
-                this.jcInfo = response.data.jcxx;
-            }, response => {
-                console.log("error");
-            });
-        //图表数据
-        this.$http.jsonp(API.QSH_QSL + "&params=" + paramData).then(
-            response => {
-                console.log(response.data);
-                this.monthSl = response.data.monthSl;
-                this.yearSl = response.data.yearSl;
-                let xData = [],yData = [];
-                for (let value of this.monthSl) {
-                    xData.push(value.dt);
-                    yData.push(parseFloat(value.day_w));
-                }
-                this.loadChart({x:xData,y:yData,t:'line'});
             }, response => {
                 console.log("error");
             });
     },
     computed:{
         ...mapState({
-            listInfo:state => state.qshInfo.listDetail
+            listInfo:state => state.dyshInfo.listDetail
         })        
     },
     methods:{
@@ -199,7 +176,7 @@ export default {
                 },
                 yAxis: {},
                 series: [{
-                    name: '取水量',
+                    name: '用水量',
                     type: val.t,
                     data: val.y,
                     label: {

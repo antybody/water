@@ -204,6 +204,13 @@ const dysh = resolve => {
         // Indicator.close()
     },'group-home')
 }
+const dyshDetail = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-dyshDetail.vue'))
+        // Indicator.close()
+    },'group-qsh')
+}
 
 //巡检部分
 // import routeStation from './views/routeview/RouteView-station'
@@ -307,6 +314,10 @@ const router = new VueRouter({
         {
             path: '/dysh',
             component: dysh
+        },
+        {
+            path: '/dyshDetail:id',
+            component: dyshDetail
         },
         { 
             path:'/redwater',
