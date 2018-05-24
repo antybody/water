@@ -29,7 +29,15 @@ const state = {
             {qskname: '黄浦江B', xkz: '取水[2017]', xksl: 31.1, x: 121.403122, y: 31.317181},
             {qskname: '黄浦江C', xkz: '取水[2017]', xksl: 32.1, x: 121.203122, y: 31.217181}]
     },
-    queryMenu: [{
+    queryMenu: [
+
+        {
+            title: '取水类型', ol: '取水类型', select: '', key: 'qslx', type: 'radio', children: [
+                {title: '地表水', key: '地表水', checked: true},
+                {title: '地下水', key: '地下水', checked: false},
+                {title: '既是地表水又是地下水', key: '既是地表水又是地下水', checked: false}
+                ]
+        },{
         title: '监控级别', ol: '监控级别', select: '', key: 'jkjb', type: 'checkbox', children: [
             {title: '不限', key: '-1', checked: true},
             {title: '国控级在线', key: '00430001', checked: false},
@@ -40,28 +48,45 @@ const state = {
             ]
     },
         {
-            title: '发证单位', ol: '发证单位', select: '', key: 'fzdw', type: 'checkbox', children: [
-                {title: '不限', key: '-1', checked: true}, {title: '市级', key: '1', checked: false}, {
-                    title: '市级',
-                    key: '2',
-                    checked: false
-                }]
-        },
-        {
-            title: '颁证水量', ol: '颁证水量', select: '', key: 'bzsl', type: 'radio', children: [
-                {title: '不限', key: '-1', checked: true}, {title: '市级', key: '1', checked: false}, {
-                    title: '市级',
-                    key: '2',
-                    checked: false
-                }]
+            title: '行政区划', ol: '行政区划', select: '', key: 'xzqh', type: 'checkbox', children: [
+                {title: '不限', key: '-1', checked: true},
+                {title: '徐汇区', key: '徐汇区', checked: false},
+                {title: '闵行区', key: '闵行区', checked: false },
+                {title: '黄浦区', key: '黄浦区', checked: false },
+                {title: '静安区', key: '静安区', checked: false },
+                {title: '长宁区', key: '长宁区', checked: false },
+                {title: '浦东新区', key: '浦东新区', checked: false },
+                {title: '普陀区', key: '普陀区', checked: false },
+                {title: '青浦区', key: '青浦区', checked: false },
+                {title: '松江区', key: '松江区', checked: false },
+                {title: '金山区', key: '金山区', checked: false },
+                {title: '宝山区', key: '宝山区', checked: false },
+                {title: '崇明区', key: '崇明区', checked: false },
+                {title: '奉贤区', key: '奉贤区', checked: false },
+                {title: '虹口区', key: '虹口区', checked: false },
+                {title: '杨浦区', key: '杨浦区', checked: false },
+                {title: '嘉定区', key: '嘉定区', checked: false }
+                ]
         },
         {
             title: '取水用途', ol: '取水用途', select: '', key: 'qsyt', type: 'checkbox', children: [
-                {title: '不限', key: '-1', checked: true}, {title: '市级', key: '1', checked: false}, {
-                    title: '市级',
-                    key: '2',
-                    checked: false
-                }]
+                {title: '不限', key: '-1', checked: true},
+                {title: '城市生活', key: '城市生活', checked: false},
+                {title: '农村生活', key: '农村生活', checked: false},
+                {title: '工业用水', key: '工业用水', checked: false},
+                {title: '农业用水', key: '农业用水', checked: false},
+                {title: '发电用水', key: '发电用水', checked: false},
+                {title: '应急备用', key: '应急备用', checked: false},
+                {title: '公共供水', key: '公共供水', checked: false},
+                {title: '分质供水', key: '分质供水', checked: false},
+                {title: '采灌井', key: '采灌井', checked: false},
+                {title: '应急备用（回灌）', key: '应急备用（回灌）', checked: false},
+                {title: '回灌', key: '回灌', checked: false},
+                {title: '其他', key: '其他', checked: false},
+                {title: '城镇公共用水', key: '城镇公共用水', checked: false},
+                {title: '生活用水（自备）', key: '生活用水（自备）', checked: false},
+                {title: '城镇工业用水', key: '城镇工业用水', checked: false}
+                ]
         }
     ],
     loading: true,
