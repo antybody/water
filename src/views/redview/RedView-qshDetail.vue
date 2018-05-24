@@ -147,7 +147,17 @@ export default {
             'getListsDetail'
         ]),
         toMap:function(){
-            this.$router.push({name:'smap',params:{list:this.listInfo,t:'qsh'}});
+            console.log(this.jcInfo);
+            let mapList = {
+                addr: this.jcInfo.watuserAddr,
+                lng: this.jcInfo.watuserLon,
+                lat: this.jcInfo.watuserLat,
+                pcode: this.jcInfo.watuserName,
+                qsk: [],
+                wtnum: this.jcInfo.watuserName,
+                yt: this.jcInfo.watuserName
+            }
+            this.$router.push({name:'smap',params:{list: mapList, t:'qsh'}});
         },
         isShowEvent:function(){
             this.isShow = !this.isShow;

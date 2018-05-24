@@ -60,7 +60,7 @@
                     this.listInfo = response.data.data;
                     //循环设置跳转地址 href
                     for (let value of response.data.data) {
-                        value.href = "/dyshDetail/" + value.id;
+                        value.href = "/dyshDetai/" + value.id;
                         // console.log(value);
                     }
                 }, response => {
@@ -77,11 +77,8 @@
         methods: {
             searchBar: function () {
                 //    this.openSearch = true;
-                this.$router.push({name: 'search', params: {text: '请搜索取水户名称', t: 'dbsqsh'}});
+                this.$router.push({name: 'search', params: {text: '请搜索大用水户名称', t: 'dysh'}});
             },
-            ...mapActions([
-                'getLists', 'getQueryMenu'
-            ]),
             menuQuery: function (val) {
                 var yslx = val.yslx[0],
                     xzqh = val.xzqh,
