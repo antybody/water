@@ -21,23 +21,16 @@ const state = {
                     {name:'蕰藻浜',x:121.403122,y:31.317181}],
                 jcz:[{id:'1',name:'白鹤',zb:'II',pj:'II'},{id:'2',name:'黄渡',zb:'II',pj:'II'}]},
     queryMenu:[
-                {title:'水体类型',ol:'水体类型',select:'',key:'wtType',type:'checkbox',children:[
+                {title:'控制水源地',ol:'控制水源地',select:'',key:'kzsyd',type:'checkbox',children:[
                         {title:'不限',key:'-1',checked:true},
-                        {title:'河流',key:'河流',checked:false},
-                        {title:'湖泊',key:'湖泊',checked:false}]},
+                        {title:'青草沙',key:'青草沙',checked:true},
+                        {title:'陈行',key:'陈行',checked:false},
+                        {title:'东风西沙',key:'东风西沙',checked:false}]},
 
-                {title:'目标水质',ol:'目标水质',select:'',key:'tgWq',type:'checkbox',children:[
+                {title:'监测状态',ol:'监测状态',select:'',key:'state',type:'radio',children:[
                         {title:'不限',key:'-1',checked:true},
-                        {title:'Ⅰ类',key:'1',checked:false},
-                        {title:'Ⅱ类',key:'2',checked:false},
-                        {title:'Ⅲ类',key:'3',checked:false},
-                        {title:'Ⅳ类',key:'4',checked:false},
-                        {title:'Ⅴ类',key:'5',checked:false},
-                        {title:'劣Ⅴ类',key:'6',checked:false},
-                        {title:'Ⅰ～Ⅱ类',key:'12',checked:false},
-                        {title:'Ⅱ～Ⅲ类',key:'23',checked:false},
-                        {title:'Ⅲ～Ⅳ类',key:'34',checked:false},
-                        {title:'Ⅳ～Ⅴ类',key:'45',checked:false}
+                        {title:'正常',key:'正常',checked:false},
+                        {title:'超标',key:'超标',checked:false}
                         ]}
 
              ],

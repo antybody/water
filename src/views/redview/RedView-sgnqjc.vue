@@ -1,11 +1,11 @@
 @@ -1,50 +0,0 @@
 /**
- * 水功能区监测列表
+ * 水文测站
  */
 <template>
   <vue-view>
        <navbar slot="header" class="wt-linear-blue">
-           水功能区监测
+           水文测站
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>   
           <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/syd"></icon>       
         </navbar>
@@ -77,7 +77,7 @@ export default {
             response => {
                 //循环设置跳转地址 href
                 for (let value of response.data.data) {
-                    value.href = "/newDetail/" + value.id;
+                    value.href = "/swczDetail/" + value.hdst_num;
                     // console.log(value);
                 }
                 this.listInfo = response.data.data;

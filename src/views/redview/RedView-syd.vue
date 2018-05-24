@@ -69,10 +69,10 @@ export default {
             response => {
                 //循环设置跳转地址 href
                 for (let value of response.data.data) {
-                    //value.href = "/newDetail/" + value.id;
+                    value.href = "/sydDetail/" + value.id;
                     // console.log(value);
                 }
-                //this.listInfo = response.data.data;
+                this.listInfo = response.data.data;
             }, response => {
                 console.log("error");
             });
