@@ -45,7 +45,21 @@ export const SGNQ_LIST = BASE_URL + '/app/sgn/querySgl?access_token=[b3668085076
 //水功能区详细数据
 export const SGNQ_CONTENT = BASE_URL + '/app/sgn/querySglXq?access_token=[b36680850768ff1b]';
 /**
- * @name 水源地列表
+ * @name 水源地曲线
+ * @params pjlb pjsj jcnf indicator_num
+ * */
+export const SYD_CHART = BASE_URL + '/app/waterred/getWaterSydChart?access_token=[b36680850768ff1b]';
+/**
+ * @name 水功能区列表
+ * @params pjlb pjsj jcnf indicator_num
+ * */
+export const SGNQJC_LIST = BASE_URL + '/app/waterred/getWaterRedCzList?access_token=[b36680850768ff1b]';
+/**
+ * @name 咸潮列表
+ * @params pjlb pjsj jcnf indicator_num
+ * */
+export const XC_LIST = BASE_URL + '/app/waterred/getWaterXcList?access_token=[b36680850768ff1b]';
+ /* @name 水源地列表
  * @params pjlb pjsj jcnf indicator_num
  * */
 export const SYD_LIST = BASE_URL + '/app/waterred/getWaterSydList?access_token=[b36680850768ff1b]';

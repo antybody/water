@@ -121,6 +121,24 @@ const redsyd = resolve => {
         // Indicator.close()
       },'group-qsh')
 }
+// 水功能区监测
+const redsgnqjc = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-sgnqjc.vue'))
+        // Indicator.close()
+    },'group-qsh')
+}
+// 咸潮
+const redxc = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-xc.vue'))
+        // Indicator.close()
+    },'group-qsh')
+}
 const sydDetail = resolve => {
     // Indicator.open();
       require.ensure([], () => {
@@ -275,6 +293,10 @@ const router = new VueRouter({
             component:qsh
         },
         {
+            path:'/redxc',
+            component:redxc
+        },
+        {
             path: '/xkz',
             component: xkz
         },
@@ -380,6 +402,11 @@ const router = new VueRouter({
             path:'/redsyd',
             name:'redsyd',
             component:redsyd
+        },
+        {
+            path:'/redsgnqjc',
+            name:'redsgnqjc',
+            component:redsgnqjc
         },
         { 
             path:'/sydDetail/:id',
