@@ -130,6 +130,14 @@ const redsgnqjc = resolve => {
         // Indicator.close()
     },'group-qsh')
 }
+//水文测站曲线
+const swczDetail = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-swczDetail.vue'))
+        // Indicator.close()
+    },'group-qsh')
+}
 // 咸潮
 const redxc = resolve => {
     // console.log(Indicator);
@@ -399,6 +407,11 @@ const router = new VueRouter({
             path:'/sydDetail/:id',
             name:'sydDetail',
             component:sydDetail
+        },
+        {
+            path:'/swczDetail/:id',
+            name:'swczDetail',
+            component:swczDetail
         }
     ]
 })

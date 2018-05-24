@@ -84,8 +84,7 @@
                         href: '',
                         img: 'wt-bar-i-46 wt-bar-8',
                         title: '大用水户'
-                    },
-                    {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-5', title: '水文测站'}//水功能区监测
+                    }
 
                 ],
                 tablists: [

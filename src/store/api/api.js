@@ -4,7 +4,7 @@
 import * as Url from "../url/url"
 //后台接口地址
 // const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
-const BASE_URL = 'http://localhost:8080'
+const BASE_URL = 'http://localhost:8080/wrmsApp'
 /**
  * @name 取水相关新闻列表
  * @param
@@ -50,10 +50,15 @@ export const SGNQ_CONTENT = BASE_URL + '/app/sgn/querySglXq?access_token=[b36680
  * */
 export const SYD_CHART = BASE_URL + '/app/waterred/getWaterSydChart?access_token=[b36680850768ff1b]';
 /**
- * @name 水功能区列表
+ * @name 水文测站列表
  * @params pjlb pjsj jcnf indicator_num
  * */
 export const SGNQJC_LIST = BASE_URL + '/app/waterred/getWaterRedCzList?access_token=[b36680850768ff1b]';
+/**
+ * @name 水文测站曲线
+ * @params pjlb pjsj jcnf indicator_num
+ * */
+export const SWCZ_CHART = BASE_URL + '/app/waterred/getWaterGnqChart?access_token=[b36680850768ff1b]';
 /**
  * @name 咸潮列表
  * @params pjlb pjsj jcnf indicator_num
