@@ -22,6 +22,7 @@ export const NEWS_CONTENT = BASE_URL + '/app/waternews/getWaterNewsInfo?access_t
  * */
 export const QSH_LIST = BASE_URL + '/app/water/getWaterUser?access_token=[b36680850768ff1b]';
 export const QSH_QSK = BASE_URL + '/app/water/getQskInfo?access_token=[b36680850768ff1b]';
+export const QSH_CONTENT = BASE_URL + '/app/water/getQshxx?access_token=[b36680850768ff1b]';
 /**
  * @name 取水许可证
  * @params
@@ -31,7 +32,7 @@ export const QSH_XKZ = BASE_URL + '/app/watercard/getWaterCard?access_token=[b36
  * @name 按月查询取水量
  * @params year type=query
  * */
-export const QSH_QSL = BASE_URL + '/app/water/getYearSl?access_token=[b36680850768ff1b]';
+export const QSH_QSL = BASE_URL + '/app/water/getSl?access_token=[b36680850768ff1b]';
 
 /**水功能区相关 SGNQ*/
 /**
@@ -75,3 +76,4 @@ export const SYD_LIST = BASE_URL + '/app/waterred/getWaterSydList?access_token=[
  * @params
  * */
 export const DYSH_LIST = BASE_URL + '/app/wateruser/getDysh?access_token=[b36680850768ff1b]';
+export const DYSH_CONTENT = BASE_URL + '/app/wateruser/getJcxx?access_token=[b36680850768ff1b]';

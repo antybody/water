@@ -68,7 +68,7 @@
         data() {
             return {
                 clists: [
-                    {href: '/qsh', img: 'wt-bar-i-46 wt-bar-1', title: '地表取水户'},
+                    {href: '/qsh', img: 'wt-bar-i-46 wt-bar-1', title: '取水户'},
                     {href: '/xkz', img: 'wt-bar-i-46 wt-bar-3', title: '取水许可证'},
                     {href: '/redsyd', img: 'wt-bar-i-46 wt-bar-5', title: '水源地'},
                     {href: '/dysh', img: 'wt-bar-i-46 wt-bar-8', title: '大用水户'},
@@ -79,8 +79,8 @@
 
                 ],
                 tablists: [
-                    {href: 'redwater', cl: 'wt-linear-purple', num: '30', text: '年度取水总量'},
-                    {href: '/cxksl', cl: 'wt-linear-blue', num: '30', text: '超许可取水'},
+                    {href: 'redwater', cl: 'wt-linear-purple', num: '60.34', text: '年度取水总量'},
+                    {href: '/cxksl', cl: 'wt-linear-blue', num: '3', text: '超许可取水'},
                     {href: '/xkz', cl: 'wt-linear-red', num: '30', text: '取水许可超期'},
                     {href: '/sgnq', cl: 'wt-linear-yellow', num: '30%', text: '水功能区达标率'}
                 ],
