@@ -14,7 +14,7 @@
             <list-item  objectClass="wt-header" :title="item.name" v-for="item in listInfo" :href="item.href" :key="item.id">
                <div slot="title"></div>
                <div slot="subTitle" class="wt-subtitle">
-                 <cell>目标水质：<span class="forange">{{item.szmb}}</span> ，达标情况： <span :class="{fred:item.dbqk ==='不达标'}">{{item.dbqk}}</span></cell>
+                 <cell>目标水质：<span class="forange">{{item.szmb}}</span> ，达标情况： <span :class="{fred:item.dbqk ==='不达标'}">{{item.dbzk}}</span></cell>
                  <cell></cell>
                  <cell>供水规模：{{item.gsgm}}万m³，使用状态： <span :class="{fblue:item.state ==='备用'}">{{item.state}}</span></cell>
                  <cell></cell>
