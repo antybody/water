@@ -16,7 +16,7 @@
                <div slot="subTitle" class="wt-subtitle">
                  <cell>目标水质：<span class="forange">{{item.szmb}}</span> ，控制水功能区： <span :class="">{{item.displayname}}</span></cell>
                  <cell></cell>
-                 <cell>控制断面：{{item.seg_nm}}，监测状态： <span :class="{fred:item.state ==='超标'}">{{item.state}}</span></cell>
+                 <cell>控制断面：{{item.seg_nm}}，监测状态： <span :class="{fred:item.dbzk ==='超标'}">{{item.dbzk}}</span></cell>
                  <cell></cell>
                   
                </div>
