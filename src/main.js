@@ -50,6 +50,14 @@ const sjzl2 = resolve => {
         // Indicator.close()
       },'group-check')
 }
+const sjzl3 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-szsl3.vue'))
+        // Indicator.close()
+      },'group-check')
+}
 // 巡检
 // import route from './views/RouteView'
 const route = resolve => {
@@ -296,7 +304,7 @@ const person = () => import('./views/userview/person')
 // 配置相关的路由规则
 // 子页面的规则，第一个都为details / home (这个根据当前子页面属于哪个父下面来决定) / 看是否需要参数
 
-console.log(_beforeEnter);
+// console.log(_beforeEnter);
 const router = new VueRouter({
     mode: 'hash',  //不想看到#号则配置这个 (可以用来解决与html本身锚点冲突的问题)
     routes: [
@@ -325,7 +333,13 @@ const router = new VueRouter({
         { 
             path:'/check/sjzl2',
             name:'sjzl2',
-            component:sjzl1
+            component:sjzl2
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/sjzl3',
+            name:'sjzl3',
+            component:sjzl3
             // meta:{auth:true}
         },
         { 
