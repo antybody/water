@@ -66,7 +66,7 @@
        <group class="group-top-10" noPadded>
            <div style="padding:5px 15px 0">
                 <h5 class="wt-title" style="padding:0.625rem 0 ">
-                    <div class="wt-title-center"><span>监测水量（亿m³）</span></div>
+                    <div class="wt-title-center"><span>监测水量（万m³）</span></div>
                 </h5>
                 <div class="wt-title-line"></div>
                 <div class="classify-tags">
