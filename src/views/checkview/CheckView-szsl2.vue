@@ -26,20 +26,30 @@
          </ul>
       </div>
       <!--柱状图-->
-      <div>
+      <div style="height:350px;">
+        <div style="text-align:center;padding-top:55px">
+          <vue-datepicker-local v-model="time" format="YYYY-MM-DD" ></vue-datepicker-local>
+        </div>
          <div style="top:-20px;left:-20px;width:410px;height:300px" id="myChart"></div>
       </div>
       <div style="border-bottom:2px dotted #e3e3e3">
       </div>
-
       <!--下方详情数据切换-->
+      <div>
+        <div style="height:300px"></div>
+      </div>
+      <!--曲线图-->
       <div>
       </div>
   </vue-view>
 </template>
 
 <script>
+import VueDatepickerLocal from 'vue-datepicker-local'
 export default {
+  components: {
+            VueDatepickerLocal
+  },
   data(){
      return {
        titleItems:[
