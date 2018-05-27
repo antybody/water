@@ -1,14 +1,14 @@
 <!--巡检运维列表标签组件-->
 <template>
     <list style="margin-top:0px">
-        <list-item v-if="!item.progress" v-for="item in lists" :key="item.id" :title="item.title" :href="item.href">
-            <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt="">
+        <list-item v-if="!item.progress" v-for="item in lists" :key="" :title="item.WATUSER_NAME" :href="item.href">
+            <!--<img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt="">-->
             <span slot="subTitle">
-                <span class="list-label label-new">New</span>
-                <span class="list-label label-error">{{item.errorType}}</span>
-                <span class="list-label label-error">{{item.xjType}}</span>
+                <span class="list-label label-new">{{item.ERROR_TIME}}</span>
+                <span class="list-label label-error">{{item.ERROR_NUM}}</span>
+                <span class="list-label label-error">{{item.PATROL_STATE}}</span>
             </span>
-            <i v-if="item.xjType === '未加入巡检计划'" class="icons-e60c" slot="after" @click="addPlan()"></i>
+            <i v-if="item.PATROL_STATE === '未加入巡检计划'" class="icons-e60c" slot="after" @click="addPlan(item)"></i>
         </list-item>
         <!--progress存在则显示带进度条的列表 超许可水量-->
         <list-item v-if="item.progress || item.progress === 'cxksl'" v-for="item in lists" :key="item.id" :title="item.title" :href="item.href">
@@ -21,13 +21,14 @@
             </span>
             <span slot="after">30%</span>
         </list-item>
-        <modal role="confirm" title="提示信息" :isOpen="open2" @Confirm="confirm()" @Close="modalOutFun('open2')">{{alertText}}</modal>
+        <modal role="confirm" title="提示信息" :isOpen="open2" @Confirm="confirm(patrolState)" @Close="modalOutFun('open2')">{{alertText}}</modal>
     </list>
 
 </template>
 
 <script>
     import * as util from '../libs/utils'
+    import * as API from '../store/api/api'
 export default {
     components: {},
     props: ['lists'],
@@ -35,13 +36,15 @@ export default {
       return {
         // id: this.item.id
           open2: false,
+          patrolState: [],
           alertText: ''
       }
     },
     methods: {
-        addPlan(){
-            this.open2 = true,
-            this.alertText = "是否确认加入巡检";
+        addPlan(val){
+            this.patrolState = val;
+            this.open2 = true;
+            this.alertText = "是否确认加入巡检计划";
             return;
         },
         // 隐藏提示框
@@ -53,8 +56,19 @@ export default {
             this[value] = true
         },
         //弹框确认事件
-        confirm(){
-            console.log("确认加入巡检计划");
+        confirm(val){
+            let paramData = {
+                type: 'addPlan',
+                val: val
+            }
+            paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+            this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
+                response => {
+                    console.log(response.data.data);
+                    // this.lists = response.data.data;
+                }, response => {
+                    console.log("error");
+                });
             this.modalOutFun('open2');
         }
     }

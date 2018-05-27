@@ -4,7 +4,7 @@
 import * as Url from "../url/url"
 //后台接口地址
 // const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
-const BASE_URL = 'http://localhost:8080/wrmsApp'
+const BASE_URL = 'http://localhost:8080'
 /**
  * @name 取水相关新闻列表
  * @param
@@ -65,7 +65,7 @@ export const SWCZ_CHART = BASE_URL + '/app/waterred/getWaterGnqChart?access_toke
  * @params pjlb pjsj jcnf indicator_num
  * */
 export const XC_LIST = BASE_URL + '/app/waterred/getWaterXcList?access_token=[b36680850768ff1b]';
- /* @name 水源地列表
+/** @name 水源地列表
  * @params pjlb pjsj jcnf indicator_num
  * */
 export const SYD_LIST = BASE_URL + '/app/waterred/getWaterSydList?access_token=[b36680850768ff1b]';
@@ -77,3 +77,12 @@ export const SYD_LIST = BASE_URL + '/app/waterred/getWaterSydList?access_token=[
  * */
 export const DYSH_LIST = BASE_URL + '/app/wateruser/getDysh?access_token=[b36680850768ff1b]';
 export const DYSH_CONTENT = BASE_URL + '/app/wateruser/getJcxx?access_token=[b36680850768ff1b]';
+
+/**
+ * @name 运维巡检
+ * @params
+ * */
+//预警列表
+export const WARN_LIST = BASE_URL + '/app/route/getWarnList?access_token=[b36680850768ff1b]';
+//巡检计划接口
+export const ROUTE_PLAN = BASE_URL + '/app/route/routePlan?access_token=[b36680850768ff1b]';
