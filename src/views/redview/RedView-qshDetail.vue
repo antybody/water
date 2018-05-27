@@ -7,28 +7,28 @@
        <group noPadded class="group-clear">
            <div style="padding:5px 15px 0">
                 <h5 class="wt-title" style="padding:0.625rem 0 ">
-                        <div class="wt-title-center"><span>{{listInfo.name}}</span></div>
+                        <div class="wt-title-center"><span>{{jcInfo.watuserName}}</span></div>
                 </h5>
                 <div class="wt-title-line"></div>
                 <div class="wt-list-info">
                         <div class="wt-list-line">
                             <label>颁证水量：</label>
                             <p class="g-overflow">
-                                <span class="wt-list-red">{{listInfo.wtnum}}</span>
+                                <span class="wt-list-red">{{qshContent.bzsl}}</span>
                                 万m³
                             </p>
                         </div>
                         <div class="wt-list-line">
                             <label>日&nbsp;&nbsp;水&nbsp;&nbsp;量：</label>
-                            <p class="g-overflow">{{listInfo.pcode}}（本年监测累计 {{listInfo.pcode}}）</p>
+                            <p class="g-overflow">{{qshContent.rsl}}（本年监测累计 {{qshContent.nsl}}）</p>
                         </div>
                         <div class="wt-list-line">
                             <label>取水用途：</label>
-                            <p class="g-overflow">{{listInfo.yt}}</p>
+                            <p class="g-overflow">{{jcInfo.watuserWatapp}}</p>
                         </div>
                         <div class="wt-list-line">
                             <label>单位地址：</label>
-                            <p class="g-overflow">{{listInfo.addr}}                                
+                            <p class="g-overflow">{{jcInfo.watuserAddr}}
                             </p>
                             <i class="icons-ea25 wt-dblue" @click="toMap"></i>
                         </div>
@@ -38,7 +38,11 @@
                 <div class="wt-list-info lpextend" v-show="isShow">
                     <div class="wt-list-line">
                             <label>法人代表：</label>
-                            <p class="g-overflow">{{listInfo.yt}}</p>
+                            <p class="g-overflow">{{jcInfo.watuserLegrep}}</p>
+                    </div>
+                    <div class="wt-list-line">
+                        <label>单位类型：</label>
+                        <p class="g-overflow">{{jcInfo.watuserWorktype}}</p>
                     </div>
                 </div>
            </div>
@@ -50,10 +54,10 @@
            </h5>
            <div class="wt-title-line"></div>
            <ul class="layui-timeline">
-               <li class="layui-timeline-item" v-for="item in listInfo.qsk" :key="item.index">
+               <li class="layui-timeline-item" v-for="item in qskInfo" :key="item.index">
                    <div class="layui-circle"></div>
                    <div  class="layui-timeline-content" >
-                       {{item.qskname}}：{{item.xkz}} <span class="wt-list-reds">{{item.xksl}}</span>立方米
+                       {{item.int_nm}}：<br/>{{item.license_id}} <span class="wt-list-reds">{{item.qsl}}</span>万m³
                     </div>
                 </li>
            </ul>
@@ -62,7 +66,7 @@
        <group class="group-top-10" noPadded>
            <div style="padding:5px 15px 0">
                 <h5 class="wt-title" style="padding:0.625rem 0 ">
-                    <div class="wt-title-center"><span>监测水量</span></div>
+                    <div class="wt-title-center"><span>监测水量（亿m³）</span></div>
                 </h5>
                 <div class="wt-title-line"></div>
                 <div class="classify-tags">
@@ -79,6 +83,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import * as API from '../../store/api/api'
 import Vue from 'vue'
 // import echarts from 'echarts'xl
 export default {
@@ -86,11 +91,51 @@ export default {
         return{
             isSelect:'m',
             isShow:false,
-            listmore:'更多信息'
+            listmore:'更多信息',
+            qskInfo: [],
+            qshContent: [],
+            jcInfo:[],
+            monthSl:[],
+            yearSl:[]
         }
     },
     mounted(){
-        this.loadChart({x:['1月','2月'],y:['333','222'],t:'line'});
+        let watuser_id = this.$route.params.id;
+        let paramData = {
+            watuser_id: watuser_id,
+            wiuTp: '03060001',
+            year: '2018'
+        }
+        paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+        this.$http.jsonp(API.QSH_QSK + "&params=" + paramData).then(
+            response => {
+                this.qskInfo = response.data.data;
+            }, response => {
+                console.log("error");
+            });
+        this.$http.jsonp(API.QSH_CONTENT + "&params=" + paramData).then(
+            response => {
+                console.log(response.data);
+                this.qshContent = response.data;
+                this.jcInfo = response.data.jcxx;
+            }, response => {
+                console.log("error");
+            });
+        //图表数据
+        this.$http.jsonp(API.QSH_QSL + "&params=" + paramData).then(
+            response => {
+                console.log(response.data);
+                this.monthSl = response.data.monthSl;
+                this.yearSl = response.data.yearSl;
+                let xData = [],yData = [];
+                for (let value of this.monthSl) {
+                    xData.push(value.dt);
+                    yData.push(parseFloat(value.day_w));
+                }
+                this.loadChart({x:xData,y:yData,t:'line'});
+            }, response => {
+                console.log("error");
+            });
     },
     computed:{
         ...mapState({
@@ -102,17 +147,38 @@ export default {
             'getListsDetail'
         ]),
         toMap:function(){
-            this.$router.push({name:'smap',params:{list:this.listInfo,t:'qsh'}});
+            console.log(this.jcInfo);
+            let mapList = {
+                addr: this.jcInfo.watuserAddr,
+                lng: this.jcInfo.watuserLon,
+                lat: this.jcInfo.watuserLat,
+                pcode: this.jcInfo.watuserName,
+                qsk: [],
+                wtnum: this.jcInfo.watuserName,
+                yt: this.jcInfo.watuserName
+            }
+            this.$router.push({name:'smap',params:{list: mapList, t:'qsh'}});
         },
         isShowEvent:function(){
             this.isShow = !this.isShow;
         },
         tagChange:function(val){
             this.isSelect = val;
+            let xmData = [],ymData = [],
+                xyData = [],yyData = [];
+            for (let value of this.monthSl) {
+                xmData.push(value.dt);
+                ymData.push(parseFloat(value.day_w));
+            }
+            for (let value of this.yearSl) {
+                xyData.push(value.dt);
+                yyData.push(parseFloat(value.day_w));
+            }
+
             // 切换图表
             switch(val){
-                case 'm':this.loadChart({x:['1月','2月'],y:['333','222'],t:'line'});break;
-                case 'y':this.loadChart({x:['2015','2016','2017'],y:['333','222','22'],t:'bar'});break;
+                case 'm':this.loadChart({x: xmData,y: ymData,t:'line'});break;
+                case 'y':this.loadChart({x: xyData,y: yyData,t:'bar'});break;
             }        
 
         },

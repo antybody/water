@@ -1,10 +1,10 @@
 /**
- * 水源地监测信息
+ * 水文测站
  */
 <template>
   <vue-view>
       <navbar slot="header" class="wt-linear-blue">
-          水源地监测信息
+          水文测站监测信息
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>   
       </navbar>
       <group noPadded class="group-clear">      
@@ -14,7 +14,7 @@
               'transform':'translate3d('+tranX+'px,'+tranY+'px) translateZ(0px)'
              }">
 
-              <li :class="{cur:sydId === site.id}"  v-for="site in sites" @click="selectStation(site.id)"><span>{{site.czname}}</span></li>
+              <li :class="{cur:sydId === site.hdst_num}"  v-for="site in sites" @click="selectStation(site.hdst_num)"><span>{{site.hdst_nm}}</span></li>
               <!--
               <li :class="{cur:sydId === '2'}" @click="selectStation('2')"><span>陈行新头部</span></li>
               <li :class="{cur:sydId === '3'}" @click="selectStation('3')"><span>三角渡</span></li>
@@ -84,9 +84,9 @@ export default {
     data(){
         return{
             sites: [
-                { czname: '青草沙',id:'1' },
-                { czname: 'Google',id:'2' },
-                { czname: 'Taobao',id:'3' }
+                { hdst_nm: '青草沙',hdst_num:'1' },
+                { hdst_nm: 'Google',hdst_num:'2' },
+                { hdst_nm: 'Taobao',hdst_num:'3' }
             ],
             tranDuration:600,
             tranX:0,
@@ -116,7 +116,7 @@ export default {
             mbsz:''
         }
         paramData = encodeURIComponent(JSON.stringify(paramData));
-        this.$http.jsonp(API.SYD_LIST+ "&params=" + paramData).then(
+        this.$http.jsonp(API.SGNQJC_LIST+ "&params=" + paramData).then(
             response => {
                 //循环设置跳转地址 href
                 // for (let value of response.data.data) {
@@ -156,9 +156,19 @@ export default {
             this.phArr= [];
             this.nh3nArr= [];
             this.wtArr= [];
+            this.lastdate='暂无',
+            this.wt=0;
+            this.cond=0;
+            this.turb=0;
+            this.dox=0;
+            this.ph=0;
+            this.codmn=0;
+            this.nh3n=0;
+            this.tp=0;
+            this.tn=0;
             //alert('-----选中了v'+v);
             paramData = encodeURIComponent(JSON.stringify(paramData));
-            this.$http.jsonp(API.SYD_CHART+ "&params=" + paramData).then(
+            this.$http.jsonp(API.SWCZ_CHART+ "&params=" + paramData).then(
                 response => {
                     //循环设置跳转地址 href
                      for (let value of response.data.data) {

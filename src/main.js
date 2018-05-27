@@ -138,6 +138,32 @@ const redsyd = resolve => {
         // Indicator.close()
       },'group-qsh')
 }
+// 水功能区监测
+const redsgnqjc = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-sgnqjc.vue'))
+        // Indicator.close()
+    },'group-qsh')
+}
+//水文测站曲线
+const swczDetail = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-swczDetail.vue'))
+        // Indicator.close()
+    },'group-qsh')
+}
+// 咸潮
+const redxc = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-xc.vue'))
+        // Indicator.close()
+    },'group-qsh')
+}
 const sydDetail = resolve => {
     // Indicator.open();
       require.ensure([], () => {
@@ -193,6 +219,22 @@ const sgnq = resolve => {
         resolve(require('./views/homeview/HomeView-sgnq.vue'))
         // Indicator.close()
       },'group-home')
+}
+
+//大用水户
+const dysh = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-dysh.vue'))
+        // Indicator.close()
+    },'group-home')
+}
+const dyshDetail = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-dyshDetail.vue'))
+        // Indicator.close()
+    },'group-qsh')
 }
 
 //巡检部分
@@ -295,12 +337,24 @@ const router = new VueRouter({
             component:qsh
         },
         {
+            path:'/redxc',
+            component:redxc
+        },
+        {
             path: '/xkz',
             component: xkz
         },
         {
             path: '/cxksl',
             component: cxksl
+        },
+        {
+            path: '/dysh',
+            component: dysh
+        },
+        {
+            path: '/dyshDetail:id',
+            component: dyshDetail
         },
         { 
             path:'/redwater',
@@ -397,10 +451,20 @@ const router = new VueRouter({
             name:'redsyd',
             component:redsyd
         },
+        {
+            path:'/redsgnqjc',
+            name:'redsgnqjc',
+            component:redsgnqjc
+        },
         { 
             path:'/sydDetail/:id',
             name:'sydDetail',
             component:sydDetail
+        },
+        {
+            path:'/swczDetail/:id',
+            name:'swczDetail',
+            component:swczDetail
         }
     ]
 })

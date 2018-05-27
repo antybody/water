@@ -1,21 +1,50 @@
 <template>
     <list style="margin-top:0px">
-        <list-item v-for="item in lists" :key="item.watuserId" :title="item.watuserName" :href="item.href">
+        <!--取水户-->
+        <list-item v-if="routeName == '/qsh'" v-for="item in lists" :key="item.watuserId" :title="item.watuserName" :href="item.href">
             <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
             <span slot="subTitle">
                 <span class="list-label label-orange">{{item.watuserWatapp}}</span>
                 <span class="list-label label-white">{{item.watuserWorktype}}</span>
-                <span class="list-label label-blue">{{item.wiuTp}}</span>
+                <span class="list-label label-blue">{{item.watuserDivname}}</span>
             </span>
         </list-item>
+        <!--大用水户-->
+        <list-item v-if="routeName == '/dysh'" v-for="item in lists" :key="item.id" :title="item.companyname" :href="item.href">
+            <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
+            <span slot="subTitle">
+                <span class="list-label label-orange">{{item.szysjqmc}}</span>
+                <span class="list-label label-white">{{item.yslx}}</span>
+                <span class="list-label label-blue">{{item.jclx}}</span>
+            </span>
+        </list-item>
+        <!--水功能区-->
+        <list-item v-if="routeName == '/redsgnq'" v-for="item in lists" :key="item.wfzNb" :title="item.wfzNm" :href="item.href">
+            <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
+            <span slot="subTitle">
+                <span class="list-label label-orange">{{item.wtType}}</span>
+                <span class="list-label label-white">{{item.belRiv}}</span>
+                <span class="list-label label-blue">{{item.tgWq}}</span>
+            </span>
+        </list-item>
+        <!--咸潮-->
+        <list-item v-if="routeName == '/redxc'" v-for="item in lists" :key="item.stcd" :title="item.name" :href="item.href">
+            <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
+            <span slot="subTitle">
+                <span class="list-label label-orange">{{item.nm_salinity}}</span>
+                <span class="list-label label-blue">{{item.state==''?'超标':'正常'}}</span>
+            </span>
+        </list-item>
+
+        <!--底部操作栏-->
         <list-item v-show='showMore'>
-               <div slot="subTitle" @click="loadMore()" class="wt-desc">
+            <div slot="subTitle" @click="loadMore()" class="wt-desc">
                 <span>{{loadText}}</span>
-               </div>
-                <div slot="desc" class="wt-desc" v-show="back" @click.stop="backTop()">
-                    <span>返回顶部</span>
-                </div>
-        </list-item>                    
+            </div>
+            <div slot="desc" class="wt-desc" v-show="back" @click.stop="backTop()">
+                <span>返回顶部</span>
+            </div>
+        </list-item>
 
     </list>
 </template>
@@ -29,7 +58,8 @@ export default {
          loadText:'点击加载更多~~',
          isLoad:true,
          back:false,
-         target:''
+         target:'',
+         routeName: ''
       }
     },
     mounted(){
@@ -38,7 +68,8 @@ export default {
         this.target = this.$el.parentNode.parentNode.parentElement
         this.target.addEventListener('scroll', this.showIcon,true)
         // 如果超过了，那么修正文字
-       this.judgePage()
+        this.judgePage()
+        this.routeName = this.$route.path
     },
     watch:{
         next(val,old){

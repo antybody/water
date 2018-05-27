@@ -2,7 +2,7 @@
    <!-- <pull-to :bottom-load-method="refresh" :is-top-bounce="topB" @bottom-state-change="stateChange"> -->
    <vue-view>
        <navbar slot="header" class="wt-linear-blue">
-          水功能区
+          咸潮
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>          
         </navbar>
         <group noPadded class="group-clear" ref="viewbox">
@@ -11,13 +11,13 @@
                 <div class="wt-top-search">
                     <div class="h-search" @click="searchBar()">
                         <i class="h-search-ico"></i>
-                        搜索水功能区
+                        搜索咸潮
                     </div>
 
                 </div>
                 <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
             
-                <redlists :showMore="showMore"  :lists="sgnqList" :next="currentPage" :total="dataType" @loadMore="loadMore"></redlists>
+                <redlists :showMore="showMore"  :lists="xcList" :next="currentPage" :total="dataType" @loadMore="loadMore"></redlists>
         </group>
    </vue-view>
    <!-- </pull-to> -->
@@ -41,7 +41,7 @@ export default {
            topB:false,
            currentPage:1,
            showMore:true,
-           sgnqList: [],
+           xcList: [],
            dataType: []
        }
    },
@@ -50,60 +50,56 @@ export default {
        t.addEventListener('scroll', function(){
            console.log("监听了");
        });
-       var paramsData = {};
+       var paramsData = {'name':''};
        paramsData = encodeURIComponent(JSON.stringify(paramsData));
-       this.$http.jsonp(API.SGNQ_LIST + "&params=" + paramsData).then(
+       this.$http.jsonp(API.XC_LIST + "&params=" + paramsData).then(
            response => {
-               for (let value of response.data.data) {
-                   value.href = "/sgnqDetail/" + value.wfzNb;
-                   // console.log(value);
-               }
-               this.sgnqList = response.data.data;
+               this.xcList = response.data.data;
                console.log(response.data.data);
            }, response => {
                console.log("error");
            });
    },
    computed:{
-        ...mapState({
-             loading: state => state.sgnqInfo.loading,
-      //       // listInfo: state => state.sgnqInfo.listInfo,
-             queryMenu: state => state.sgnqInfo.queryMenu
-       })
+       ...mapState({
+            loading: state => state.sgnqInfo.loading,
+            // listInfo: state => state.sgnqInfo.listInfo,
+            queryMenu: state => state.xcInfo.queryMenu
+      })
    },
    methods:{
        searchBar:function(){
         //    this.openSearch = true;
-            this.$router.push({name:'search',params:{text:'请搜索水功能区',t:'sgnq'}});
-            //alert('搜索框点击');
+            this.$router.push({name:'search',params:{text:'请搜索咸潮',t:'sgnq'}});
        },
         ...mapActions([
             'getLists','getQueryMenu'
         ]),
         menuQuery:function(val){
-            var wtType = val.wtType,
-                tgWq = val.tgWq;
+            var kzsyd = val.kzsyd,
+                state = val.state[0];
             // 这里引用 带条件的查询
-            if (val.wtType[0] === "-1" || val.wtType.length === 0) {
-                wtType = '';
+            if (val.kzsyd[0] === "-1" || val.kzsyd.length === 0) {
+                kzsyd = '';
             }
-            if (val.tgWq[0] === "-1" || val.tgWq.length === 0) {
-                tgWq = '';
+            if (val.state[0] === "-1" || val.state.length === 0) {
+                state = '';
             }
             //取水户列表查询所需要的参数
             let params = {
-                wtType: wtType,
-                tgWq: tgWq
+                kzsyd: kzsyd,
+                state: state,
+                name:''
             };
             // params = encodeURIComponent(JSON.stringify(params));
             params = encodeURI(encodeURI(JSON.stringify(params)));
-            this.$http.jsonp(API.SGNQ_LIST + "&params=" + params).then(
+            this.$http.jsonp(API.XC_LIST + "&params=" + params).then(
                 response => {
                     console.log(response.data.data);
-                    this.sgnqList = response.data.data;
+                    this.xcList = response.data.data;
                     //循环设置跳转地址 href
                     for (let value of response.data.data) {
-                        value.href = "/sgnqDetail/" + value.wfzNb;
+                        //value.href = "/sgnqDetail/" + value.wfzNb;
                         // console.log(value);
                     }
                 }, response => {

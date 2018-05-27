@@ -2,7 +2,7 @@
     <!-- <pull-to :bottom-load-method="refresh" :is-top-bounce="topB" @bottom-state-change="stateChange"> -->
     <vue-view>
         <navbar slot="header" class="wt-linear-blue">
-            取水户
+            大用水户
             <icon name="left-nav" slot="left" titleRight="返回" back></icon>
             <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/dbqsh"></icon>
         </navbar>
@@ -12,7 +12,7 @@
             <div class="wt-top-search">
                 <div class="h-search" @click="searchBar()">
                     <i class="h-search-ico"></i>
-                    搜索取水户
+                    搜索大用水户
                 </div>
             </div>
             <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
@@ -50,22 +50,17 @@
             });
             //取水户列表查询所需要的参数
             let params = {
-                type: "query",
-                rowNumStar: "1",
-                rowNumEnd: "11",
-                wiuTp: "地表水",
-                watuserDivname: "",
-                watuserCom: ""
+                xzqh: ''
             };
             // params = encodeURIComponent(JSON.stringify(params));
             params = encodeURI(encodeURI(JSON.stringify(params)));
-            this.$http.jsonp(API.QSH_LIST + "&params=" + params).then(
+            this.$http.jsonp(API.DYSH_LIST + "&params=" + params).then(
                 response => {
                     console.log(response.data.data);
                     this.listInfo = response.data.data;
                     //循环设置跳转地址 href
                     for (let value of response.data.data) {
-                        value.href = "/qshDetail/" + value.watuserId;
+                        value.href = "/dyshDetai/" + value.id;
                         // console.log(value);
                     }
                 }, response => {
@@ -74,57 +69,48 @@
         },
         computed: {
             ...mapState({
-                loading: state => state.qshInfo.loading,
+                loading: state => state.dyshInfo.loading,
                 // listInfo: state => state.qshInfo.listInfo,
-                queryMenu: state => state.qshInfo.queryMenu
+                queryMenu: state => state.dyshInfo.queryMenu
             })
         },
         methods: {
             searchBar: function () {
                 //    this.openSearch = true;
-                this.$router.push({name: 'search', params: {text: '请搜索取水户名称', t: 'dbsqsh'}});
+                this.$router.push({name: 'search', params: {text: '请搜索大用水户名称', t: 'dysh'}});
             },
-            ...mapActions([
-                'getLists', 'getQueryMenu'
-            ]),
             menuQuery: function (val) {
-                var wiuTp = val.qslx[0],
-                    monitorLevel = val.jkjb,
-                    watuserDivname = val.xzqh,
-                    watuserWatapp = val.qsyt;
+                var yslx = val.yslx[0],
+                    xzqh = val.xzqh,
+                    jclx = val.jclx,
+                    szysjqmc = val.szysjqmc;
                 // 这里引用 带条件的查询
-                if (val.qslx[0] === "-1" || val.qslx.length === 0) {
-                    wiuTp = '';
-                }
-                if (val.jkjb[0] === "-1" || val.jkjb.length === 0) {
-                    monitorLevel = '';
-                }
                 if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
-                    watuserDivname = '';
+                    xzqh = '';
                 }
-                if (val.qsyt[0] === "-1" || val.qsyt.length === 0) {
-                    watuserWatapp = '';
+                if (val.jclx[0] === "-1" || val.jclx.length === 0) {
+                    jclx = '';
+                }
+                if (val.szysjqmc[0] === "-1" || val.szysjqmc.length === 0) {
+                    szysjqmc = '';
                 }
                 //取水户列表查询所需要的参数
                 let params = {
                     type: "query",
-                    rowNumStar: "1",
-                    rowNumEnd: "11",
-                    wiuTp: wiuTp,
-                    watuserDivname: watuserDivname,
-                    watuserCom: "",
-                    watuserWatapp: watuserWatapp,
-                    monitorlevel: monitorLevel
+                    yslx: yslx,
+                    xzqh: xzqh,
+                    jclx: jclx,
+                    szysjqmc: szysjqmc
                 };
                 // params = encodeURIComponent(JSON.stringify(params));
                 params = encodeURI(encodeURI(JSON.stringify(params)));
-                this.$http.jsonp(API.QSH_LIST + "&params=" + params).then(
+                this.$http.jsonp(API.DYSH_LIST + "&params=" + params).then(
                     response => {
                         console.log(response.data.data);
                         this.listInfo = response.data.data;
                         //循环设置跳转地址 href
                         for (let value of response.data.data) {
-                            value.href = "/qshDetail/" + value.watuserId;
+                            value.href = "/dyshDetail/" + value.id;
                             // console.log(value);
                         }
                     }, response => {
