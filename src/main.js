@@ -33,6 +33,23 @@ const check = resolve => {
         // Indicator.close()
       },'group-check')
 }
+// 数据质量考核
+const sjzl1 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-szsl1.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const sjzl2 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-szsl2.vue'))
+        // Indicator.close()
+      },'group-check')
+}
 // 巡检
 // import route from './views/RouteView'
 const route = resolve => {
@@ -254,8 +271,20 @@ const router = new VueRouter({
         },
         { 
             path:'/check',
-            component:check,
-            meta:{auth:true}
+            component:check
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/sjzl1',
+            name:'sjzl1',
+            component:sjzl1
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/sjzl2',
+            name:'sjzl2',
+            component:sjzl1
+            // meta:{auth:true}
         },
         { 
             path:'/route',
