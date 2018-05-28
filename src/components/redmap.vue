@@ -29,7 +29,7 @@ export default {
     }
   },
   watch: {
-    
+
   },
   methods: {
     // 实例化地图
@@ -52,16 +52,16 @@ export default {
         });
         let map = new AMap.Map('js-container', mapConfig)
         // 加载地图搜索插件
-        // AMap.service('AMap.PlaceSearch', () => {
-        //   this.placeSearch = new AMap.PlaceSearch({
-        //     pageSize: 5,
-        //     pageIndex: 1,
-        //     citylimit: true,
-        //     city: MapCityName,
-        //     map: map,
-        //     panel: 'js-result'
-        //   })
-        // })
+        AMap.service('AMap.PlaceSearch', () => {
+          this.placeSearch = new AMap.PlaceSearch({
+            pageSize: 5,
+            pageIndex: 1,
+            citylimit: true,
+            city: MapCityName,
+            map: map,
+            panel: 'js-result'
+          })
+        })
         // 启用工具条
         AMap.plugin(['AMap.ToolBar'], function () {
           map.addControl(new AMap.ToolBar({
@@ -101,7 +101,7 @@ export default {
        content.push('</div>');
        return content;
     }
-    
+
   },
   async created () {
     // 已载入高德地图API，则直接初始化地图

@@ -1,26 +1,18 @@
 <template>
-   <vue-view>
-      <!--页面头部区域-->
-      <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
-         巡检运维
-      </navbar>
-      <!--巡检首页面头部方块切换页面-->
-      <tabs v-model="selected">
-         <tabs-item  v-for="tabitem in titleItems" v-bind:key="tabitem.index" slot="tabs" blue hollow class="newbtn">
-            {{tabitem.txt}}
-         </tabs-item>
-      </tabs>
-      <!--下方列表显示区域-->
-      <!--条件筛选区域-->
-      <group noPadded class="group-clear">
-         <!--<div>-->
-            <!--<topquery :items="queryItems">  </topquery>-->
-         <!--</div>-->
-         <routeRedlists :lists="lists"></routeRedlists>
-      </group>
-      <modal role="alert" title="提示信息" :isOpen="open2" @Close="modalOutFun('open2')">{{alertText}}</modal>
+    <vue-view>
+        <!--页面头部区域-->
+        <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
+            巡检运维
+        </navbar>
+        <!--巡检首页面头部方块切换页面-->
+        <card v-for="title in titleItems" :title="title.txt">
+            <p>Card 内容</p>
+            <a slot="footer" href="javascript: void(0)"></a>
+            <a slot="footer" href="javascript: void(0)"></a>
+            <a slot="footer" href="javascript: void(0)" @click="routeLink(title.href)">详情>></a>
+        </card>
 
-   </vue-view>
+    </vue-view>
 </template>
 
 <script>
@@ -29,74 +21,58 @@
     import topquery from '../components/topquery'
     import * as util from '../libs/utils'
     import * as API from '../store/api/api'
-export default {
-    components: {
-        searchbar,topquery,routeRedlists
-    },
-    data(){
-        return {
-            titleItems:[
-                {icon:'home',txt:'报警站点',href:'routeStation'},
-                {icon:'bars',txt:'巡检计划',href:'routePlan'},
-                {icon:'home',txt:'巡检记录',href:'#'},
-                {icon:'bars',txt:'即时反馈',href:'reback'}
-            ],
-            totaldesc:'共计300户，颁证水量15万立方米',
-            queryItems:[
-                {title:'监控级别'},{title:'发证单位'},{title:'颁证水量'},{title:'取水用途'}
-            ],
-            lists:[
-                {title:'上海宝信软件',errorType: '数据中断',  xjType: '未加入巡检计划'}
-                ,{title:'上海嘛哩屋',errorType: '日水量跳大', xjType: '未加入巡检计划'}
-                ,{title:'上海报亭',errorType: '负值', xjType: '未加入巡检计划'}
-                ,{title:'上海报亭',errorType: '数据异常', xjType: '巡检中', href: '#'}
-                ,{title:'上海报亭',errorType: '数据中断', xjType: '未加入巡检计划'}
-                ,{title:'上海报亭',errorType: '数据中断', xjType: '未加入巡检计划'}
-                ,{title:'上海报亭',errorType: '数据中断', xjType: '未加入巡检计划'}
-            ],
-            open2: false,
-            alertText:'',
-            isShow: true
-        }
-    },
-    mounted() {
-        let paramData = {
-            type: 'query'
-        }
-        paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-        this.$http.jsonp(API.WARN_LIST + '&params=' + paramData).then(
-            response => {
-                console.log(response.data.data);
-                this.lists = response.data.data;
-            }, response => {
-                console.log("error");
-            });
-    },
-    methods: {
-        addPlan(){
-            console.log(this);
-        },
-        // 隐藏提示框
-        modalOutFun(value) {
-            this[value] = false
-        },
-        // 显示提示框
-        modalOpFun(value) {
-            this[value] = true
-        }
-    }
+    import TabsDesc from "vue-amazeui/src/components/tabs/tabsDesc";
 
-}
+    export default {
+        components: {
+            TabsDesc,
+            searchbar, topquery, routeRedlists
+        },
+        data() {
+            return {
+                titleItems: [
+                    {icon: 'home', txt: '报警站点', href: '/routeWarn'},
+                    {icon: 'bars', txt: '巡检计划', href: '/routePlan'},
+                    {icon: 'home', txt: '巡检记录', href: '/'},
+                    {icon: 'bars', txt: '即时反馈', href: '/reback'}
+                ],
+                open2: false,
+                alertText: '',
+                isShow: true
+            }
+        },
+        mounted() {
+
+        },
+        methods: {
+            addPlan() {
+                console.log(this);
+            },
+            // 隐藏提示框
+            modalOutFun(value) {
+                this[value] = false
+            },
+            // 显示提示框
+            modalOpFun(value) {
+                this[value] = true
+            },
+            routeLink(val) {
+                console.log(val);
+                this.$router.push({path: val});
+            }
+        }
+
+    }
 </script>
 
 <style>
-   .tabs{
-      margin: 0 0;
-   }
-   .newbtn {
-      border: 0px !important;
-      background-color: #f9f9f9;
-   }
+    .tabs {
+        margin: 0 0;
+    }
+
+    .tab-panel {
+        padding: 0em !important;
+    }
 </style>
 
 

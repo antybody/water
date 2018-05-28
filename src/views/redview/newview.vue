@@ -1,10 +1,8 @@
-/**
-*新闻详情
-*/
 <template>
-    <div>
-        <navbar slot="header" class="wt-linear-blue" style="z-index:1010;">
-            <icon name="left-nav" slot="left" back></icon>
+    <vue-view>
+        <navbar slot="header" class="wt-linear-blue">
+            新闻详情
+            <icon name="left-nav" slot="left" titleRight="返回" back></icon>
         </navbar>
         <div class="primary">
             <h1 class="title">{{newsInfo.title}}</h1>
@@ -23,7 +21,7 @@
         <div class="isom">
             <span>作者：{{newsInfo.author_name}}</span>
         </div>
-    </div>
+    </vue-view>
 </template>
 
 <script>

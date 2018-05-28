@@ -7,9 +7,9 @@
 
         <!--条件筛选区域-->
         <group noPadded class="group-clear">
-            <div>
-                <topquery :items="queryItems">  </topquery>
-            </div>
+            <!--<div>-->
+                <!--<topquery :items="queryItems">  </topquery>-->
+            <!--</div>-->
             <routeRedlists :lists="lists"></routeRedlists>
         </group>
     </vue-view>
@@ -19,6 +19,8 @@
     import searchbar from '../../components/searchbar'
     import routeRedlists from '../../components/route-redlists'
     import topquery from '../../components/topquery'
+    import * as API from '../../store/api/api'
+
     export default {
         components: {
             searchbar,topquery,routeRedlists
@@ -29,17 +31,23 @@
                 queryItems:[
                     {title:'巡检状态'}
                 ],
-                lists:[
-                    {title:'上海宝信软件',errorType: '数据中断', href:'#', xjType: '巡检未完成'}
-                    ,{title:'上海嘛哩屋',errorType: '日水量跳大',href:'#', xjType: '巡检未完成'}
-                    ,{title:'上海报亭',errorType: '负值',href:'#', xjType: '巡检未完成'}
-                    ,{title:'上海报亭',errorType: '数据异常',href:'#', xjType: '巡检未完成'}
-                    ,{title:'上海报亭',errorType: '数据中断',href:'#', xjType: '巡检未完成'}
-                    ,{title:'上海报亭',errorType: '数据中断',href:'#', xjType: '巡检未完成'}
-                    ,{title:'上海报亭',errorType: '数据中断',href:'#', xjType: '巡检未完成'}
-                ]
+                lists:[]
             }
-        }
+        },
+        mounted() {
+            let paramData = {
+                type: 'query'
+            }
+            paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+            this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
+                response => {
+                    this.lists = response.data.data;
+                    console.log(this.lists);
+                    // this.lists.type = 'warn';
+                }, response => {
+                    console.log("error");
+                });
+        },
     }
 </script>
 

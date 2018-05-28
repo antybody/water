@@ -84,9 +84,7 @@ export default {
     data(){
         return{
             sites: [
-                { czname: '青草沙',id:'1' },
-                { czname: 'Google',id:'2' },
-                { czname: 'Taobao',id:'3' }
+                { czname: '青草沙',id:'1' }
             ],
             tranDuration:600,
             tranX:0,

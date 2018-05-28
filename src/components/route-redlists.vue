@@ -1,7 +1,7 @@
 <!--巡检运维列表标签组件-->
 <template>
     <list style="margin-top:0px">
-        <list-item v-if="!item.progress" v-for="item in lists" :key="" :title="item.WATUSER_NAME" :href="item.href">
+        <list-item v-if="routeName==='/routeWarn'" v-for="item in lists" :key="" :title="item.WATUSER_NAME" :href="item.href">
             <!--<img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt="">-->
             <span slot="subTitle">
                 <span class="list-label label-new">{{item.ERROR_TIME}}</span>
@@ -10,17 +10,16 @@
             </span>
             <i v-if="item.PATROL_STATE === '未加入巡检计划'" class="icons-e60c" slot="after" @click="addPlan(item)"></i>
         </list-item>
-        <!--progress存在则显示带进度条的列表 超许可水量-->
-        <list-item v-if="item.progress || item.progress === 'cxksl'" v-for="item in lists" :key="item.id" :title="item.title" :href="item.href">
-            <img slot="img" src="http://lorempixel.com/160/160/people/" width="58" alt="">
+        <list-item v-if="routeName==='/routePlan'" v-for="item in lists" :key="item.ID" :title="item.PATROL_TITLE" :href="item.href">
+            <!--<img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt="">-->
             <span slot="subTitle">
-                <cell><small>取水量</small><span class="progress" :style="{width: item.width1, background: item.color}"></span></cell>
-                <cell><small>许可量</small><span class="progress" :style="{width: item.width2, background: item.color}"></span></cell>
-                <!--<span class="list-label label-error">{{item.errorType}}</span>-->
-                <!--<span class="list-label label-error">{{item.xjType}}</span>-->
+                <span class="list-label label-new">{{item.PATROL_TIME}}</span>
+                <span class="list-label label-error">{{item.PATROL_ADDRESS}}</span>
+                <span class="list-label label-error">{{item.PATROL_STATE}}</span>
             </span>
-            <span slot="after">30%</span>
+            <i v-if="item.PATROL_STATE === '未加入巡检计划'" class="icons-e60c" slot="after" @click="addPlan(item)"></i>
         </list-item>
+
         <modal role="confirm" title="提示信息" :isOpen="open2" @Confirm="confirm(patrolState)" @Close="modalOutFun('open2')">{{alertText}}</modal>
     </list>
 
@@ -37,8 +36,11 @@ export default {
         // id: this.item.id
           open2: false,
           patrolState: [],
-          alertText: ''
+          alertText: '',
+          routeName: ''
       }
+    },mounted(){
+        this.routeName = this.$route.path;
     },
     methods: {
         addPlan(val){

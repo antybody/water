@@ -238,7 +238,14 @@ const dyshDetail = resolve => {
 }
 
 //巡检部分
-// import routeStation from './views/routeview/RouteView-station'
+// import routeWarn from './views/routeview/RouteView-warn'
+const routeWarn = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-warn.vue'))
+        // Indicator.close()
+    },'group-route')
+}
 const routeStation = resolve => {
     // Indicator.open();
       require.ensure([], () => {
@@ -395,6 +402,10 @@ const router = new VueRouter({
         {
             path: '/routePlan',
             component: routePlan
+        },
+        {
+            path: '/routeWarn',
+            component: routeWarn
         },
         { 
             path:'/smap',
