@@ -75,7 +75,7 @@ export default {
         })
         // 创建地图上的点
         for(var i=0;i< this.points.length;i++){
-           console.log(this.points[i]);
+           console.log(this.points);
            let marker = new AMap.Marker({
                 position: [this.points[i].lng,this.points[i].lat],
                 title: this.points.name,

@@ -26,7 +26,7 @@
             <icon name="list" href="/qsh"></icon>
         </div>
         <redmap :points="mapPoints" :type="urlParam"></redmap>
-        <div v-show="isActive != -1" class="modal-backdrop" @click="offcanvasClose" @touchmove.stop></div>
+        <!--<div v-show="isActive != -1" class="modal-backdrop" @click="offcanvasClose" @touchmove.stop></div>-->
         <loader v-show="loading" class="modal-loading" orange rounded></loader>
     </vue-view>
 </template>
@@ -40,19 +40,10 @@
     export default {
         data() {
             return {
-                // mapPoints:[{lng:121.372882,lat:31.176523,name:'上海宝信',desc:'地址：11111,监测水量：34343'},
-                // {lng:121.604799,lat:31.217459,name:'上海宝信',desc:'地址：11111,监测水量：34343'},
-                // {lng:121.403122,lat:31.317181,name:'上海宝信',desc:'地址：11111,监测水量：34343'}],
                 mapPoints: [],
                 isActive: -1,
-                kt: 0,//参数
-
-                // mapQuery:[
-                //     {cl:'filter-nav-item',title:'类别'},
-                //     {cl:'filter-nav-item',title:'状态'},
-                //     {cl:'filter-nav-query',title:'图例'},
-                //     {cl:'filter-nav-item',title:'搜索'}
-                // ]
+                kt: 0
+                // ,mapQuery: []
             }
         },
         components: {
@@ -74,6 +65,7 @@
                 queryDetail: state => state.redmap.mapQueryDetails
             }),
             urlParam: function () {
+                console.log(this.$route.params.kt);
                 return this.$route.params.kt
             },
             // 这里捕捉查询条件
@@ -97,8 +89,41 @@
             Vue.set(this.$store.state.redmap, "loading", false);
             this.$nextTick(function () {
                 this.kt = this.$route.params.kt;
+                console.log(this.kt);
                 switch (this.kt) {
                     case 'dbqsh':
+                        let paramDataQsh = {
+                            type: "query",
+                            wiuTp: '',
+                            monitorlevel: ['00430001'],
+                            currentPage: '200'
+                        };
+                        paramDataQsh = encodeURIComponent(JSON.stringify(paramDataQsh));
+                        this.$http.jsonp(API.QSH_LIST + "&params=" + paramDataQsh).then(
+                            response => {
+                                var qshArr = [];
+                                this.mapPoints = [{
+                                    lng: 121.372882,
+                                    lat: 31.176523,
+                                    name: '水源地2',
+                                    desc: '地址：11111,监测水量：34343'
+                                }];
+                                for (var i = 0; i < response.data.data.length; i++) {
+                                    if(response.data.data[i].watuserLon != '') {
+                                        qshArr.push(
+                                            {
+                                                lng: response.data.data[i].watuserLon,
+                                                lat: response.data.data[i].watuserLat,
+                                                name: response.data.data[i].watuserName,
+                                                desc: response.data.data[i].watuserAddr,
+                                            }
+                                        )
+                                    }
+                                }
+                                this.mapPoints = qshArr;
+                            }, response => {
+                                console.log("error");
+                            });
 
                         return '地表水取水';
                         break;
@@ -107,14 +132,13 @@
                         return '用水户';
                         break;
                     case 'syd':
-                        let paramData = {
+                        let paramDataSyd = {
                             stlx: '',
                             mbsz: '',
                             type: '0'//需要评价
                         }
-                        paramData = encodeURIComponent(JSON.stringify(paramData));
-                        console.log(this.urlParam);
-                        this.$http.jsonp(API.SYD_LIST + "&params=" + paramData).then(
+                        paramDataSyd = encodeURIComponent(JSON.stringify(paramDataSyd));
+                        this.$http.jsonp(API.SYD_LIST + "&params=" + paramDataSyd).then(
                             response => {
                                 //this.mapPoints=[{lng:121.372882,lat:31.176523,name:'水源地2',desc:'地址：11111,监测水量：34343'}];
                                 this.mapPoints = response.data.data;
@@ -127,13 +151,13 @@
                         return '水源地';
                         break;
                     case 'swcz':
-                        let paramData = {
+                        let paramDataSwcz = {
                             stlx: '',  //页面路径 用于注册接口
                             mbsz: '',
                             type: ''
                         }
-                        paramData = encodeURIComponent(JSON.stringify(paramData));
-                        this.$http.jsonp(API.SGNQJC_LIST + "&params=" + paramData).then(
+                        paramDataSwcz = encodeURIComponent(JSON.stringify(paramDataSwcz));
+                        this.$http.jsonp(API.SGNQJC_LIST + "&params=" + paramDataSwcz).then(
                             response => {
                                 this.mapPoints = response.data.data;
                             }, response => {
@@ -142,14 +166,14 @@
                         return '水文测站';
                         break;
                     case 'xc':
-                        let params = {
+                        let paramsXc = {
                             kzsyd: '',
                             state: '',
                             name: '',
                             type: ''
                         };
-                        params = encodeURI(encodeURI(JSON.stringify(params)));
-                        this.$http.jsonp(API.XC_LIST + "&params=" + params).then(
+                        paramsXc = encodeURI(encodeURI(JSON.stringify(paramsXc)));
+                        this.$http.jsonp(API.XC_LIST + "&params=" + paramsXc).then(
                             response => {
                                 this.mapPoints = response.data.data;
                             }, response => {
@@ -222,89 +246,6 @@
                 } else if (skey === "clear") {
 
                 }
-            }
-            ,
-            filters: {
-                calMapQ: function (val, pm) {
-                    if (val == '类别') {
-                        switch (pm) {
-                            case 'dbqsh':
-                                return '地表水取水';
-                                break;
-                            case 'ysh':
-                                return '用水户';
-                                break;
-                            case 'syd':
-                                return '水源地';
-                                break;
-                            case 'sgnq':
-                                return '水功能区';
-                                break;
-                        }
-                    } else {
-                        return val;
-                    }
-                }
-            }
-            ,
-            methods: {
-                itemClick(index, item) {
-                    // 获取展开信息
-                    if (item.key != 'clear') {
-                        this.isActive = index;
-                        this.$store.dispatch({
-                            type: 'getQueryDetail',
-                            id: index,
-                            root: item
-                        })
-                    } else {
-                        this.resetClear();
-                    }
-                }
-                ,
-                itemQuery(item) {
-                    const skey = this.$store.state.redmap.mapQueryRoot.key;
-                    // 单独处理的两个情况 图例 和 重置
-                    if (skey === "tl") {
-
-                    } else if (skey === "clear") {
-
-                    } else {
-                        // 其他情况
-                        Vue.set(this.$store.state.redmap.mapQueryRoot, "title", item.name);
-                        Vue.set(this.$store.state.redmap.mapQueryRoot, "select", item.key);
-                    }
-                    console.log(item.key);
-                    this.offcanvasClose();
-                    console.log("关闭");
-                }
-                ,
-                offcanvasClose() {
-                    this.isActive = -1
-                }
-                ,
-                resetClear() { // 重置其他信息
-                    this.$store.state.redmap.mapQuery.forEach(function (val) {
-                        if (val.key != "lb") {
-                            Vue.set(val, "title", val.o);
-                            Vue.set(val, "select", '');
-                        }
-                    })
-                }
-                ,
-                ...
-                    mapActions([
-                        'getMapPoints'
-                    ]),
-                getMapByParams(val) {
-                    this.$store.dispatch({type: 'getMapPointsByParams', param: val})
-                        .then(res => {
-                            if (res.status === 200) {
-                                console.log('获取数据');
-                            }
-                        });
-                }
-
             }
         }
     }
