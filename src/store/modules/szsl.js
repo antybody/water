@@ -34,7 +34,45 @@ const state = {
     ],
     nowDate:'',
     sjListUp:[],
-    sjListDown:[]
+    sjListDown:[],
+    qsList:[
+        {txt:'取水户数',value:'20',dw:''},
+        {txt:'许可总量',value:'20',dw:'亿m³'},
+        {txt:'取水总量',value:'30',dw:'亿m³'},
+        {txt:'取水许可比',value:'30',dw:''}
+    ],
+    clList:[
+        {txt:'超量户数',value:'20',dw:''},
+        {txt:'超标水量',value:'20',dw:'亿m³'},
+        {txt:'超标比率',value:'30',dw:''}
+    ],
+    xkzList:[
+        {txt:'证总数',value:'20',dw:''},
+        {txt:'失效证数',value:'20',dw:''},
+        {txt:'失效比率',value:'30',dw:''}
+    ],
+    dysList:[
+        {txt:'用水户数',value:'20',dw:''},
+        {txt:'用水计划',value:'20',dw:''},
+        {txt:'用水总量',value:'30',dw:''},
+        {txt:'计划比率',value:'30',dw:''}
+    ],
+    sydList:[
+        {txt:'水源地',value:'20',dw:''},
+        {txt:'监测数量',value:'20',dw:''},
+        {txt:'超标数量',value:'30',dw:''},
+        {txt:'超标比率',value:'30',dw:''},
+        {txt:'超标项数',value:'30',dw:''},
+        {txt:'超标测站',value:'0',dw:''}
+    ],
+    sgnqList:[
+        {txt:'水功能区',value:'20',dw:''},
+        {txt:'监测数量',value:'20',dw:''},
+        {txt:'超标数量',value:'30',dw:''},
+        {txt:'超标比率',value:'30',dw:''},
+        {txt:'超标项数',value:'30',dw:''},
+        {txt:'超标水源地',value:'0',dw:''}
+    ]
 }
 
 const mutations = {
@@ -51,6 +89,13 @@ const mutations = {
     getYwLists (state,payload) { // 运维考核的 - 整体
         state.ywList = payload.res[0];
         state.zdList = payload.res[1];
+    },
+    getJgLists (state,payload) {
+        // 结果处理
+        state.qsList = payload.res[0];
+        state.clList = payload.res[1];
+        state.xkzList = payload.res[2];
+        state.dysList = payload.res[3];
     },
     getTime (state,payload) {
         var date = new Date();
@@ -104,6 +149,18 @@ const actions = {
         .then(res => {
             commit({
                 type: 'getSjLists',
+                res: res.body.results   
+            })
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        })
+    },
+    getJgLists({commit},payload){
+        Vue.http.jsonp('/api/map',{param:payload.param})
+        .then(res => {
+            commit({
+                type: 'getJgLists',
                 res: res.body.results   
             })
         }).catch(err => {

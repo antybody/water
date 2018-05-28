@@ -1,36 +1,37 @@
 /**
-  运维维护考核-整体页面
+  业务监管考核-取用水
  */
 <template>
   <vue-view class="container">
     <!--页面头部区域-->
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
-         运维维护考核
+         业务监管考核
          <icon name="left-nav" slot="left" titleRight="返回" @iconClick="reback"></icon>
       </navbar>
       <!--首页面头部方块切换页面，有问题 这里要插入 子页面了，路径配置不应该这样写-->
       <div class="wtabs-list">
         <ul class="wtabs">
-          <li class="ac"><router-link to="ywkh1">今日情况</router-link></li>
-          <li><router-link to="ywkh2">取用水运维</router-link></li>
-          <li><router-link to="ywkh3">水质监测运维</router-link></li>
+          <li class="ac"><router-link to="jgkh1">取用水监管</router-link></li>
+          <li><router-link to="jgkh2">水质评价监管</router-link></li>
         </ul>
       </div>
-      <!--今日情况说明-->
-      <div style="text-align:center">
-          <h3 style="padding-top:10px;font-size:0.9125rem;color:#666">本日无巡检任务</h3>
+      <!--日期选择-->
+      <div class="wttabs-second">
+         <ul>
+            <li><span :class="isClick4 == 1 ? 'wtac':''" @click="changeEvent('ml',1)">本日</span></li>
+            <li><span :class="isClick4 == 2 ? 'wtac':''" @click="changeEvent('ml',2)">本月</span></li>
+            <li><span :class="isClick4 == 3 ? 'wtac':''" @click="changeEvent('ml',3)">本年</span></li>
+         </ul>
+         <div class="clearfixed"></div>
       </div>
-      <grid>
-           <cell cells="6" style="border-bottom:1px dotted #4444"></cell>
-      </grid>
       <!--环形图-->
-      <group header="站点巡检" :footer="nowTime">
+      <group header="取水量/许可量" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="zdxj" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="qs" :style="{width:'200px',height:'150px'}"></div>
             </cell>
             <cell cells="7">
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in zdList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
+                <li :key="item.id" v-for="item in qsList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -38,13 +39,13 @@
       <grid>
            <cell cells="6" style="border-bottom:1px solid #4444"></cell>
       </grid>
-      <group header="运维任务" :footer="nowTime">
+      <group header="超量取水" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="ywrw" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="cl" :style="{width:'200px',height:'150px'}"></div>
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in ywList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
+                <li :key="item.id" v-for="item in clList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -52,10 +53,31 @@
       <grid>
            <cell cells="6" style="border-bottom:1px solid #4444"></cell>
       </grid>
-      <!--曲线图-->
-      <div>
-
-      </div>
+      <group header="许可证逾期" :footer="nowTime">
+        <grid>
+            <cell cells="3"><div class="pies" id="xkz" :style="{width:'200px',height:'150px'}"></div>
+            </cell>
+            <cell>
+              <ul class="pieHead">
+                <li :key="item.id" v-for="item in xkzList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+              </ul>
+            </cell>
+        </grid>
+      </group>
+     <grid>
+           <cell cells="6" style="border-bottom:1px solid #4444"></cell>
+      </grid>
+     <group header="大用水户用水" :footer="nowTime">
+        <grid>
+            <cell cells="3"><div class="pies" id="dys" :style="{width:'200px',height:'150px'}"></div>
+            </cell>
+            <cell>
+              <ul class="pieHead">
+                <li :key="item.id" v-for="item in dysList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+              </ul>
+            </cell>
+        </grid>
+      </group>
   </vue-view>
 </template>
 
@@ -64,13 +86,15 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data(){
      return {
-      
+        isClick4:1
      }
   },
   computed:{
       ...mapState({
-          zdList: state => state.sjzl.zdList,
-          ywList: state => state.sjzl.ywList,
+          qsList: state => state.sjzl.qsList,
+          clList: state => state.sjzl.clList,
+          xkzList: state => state.sjzl.xkzList,
+          dysList: state => state.sjzl.dysList,
           nowTime: state => state.sjzl.nowDate
     })
    },
@@ -82,19 +106,28 @@ export default {
     ...mapActions([
         'getTime','getLists'
      ]),
+    changeEvent:function(tag,index){
+        if(tag == 'ml') // 目录
+          this.isClick4 = index;
+    },
     reback:function(e){
        this.$router.push({path:'/check'});
     },
      loadChart:function(val){
        // 这里先调用下 getLists 方法
 
-        let zdyx_myChart = echarts.init(document.getElementById("zdxj"));
-        let ywrw_myChart = echarts.init(document.getElementById("ywrw"));
-        let zdyx = this.initChart("站点巡检","20","50","#de4751");
-        let ywrw = this.initChart("运维任务","20","50","#62ab00");
-        zdyx_myChart.setOption(zdyx);
-        ywrw_myChart.setOption(ywrw);
-
+        let qs_myChart = echarts.init(document.getElementById("qs"));
+        let cl_myChart = echarts.init(document.getElementById("cl"));
+        let xkz_myChart = echarts.init(document.getElementById("xkz"));
+        let dys_myChart = echarts.init(document.getElementById("dys"));
+        let qs = this.initChart("取水/许可","20","50","#de4751");
+        let cl = this.initChart("超量取水","20","50","#62ab00");
+        let xkz = this.initChart("许可逾期","20","50","#0a9fde");
+        let dys = this.initChart("大用水","20","50","#FFBB00");
+        qs_myChart.setOption(qs);
+        cl_myChart.setOption(cl);
+        xkz_myChart.setOption(xkz);
+        dys_myChart.setOption(dys);
      },
      initChart:function(t,x1,x2,c){
 
@@ -219,5 +252,36 @@ export default {
   .pieHead{
     color:#6d6d72;
     padding-top:20px;
+  }
+  .wttabs-second{
+    color:#666;
+    clear:both;
+  }
+  .wttabs-second ul{
+    margin:0;padding:0;
+  }
+  .wttabs-second li{
+    float:left;
+    width:25%;
+    margin-top:10px;
+  }
+  .wttabs-second li span{
+    display:block;
+    background:#f6f6f6;
+    line-height:30px;
+    padding:0 5px;
+    margin:0 8px;
+    text-align:center;
+    overflow:hidden;
+    border-radius:5px;
+    text-overflow:ellipsis;
+    font-size:0.8125rem;
+  }
+  .wtac{
+    color:#fff;
+    background:#11b9e8 !important;
+  }
+  .clearfixed{
+      clear:both;
   }
 </style>
