@@ -33,9 +33,9 @@ const state = {
 
         {
             title: '取水类型', ol: '取水类型', select: '', key: 'qslx', type: 'radio', children: [
-                {title: '地表水', key: '地表水', checked: true},
-                {title: '地下水', key: '地下水', checked: false},
-                {title: '既是地表水又是地下水', key: '既是地表水又是地下水', checked: false}
+                {title: '地表水', key: '03060001', checked: true},
+                {title: '地下水', key: '03060002', checked: false},
+                {title: '既是地表水又是地下水', key: '03060003', checked: false}
                 ]
         },{
         title: '监控级别', ol: '监控级别', select: '', key: 'jkjb', type: 'checkbox', children: [

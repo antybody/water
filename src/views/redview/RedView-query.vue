@@ -39,8 +39,14 @@
                 openSearch: false,
                 topB: false,
                 listInfo: [],
-                currentPage: 1,
-                showMore: true
+                currentPage: 10,
+                showMore: true,
+                selectVal: {
+                    jkjb: '',
+                    qslx: '',
+                    qsyt: '',
+                    xzqh: ''
+                }
             }
         },
         mounted() {
@@ -48,14 +54,16 @@
             t.addEventListener('scroll', function () {
                 console.log("监听了");
             });
+            console.log(this.currentPage);
             //取水户列表查询所需要的参数
             let params = {
                 type: "query",
                 rowNumStar: "1",
                 rowNumEnd: "11",
-                wiuTp: "地表水",
+                wiuTp: "03060001",
                 watuserDivname: "",
-                watuserCom: ""
+                watuserCom: "",
+                currentPage: this.currentPage
             };
             // params = encodeURIComponent(JSON.stringify(params));
             params = encodeURI(encodeURI(JSON.stringify(params)));
@@ -88,6 +96,8 @@
                 'getLists', 'getQueryMenu'
             ]),
             menuQuery: function (val) {
+                this.currentPage = 10;
+                this.selectVal = val;
                 var wiuTp = val.qslx[0],
                     monitorLevel = val.jkjb,
                     watuserDivname = val.xzqh,
@@ -108,13 +118,12 @@
                 //取水户列表查询所需要的参数
                 let params = {
                     type: "query",
-                    rowNumStar: "1",
-                    rowNumEnd: "11",
                     wiuTp: wiuTp,
                     watuserDivname: watuserDivname,
                     watuserCom: "",
                     watuserWatapp: watuserWatapp,
-                    monitorlevel: monitorLevel
+                    monitorlevel: monitorLevel,
+                    currentPage: this.currentPage
                 };
                 // params = encodeURIComponent(JSON.stringify(params));
                 params = encodeURI(encodeURI(JSON.stringify(params)));
@@ -132,8 +141,51 @@
                     });
             },
             loadMore() {
-                this.currentPage += 1;
+                this.currentPage += 10;
+                console.log(this.currentPage);
                 console.log('下一页');
+                let val = this.selectVal;
+                var wiuTp = val.qslx[0],
+                    monitorLevel = val.jkjb,
+                    watuserDivname = val.xzqh,
+                    watuserWatapp = val.qsyt;
+                // 这里引用 带条件的查询
+                if (val.qslx[0] === "-1" || val.qslx.length === 0) {
+                    wiuTp = '';
+                }
+                if (val.jkjb[0] === "-1" || val.jkjb.length === 0) {
+                    monitorLevel = '';
+                }
+                if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
+                    watuserDivname = '';
+                }
+                if (val.qsyt[0] === "-1" || val.qsyt.length === 0) {
+                    watuserWatapp = '';
+                }
+                //取水户列表查询所需要的参数
+                let params = {
+                    type: "query",
+                    wiuTp: wiuTp,
+                    watuserDivname: watuserDivname,
+                    watuserCom: "",
+                    watuserWatapp: watuserWatapp,
+                    monitorlevel: monitorLevel,
+                    currentPage: this.currentPage
+                };
+                // params = encodeURIComponent(JSON.stringify(params));
+                params = encodeURI(encodeURI(JSON.stringify(params)));
+                this.$http.jsonp(API.QSH_LIST + "&params=" + params).then(
+                    response => {
+                        console.log(response.data.data);
+                        this.listInfo = response.data.data;
+                        //循环设置跳转地址 href
+                        for (let value of response.data.data) {
+                            value.href = "/qshDetail/" + value.watuserId;
+                            // console.log(value);
+                        }
+                    }, response => {
+                        console.log("error");
+                    });
             }
         }
     }

@@ -13,9 +13,9 @@
       <!--下方列表显示区域-->
       <!--条件筛选区域-->
       <group noPadded class="group-clear">
-         <div>
-            <topquery :items="queryItems">  </topquery>
-         </div>
+         <!--<div>-->
+            <!--<topquery :items="queryItems">  </topquery>-->
+         <!--</div>-->
          <routeRedlists :lists="lists"></routeRedlists>
       </group>
       <modal role="alert" title="提示信息" :isOpen="open2" @Close="modalOutFun('open2')">{{alertText}}</modal>
@@ -28,6 +28,7 @@
     import routeRedlists from '../components/route-redlists'
     import topquery from '../components/topquery'
     import * as util from '../libs/utils'
+    import * as API from '../store/api/api'
 export default {
     components: {
         searchbar,topquery,routeRedlists
@@ -57,6 +58,19 @@ export default {
             alertText:'',
             isShow: true
         }
+    },
+    mounted() {
+        let paramData = {
+            type: 'query'
+        }
+        paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+        this.$http.jsonp(API.WARN_LIST + '&params=' + paramData).then(
+            response => {
+                console.log(response.data.data);
+                this.lists = response.data.data;
+            }, response => {
+                console.log("error");
+            });
     },
     methods: {
         addPlan(){

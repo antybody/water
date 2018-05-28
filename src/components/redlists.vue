@@ -10,9 +10,9 @@
             </span>
         </list-item>
         <!--取水户-->
-        <list-item v-if="routeName == '/qsh'" v-for="item in lists" :key="item.watuserId" :title="item.watuserName" :href="item.href">
-            <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
-            <span slot="subTitle">
+        <list-item v-if="routeName == '/qsh'" v-for="item in lists" :key="item.watuserId" :title="item.rn + '.' +item.watuserName" :href="item.href">
+             <!--<img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt="">-->
+             <span slot="subTitle">
                 <span class="list-label label-orange">{{item.watuserWatapp}}</span>
                 <span class="list-label label-white">{{item.watuserWorktype}}</span>
                 <span class="list-label label-blue">{{item.watuserDivname}}</span>
