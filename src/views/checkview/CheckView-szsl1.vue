@@ -6,7 +6,7 @@
     <!--页面头部区域-->
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
          数据质量考核
-         <icon name="left-nav" slot="left" titleRight="返回" back></icon>
+         <icon name="left-nav" slot="left" titleRight="返回" @iconClick="reback"></icon>
       </navbar>
       <!--首页面头部方块切换页面，有问题 这里要插入 子页面了，路径配置不应该这样写-->
       <div class="wtabs-list">
@@ -87,6 +87,9 @@ export default {
     ...mapActions([
         'getTime','getLists'
      ]),
+    reback:function(e){
+       this.$router.push({path:'/check'});
+    },
      loadChart:function(val){
        // 这里先调用下 getLists 方法
 

@@ -21,10 +21,17 @@ const state = {
         {txt:'正常站点',value:'20'},
         {txt:'站点总数',value:'30'}
     ],
-    nowDate:''
+    nowDate:'',
+    sjListUp:[],
+    sjListDown:[]
 }
 
 const mutations = {
+    getSjLists (state,payload) {
+        // 结果处理
+        state.sjListUp = payload.res[0];
+        state.sjListDown = payload.res[1];
+    },
     getLists (state, payload) {
         state.qshList = payload.res[0];
         state.sydList = payload.res[1];
@@ -56,7 +63,7 @@ const actions = {
                 .then(res => {
                     commit({
                         type: 'getLists',
-                        res: res.body.results
+                        res: res.body.results   
                     })
                 resolve(res);
             }).catch(err => {
@@ -65,6 +72,18 @@ const actions = {
             })
        })
     },
+    getSjLists({commit},payload){
+        Vue.http.jsonp('/api/map',{param:payload.param})
+        .then(res => {
+            commit({
+                type: 'getSjLists',
+                res: res.body.results   
+            })
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        })
+    }
 }
 
 export default {
