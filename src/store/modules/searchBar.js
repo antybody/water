@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import * as API from '../../store/api/api'
 // import  * as api from '../api/api'
 /**
  *  搜索框的几点说明：
@@ -33,7 +34,7 @@ const actions ={
             state.searchUrl = '123';
             break;
             case 'sgnq':
-            commit({
+                commit({
                 type: 'getDefalutLists',
                 res: [{title:'吴淞江',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'},
                 {title:'吴淞江',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'}]
@@ -43,12 +44,42 @@ const actions ={
         }
     },
     getListByParams({commit},payload){
+        var paramsData={};
+        switch(payload.param.split('&&')[0]){
+            case 'sgnq':
+                this.searchUrl=API.SGNQ_LIST;
+                paramsData={'wfzNm':payload.param.split('&&')[1]};
+                break;
+            case 'xc':
+                this.searchUrl=API.XC_LIST;
+                paramsData={kzsyd: '',
+                            state: '',
+                            name:payload.param.split('&&')[1]}
+                break;
+        }
+        paramsData = encodeURI(encodeURI(JSON.stringify(paramsData)));
         return new Promise((resolve,reject) =>{
-        Vue.http.get(state.searchUrl,{param:payload.val})
+
+        Vue.http.get(this.searchUrl+ "&params=" + paramsData,{params:payload.param})
             .then(res => {
+                var resu=[];
+                switch(payload.param.split('&&')[0]){
+                    case 'sgnq':
+                        for (let value of res.body.data) {
+                            resu.push({title:value.wfzNm,href:"/sgnqDetail/" + value.wfzNb,key:value.wfzNb,tag1:value.wtType,tag2:value.belRiv,tag3:value.tgWq});
+                        }
+                        break;
+                    case 'xc':
+                        for (let value of res.body.data) {
+                            resu.push({title:value.name,href:"",key:value.stcd,tag1:value.nm_salinity,tag2:value.state,tag3:value.tgWq});
+                        }
+                        break;
+                }
+
                 commit({
                     type: 'getListByParams',
-                    res: res.body.results
+                    //res: res.body.results,
+                    res:resu
                 })
             resolve(res);
         }).catch(err => {

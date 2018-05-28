@@ -34,14 +34,17 @@
 import { mapState, mapActions } from 'vuex'
 import redmap from '../../components/redmap'
 import Vue from 'vue'
-
+import * as API from '../../store/api/api'
 export default {
     data(){
         return{
-            mapPoints:[{lng:121.372882,lat:31.176523,name:'上海宝信',desc:'地址：11111,监测水量：34343'},
-            {lng:121.604799,lat:31.217459,name:'上海宝信',desc:'地址：11111,监测水量：34343'},
-            {lng:121.403122,lat:31.317181,name:'上海宝信',desc:'地址：11111,监测水量：34343'}],
-            isActive:-1
+            // mapPoints:[{lng:121.372882,lat:31.176523,name:'上海宝信',desc:'地址：11111,监测水量：34343'},
+            // {lng:121.604799,lat:31.217459,name:'上海宝信',desc:'地址：11111,监测水量：34343'},
+            // {lng:121.403122,lat:31.317181,name:'上海宝信',desc:'地址：11111,监测水量：34343'}],
+            mapPoints:[],
+            isActive:-1,
+            kt:0,//参数
+
             // mapQuery:[
             //     {cl:'filter-nav-item',title:'类别'},
             //     {cl:'filter-nav-item',title:'状态'},
@@ -85,20 +88,96 @@ export default {
     },
     created(){
         // this.getMapPoints();
-        console.log(this.urlParam);
+
     },
     mounted(){
         console.log("加载完成");
         Vue.set(this.$store.state.redmap,"loading",false);
+        this.$nextTick(function(){
+            this.kt = this.$route.params.kt;
+            switch(this.kt){
+                case 'dbqsh':
+
+                    return '地表水取水';break;
+                case 'ysh':
+
+                    return '用水户';break;
+                case 'syd':
+                    let paramData = {
+                        stlx:'',
+                        mbsz:'',
+                        type:'0'//需要评价
+                    }
+                    paramData = encodeURIComponent(JSON.stringify(paramData));
+                    console.log(this.urlParam);
+                    this.$http.jsonp(API.SYD_LIST+ "&params=" + paramData).then(
+                        response => {
+                            //this.mapPoints=[{lng:121.372882,lat:31.176523,name:'水源地2',desc:'地址：11111,监测水量：34343'}];
+                            this.mapPoints = response.data.data;
+                            console.log(this.mapPoints);
+                        }, response => {
+                            console.log("error");
+                        });
+
+                    //this.mapPoints=[{lng:121.372882,lat:31.176523,name:'水源地1',desc:'地址：11111,监测水量：34343'}];
+                    return '水源地';break;
+                case 'swcz':
+                    let paramData = {
+                        stlx:'',  //页面路径 用于注册接口
+                        mbsz:'',
+                        type:''
+                    }
+                    paramData = encodeURIComponent(JSON.stringify(paramData));
+                    this.$http.jsonp(API.SGNQJC_LIST+ "&params=" + paramData).then(
+                        response => {
+                            this.mapPoints = response.data.data;
+                        }, response => {
+                            console.log("error");
+                        });
+                    return '水文测站';break;
+                case 'xc':
+                    let params = {
+                        kzsyd: '',
+                        state: '',
+                        name:'',
+                        type:''
+                    };
+                    params = encodeURI(encodeURI(JSON.stringify(params)));
+                    this.$http.jsonp(API.XC_LIST + "&params=" + params).then(
+                        response => {
+                            this.mapPoints = response.data.data;
+                        }, response => {
+                            console.log("error");
+                        });
+                    return '咸潮';break;
+                case 'sgnq':
+
+                    return '水功能区';break;
+            }
+        })
     },
     filters:{
         calMapQ:function(val,pm){
            if(val == '类别'){
                 switch(pm){
-                    case 'dbqsh': return '地表水取水';break;
-                    case 'ysh': return '用水户';break;
-                    case 'syd': return '水源地';break;
-                    case 'sgnq': return '水功能区';break;
+                    case 'dbqsh':
+
+                        return '地表水取水';break;
+                    case 'ysh':
+
+                        return '用水户';break;
+                    case 'syd':
+
+                        return '水源地';break;
+                    case 'sgnq':
+
+                        return '水功能区';break;
+                    case 'swcz':
+
+                        return '水文测站';break;
+                    case 'xc':
+
+                        return '咸潮';break;
                 }
             }else{
                 return val;
@@ -108,6 +187,8 @@ export default {
     methods:{
         itemClick(index,item){             
              // 获取展开信息
+            //alert('重置！')
+            this.mapPoints=[{lng:121.372882,lat:31.176523,name:'水源地2',desc:'地址：11111,监测水量：34343'}];
              if(item.key != 'clear'){
                 this.isActive = index;
                 this.$store.dispatch({

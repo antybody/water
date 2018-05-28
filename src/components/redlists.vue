@@ -1,5 +1,14 @@
 <template>
     <list style="margin-top:0px">
+        <!--查询搜索列表-->
+        <list-item v-if="routeName == '/search'" v-for="item in lists" :key="item.key" :title="item.title" :href="item.href">
+            <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
+            <span slot="subTitle">
+                <span class="list-label label-orange">{{item.tag1}}</span>
+                <span class="list-label label-white">{{item.tag2}}</span>
+                <span class="list-label label-blue">{{item.tag3}}</span>
+            </span>
+        </list-item>
         <!--取水户-->
         <list-item v-if="routeName == '/qsh'" v-for="item in lists" :key="item.watuserId" :title="item.watuserName" :href="item.href">
             <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->

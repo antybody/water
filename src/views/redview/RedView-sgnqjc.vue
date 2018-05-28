@@ -7,7 +7,7 @@
        <navbar slot="header" class="wt-linear-blue">
            水文测站
           <icon name="left-nav" slot="left" titleRight="返回" back></icon>   
-          <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/syd"></icon>       
+          <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/swcz"></icon>
         </navbar>
         <group class="group-clear">
           <list>

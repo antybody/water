@@ -20,8 +20,8 @@ export default {
     },
     mounted(){
         console.log(this.$route.params.t);
-        this.inputtext = this.$route.params.text
-        this.t = this.$route.params.t
+        this.inputtext = this.$route.params.text;
+        this.t = this.$route.params.t;
         console.log(this.t);
     },
     methods:{

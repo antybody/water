@@ -30,13 +30,13 @@ export default {
    components: {
       redlists
     },
-   props:['open','inputtext','searchtype'],
+   props:['open','inputtext','searchtype','t'],
    created(){
        // 获得默认的数据
        console.log("获取前端数据"+this.searchtype);
-       this.$nextTick(
-         function(){this.$store.dispatch({type:'getDefalutLists',param:this.searchtype})}
-       )
+       // this.$nextTick(
+       //   function(){this.$store.dispatch({type:'getListByParams',param:this.searchtype})}
+       // )
    },
    watch:{
        searchItem:function(val,oldval){
@@ -54,9 +54,9 @@ export default {
    },
    data(){
        return{
-           searchItem:''
-        //    lists:[{title:'上海宝信',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'},
-        //           {title:'上海宝信',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'}]
+           searchItem:'',
+           // lists:[{title:'上海宝信',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'},
+           //        {title:'北京宝信',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'}]
        }
    },
    methods:{
@@ -65,12 +65,12 @@ export default {
             // 这里引用 带条件的查询
             console.log("----- 查询了我-----");
             console.log(this.searchItem);
-            // this.$store.dispatch({type:'getListByParams',param:val})
-            //   .then(res =>{
-            //       if(res.status === 200){
-            //           console.log('获取数据');
-            //       }
-            // });
+            this.$store.dispatch({type:'getListByParams',param:this.searchtype+'&&'+this.searchItem})
+              .then(res =>{
+                  if(res.status === 200){
+                      console.log('获取数据');
+                  }
+            });
         },500),
         closeBar:function(){
             this.$emit('closeBar');

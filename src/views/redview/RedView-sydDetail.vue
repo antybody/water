@@ -15,6 +15,7 @@
              }">
 
               <li :class="{cur:sydId === site.id}"  v-for="site in sites" @click="selectStation(site.id)"><span>{{site.czname}}</span></li>
+
               <!--
               <li :class="{cur:sydId === '2'}" @click="selectStation('2')"><span>陈行新头部</span></li>
               <li :class="{cur:sydId === '3'}" @click="selectStation('3')"><span>三角渡</span></li>
@@ -113,7 +114,8 @@ export default {
     mounted(){
         let paramData = {
             stlx:'',  //页面路径 用于注册接口
-            mbsz:''
+            mbsz:'',
+            type:'0'//不需要评价
         }
         paramData = encodeURIComponent(JSON.stringify(paramData));
         this.$http.jsonp(API.SYD_LIST+ "&params=" + paramData).then(

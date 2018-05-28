@@ -3,8 +3,10 @@
    <vue-view>
        <navbar slot="header" class="wt-linear-blue">
           咸潮
-          <icon name="left-nav" slot="left" titleRight="返回" back></icon>          
-        </navbar>
+          <icon name="left-nav" slot="left" titleRight="返回" back></icon>
+           <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/xc"></icon>
+
+       </navbar>
         <group noPadded class="group-clear" ref="viewbox">
                         
                 <!-- <searchbar :totaldesc="listInfo.desc"></searchbar> -->
@@ -70,7 +72,7 @@ export default {
    methods:{
        searchBar:function(){
         //    this.openSearch = true;
-            this.$router.push({name:'search',params:{text:'请搜索咸潮',t:'sgnq'}});
+            this.$router.push({name:'search',params:{text:'请搜索咸潮',t:'xc'}});
        },
         ...mapActions([
             'getLists','getQueryMenu'
