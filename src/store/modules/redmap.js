@@ -78,7 +78,10 @@ const actions = {
                         {key:'dxqsh',name:'地下水取水户'},
                         {key:'dysh',name:'大用水户'},
                         {key:'syd',name:'水源地'},
-                        {key:'sgnq',name:'水功能区'}],
+                        {key:'sgnq',name:'水功能区'},
+                       {key:'swcz',name:'水文测站'},
+                       {key:'xc',name:'咸潮'}
+                        ],
                    root:payload.root
                })
                break;

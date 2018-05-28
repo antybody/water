@@ -62,7 +62,8 @@ export default {
     mounted() {
         let paramData = {
             stlx:'',  //页面路径 用于注册接口
-            mbsz:''
+            mbsz:'',
+            type:'1'//需要评价
         }
         paramData = encodeURIComponent(JSON.stringify(paramData));
         this.$http.jsonp(API.SYD_LIST+ "&params=" + paramData).then(

@@ -30,9 +30,14 @@ export default {
   },
   watch: {
 
+      points(){
+          console.log(this.points);
+          this.refreshMap ();
+      }
   },
   methods: {
     // 实例化地图
+
     initMap () {
       // 加载PositionPicker，loadUI的路径参数为模块名中 'ui/' 之后的部分
       let AMapUI = this.AMapUI = window.AMapUI
@@ -87,6 +92,24 @@ export default {
 
       })
     },
+      refreshMap(){
+          // 创建地图上的点
+          for(var i=0;i< this.points.length;i++){
+              console.log(this.points[i]);
+              let marker = new AMap.Marker({
+                  position: [this.points[i].lng,this.points[i].lat],
+                  title: this.points.name,
+                  map: map,
+                  icon: this.points[i].icon,
+              });
+              marker.content = this.getContent(this.points[i].name,this.points[i].desc).join("");
+              marker.on('click', markerClick =>{
+                  infoWindow.setContent(markerClick.target.content);
+                  infoWindow.open(map, markerClick.target.getPosition());
+              });
+              // marker.emit('click', {target: marker});
+          }
+      },
     getContent(name,desc){
        let t = this.type;
        console.log(t);
@@ -103,7 +126,7 @@ export default {
     }
 
   },
-  async created () {
+  async mounted () {
     // 已载入高德地图API，则直接初始化地图
     if (window.AMap && window.AMapUI) {
       this.initMap()

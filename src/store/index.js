@@ -11,12 +11,13 @@ import searchBar from './modules/searchBar'
 import login from './modules/login'
 import red from './modules/red'
 import homeview from './modules/homeview'
+import sjzl from './modules/szsl'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    redmap,qshInfo,dyshInfo,searchBar,login,red,homeview,sgnqInfo,sydInfo,xcInfo
+    redmap,qshInfo,dyshInfo,searchBar,login,red,homeview,sgnqInfo,sydInfo,xcInfo,sjzl
   },
   proxyTable: {
         '/api': {
