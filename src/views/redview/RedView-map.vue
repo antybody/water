@@ -102,12 +102,6 @@
                         this.$http.jsonp(API.QSH_LIST + "&params=" + paramDataQsh).then(
                             response => {
                                 var qshArr = [];
-                                this.mapPoints = [{
-                                    lng: 121.372882,
-                                    lat: 31.176523,
-                                    name: '水源地2',
-                                    desc: '地址：11111,监测水量：34343'
-                                }];
                                 for (var i = 0; i < response.data.data.length; i++) {
                                     if(response.data.data[i].watuserLon != '') {
                                         qshArr.push(

@@ -25,7 +25,8 @@ export default {
       placeSearch: null,
       dragStatus: false,
       AMapUI: null,
-      AMap: null
+      AMap: null,
+      map: ''
     }
   },
   watch: {
@@ -47,7 +48,7 @@ export default {
           zoom: 9,
           cityName: MapCityName
         }
-        console.log(this.points);
+        console.log('实例化' + this.points);
         if (this.lat && this.lng) {
           mapConfig.center = [this.lng, this.lat]
         }
@@ -56,6 +57,8 @@ export default {
             offset: new AMap.Pixel(0, -30)
         });
         let map = new AMap.Map('js-container', mapConfig)
+          this.map = map;
+          console.log(map);
         // 加载地图搜索插件
         AMap.service('AMap.PlaceSearch', () => {
           this.placeSearch = new AMap.PlaceSearch({
@@ -93,13 +96,13 @@ export default {
       })
     },
       refreshMap(){
+        console.log(this.points);
           // 创建地图上的点
           for(var i=0;i< this.points.length;i++){
-              console.log(this.points[i]);
               let marker = new AMap.Marker({
                   position: [this.points[i].lng,this.points[i].lat],
                   title: this.points.name,
-                  map: map,
+                  map: this.map,
                   icon: this.points[i].icon,
               });
               marker.content = this.getContent(this.points[i].name,this.points[i].desc).join("");
