@@ -58,6 +58,32 @@ const sjzl3 = resolve => {
         // Indicator.close()
       },'group-check')
 }
+// 运维巡检考核
+const ywkh1 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-ywkh1.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const ywkh2 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-ywkh2.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const ywkh3 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-ywkh3.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+
 // 巡检
 // import route from './views/RouteView'
 const route = resolve => {
@@ -347,6 +373,24 @@ const router = new VueRouter({
             path:'/check/sjzl3',
             name:'sjzl3',
             component:sjzl3
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/ywkh1',
+            name:'ywkh1',
+            component:ywkh1
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/ywkh2',
+            name:'ywkh2',
+            component:ywkh2
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/ywkh3',
+            name:'ywkh3',
+            component:ywkh3
             // meta:{auth:true}
         },
         { 

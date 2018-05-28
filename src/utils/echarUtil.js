@@ -148,5 +148,92 @@ export default {
                     ]
                   };
               return option;
-            }
+    },
+    initYwLine1(legend,ds){
+        var option = {
+            
+             legend: {
+                 data:legend
+             },
+             grid: {
+                 left: '3%',
+                 right: '4%',
+                 bottom: '3%',
+                 top:'5',
+                 containLabel: true
+             },
+             xAxis : [
+                 {
+                     type : 'category',
+                     boundaryGap : false
+                 }
+             ],
+             yAxis : [
+                 {
+                     type : 'value'
+                 }
+             ],
+             series : [
+                 {
+                     name:legend[0],
+                     type:'line',
+                     stack: '总量',
+                     label: {
+                         normal: {
+                             show: true,
+                             position: 'top'
+                         }
+                     },
+                     data:ds[0]
+                 },
+                 {
+                     name:legend[1],
+                     type:'line',
+                     stack: '总量',
+                     label: {
+                         normal: {
+                             show: true,
+                             position: 'top'
+                         }
+                     },
+                     data:ds[1]
+                 }
+             ]
+         };
+         return option;
+    },
+    initYwLine2(ds){
+        var option = {
+             grid: {
+                 left: '3%',
+                 right: '4%',
+                 bottom: '3%',
+                 top:'5',
+                 containLabel: true
+             },
+             xAxis : [
+                 {
+                     type : 'category'
+                 }
+             ],
+             yAxis : [
+                 {
+                     type : 'value'
+                 }
+             ],
+             series : [
+                 {
+                     type:'line',
+                     label: {
+                         normal: {
+                             show: true,
+                             position: 'top'
+                         }
+                     },
+                     data: ds
+                 }
+             ]
+         };
+         return option;
+    }
 }

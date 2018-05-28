@@ -21,6 +21,17 @@ const state = {
         {txt:'正常站点',value:'20'},
         {txt:'站点总数',value:'30'}
     ],
+    zdList:[
+        {txt:'站点总数',value:'10'},
+        {txt:'巡检总数',value:'20'},
+        {txt:'巡检率',value:'30%'},
+        {txt:'到报站点',value:'30'}
+    ],
+    ywList:[
+        {txt:'任务总数',value:'60'},
+        {txt:'完成数',value:'20'},
+        {txt:'完成率',value:'70%'}
+    ],
     nowDate:'',
     sjListUp:[],
     sjListDown:[]
@@ -36,6 +47,10 @@ const mutations = {
         state.qshList = payload.res[0];
         state.sydList = payload.res[1];
         state.sgnqList = payload.res[2];
+    },
+    getYwLists (state,payload) { // 运维考核的 - 整体
+        state.ywList = payload.res[0];
+        state.zdList = payload.res[1];
     },
     getTime (state,payload) {
         var date = new Date();
@@ -73,6 +88,18 @@ const actions = {
        })
     },
     getSjLists({commit},payload){
+        Vue.http.jsonp('/api/map',{param:payload.param})
+        .then(res => {
+            commit({
+                type: 'getSjLists',
+                res: res.body.results   
+            })
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        })
+    },
+    getYwLists({commit},payload){
         Vue.http.jsonp('/api/map',{param:payload.param})
         .then(res => {
             commit({
