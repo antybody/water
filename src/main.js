@@ -396,7 +396,6 @@ const router = new VueRouter({
         { 
             path:'/check',
             component:check
-            // meta:{auth:true}
         },
         { 
             path:'/check/sjsb1',

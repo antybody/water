@@ -71,6 +71,9 @@ vue2 + webapp
  + 1 水功能区页面 3个 ✔️
  + 2 水源地页面 3个 ✔️
 
+ ### _2018-5-29
+ + 1 角色权限 meta:{auth:true,role:'a,b,c'} √
+
 # 目录
  
 + --config
