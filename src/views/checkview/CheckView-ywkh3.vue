@@ -1,53 +1,52 @@
 /**
-  数据质量考核-取用水
+  运维维护考核-水质监测
  */
 <template>
   <vue-view class="container">
     <!--页面头部区域-->
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
-         数据质量考核
+         运维巡检考核
          <icon name="left-nav" slot="left" titleRight="返回" @iconClick="reback"></icon>
       </navbar>
       <!--首页面头部方块切换页面，有问题 这里要插入 子页面了，路径配置不应该这样写-->
       <div class="wtabs-list">
         <ul class="wtabs">
-          <li><router-link to="sjzl1">今日情况</router-link></li>
-          <li class="ac"><router-link to="sjzl2">取用水数据</router-link></li>
-          <li><router-link to="sjzl3">水质评价数据</router-link></li>
+          <li><router-link to="ywkh1">今日情况</router-link></li>
+          <li ><router-link to="ywkh2">取用水运维</router-link></li>
+          <li class="ac"><router-link to="ywkh3">水质监测运维</router-link></li>
         </ul>
       </div>
       <!--二级目录-->
       <div class="wttabs-second">
          <ul>
-            <li><span :class="isClick4 == 1 ? 'wtac':''" @click="changeEvent('ml',1)">地表水户</span></li>
-            <li><span :class="isClick4 == 2 ? 'wtac':''" @click="changeEvent('ml',2)">地下水户</span></li>
-            <li><span :class="isClick4 == 3 ? 'wtac':''" @click="changeEvent('ml',3)">大用水户</span></li>
-            <li><span :class="isClick4 == 4 ? 'wtac':''" @click="changeEvent('ml',4)">灌区用水</span></li>
-         </ul>
+            <li><span :class="isClick4 == 1 ? 'wtac':''" @click="changeEvent('ml',1)">水源地</span></li>
+            <li><span :class="isClick4 == 2 ? 'wtac':''" @click="changeEvent('ml',2)">水功能区</span></li>
+          </ul>
          <div class="clearfixed"></div>
       </div>
       <div style="border-bottom:1px dotted #e3e3e3;padding-top:10px"></div>
       <!--柱状图-->
       <div>
         <div class="mod-head">
-          <h3>监测情况</h3>
+          <h3>例行巡检情况</h3>
           <ul>
-            <li :class="isClick1 == 1 ? 'cur':''" @click="changeEvent('qk',1)">本日</li>
-            <li :class="isClick1 == 2 ? 'cur':''" @click="changeEvent('qk',2)">本月</li>
-            <li :class="isClick1 == 3 ? 'cur':''" @click="changeEvent('qk',3)">本年</li>
+            <li :class="isClick1 == 1 ? 'cur':''" @click="changeEvent('qk',1)">本年</li>
+            <li :class="isClick1 == 2 ? 'cur':''" @click="changeEvent('qk',2)">近三年</li>
+            <li :class="isClick1 == 3 ? 'cur':''" @click="changeEvent('qk',3)">近五年</li>
           </ul>
           <div class="clearfixed"></div>
         </div>
-         <div style="width:410px;height:280px" id="myChart"></div>
+         <div style="width:100%;height:280px" id="myChart"></div>
       </div>
       <div style="border-bottom:2px dotted #e3e3e3;padding-top:10px"></div>
       <!--数据走势 折线图-->
       <div>
         <div class="mod-head">
-          <h3>数据质量走势</h3>
+          <h3>运维巡检情况</h3>
           <ul>
-            <li :class="isClick2 == 1 ? 'cur':''" @click="changeEvent('zs',1)">近一年</li>
+            <li :class="isClick2 == 1 ? 'cur':''" @click="changeEvent('zs',1)">本年</li>
             <li :class="isClick2 == 2 ? 'cur':''" @click="changeEvent('zs',2)">近三年</li>
+            <li :class="isClick2 == 3 ? 'cur':''" @click="changeEvent('zs',3)">近五年</li>
           </ul>
           <div class="clearfixed"></div>
         </div>
@@ -57,21 +56,16 @@
       <!--排行榜 5个  最好、最坏-->
       <div>
          <div class="mod-head">
-           <h3>数据质量排行榜</h3>
-           <ul>
+           <h3>运维问题排行榜</h3>
+           <!-- <ul>
              <li :class="isClick3 == 1 ? 'cur':''" @click="changeEvent('ph',1)">高</li>
              <li :class="isClick3 == 2 ? 'cur':''" @click="changeEvent('ph',2)">低</li>
-           </ul>
+           </ul> -->
            <div class="clearfixed"></div>
          </div>
          <ul class="sort-wrap" :style="isClick3 == 1 ?'display:block':'display:none'">
             <li v-for="(item,index) in sjListUp" :key="index">
                <span><em>{{index+1}}.</em> {{item.name}}，故障次数 {{item.num}} </span>
-            </li>
-         </ul>
-         <ul class="sort-wrap" :style="isClick3 == 2 ?'display:block':'display:none'">
-            <li v-for="(item,index) in sjListDown" :key="index">
-               <span><em>{{index+1}}.</em> {{item.name}}，故障次数 {{item.num}}，多为 {{item.type}} </span>
             </li>
          </ul>
       </div>
@@ -89,15 +83,14 @@ export default {
   data(){
      return {
        time:new Date(),
-       legend:['上报中断','上报延迟','数据跳大','数据跳小','数据为负'],
+       legend:['实际','计划'],
        ds:[[111,23,43,21,23],[211,323,143,121,423],[211,323,143,121,423]
            ,[211,323,143,121,423],[211,323,143,121,423]],
        isClick1:1, // 监测情况
        isClick2:1, // 数据质量走势
        isClick3:1,  // 数据排行榜
        isClick4:1,  // 二级查询条件
-       sjListUp:[{name:'国泰君安',num:'0'},{name:'国泰君安',num:'0'}],
-       sjListDown:[{name:'国泰君安',num:'10',type:'数据中断'},{name:'国泰君安',num:'20',type:'数据跳大'}]
+       sjListUp:[{name:'上报中断-升级改造',num:'0'},{name:'上报中断-断电',num:'0'}]
      }
   },
   computed:{
@@ -133,10 +126,10 @@ export default {
     loadChart:function(){
       // 这里要修改的 -- 即加载真实的数据
       let myChart = echarts.init(document.getElementById("myChart"));
-      let options = echarUtil.initChart(this.legend,this.ds[0]);
+      let options = echarUtil.initYwLine1(this.legend,this.ds);
       myChart.setOption(options);
       let lineChart = echarts.init(document.getElementById("lineChart"));
-      let lineoptions = echarUtil.initLine(this.legend,this.ds);
+      let lineoptions = echarUtil.initYwLine2(this.ds[0]);
       lineChart.setOption(lineoptions);
     }
     
