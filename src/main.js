@@ -99,6 +99,31 @@ const jgkh2 = resolve => {
         // Indicator.close()
       },'group-check')
 }
+// 数据上报考核
+const sjsb1 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-sjsb1.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const sjsb2 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-sjsb2.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const sjsb3 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-sjsb3.vue'))
+        // Indicator.close()
+      },'group-check')
+}
 
 // 巡检
 // import route from './views/RouteView'
@@ -371,6 +396,24 @@ const router = new VueRouter({
         { 
             path:'/check',
             component:check
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/sjsb1',
+            name:'sjsb1',
+            component:sjsb1
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/sjsb2',
+            name:'sjsb2',
+            component:sjsb2
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/sjsb3',
+            name:'sjsb3',
+            component:sjsb3
             // meta:{auth:true}
         },
         { 

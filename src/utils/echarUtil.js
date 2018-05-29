@@ -235,5 +235,166 @@ export default {
              ]
          };
          return option;
+    },
+    initHBar(t,x1,x2){
+        var option = {
+            title:{
+                text:''
+            },
+            grid: {
+                left: '-20%',
+                right: '4%',
+                bottom: '30%',
+                top: '0%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                show:false
+            },
+            yAxis: {
+                type: 'category',
+               show:false
+            },
+            series: [
+                {
+                    name: '目标',
+                    type: 'bar',
+                    itemStyle:{
+                        normal:{
+                          color:'#37a2da'
+                        }
+                    },
+                    data: [20203]
+                },
+                {
+                    name: '实际',
+                    type: 'bar',
+                    itemStyle:{
+                        normal:{
+                          color:'#ffd85c'
+                        }
+                    },
+                    data: [19325]
+                }
+            ]
+        };
+        return option;
+    },
+    initLine3(legend,ds){
+        var option = {
+            
+             legend: {
+                 data:legend
+             },
+             grid: {
+                 left: '3%',
+                 right: '4%',
+                 bottom: '3%',
+                 containLabel: true
+             },
+             xAxis : [
+                 {
+                     type : 'category',
+                     boundaryGap : false
+                 }
+             ],
+             yAxis : [
+                 {
+                     type : 'value'
+                 }
+             ],
+             series : [
+                 {
+                     name:legend[0],
+                     type:'line',
+                     stack: '总量',
+                     label: {
+                         normal: {
+                             show: true,
+                             position: 'top'
+                         }
+                     },
+                     data:ds[0]
+                 },
+                 {
+                     name:legend[1],
+                     type:'line',
+                     stack: '总量',
+                     label: {
+                         normal: {
+                             show: true,
+                             position: 'top'
+                         }
+                     },
+                     data:ds[1]
+                 },
+                 {
+                     name:legend[2],
+                     type:'line',
+                     stack: '总量',
+                     label: {
+                         normal: {
+                             show: true,
+                             position: 'top'
+                         }
+                     },
+                     data:ds[2]
+                 }
+             ]
+         };
+         return option;
+    },
+    initLine2(legend,ds){
+        var option = {
+            
+             legend: {
+                 data:legend
+             },
+             grid: {
+                 left: '3%',
+                 right: '4%',
+                 bottom: '3%',
+                 containLabel: true
+             },
+             xAxis : [
+                 {
+                     type : 'category',
+                     boundaryGap : false
+                 }
+             ],
+             yAxis : [
+                 {
+                     type : 'value'
+                 }
+             ],
+             series : [
+                 {
+                     name:legend[0],
+                     type:'line',
+                     stack: '总量',
+                     label: {
+                         normal: {
+                             show: true,
+                             position: 'top'
+                         }
+                     },
+                     data:ds[0]
+                 },
+                 {
+                     name:legend[1],
+                     type:'line',
+                     stack: '总量',
+                     label: {
+                         normal: {
+                             show: true,
+                             position: 'top'
+                         }
+                     },
+                     data:ds[1]
+                 }
+             ]
+         };
+         return option;
     }
 }

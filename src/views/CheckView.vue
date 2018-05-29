@@ -4,7 +4,7 @@
           管理考核
    </navbar>
    <div class="ckhome">
-       <a href="#/check/sjzl1">
+       <a href="#/check/sjsb1">
         <div class="cr bl">
              数据上报
         </div>
@@ -36,7 +36,7 @@
    </div>
    <div style="border-bottom:1px dotted #e3e3e3;padding-top:10px"></div>
    <div class="ckhome">
-       <a href="#/check/sjzl1">
+       <a href="#/check/ywkh1">
         <div class="cr gr">
              运维巡检
         </div>
@@ -52,7 +52,7 @@
    </div>
    <div style="border-bottom:1px dotted #e3e3e3;padding-top:10px"></div>
    <div class="ckhome">
-       <a href="#/check/sjzl1">
+       <a href="#/check/jgkh1">
         <div class="cr or">
              业务监管
         </div>
