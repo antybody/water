@@ -7,35 +7,24 @@
         </navbar>
         <!--许可证列表查询-->
         <tabs v-model="selected">
-            <tabs-item v-for="tabitem in tabsItem" slot="tabs" blue hollow>
+            <tabs-item v-for="tabitem in tabsItem" slot="tabs"   @click="searchQslx(tabitem.id)"  blue hollow>
                 {{tabitem.name}}
             </tabs-item>
         </tabs>
         <table>
             <tr><th>行政区</th><th>总数</th><th>有效证</th><th>过期证</th></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
-            <tr><td>青浦区</td><td>123</td><td>123</td><td>123</td></tr>
+            <tr v-for="item in listInfo"><td>{{item.ID}}</td><td>{{item.XKZZS}}</td><td>{{item.YXZ}}</td><td>{{item.GQZ}}</td></tr>
         </table>
         <!--过期情况图表-->
         <div class="pies-month">
             <div class="pies" id="myCharts"></div>
             <div class="month">
                 <span class="title">一个月后过期</span>
-                <span class="content">20份</span>
+                <span class="content">{{onM}}</span>
             </div>
             <div class="month">
                 <span class="title">三个月后过期</span>
-                <span class="content">30份</span>
+                <span class="content">{{threeM}}</span>
             </div>
         </div>
     </vue-view>
@@ -43,65 +32,103 @@
 
 <script>
     // import echarts from 'echarts';
+    import * as API from '../../store/api/api'
     export default {
         components: {
         },
         data(){
             return{
+                listInfo:[{
+                    "GQZ": 6,
+                    "ID": "中心城区",
+                    "ONEGQ": 0,
+                    "THREEGQ": 1,
+                    "XKZZS": 206,
+                    "YXZ": 200
+                }
+                ],
                 selected:false,
                 tabsItem: [
-                    {"name":"全部"},
-                    {"name":"地表水"},
-                    {"name":"地下水"}
-                ]
+                    {"name":"全部","id":"qb"},
+                    {"name":"地表水","id":"dbs"},
+                    {"name":"地下水","id":"dxs"}
+                ],
+                onM:'0',//一个月过期
+                threeM:'0',//三个月过期
+                yxz:'0',//一个月过期
+                gqz:'0'//三个月过期
+            }
+        },
+        methods:{
+            searchQslx:function(val){
+                alert(val);
             }
         },
         mounted(){
-            let myChart = echarts.init(document.getElementById('myCharts'));
-            var options = {
-                backgroundColor: '#FFFFFF',
-                tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b}: {c} ({d}%)"
-                },
-                legend: {
-                    show: false
-                },
-                series: [
-                    {
-                        name:'访问来源',
-                        type:'pie',
-                        radius: ['50%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'center'
-                            },
-                            emphasis: {
-                                show: true,
-                                textStyle: {
-                                    fontSize: '20',
-                                    fontWeight: 'bold'
-                                }
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data:[
-                            {value:335, name:'直接访问'},
-                            {value:310, name:'邮件营销'},
-                            {value:234, name:'联盟广告'},
-                            {value:135, name:'视频广告'},
-                            {value:1548, name:'搜索引擎'}
-                        ]
+            let paramData = {
+                param:'qb'
+            }
+            paramData = encodeURIComponent(JSON.stringify(paramData));
+            this.$http.jsonp(API.QSH_XKZ_FB+ "&params=" + paramData).then(
+                response => {
+                    //循环设置跳转地址 href
+                    for (let value of response.data.data) {
+                        if(value.ID=='上海市'){
+                            this.onM=value.ONEGQ;
+                            this.threeM=value.THREEGQ;
+                            this.yxz=value.YXZ;
+                            this.gqz=value.GQZ;
+                        }
                     }
-                ]
-            };
-            myChart.setOption(options);
+                    this.listInfo = response.data.data;
+                    let myChart = echarts.init(document.getElementById('myCharts'));
+                    var options = {
+                        backgroundColor: '#FFFFFF',
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b}: {c} ({d}%)"
+                        },
+                        legend: {
+                            show: false
+                        },
+                        series: [
+                            {
+                                name:'取水许可证状态分布：',
+                                type:'pie',
+                                radius: ['50%', '70%'],
+                                avoidLabelOverlap: false,
+                                label: {
+                                    normal: {
+                                        show: false,
+                                        position: 'center'
+                                    },
+                                    emphasis: {
+                                        show: true,
+                                        textStyle: {
+                                            fontSize: '20',
+                                            fontWeight: 'bold'
+                                        }
+                                    }
+                                },
+                                labelLine: {
+                                    normal: {
+                                        show: false
+                                    }
+                                },
+                                data:[
+                                    {value:this.yxz, name:'有效许可证'},
+                                    {value:this.gqz, name:'过期许可证'},
+                                    {value:this.onM, name:'一个月过期'},
+                                    {value:this.threeM, name:'三个月过期'}
+                                ]
+                            }
+                        ]
+                    };
+                    myChart.setOption(options);
+                }, response => {
+                    console.log("error");
+                });
+
         }
     }
 </script>

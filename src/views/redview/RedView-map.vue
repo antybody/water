@@ -129,14 +129,26 @@
                         let paramDataSyd = {
                             stlx: '',
                             mbsz: '',
-                            type: '0'//需要评价
+                            type: '1'//需要评价
                         }
                         paramDataSyd = encodeURIComponent(JSON.stringify(paramDataSyd));
                         this.$http.jsonp(API.SYD_LIST + "&params=" + paramDataSyd).then(
                             response => {
-                                //this.mapPoints=[{lng:121.372882,lat:31.176523,name:'水源地2',desc:'地址：11111,监测水量：34343'}];
-                                this.mapPoints = response.data.data;
-                                console.log(this.mapPoints);
+                                var sydArr = [];
+                                for (var i = 0; i < response.data.data.length; i++) {
+                                    if(response.data.data[i].czname != '') {
+                                        sydArr.push(
+                                            {
+                                                lng: response.data.data[i].lng,
+                                                lat: response.data.data[i].lat,
+                                                name: response.data.data[i].czname,
+                                                desc: "水质达标状况:"+response.data.data[i].dbzk,
+                                            }
+                                        )
+                                    }
+                                }
+                                this.mapPoints = sydArr;
+                                //this.mapPoints=[{lng:121.372882,lat:31.176523,name:'水源地1',desc:'地址：11111,监测水量：34343'}];
                             }, response => {
                                 console.log("error");
                             });
@@ -148,12 +160,25 @@
                         let paramDataSwcz = {
                             stlx: '',  //页面路径 用于注册接口
                             mbsz: '',
-                            type: ''
+                            type: '1'
                         }
                         paramDataSwcz = encodeURIComponent(JSON.stringify(paramDataSwcz));
                         this.$http.jsonp(API.SGNQJC_LIST + "&params=" + paramDataSwcz).then(
                             response => {
-                                this.mapPoints = response.data.data;
+                                var swczArr = [];
+                                for (var i = 0; i < response.data.data.length; i++) {
+                                    if(response.data.data[i].hdst_nm != ''&&response.data.data[i].lng != '') {
+                                        swczArr.push(
+                                            {
+                                                lng: response.data.data[i].lng,
+                                                lat: response.data.data[i].lat,
+                                                name: response.data.data[i].hdst_nm,
+                                                desc: "水质达标状况:"+response.data.data[i].dbzk,
+                                            }
+                                        )
+                                    }
+                                }
+                                this.mapPoints = swczArr;
                             }, response => {
                                 console.log("error");
                             });

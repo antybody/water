@@ -129,6 +129,13 @@ const sgnqDetail = resolve => {
         // Indicator.close()
       },'group-qsh')
 }
+const qsxkzDetail = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-qsxkzDetail.vue'))
+        // Indicator.close()
+    },'group-qsh')
+}
 const sgnqReback = resolve => {
     // Indicator.open();
       require.ensure([], () => {
@@ -211,6 +218,13 @@ const xkz = resolve => {
         resolve(require('./views/homeview/HomeView-xkz.vue'))
         // Indicator.close()
       },'group-home')
+}
+const qsxkz = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-qsxkz.vue'))
+        // Indicator.close()
+    },'group-home')
 }
 // import cxksl from './views/homeview/HomeView-cxksl' // 超许可
 const cxksl = resolve => {
@@ -366,6 +380,10 @@ const router = new VueRouter({
             component: xkz
         },
         {
+            path: '/qsxkz',
+            component: qsxkz
+        },
+        {
             path: '/cxksl',
             component: cxksl
         },
@@ -403,7 +421,11 @@ const router = new VueRouter({
         { 
             path:'/sgnqDetail/:id',
             component:sgnqDetail
-        },  
+        },
+        {
+            path:'/qsxkzDetail/:id',
+            component:qsxkzDetail
+        },
         { 
             path:'/sgnqreback',
             name:'sgnqreback',

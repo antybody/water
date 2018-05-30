@@ -15,8 +15,8 @@
                 <grid avg="3">
                     <cell class="wt-padding">
                         <div class="wt-grid-border">
-                            <span> 2017年<br/></span>
-                            <span class="wt-bold-14">12月</span>
+                            <span>{{year}}年<br/></span>
+                            <span class="wt-bold-14">{{month}}月</span>
                         </div>
                     </cell>
                     <cell class="wt-padding">
@@ -27,8 +27,8 @@
                     </cell>
                     <cell class="wt-padding">
                         <div class="wt-grid-border">
-                            <span>双因子：10%</span>
-                            <span>双因子：10%</span>
+                            <span>双因子：{{syzS}}%</span>
+                            <span>双因子：{{qyzS}}%</span>
                         </div>
                     </cell>
                 </grid>
@@ -36,15 +36,31 @@
         </group>
         <group noPadded class="group-clear group-top-10">
             <list>
-                <list-item :title="item.name" v-for="item in sgnqNewlists.type" v-bind:key="item.index">
+                <list-item :title="item.LDFT" v-for="item in listInfo" v-bind:key="item.LDFT">
               <span slot="subTitle">
                   <cell>
-                  <small>双 {{item.db}}%</small>
-                  <span class="progress wt-b-dblue" :style="{width:item.db+'%'}"></span>
+                  <small>Ⅰ类：{{item.one}}</small>
+                  <span class="progress wt-b-dblue" :style="{width:item.one/3+'rem'}"></span>
                   </cell>
                   <cell>
-                  <small>单 {{item.sg}}%</small>
-                  <span class="progress wt-b-yellow" :style="{width:(item.sg-5)+'%'}"></span>
+                  <small>Ⅱ类：{{item.two}}</small>
+                  <span class="progress wt-b-yellow" :style="{width:item.two/3+'rem'}"></span>
+                  </cell>
+                  <cell>
+                  <small>Ⅲ类：{{item.three}}</small>
+                  <span class="progress wt-b-yellow" :style="{width:item.three/3+'rem'}"></span>
+                  </cell>
+                  <cell>
+                  <small>Ⅳ类：{{item.four}}</small>
+                  <span class="progress wt-b-yellow" :style="{width:item.four/3+'rem'}"></span>
+                  </cell>
+                  <cell>
+                  <small>Ⅴ类：{{item.five}}</small>
+                  <span class="progress wt-b-yellow" :style="{width:item.five/3+'rem'}"></span>
+                  </cell>
+                  <cell>
+                  <small>劣Ⅴ类：{{item.lfive}}</small>
+                  <span class="progress wt-b-yellow" :style="{width:item.lfive/3+'rem'}"></span>
                   </cell>
               </span>
                 </list-item>
@@ -68,18 +84,50 @@
 
     export default {
         data() {
-            return {}
+            return {
+                listInfo:[],
+                qyz:[],
+                syz:[],
+                xArr:[],
+                year:0,
+                month:0,
+                syzS:0,
+                qyzS:0
+            }
         },
         computed: {
             ...mapState({
-                sgnqNewlists: state => state.homeview.sgnqNewlists
+                //sgnqNewlists: state => state.homeview.sgnqNewlists
             })
         },
         mounted() {
-            this.$http.jsonp(API.SGNQ_DBL).then(
+            var dd = new Date();
+            dd.setDate(dd.getDate());//获取AddDayCount天后的日期
+            var y = dd.getFullYear();
+            var m = dd.getMonth();//获取当前月份的日期
+
+            if(m<10){
+                m='0'+m;
+            }
+            this.year=y;
+            this.month=m;
+            let paramData = {
+                pjMonth:y+'-01,'+y+'-'+m
+            }
+            paramData = encodeURIComponent(JSON.stringify(paramData));
+            this.$http.jsonp(API.SGNQ_PJ+ "&params=" + paramData).then(
                 response => {
-                    console.log(response.data.data);
-                    this.listInfo = response.data.data;
+                    console.log(response.data);
+                    this.listInfo = response.data[y+'-'+m];
+                    for (let value of response.data.pj) {
+                        this.xArr.push(value.NY);
+                        this.qyz.push(value.QYZ);
+                        this.syz.push(value.SYZ);
+                        this.syzS=value.SYZ;
+                        this.qyzS=value.QYZ;
+
+                        // console.log(value);
+                    }
                     let myChart2 = echarts.init(document.getElementById('myCharts3'));
                     var options2 = {
                         color: ['#3398DB'],
@@ -108,34 +156,37 @@
                         },
                         xAxis: {
                             type: 'category',
-                            data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+                            data:this.xArr// ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
                         },
                         series: [
                             {
                                 type: 'bar',
+                                name:'全因子',
                                 itemStyle: {
                                     normal: {
                                         color: '#ffab3d'
                                     }
                                 },
-                                data: [5, 6, 6, 10, 9, 8, 5, 6, 6, 12, 9, 8]
+                                data:this.qyz// [5, 6, 6, 10, 9, 8, 5, 6, 6, 12, 9, 8]
                             },
                             {
                                 type: 'bar',
+                                name:'双因子',
                                 itemStyle: {
                                     normal: {
                                         color: '#5ccfff'
                                     }
                                 },
-                                data: [15, 26, 36, 10, 9, 58, 5, 6, 6, 12, 9, 8]
+                                data: this.syz//[15, 26, 36, 10, 9, 58, 5, 6, 6, 12, 9, 8]
                             }
                         ]
                     };
+                    myChart2.setOption(options2);
                 }, response => {
                     console.log("error");
                 });
 
-            myChart2.setOption(options2);
+
         }
     }
 </script>

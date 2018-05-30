@@ -48,12 +48,13 @@ const actions ={
         switch(payload.param.split('&&')[0]){
             case 'sgnq':
                 this.searchUrl=API.SGNQ_LIST;
-                paramsData={'wfzNm':payload.param.split('&&')[1]};
+                paramsData={ currentPage:'10','wfzNm':payload.param.split('&&')[1]};
                 break;
             case 'xc':
                 this.searchUrl=API.XC_LIST;
                 paramsData={kzsyd: '',
                             state: '',
+                            currentPage:'10',
                             name:payload.param.split('&&')[1]}
                 break;
         }

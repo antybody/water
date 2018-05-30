@@ -36,12 +36,35 @@
                 <span class="list-label label-blue">{{item.tgWq}}</span>
             </span>
         </list-item>
+        <!--取水许可证信息-->
+        <list-item v-if="routeName == '/qsxkz'" v-for="item in lists" :key="item.id" :title="item.qsqrmc" :href="item.href">
+            <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
+            <span slot="subTitle">
+                <span class="list-label label-orange">{{item.watuserDivname}}</span>
+                <span class="list-label label-white">{{item.qsl}}</span>
+                <span class="list-label label-blue">{{item.overDate}}</span>
+            </span>
+        </list-item>
+        <!--超许可水量-->
+        <list-item v-if="routeName == '/cxksl'" v-for="item in lists" :key="item.watuser_id" :title="item.watuser_name" >
+            <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
+            <span slot="subTitle">
+               <cell>
+                  <small>许可量：{{item.xksl}}</small>
+                  <span class="progress wt-b-dblue" :style="{width:item.one/3+'rem'}"></span>
+                  </cell>
+                  <cell>
+                  <small>取水量：{{item.qsl}}</small>
+                  <span class="progress wt-b-yellow" :style="{width:item.two/3+'rem'}"></span>
+                  </cell>
+            </span>
+        </list-item>
         <!--咸潮-->
         <list-item v-if="routeName == '/redxc'" v-for="item in lists" :key="item.stcd" :title="item.name" :href="item.href">
             <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
             <span slot="subTitle">
                 <span class="list-label label-orange">{{item.nm_salinity}}</span>
-                <span class="list-label label-blue">{{item.state==''?'超标':'正常'}}</span>
+                <span class="list-label label-blue">{{item.state}}</span>
             </span>
         </list-item>
 
