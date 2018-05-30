@@ -1,19 +1,19 @@
 /**
-  数据质量考核-取用水
+  数据上报考核-取用水
  */
 <template>
   <vue-view class="container">
     <!--页面头部区域-->
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
-         数据质量考核
+         数据上报考核
          <icon name="left-nav" slot="left" titleRight="返回" @iconClick="reback"></icon>
       </navbar>
       <!--首页面头部方块切换页面，有问题 这里要插入 子页面了，路径配置不应该这样写-->
       <div class="wtabs-list">
         <ul class="wtabs">
-          <li><router-link to="sjzl1">今日情况</router-link></li>
-          <li class="ac"><router-link to="sjzl2">取用水数据</router-link></li>
-          <li><router-link to="sjzl3">水质评价数据</router-link></li>
+          <li><router-link to="sjsb1">今日情况</router-link></li>
+          <li class="ac"><router-link to="sjsb2">取用水上报</router-link></li>
+          <li><router-link to="sjsb3">水质监测上报</router-link></li>
         </ul>
       </div>
       <!--二级目录-->
@@ -30,7 +30,7 @@
       <!--柱状图-->
       <div>
         <div class="mod-head">
-          <h3>监测情况</h3>
+          <h3>上报情况</h3>
           <ul>
             <li :class="isClick1 == 1 ? 'cur':''" @click="changeEvent('qk',1)">本日</li>
             <li :class="isClick1 == 2 ? 'cur':''" @click="changeEvent('qk',2)">本月</li>
@@ -38,13 +38,45 @@
           </ul>
           <div class="clearfixed"></div>
         </div>
-         <div style="width:410px;height:280px" id="myChart"></div>
+        <div style="display:flex">
+         <div style="width:50%;height:100px" id="myChart1"></div>
+         <div class="chartDesc">
+             <ul>
+                <li><h3>监测站点</h3></li>
+                <li v-for="(item,index) in jczdList" :key="index">
+                    {{item.txt}}：{{item.value}}
+                </li>
+             </ul>
+         </div>
+        </div>
+        <div style="display:flex">
+         <div style="width:50%;height:100px" id="myChart2"></div>
+         <div class="chartDesc">
+             <ul>
+                <li><h3>小时水量</h3></li>
+                <li v-for="(item,index) in hourList" :key="index">
+                    {{item.txt}}：{{item.value}}
+                </li>
+             </ul>
+         </div>
+        </div>
+        <div style="display:flex">
+         <div style="width:50%;height:100px" id="myChart3"></div>
+         <div class="chartDesc">
+             <ul>
+                <li><h3>日水量</h3></li>
+                <li v-for="(item,index) in dayList" :key="index">
+                    {{item.txt}}：{{item.value}}
+                </li>
+             </ul>
+         </div>
+        </div>
       </div>
       <div style="border-bottom:2px dotted #e3e3e3;padding-top:10px"></div>
       <!--数据走势 折线图-->
       <div>
         <div class="mod-head">
-          <h3>数据质量走势</h3>
+          <h3>上报率走势</h3>
           <ul>
             <li :class="isClick2 == 1 ? 'cur':''" @click="changeEvent('zs',1)">近一年</li>
             <li :class="isClick2 == 2 ? 'cur':''" @click="changeEvent('zs',2)">近三年</li>
@@ -54,56 +86,29 @@
         <div style="height:300px;width:100%;" id="lineChart"></div>
       </div>
       <div style="border-bottom:2px dotted #e3e3e3;padding-top:10px"></div>
-      <!--排行榜 5个  最好、最坏-->
-      <div>
-         <div class="mod-head">
-           <h3>数据质量排行榜</h3>
-           <ul>
-             <li :class="isClick3 == 1 ? 'cur':''" @click="changeEvent('ph',1)">高</li>
-             <li :class="isClick3 == 2 ? 'cur':''" @click="changeEvent('ph',2)">低</li>
-           </ul>
-           <div class="clearfixed"></div>
-         </div>
-         <ul class="sort-wrap" :style="isClick3 == 1 ?'display:block':'display:none'">
-            <li v-for="(item,index) in sjListUp" :key="index">
-               <span><em>{{index+1}}.</em> {{item.name}}，故障次数 {{item.num}} </span>
-            </li>
-         </ul>
-         <ul class="sort-wrap" :style="isClick3 == 2 ?'display:block':'display:none'">
-            <li v-for="(item,index) in sjListDown" :key="index">
-               <span><em>{{index+1}}.</em> {{item.name}}，故障次数 {{item.num}}，多为 {{item.type}} </span>
-            </li>
-         </ul>
-      </div>
+      
   </vue-view>
 </template>
 
 <script>
-import VueDatepickerLocal from 'vue-datepicker-local'
 import { mapState, mapActions } from 'vuex'
 import echarUtil from '../../utils/echarUtil'
 export default {
-  components: {
-    VueDatepickerLocal
-  },
   data(){
      return {
        time:new Date(),
-       legend:['上报中断','上报延迟','数据跳大','数据跳小','数据为负'],
-       ds:[[111,23,43,21,23],[211,323,143,121,423],[211,323,143,121,423]
-           ,[211,323,143,121,423],[211,323,143,121,423]],
+       legend:['监测站点','日水量','小时水量'],
+       ds:[[111,23,43,21,23],[211,323,143,121,423],[211,323,143,121,423]],
        isClick1:1, // 监测情况
        isClick2:1, // 数据质量走势
-       isClick3:1,  // 数据排行榜
-       isClick4:1,  // 二级查询条件
-       sjListUp:[{name:'国泰君安',num:'0'},{name:'国泰君安',num:'0'}],
-       sjListDown:[{name:'国泰君安',num:'10',type:'数据中断'},{name:'国泰君安',num:'20',type:'数据跳大'}]
+       isClick4:1  // 二级查询条件
      }
   },
   computed:{
       ...mapState({
-          // sjListUp: state => state.sjzl.sjListUp,
-          // sjListDown: state => state.sjzl.sjListDown
+          jczdList: state => state.sjzl.jczdList,
+          hourList: state => state.sjzl.hourList,
+          dayList: state =>  state.sjzl.dayList
     })
    },
   mounted(){
@@ -111,7 +116,7 @@ export default {
   },
   methods:{
     ...mapActions([
-        'getSjLists'
+        'getdbLists'
      ]),
     reback:function(e){
        this.$router.push({path:'/check'});
@@ -121,10 +126,7 @@ export default {
        this.isClick1 = index;
       if(tag == 'zs') // 走势
        this.isClick2 = index;
-      if(tag == 'ph'){ // 排行
-       this.isClick3 = index;
-       
-      }if(tag == 'ml') // 目录
+      if(tag == 'ml') // 目录
        this.isClick4 = index;
     },
     getYear: function(val) {
@@ -132,11 +134,17 @@ export default {
     },
     loadChart:function(){
       // 这里要修改的 -- 即加载真实的数据
-      let myChart = echarts.init(document.getElementById("myChart"));
-      let options = echarUtil.initChart(this.legend,this.ds[0]);
+      let myChart = echarts.init(document.getElementById("myChart1"));
+      let options = echarUtil.initHBar("");
       myChart.setOption(options);
+      let myChart1 = echarts.init(document.getElementById("myChart2"));
+      let options1 = echarUtil.initHBar("");
+      myChart1.setOption(options1);
+      let myChart2 = echarts.init(document.getElementById("myChart3"));
+      let options2 = echarUtil.initHBar("");
+      myChart2.setOption(options2);
       let lineChart = echarts.init(document.getElementById("lineChart"));
-      let lineoptions = echarUtil.initLine(this.legend,this.ds);
+      let lineoptions = echarUtil.initLine3(this.legend,this.ds);
       lineChart.setOption(lineoptions);
     }
     
@@ -243,5 +251,13 @@ export default {
   .wtac{
     color:#fff;
     background:#11b9e8 !important;
+  }
+  .chartDesc h3{
+    font-size:0.8125rem;
+    padding:0;
+    margin:0;
+  }
+  .chartDesc li{
+    font-size:0.8125rem;
   }
 </style>

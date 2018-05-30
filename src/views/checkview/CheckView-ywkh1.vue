@@ -1,29 +1,36 @@
 /**
-  数据质量考核-整体页面
+  运维维护考核-整体页面
  */
 <template>
   <vue-view class="container">
     <!--页面头部区域-->
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
-         数据质量考核
+         运维维护考核
          <icon name="left-nav" slot="left" titleRight="返回" @iconClick="reback"></icon>
       </navbar>
       <!--首页面头部方块切换页面，有问题 这里要插入 子页面了，路径配置不应该这样写-->
       <div class="wtabs-list">
         <ul class="wtabs">
-          <li class="ac"><router-link to="sjzl1">今日情况</router-link></li>
-          <li><router-link to="sjzl2">取用水数据</router-link></li>
-          <li><router-link to="sjzl3">水质评价数据</router-link></li>
+          <li class="ac"><router-link to="ywkh1">今日情况</router-link></li>
+          <li><router-link to="ywkh2">取用水运维</router-link></li>
+          <li><router-link to="ywkh3">水质监测运维</router-link></li>
         </ul>
       </div>
+      <!--今日情况说明-->
+      <div style="text-align:center">
+          <h3 style="padding-top:10px;font-size:0.9125rem;color:#666">本日无巡检任务</h3>
+      </div>
+      <grid>
+           <cell cells="6" style="border-bottom:1px dotted #4444"></cell>
+      </grid>
       <!--环形图-->
-      <group header="取用水户上报质量" :footer="nowTime">
+      <group header="站点巡检" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="qsh" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="zdxj" :style="{width:'200px',height:'150px'}"></div>
             </cell>
             <cell cells="7">
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in qshList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <li :key="item.id" v-for="item in zdList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -31,13 +38,13 @@
       <grid>
            <cell cells="6" style="border-bottom:1px solid #4444"></cell>
       </grid>
-      <group header="水功能区上报质量" :footer="nowTime">
+      <group header="运维任务" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="sgnq" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="ywrw" :style="{width:'200px',height:'150px'}"></div>
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in sydList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <li :key="item.id" v-for="item in ywList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -45,17 +52,6 @@
       <grid>
            <cell cells="6" style="border-bottom:1px solid #4444"></cell>
       </grid>
-      <group header="水源地上报质量" :footer="nowTime">
-        <grid>
-            <cell cells="3"><div class="pies" id="syd" :style="{width:'200px',height:'150px'}"></div>
-            </cell>
-            <cell>
-              <ul class="pieHead">
-                <li :key="item.id" v-for="item in sgnqList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
-              </ul>
-            </cell>
-        </grid>
-      </group>
       <!--曲线图-->
       <div>
 
@@ -73,9 +69,8 @@ export default {
   },
   computed:{
       ...mapState({
-          qshList: state => state.sjzl.qshList,
-          sydList: state => state.sjzl.sydList,
-          sgnqList: state => state.sjzl.sgnqList,
+          zdList: state => state.sjzl.zdList,
+          ywList: state => state.sjzl.ywList,
           nowTime: state => state.sjzl.nowDate
     })
    },
@@ -93,15 +88,12 @@ export default {
      loadChart:function(val){
        // 这里先调用下 getLists 方法
 
-        let qsh_myChart = echarts.init(document.getElementById("qsh"));
-        let syd_myChart = echarts.init(document.getElementById("syd"));
-        let sgnq_myChart = echarts.init(document.getElementById("sgnq"));
-        let qshO = this.initChart("取用水户","20","50","#de4751");
-        let sydO = this.initChart("水源地","20","50","#62ab00");
-        let sgnqO = this.initChart("水功能区","20","50","#0a9fde");
-        qsh_myChart.setOption(qshO);
-        syd_myChart.setOption(sydO);
-        sgnq_myChart.setOption(sgnqO);
+        let zdyx_myChart = echarts.init(document.getElementById("zdxj"));
+        let ywrw_myChart = echarts.init(document.getElementById("ywrw"));
+        let zdyx = this.initChart("站点巡检","20","50","#de4751");
+        let ywrw = this.initChart("运维任务","20","50","#62ab00");
+        zdyx_myChart.setOption(zdyx);
+        ywrw_myChart.setOption(ywrw);
 
      },
      initChart:function(t,x1,x2,c){
@@ -157,8 +149,8 @@ export default {
         };
        var  options = {
             title: {
-                text: '异常/正常',
-                subtext: t,
+                text: t,
+                subtext: '',
                 // sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
                 x: 'center',
                 y: '60',

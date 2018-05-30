@@ -5,6 +5,7 @@
  import * as util from '../libs/utils'
 
  export  function _beforeEnter(to, from, next){
+     var roleMeta = to.meta.role;
      if(to.matched.some(m => m.meta.auth)){
          console.log("需要验证登录");
          
@@ -12,7 +13,11 @@
             console.log("需要登录");
             next({name:'login',params:{next:to.fullPath}});
         }else{
-            next();
+            if(roleMeta.indexOf(util.getStore('userRole'))< 0){
+                next('/error404');
+            }
+            else
+              next();
         }
          // 跳转至 forbidden 界面
         //  next('/forbidden')
@@ -20,4 +25,4 @@
         next();
      }
      
- }
+ }   

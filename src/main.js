@@ -58,6 +58,73 @@ const sjzl3 = resolve => {
         // Indicator.close()
       },'group-check')
 }
+// 运维巡检考核
+const ywkh1 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-ywkh1.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const ywkh2 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-ywkh2.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const ywkh3 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-ywkh3.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const jgkh1 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-jgkh1.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const jgkh2 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-jgkh2.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+// 数据上报考核
+const sjsb1 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-sjsb1.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const sjsb2 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-sjsb2.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+const sjsb3 = resolve => {
+    // console.log(Indicator);
+    // Indicator.open();
+      require.ensure([], () => {
+        resolve(require('./views/checkview/CheckView-sjsb3.vue'))
+        // Indicator.close()
+      },'group-check')
+}
+
 // 巡检
 // import route from './views/RouteView'
 const route = resolve => {
@@ -343,6 +410,23 @@ const router = new VueRouter({
         { 
             path:'/check',
             component:check
+        },
+        { 
+            path:'/check/sjsb1',
+            name:'sjsb1',
+            component:sjsb1
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/sjsb2',
+            name:'sjsb2',
+            component:sjsb2
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/sjsb3',
+            name:'sjsb3',
+            component:sjsb3
             // meta:{auth:true}
         },
         { 
@@ -361,6 +445,36 @@ const router = new VueRouter({
             path:'/check/sjzl3',
             name:'sjzl3',
             component:sjzl3
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/ywkh1',
+            name:'ywkh1',
+            component:ywkh1
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/ywkh2',
+            name:'ywkh2',
+            component:ywkh2
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/ywkh3',
+            name:'ywkh3',
+            component:ywkh3
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/jgkh1',
+            name:'jgkh1',
+            component:jgkh1
+            // meta:{auth:true}
+        },
+        { 
+            path:'/check/jgkh2',
+            name:'jgkh2',
+            component:jgkh2
             // meta:{auth:true}
         },
         { 
