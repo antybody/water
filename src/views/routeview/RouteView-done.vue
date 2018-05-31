@@ -14,19 +14,19 @@
                 <div class="wt-list-line">
                     <label>巡检站点：</label>
                     <p class="g-overflow">
-                        测试
+                        {{doneLists.PATROL_TITLE}}
                     </p>
                 </div>
                 <div class="wt-list-line">
                     <label>巡检地点：</label>
                     <p class="g-overflow">
-                        测试
+                        {{doneLists.PATROL_ADDRESS}}
                     </p>
                 </div>
                 <div class="wt-list-line">
                     <label>巡检时间：</label>
                     <p class="g-overflow">
-                        测试
+                        {{doneLists.PATROL_TIME}}
                     </p>
                 </div>
            </div>
@@ -41,13 +41,13 @@
                 <div class="wt-list-lineover">
                     <label>现场情况：</label>
                     <p class="g-overflow">
-                        <textarea disabled placeholder="请输入"></textarea>
+                        <textarea disabled placeholder="请输入" v-model="doneLists.PATROL_CONTENT"></textarea>
                     </p>
                 </div>
                 <div class="wt-list-lineover">
                     <label>备注：</label>
                     <p class="g-overflow">
-                        <textarea disabled placeholder="请输入"></textarea>
+                        <textarea disabled v-model="doneLists.BZ" placeholder="请输入"></textarea>
                     </p>
                 </div>
            </div>
@@ -57,7 +57,7 @@
                    <label>现场照片：</label>                   
                    <p class="g-overflow preview">
                        <span class="wt-img-preview" @click="pre_Handle()">
-                            <img src="https://pic1.ajkimg.com/m/740070a6b8a69eccbd0304af848cc480/360x259x50m@2x.jpg?t=5">
+                            <img src="ftp://admin:Zygszy2013$@31.16.10.52:80/App/123.jpg" />
                        </span>
                        <span class="wt-img-total">共6张</span>
                    </p>
@@ -72,18 +72,36 @@
 
 <script>
 import imgpreview from '../../components/imgpreview'
+import * as API from '../../store/api/api'
 export default {
     data(){
         return{
             imgpreshow:false,
-            imgLists:[{url:'https://pic1.ajkimg.com/m/8389b835e4359a9bd72ac9963c577b5b/360x256x50m@2x.jpg?t=5'},
+            doneLists: [],
+            imgLists:[{url:'ftp://admin:Zygszy2013$@31.16.10.52:80/App/123.jpg'},
                       {url:'https://pic1.ajkimg.com/m/3b16b69a28afbbe9a64524910cc6770c/360x196x50m@2x.jpg?t=5'},
-                      {url:'https://pic1.ajkimg.com/m/5e2f7159ef57d232a959d536f59ef18c/360x278x50m@2x.jpg?t=5'},
+                      {url:'ftp://admin:Zygszy2013$@31.16.10.52:80/App/123.jpg'},
                       {url:'https://pic1.ajkimg.com/m/a7dd9500dde36d8b70be292ddb90afca/360x254x50m@2x.jpg?t=5'}]
         }
     },
     components: {
       imgpreview
+    },
+    mounted() {
+        let ID = this.$route.params.id;
+        let paramData = {
+            type: 'query',
+            ID: ID,
+            PATROL_STATE: ''
+        }
+        paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+        this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
+            response => {
+                console.log(response.data.data);
+                this.doneLists = response.data.data[0];
+            }, response => {
+                console.log("error:" + response.data);
+            });
     },
     methods:{
         closeImg:function(){
