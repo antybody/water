@@ -94,23 +94,24 @@ export default {
     mounted(){
         let id = this.$route.params.id;
         let paramData = {
-            id: id
+            id: id,
+            currentPage:10,
         }
         paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
         this.$http.jsonp(API.QSH_XKZ + "&params=" + paramData).then(
             response => {
-                this.xkzzh= response.data.dmxx[0].xkzzh;
-                    this.xkznh= response.data.dmxx[0].xkznh;
-                this.xkzsxh= response.data.dmxx[0].xkzsxh;
-                    this.qsqrmc= response.data.dmxx[0].qsqrmc;
-                    this.watuserDivname= response.data.dmxx[0].watuserDivname;
-                    this.qsl= response.data.dmxx[0].qsl;
-                    this.qsdd= response.data.dmxx[0].qsdd;
-                    this.qsfs= response.data.dmxx[0].qsfs;
-                    this.sylx= response.data.dmxx[0].sylx;
-                    this.qslx= response.data.dmxx[0].qslx;
-                    this.qsyt= response.data.dmxx[0].qsyt;
-                    this.overDate= response.data.dmxx[0].overDate;
+                this.xkzzh= response.data.data[0].xkzzh;
+                    this.xkznh= response.data.data[0].xkznh;
+                this.xkzsxh= response.data.data[0].xkzsxh;
+                    this.qsqrmc= response.data.data[0].qsqrmc;
+                    this.watuserDivname= response.data.data[0].watuserDivname;
+                    this.qsl= response.data.data[0].qsl;
+                    this.qsdd= response.data.data[0].qsdd;
+                    this.qsfs= response.data.data[0].qsfs;
+                    this.sylx= response.data.data[0].sylx;
+                    this.qslx= response.data.data[0].qslx;
+                    this.qsyt= response.data.data[0].qsyt;
+                    this.overDate= response.data.data[0].overDate;
             }, response => {
                 console.log("error");
             });

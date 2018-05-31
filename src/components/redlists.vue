@@ -51,11 +51,9 @@
             <span slot="subTitle">
                <cell>
                   <small>许可量：{{item.xksl}}</small>
-                  <span class="progress wt-b-dblue" :style="{width:item.one/3+'rem'}"></span>
                   </cell>
                   <cell>
                   <small>取水量：{{item.qsl}}</small>
-                  <span class="progress wt-b-yellow" :style="{width:item.two/3+'rem'}"></span>
                   </cell>
             </span>
         </list-item>

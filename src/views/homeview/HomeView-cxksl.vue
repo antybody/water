@@ -8,7 +8,7 @@
         <div class="wt-top-search">
             <div class="h-search" @click="searchBar()">
                 <i class="h-search-ico"></i>
-                搜索取水户
+                搜索取水许可证
             </div>
         </div>
         <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
@@ -44,8 +44,9 @@
                 dataType: [],
                 currentPage:10,
                 selectVal: {
-                    wtType: wtType,
-                    tgWq: tgWq
+                    qslx: '',
+                    xzqh: '',
+                    qsyt:''
                 }
             }
         },
@@ -75,24 +76,32 @@
         methods:{
             searchBar:function(){
                 //    this.openSearch = true;
-                this.$router.push({name:'search',params:{text:'请搜索取水户名称',t:'dbsqsh'}});
+                this.$router.push({name:'search',params:{text:'请搜索取水户名称',t:'cxksl'}});
             },
             ...mapActions([
                 'getLists','getQueryMenu'
             ]),
             menuQuery:function(val){
+                this.currentPage = 10;
+                this.selectVal = val;
+                var qslx= val.qslx[0],
+                    xzqh= val.xzqh,
+                    qsyt= val.qsyt;
                 // 这里引用 带条件的查询
-                var wtType = val.wtType,
-                    tgWq = val.tgWq;
-                // 这里引用 带条件的查询
-                if (val.wtType[0] === "-1" || val.wtType.length === 0) {
-                    wtType = '';
+                if (val.qslx[0] === "-1" || val.qslx.length === 0) {
+                    qslx = '';
                 }
-                if (val.tgWq[0] === "-1" || val.tgWq.length === 0) {
-                    tgWq = '';
+                if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
+                    xzqh = '';
+                }
+                if (val.qsyt[0] === "-1" || val.qsyt.length === 0) {
+                    qsyt = '';
                 }
                 //取水户列表查询所需要的参数
                 let params = {
+                    qslx: qslx,
+                    watuserDivname: xzqh,
+                    qsyt:qsyt,
                     currentPage: this.currentPage
                 };
                 // params = encodeURIComponent(JSON.stringify(params));
@@ -100,7 +109,7 @@
                 this.$http.jsonp(API.QSH_CXKZ + "&params=" + params).then(
                     response => {
                         console.log(response.data.data);
-                        this.sgnqList = response.data.data;
+                        this.lists = response.data.data;
                         //循环设置跳转地址 href
                         for (let value of response.data.data) {
                             value.href = "/qsxkzDetail/" + value.wfzNb;
@@ -120,21 +129,28 @@
                 }
             },
             loadMore(){
-                this.currentPage +=1;
+                this.currentPage +=10;
                 console.log('下一页');
 
                 let val = this.selectVal;
-                var wtType = val.wtType,
-                    tgWq = val.tgWq;
+                var qslx= val.qslx[0],
+                    xzqh= val.xzqh,
+                    qsyt= val.qsyt;
                 // 这里引用 带条件的查询
-                if (val.wtType[0] === "-1" || val.wtType.length === 0) {
-                    wtType = '';
+                if (val.qslx[0] === "-1" || val.qslx.length === 0) {
+                    qslx = '';
                 }
-                if (val.tgWq[0] === "-1" || val.tgWq.length === 0) {
-                    tgWq = '';
+                if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
+                    xzqh = '';
+                }
+                if (val.qsyt[0] === "-1" || val.qsyt.length === 0) {
+                    qsyt = '';
                 }
                 //取水户列表查询所需要的参数
                 let params = {
+                    qslx: qslx,
+                    watuserDivname: xzqh,
+                    qsyt:qsyt,
                     currentPage: this.currentPage
                 };
                 // params = encodeURIComponent(JSON.stringify(params));
@@ -142,7 +158,7 @@
                 this.$http.jsonp(API.QSH_CXKZ + "&params=" + params).then(
                     response => {
                         console.log(response.data.data);
-                        this.sgnqList = response.data.data;
+                        this.lists = response.data.data;
                         //循环设置跳转地址 href
                         for (let value of response.data.data) {
                             value.href = "/qsxkzDetail/" + value.wfzNb;

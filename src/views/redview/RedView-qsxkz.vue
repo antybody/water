@@ -44,8 +44,9 @@ export default {
            sgnqList: [],
            dataType: [],
            selectVal: {
-               wtType: wtType,
-               tgWq: tgWq
+               qslx: '',
+               watuserDivname: '',
+               qsyt:''
            }
        }
    },
@@ -79,7 +80,7 @@ export default {
    methods:{
        searchBar:function(){
         //    this.openSearch = true;
-            this.$router.push({name:'search',params:{text:'请搜索取水许可证',t:'qsxzk'}});
+            this.$router.push({name:'search',params:{text:'请搜索取水许可证',t:'qsxkz'}});
             //alert('搜索框点击');
        },
         ...mapActions([
@@ -88,17 +89,24 @@ export default {
         menuQuery:function(val){
             this.currentPage = 10;
             this.selectVal = val;
-            var wtType = val.wtType,
-                tgWq = val.tgWq;
+            var qslx= val.qslx[0],
+                watuserDivname= val.xzqh,
+                qsyt= val.qsyt;
             // 这里引用 带条件的查询
-            if (val.wtType[0] === "-1" || val.wtType.length === 0) {
-                wtType = '';
+            if (val.qslx[0] === "-1" || val.qslx.length === 0) {
+                qslx = '';
             }
-            if (val.tgWq[0] === "-1" || val.tgWq.length === 0) {
-                tgWq = '';
+            if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
+                watuserDivname = '';
+            }
+            if (val.qsyt[0] === "-1" || val.qsyt.length === 0) {
+                qsyt = '';
             }
             //取水户列表查询所需要的参数
             let params = {
+                qslx: qslx,
+                watuserDivname: watuserDivname,
+                qsyt:qsyt,
                 currentPage: this.currentPage
             };
             // params = encodeURIComponent(JSON.stringify(params));
@@ -130,17 +138,24 @@ export default {
           console.log('下一页');
 
           let val = this.selectVal;
-          var wtType = val.wtType,
-              tgWq = val.tgWq;
+          var qslx= val.qslx[0],
+              watuserDivname= val.xzqh,
+              qsyt= val.qsyt;
           // 这里引用 带条件的查询
-          if (val.wtType[0] === "-1" || val.wtType.length === 0) {
-              wtType = '';
+          if (val.qslx[0] === "-1" || val.qslx.length === 0) {
+              qslx = '';
           }
-          if (val.tgWq[0] === "-1" || val.tgWq.length === 0) {
-              tgWq = '';
+          if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
+              watuserDivname = '';
+          }
+          if (val.qsyt[0] === "-1" || val.qsyt.length === 0) {
+              qsyt = '';
           }
           //取水户列表查询所需要的参数
           let params = {
+              qslx: qslx,
+              watuserDivname: watuserDivname,
+              qsyt:qsyt,
               currentPage: this.currentPage
           };
           // params = encodeURIComponent(JSON.stringify(params));

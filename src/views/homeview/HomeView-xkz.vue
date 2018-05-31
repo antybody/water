@@ -6,11 +6,14 @@
             <icon name="left-nav" slot="left" titleRight="返回" back></icon>
         </navbar>
         <!--许可证列表查询-->
-        <tabs v-model="selected">
-            <tabs-item v-for="tabitem in tabsItem" slot="tabs"   @click="searchQslx(tabitem.id)"  blue hollow>
-                {{tabitem.name}}
-            </tabs-item>
-        </tabs>
+
+        <div class="wttabs-second">
+            <ul>
+                <li><span :class="isClick4 == 1 ? 'wtac':''" @click="searchQslx('qb')">全部</span></li>
+                <li><span :class="isClick4 == 2 ? 'wtac':''" @click="searchQslx('dbs')">地表水</span></li>
+                <li><span :class="isClick4 == 3 ? 'wtac':''" @click="searchQslx('dxs')">地下水</span></li>
+            </ul>
+        </div>
         <table>
             <tr><th>行政区</th><th>总数</th><th>有效证</th><th>过期证</th></tr>
             <tr v-for="item in listInfo"><td>{{item.ID}}</td><td>{{item.XKZZS}}</td><td>{{item.YXZ}}</td><td>{{item.GQZ}}</td></tr>
@@ -47,6 +50,7 @@
                     "YXZ": 200
                 }
                 ],
+                isClick4:1,
                 selected:false,
                 tabsItem: [
                     {"name":"全部","id":"qb"},
@@ -61,74 +65,88 @@
         },
         methods:{
             searchQslx:function(val){
-                alert(val);
+                switch (val){
+                    case 'qb':
+                        this.isClick4=1;
+                        break;
+                    case 'dbs':
+                        this.isClick4=2;
+                        break;
+                    case 'dxs':
+                        this.isClick4=3;
+                        break;
+                }
+                this.query(val)
+            },
+            query:function (val) {
+
+                let paramData = {
+                    param:val
+                }
+                paramData = encodeURIComponent(JSON.stringify(paramData));
+                this.$http.jsonp(API.QSH_XKZ_FB+ "&params=" + paramData).then(
+                    response => {
+                        //循环设置跳转地址 href
+                        for (let value of response.data.data) {
+                            if(value.ID=='上海市'){
+                                this.onM=value.ONEGQ;
+                                this.threeM=value.THREEGQ;
+                                this.yxz=value.YXZ;
+                                this.gqz=value.GQZ;
+                            }
+                        }
+                        this.listInfo = response.data.data;
+                        let myChart = echarts.init(document.getElementById('myCharts'));
+                        var options = {
+                            backgroundColor: '#FFFFFF',
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b}: {c} ({d}%)"
+                            },
+                            legend: {
+                                show: false
+                            },
+                            series: [
+                                {
+                                    name:'取水许可证状态分布：',
+                                    type:'pie',
+                                    radius: ['50%', '70%'],
+                                    avoidLabelOverlap: false,
+                                    label: {
+                                        normal: {
+                                            show: false,
+                                            position: 'center'
+                                        },
+                                        emphasis: {
+                                            show: true,
+                                            textStyle: {
+                                                fontSize: '20',
+                                                fontWeight: 'bold'
+                                            }
+                                        }
+                                    },
+                                    labelLine: {
+                                        normal: {
+                                            show: false
+                                        }
+                                    },
+                                    data:[
+                                        {value:this.yxz, name:'有效许可证'},
+                                        {value:this.gqz, name:'过期许可证'},
+                                        {value:this.onM, name:'一个月过期'},
+                                        {value:this.threeM, name:'三个月过期'}
+                                    ]
+                                }
+                            ]
+                        };
+                        myChart.setOption(options);
+                    }, response => {
+                        console.log("error");
+                    });
             }
         },
         mounted(){
-            let paramData = {
-                param:'qb'
-            }
-            paramData = encodeURIComponent(JSON.stringify(paramData));
-            this.$http.jsonp(API.QSH_XKZ_FB+ "&params=" + paramData).then(
-                response => {
-                    //循环设置跳转地址 href
-                    for (let value of response.data.data) {
-                        if(value.ID=='上海市'){
-                            this.onM=value.ONEGQ;
-                            this.threeM=value.THREEGQ;
-                            this.yxz=value.YXZ;
-                            this.gqz=value.GQZ;
-                        }
-                    }
-                    this.listInfo = response.data.data;
-                    let myChart = echarts.init(document.getElementById('myCharts'));
-                    var options = {
-                        backgroundColor: '#FFFFFF',
-                        tooltip: {
-                            trigger: 'item',
-                            formatter: "{a} <br/>{b}: {c} ({d}%)"
-                        },
-                        legend: {
-                            show: false
-                        },
-                        series: [
-                            {
-                                name:'取水许可证状态分布：',
-                                type:'pie',
-                                radius: ['50%', '70%'],
-                                avoidLabelOverlap: false,
-                                label: {
-                                    normal: {
-                                        show: false,
-                                        position: 'center'
-                                    },
-                                    emphasis: {
-                                        show: true,
-                                        textStyle: {
-                                            fontSize: '20',
-                                            fontWeight: 'bold'
-                                        }
-                                    }
-                                },
-                                labelLine: {
-                                    normal: {
-                                        show: false
-                                    }
-                                },
-                                data:[
-                                    {value:this.yxz, name:'有效许可证'},
-                                    {value:this.gqz, name:'过期许可证'},
-                                    {value:this.onM, name:'一个月过期'},
-                                    {value:this.threeM, name:'三个月过期'}
-                                ]
-                            }
-                        ]
-                    };
-                    myChart.setOption(options);
-                }, response => {
-                    console.log("error");
-                });
-
+            this.query('qb');
         }
     }
 </script>
@@ -152,6 +170,31 @@
     }
     tr{
         text-align: center;
+    }
+    .wttabs-second ul{
+        margin:0;padding:0;
+    }
+    .wttabs-second li{
+        float:left;
+        width:33.33%;
+        margin-top:5px;
+        margin-bottom:5px;
+    }
+    .wttabs-second li span{
+        display:block;
+        background:#f6f6f6;
+        line-height:30px;
+        padding:0 5px;
+        margin:0 8px;
+        text-align:center;
+        overflow:hidden;
+        border-radius:5px;
+        text-overflow:ellipsis;
+        font-size:0.8125rem;
+    }
+    .wtac{
+        color:#fff;
+        background:#11b9e8 !important;
     }
     th{
         background-color: #dff1fc;

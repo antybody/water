@@ -33,9 +33,9 @@ const state = {
 
         {
             title: '取水类型', ol: '取水类型', select: '', key: 'qslx', type: 'radio', children: [
-                {title: '地表水', key: '03060001', checked: true},
-                {title: '地下水', key: '03060002', checked: false},
-                {title: '既是地表水又是地下水', key: '03060003', checked: false}
+                {title: '全部', key: '-1', checked: true},
+                {title: '地表水', key: '地表水', checked: false},
+                {title: '地下水', key: '地下水', checked: false},
                 ]
         },
         {
@@ -58,25 +58,19 @@ const state = {
                 {title: '杨浦区', key: '杨浦区', checked: false },
                 {title: '嘉定区', key: '嘉定区', checked: false }
                 ]
-        },
+        }
+        ,
         {
             title: '取水用途', ol: '取水用途', select: '', key: 'qsyt', type: 'checkbox', children: [
                 {title: '不限', key: '-1', checked: true},
-                {title: '城市生活', key: '城市生活', checked: false},
-                {title: '农村生活', key: '农村生活', checked: false},
-                {title: '工业用水', key: '工业用水', checked: false},
+
                 {title: '农业用水', key: '农业用水', checked: false},
-                {title: '发电用水', key: '发电用水', checked: false},
-                {title: '应急备用', key: '应急备用', checked: false},
                 {title: '公共供水', key: '公共供水', checked: false},
-                {title: '分质供水', key: '分质供水', checked: false},
-                {title: '采灌井', key: '采灌井', checked: false},
-                {title: '应急备用（回灌）', key: '应急备用（回灌）', checked: false},
-                {title: '回灌', key: '回灌', checked: false},
-                {title: '其他', key: '其他', checked: false},
-                {title: '城镇公共用水', key: '城镇公共用水', checked: false},
-                {title: '生活用水（自备）', key: '生活用水（自备）', checked: false},
-                {title: '城镇工业用水', key: '城镇工业用水', checked: false}
+                {title: '生活用水', key: '生活用水', checked: false},
+                {title: '工业用水', key: '工业用水', checked: false},
+                {title: '分质用水', key: '分质用水', checked: false},
+                {title: '应急备用', key: '应急备用', checked: false},
+
                 ]
         }
     ],

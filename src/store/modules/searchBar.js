@@ -57,6 +57,18 @@ const actions ={
                             currentPage:'10',
                             name:payload.param.split('&&')[1]}
                 break;
+            case 'cxksl':
+                this.searchUrl=API.QSH_CXKZ;
+                paramsData={
+                    currentPage:'10',
+                    watuser_name:payload.param.split('&&')[1]}
+                break;
+            case 'qsxkz':
+                this.searchUrl=API.QSH_XKZ;
+                paramsData={
+                    currentPage:'10',
+                    qsqrmc:payload.param.split('&&')[1]}
+                break;
         }
         paramsData = encodeURI(encodeURI(JSON.stringify(paramsData)));
         return new Promise((resolve,reject) =>{
@@ -73,6 +85,16 @@ const actions ={
                     case 'xc':
                         for (let value of res.body.data) {
                             resu.push({title:value.name,href:"",key:value.stcd,tag1:value.nm_salinity,tag2:value.state,tag3:value.tgWq});
+                        }
+                        break;
+                    case 'qsxkz':
+                        for (let value of res.body.data) {
+                            resu.push({title:value.qsqrmc,href:"/qsxkzDetail/"+value.id,key:value.id,tag1:value.watuserDivname,tag2:value.qsl,tag3:value.overDate});
+                        }
+                        break;
+                    case 'cxksl':
+                        for (let value of res.body.data) {
+                            resu.push({title:value.watuser_name,href:"",key:value.watuser_id,tag1:value.qsl,tag2:value.xksl,tag3:value.dt});
                         }
                         break;
                 }
