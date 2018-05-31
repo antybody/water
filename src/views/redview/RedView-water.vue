@@ -17,7 +17,7 @@
             <div id="myCharts2" :style="{width:'100%',height:'300px'}"></div>
         </card>
         <!--列表-->
-        <card title="2018 月度取水总量列表">
+        <card title="2018 月度取水总量列表(万m³)">
             <grid avg="2">
                 <cell class="cell-box wt-font-700">月度</cell><cell class="cell-box wt-font-700">取水量</cell>
             </grid>
@@ -67,11 +67,11 @@
                         xyData = [],yyData = [];
                     for (let value of this.monthSl) {
                         xmData.push(value.dt);
-                        ymData.push(parseFloat(value.day_w));
+                        ymData.push(parseFloat(value.day_w/10000).toFixed(2));
                     }
                     for (let value of this.yearSl) {
                         xyData.push(value.dt);
-                        yyData.push(parseFloat(value.day_w));
+                        yyData.push(parseFloat(value.day_w/10000).toFixed(2));
                     }
                     var options2 = {
                         color: ['#3398DB'],

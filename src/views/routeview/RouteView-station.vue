@@ -5,7 +5,7 @@
             报警站点
             <icon name="left-nav" slot="left" titleRight="返回" back></icon>
             <!--列表显示-->
-            <icon name="more-vertical" slot="right" href="/route" ></icon>
+            <icon name="more-vertical" slot="right" href="/routeWarn" ></icon>
         </navbar>
         <red-map :points="mapPoints"></red-map>
     </vue-view>

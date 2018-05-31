@@ -366,6 +366,14 @@ const routeDone = resolve => {
         // Indicator.close()
       },'group-route')
 }
+// import routeDone from './views/routeview/RouteView-done'
+const routeRecord = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-record.vue'))
+        // Indicator.close()
+    },'group-route')
+}
 
 // 页面权限部分
 // import home from './views/HomeView'
@@ -547,6 +555,7 @@ const router = new VueRouter({
         },
         {
             path: '/routeStation',
+            name: 'routeStation',
             component: routeStation
         },
         {
@@ -563,14 +572,19 @@ const router = new VueRouter({
             component:sredmap
         },
         { 
-            path:'/reback',
-            name:'reback',
+            path:'/routeReback/:id',
+            name:'routeReback',
             component:routeReback
         },
         { 
-            path:'/redone',
-            name:'redone',
+            path:'/routeDone/:id',
+            name:'routeDone',
             component:routeDone
+        },
+        {
+            path:'/routeRecord',
+            name:'routeRecord',
+            component:routeRecord
         },
         { 
             path:'/forbidden',

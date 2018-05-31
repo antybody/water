@@ -4,6 +4,7 @@
       <navbar class="header" blue>
          预警列表
          <icon name="left-nav" slot="left" titleRight="返回" back></icon>
+         <icon name="right-nav" titleLeft="地图" slot="right" href="/routeStation"></icon>
       </navbar>
       <!--巡检首页面头部方块切换页面-->
       <group noPadded class="group-clear">
