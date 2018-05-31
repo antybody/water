@@ -103,7 +103,10 @@ export default {
             nh3n:0,
             tp:0,
             tn:0,
-
+            doxArr:[],
+            turbArr: [],
+            condArr: [],
+            codmnArr: [],
             xArr:['2017/1/1 10:00', '2017/1/1 12:00', '2017/1/1 14:00', '2017/1/1 16:00', '2017/1/1 18:00', '2017/1/1 20:00', '2017/1/1 22:00'],
             phArr:[820, 932, 901, 934, 1290, 1330, 1320],
             wtArr:[22, 32, 1, 34, 90, 30, 20],
@@ -156,6 +159,10 @@ export default {
             this.phArr= [];
             this.nh3nArr= [];
             this.wtArr= [];
+            this.doxArr= [];
+            this.turbArr= [];
+            this.condArr= [];
+            this.codmnArr= [];
             this.lastdate='暂无',
             this.wt=0;
             this.cond=0;
@@ -180,6 +187,11 @@ export default {
                         this.nh3nArr.push(value.nh3n);
                         this.wtArr.push(value.wt);
                          this.lastdate=value.spt;
+
+                         this.doxArr.push(value.dox);
+                         this.turbArr.push(value.turb);
+                         this.condArr.push(value.cond);
+                         this.codmnArr.push(value.codmn);
 
                          this.wt=value.wt;
                          this.cond=value.cond;
@@ -206,7 +218,7 @@ export default {
                             trigger: 'axis'
                         },
                         legend:{
-                            data:['pH','氨氮','水温','溶解氧','总磷'],
+                            data:['pH','氨氮','水温','溶解氧','浊度','电导率','高锰酸盐指数'],
                             x: 'left',
                             selectedMode: 'single'
                         },
@@ -217,7 +229,8 @@ export default {
                             })
                         },
                         yAxis: {
-                            type: 'value'
+                            type: 'value',
+                            scale   :true
                         },
                         series: [
                             {
@@ -237,7 +250,32 @@ export default {
                                 data: this.wtArr,
                                 type: 'line',
                                 smooth: true
+                            },
+                            {
+                                name:'溶解氧',
+                                data: this.doxArr,
+                                type: 'line',
+                                smooth: true
+                            },
+                            {
+                                name:'浊度',
+                                data: this.turbArr,
+                                type: 'line',
+                                smooth: true
+                            },
+                            {
+                                name:'电导率',
+                                data: this.condArr,
+                                type: 'line',
+                                smooth: true
                             }
+                            // ,
+                            // {
+                            //     name:'高锰酸盐指数',
+                            //     data: this.codmnArr,
+                            //     type: 'line',
+                            //     smooth: true
+                            // }
                         ]
                     };
                     myChart.setOption(options);

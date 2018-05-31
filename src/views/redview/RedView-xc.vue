@@ -19,7 +19,7 @@
                 </div>
                 <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
             
-                <redlists :showMore="showMore"  :lists="xcList" :next="currentPage" :total="dataType" @loadMore="loadMore"></redlists>
+                <redlists :showMore="showMore"  :lists="xcList" :next="currentPage"  @loadMore="loadMore"></redlists>
         </group>
    </vue-view>
    <!-- </pull-to> -->
@@ -41,10 +41,14 @@ export default {
        return{
            openSearch:false,
            topB:false,
-           currentPage:1,
+           currentPage:10,
            showMore:true,
            xcList: [],
-           dataType: []
+           dataType: [],
+           selectVal: {
+               kzsyd: '',
+               state: ''
+       }
        }
    },
    mounted(){
@@ -52,7 +56,10 @@ export default {
        t.addEventListener('scroll', function(){
            console.log("监听了");
        });
-       var paramsData = {'name':''};
+       var paramsData = {
+           'name':'',
+           currentPage: this.currentPage
+       };
        paramsData = encodeURIComponent(JSON.stringify(paramsData));
        this.$http.jsonp(API.XC_LIST + "&params=" + paramsData).then(
            response => {
@@ -78,6 +85,8 @@ export default {
             'getLists','getQueryMenu'
         ]),
         menuQuery:function(val){
+            this.currentPage = 10;
+            this.selectVal = val;
             var kzsyd = val.kzsyd,
                 state = val.state[0];
             // 这里引用 带条件的查询
@@ -91,7 +100,8 @@ export default {
             let params = {
                 kzsyd: kzsyd,
                 state: state,
-                name:''
+                name:'',
+                currentPage: this.currentPage
             };
             // params = encodeURIComponent(JSON.stringify(params));
             params = encodeURI(encodeURI(JSON.stringify(params)));
@@ -118,8 +128,39 @@ export default {
     //         }
     //   },
       loadMore(){
-          this.currentPage +=1;
+          this.currentPage += 10;
           console.log('下一页');
+          let val = this.selectVal;
+          var kzsyd = val.kzsyd,
+              state = val.state[0];
+          // 这里引用 带条件的查询
+          if (val.kzsyd[0] === "-1" || val.kzsyd.length === 0) {
+              kzsyd = '';
+          }
+          if (val.state[0] === "-1" || val.state.length === 0) {
+              state = '';
+          }
+          //取水户列表查询所需要的参数
+          let params = {
+              kzsyd: kzsyd,
+              state: state,
+              name:'',
+              currentPage: this.currentPage
+          };
+          // params = encodeURIComponent(JSON.stringify(params));
+          params = encodeURI(encodeURI(JSON.stringify(params)));
+          this.$http.jsonp(API.XC_LIST + "&params=" + params).then(
+              response => {
+                  console.log(response.data.data);
+                  this.xcList = response.data.data;
+                  //循环设置跳转地址 href
+                  for (let value of response.data.data) {
+                      //value.href = "/sgnqDetail/" + value.wfzNb;
+                      // console.log(value);
+                  }
+              }, response => {
+                  console.log("error");
+              });
       }
    }
 }

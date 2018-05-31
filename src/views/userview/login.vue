@@ -4,7 +4,7 @@ login
 <template>
     <div>
         <navbar slot="header" class="wt-linear-blue">
-            密码登录
+            用户登录
             <icon v-show="isShow" name="left-nav" slot="left" titleRight="返回" back></icon>
         </navbar>
         <group class="group-clear group-top-10">
@@ -70,6 +70,7 @@ login
                 } else {
                     // 记录信息
                     util.setStore('userInfo', this.userInfo);
+                    util.setStore('userRole','b'); // 用户角色
                     var nextUrl = this.$route.params.next;
                     if (!nextUrl)
                         this.$router.go(-1);

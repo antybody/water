@@ -3,8 +3,8 @@
  */
 import * as Url from "../url/url"
 //后台接口地址
-const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
-// const BASE_URL = 'http://localhost:8080'
+//const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
+ const BASE_URL = 'http://localhost:8080/wrmsApp'
 /**
  * @name 取水相关新闻列表
  * @param
@@ -29,6 +29,16 @@ export const QSH_CONTENT = BASE_URL + '/app/water/getQshxx?access_token=[b366808
  * */
 export const QSH_XKZ = BASE_URL + '/app/watercard/getWaterCard?access_token=[b36680850768ff1b]';
 /**
+ * @name 超许可水量
+ * @params
+ * */
+export const QSH_CXKZ = BASE_URL + '/app/water/getOverXk?access_token=[b36680850768ff1b]';
+/**
+ * @name 取水许可证分布
+ * @params
+ * */
+export const QSH_XKZ_FB = BASE_URL + '/app/newhome/queryQsxkz?access_token=[b36680850768ff1b]';
+/**
  * @name 按月查询取水量
  * @params year type=query
  * */
@@ -45,6 +55,8 @@ export const SGNQ_DBL = BASE_URL + '/app/waterarea/getWaterAreaPj?access_token=[
 export const SGNQ_LIST = BASE_URL + '/app/sgn/querySgl?access_token=[b36680850768ff1b]';
 //水功能区详细数据
 export const SGNQ_CONTENT = BASE_URL + '/app/sgn/querySglXq?access_token=[b36680850768ff1b]';
+//水功能区评价情况
+export const SGNQ_PJ = BASE_URL + '/app/newhome/sgnqdbList?access_token=[b36680850768ff1b]';
 /**
  * @name 水源地曲线
  * @params pjlb pjsj jcnf indicator_num

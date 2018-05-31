@@ -10,21 +10,24 @@
                 <i class="h-search-ico"></i>
                 搜索取水户
             </div>
-            <icon class="icons-ea25"><span>{{listInfo.desc}}</span></icon>
         </div>
         <topquery :items="queryMenu" @menuQuery="menuQuery"></topquery>
-        <routeRedlists :lists="lists"></routeRedlists>
+        <!--<routeRedlists :lists="lists"></routeRedlists>-->
+        <redlists :showMore="showMore"  :lists="lists" :next="currentPage"  @loadMore="loadMore"></redlists>
+
     </vue-view>
 </template>
 
 <script>
     import routeRedlists from '../../components/route-redlists'
+    import redlists from '../../components/redlists'
     import topquery from '../../components/topquery'
     import { mapState, mapActions } from 'vuex'
+    import * as API from '../../store/api/api'
 
     export default {
         components: {
-            routeRedlists, topquery
+            routeRedlists, topquery,redlists
         },
         data(){
             return{
@@ -36,7 +39,14 @@
                     ,{title:'上海报亭',errorType: '数据中断', xjType: '未加入巡检计划', progress: 'cxksl', color:'#fecf63', width1: '40%', width2: '60%'}
                     ,{title:'上海报亭',errorType: '数据中断', xjType: '未加入巡检计划', progress: 'cxksl', color:'red', width1: '70%', width2: '40%'}
                     ,{title:'上海报亭',errorType: '数据中断', xjType: '未加入巡检计划', progress: 'cxksl', color:'#fecf63', width1: '80%', width2: '50%'}
-                ]
+                ],
+                showMore:true,
+                dataType: [],
+                currentPage:10,
+                selectVal: {
+                    wtType: wtType,
+                    tgWq: tgWq
+                }
             }
         },
         mounted(){
@@ -44,12 +54,22 @@
             t.addEventListener('scroll', function(){
                 console.log("监听了");
             });
+            var paramsData = {
+                currentPage: this.currentPage
+            };
+            paramsData = encodeURIComponent(JSON.stringify(paramsData));
+            this.$http.jsonp(API.QSH_CXKZ + "&params=" + paramsData).then(
+                response => {
+                    this.lists = response.data.data;
+                    console.log(response.data.data);
+                }, response => {
+                    console.log("error");
+                });
         },
         computed:{
             ...mapState({
                 loading: state => state.qshInfo.loading,
-                listInfo: state => state.qshInfo.listInfo,
-                queryMenu:state => state.qshInfo.queryMenu
+                queryMenu:state => state.xkzInfo.queryMenu
             })
         },
         methods:{
@@ -62,13 +82,32 @@
             ]),
             menuQuery:function(val){
                 // 这里引用 带条件的查询
-                console.log("----- 查询了我-----");
-                console.log(val);
-                this.$store.dispatch({type:'getListsByParams',param:val})
-                    .then(res =>{
-                        if(res.status === 200){
-                            console.log('获取数据');
+                var wtType = val.wtType,
+                    tgWq = val.tgWq;
+                // 这里引用 带条件的查询
+                if (val.wtType[0] === "-1" || val.wtType.length === 0) {
+                    wtType = '';
+                }
+                if (val.tgWq[0] === "-1" || val.tgWq.length === 0) {
+                    tgWq = '';
+                }
+                //取水户列表查询所需要的参数
+                let params = {
+                    currentPage: this.currentPage
+                };
+                // params = encodeURIComponent(JSON.stringify(params));
+                params = encodeURI(encodeURI(JSON.stringify(params)));
+                this.$http.jsonp(API.QSH_CXKZ + "&params=" + params).then(
+                    response => {
+                        console.log(response.data.data);
+                        this.sgnqList = response.data.data;
+                        //循环设置跳转地址 href
+                        for (let value of response.data.data) {
+                            value.href = "/qsxkzDetail/" + value.wfzNb;
+                            // console.log(value);
                         }
+                    }, response => {
+                        console.log("error");
                     });
             },
             stateChange(state) {
@@ -83,6 +122,35 @@
             loadMore(){
                 this.currentPage +=1;
                 console.log('下一页');
+
+                let val = this.selectVal;
+                var wtType = val.wtType,
+                    tgWq = val.tgWq;
+                // 这里引用 带条件的查询
+                if (val.wtType[0] === "-1" || val.wtType.length === 0) {
+                    wtType = '';
+                }
+                if (val.tgWq[0] === "-1" || val.tgWq.length === 0) {
+                    tgWq = '';
+                }
+                //取水户列表查询所需要的参数
+                let params = {
+                    currentPage: this.currentPage
+                };
+                // params = encodeURIComponent(JSON.stringify(params));
+                params = encodeURI(encodeURI(JSON.stringify(params)));
+                this.$http.jsonp(API.QSH_CXKZ + "&params=" + params).then(
+                    response => {
+                        console.log(response.data.data);
+                        this.sgnqList = response.data.data;
+                        //循环设置跳转地址 href
+                        for (let value of response.data.data) {
+                            value.href = "/qsxkzDetail/" + value.wfzNb;
+                            // console.log(value);
+                        }
+                    }, response => {
+                        console.log("error");
+                    });
             }
         }
     }
