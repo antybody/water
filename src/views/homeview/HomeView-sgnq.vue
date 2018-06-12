@@ -118,7 +118,7 @@
             this.$http.jsonp(API.SGNQ_PJ+ "&params=" + paramData).then(
                 response => {
                     console.log(response.data);
-                    this.listInfo = response.data[y+'-'+m];
+                    this.listInfo = response.data[y+'-04'];
                     for (let value of response.data.pj) {
                         this.xArr.push(value.NY);
                         this.qyz.push(value.QYZ);

@@ -5,18 +5,66 @@
             巡检运维
         </navbar>
         <!--巡检首页面头部方块切换页面-->
-        <card v-for="title in titleItems" :href="title.href" noPadded class="group-clear group-top-10">
+        <card href="/routeWarn" noPadded class="group-clear group-top-10">
             <h5 class="wt-title">
                 <div class="wt-title-center">
                     <i class="wt-bar-i-16 red-news"></i>
-                    <span>{{title.txt}} </span>
+                    <span>报警站点  <span style="color: #ff6829;">{{nowDate}}</span></span>
                 </div>
             </h5>
             <card>
                 <div id="myCharts2" :style="{width:'100%',height:'200px'}"></div>
                 <a slot="footer" href="javascript: void(0)"></a>
                 <a slot="footer" href="javascript: void(0)"></a>
-                <a slot="footer" href="javascript: void(0)" @click="routeLink(title.href)">详情>></a>
+                <a slot="footer" href="javascript: void(0)" @click="routeLink('/routeWarn')">详情>></a>
+
+            </card>
+        </card>
+        <card href="/routePlan" noPadded class="group-clear group-top-10">
+            <h5 class="wt-title">
+                <div class="wt-title-center">
+                    <i class="wt-bar-i-16 red-news"></i>
+                    <span>巡检计划</span>
+                </div>
+            </h5>
+            <card>
+                <list>
+                    <list-item title="list item 1" href="/routePlan">
+                        <badge rounded red slot="after">未处理</badge>
+                    </list-item>
+                    <list-item title="list item 2" href="/" after="2017.02">
+                    </list-item>
+                    <list-item title="list item 3" href="/">
+                        <badge rounded red slot="after">未处理</badge>
+                    </list-item>
+                </list>
+                <a slot="footer" href="javascript: void(0)"></a>
+                <a slot="footer" href="javascript: void(0)"></a>
+                <a slot="footer" href="javascript: void(0)" @click="routeLink('/routePlan')">详情>></a>
+
+            </card>
+        </card>
+        <card href="/routeRecord" noPadded class="group-clear group-top-10">
+            <h5 class="wt-title">
+                <div class="wt-title-center">
+                    <i class="wt-bar-i-16 red-news"></i>
+                    <span>巡检记录</span>
+                </div>
+            </h5>
+            <card>
+                <list>
+                    <list-item title="list item 1" href="/routePlan">
+                        <badge rounded red slot="after">未处理</badge>
+                    </list-item>
+                    <list-item title="list item 2" href="/" after="2017.02">
+                    </list-item>
+                    <list-item title="list item 3" href="/">
+                        <badge rounded green slot="after">已完成</badge>
+                    </list-item>
+                </list>
+                <a slot="footer" href="javascript: void(0)"></a>
+                <a slot="footer" href="javascript: void(0)"></a>
+                <a slot="footer" href="javascript: void(0)" @click="routeLink('/routeRecord')">详情>></a>
 
             </card>
         </card>
@@ -31,6 +79,7 @@
     import * as util from '../libs/utils'
     import * as API from '../store/api/api'
     import TabsDesc from "vue-amazeui/src/components/tabs/tabsDesc";
+    import echarUtil from '../utils/echarUtil'
 
     export default {
         name: 'chart',
@@ -40,62 +89,31 @@
         },
         data() {
             return {
+                legend:['上报中断','上报延迟','数据跳大','数据跳小','数据为负'],
+                ds:[[111,23,43,21,23],[211,323,143,121,423],[211,323,143,121,423]
+                    ,[211,323,143,121,423],[211,323,143,121,423]],
                 titleItems: [
                     {icon: 'home', txt: '报警站点', href: '/routeWarn'},
                     {icon: 'bars', txt: '巡检计划', href: '/routePlan'},
-                    {icon: 'home', txt: '巡检记录', href: '/routeRecord'},
-                    {icon: 'home', txt: '巡检记录', href: '/routeDone'},
-                    {icon: 'bars', txt: '即时反馈', href: '/routeReback'}
+                    {icon: 'home', txt: '巡检记录', href: '/routeRecord'}
+                    // ,{icon: 'home', txt: '巡检记录', href: '/routeDone'}
+                    // ,{icon: 'bars', txt: '即时反馈', href: '/routeReback'}
                 ],
                 open2: false,
                 alertText: '',
-                isShow: true
+                isShow: true,
+                nowDate: ''
             }
         },
         mounted() {
             console.log("12");
-            let myChart2 = echarts.init(document.getElementById('myCharts2'));
-            var options2 = {
-                color: ['#3398DB'],
-                title: {
-                    show: false
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    dataIndex: 1
-                },
-                legend: {
-                    show: false
-                },
-                grid: {
-                    x: -1,
-                    y: 0,
-                    x2: 0,
-                    y2: 20,
-                    borderWidth: 1,
-                    containLabel: true
-                },
-                yAxis: {
-                    type: 'value'
-                },
-                xAxis: {
-                    type: 'category',
-                    data: [0, 1, 2, 3, 4, 5],
-                    show: false
-                },
-                series: [
-                    {
-                        type: 'bar',
-                        itemStyle: {
-                            normal: {
-                                color: '#ffab3d'
-                            }
-                        },
-                        data: [3, 1, 1, 2, 1, 1]
-                    }
-                ]
-            };
-            myChart2.setOption(options2);
+            let date = new Date();
+            this.nowDate = date.getFullYear() +
+                (date.getMonth() < 10 ? ("-0" + (date.getMonth() + 1)) : ("-" + date.getMonth())).toString() +
+                (date.getDate() < 10 ? ("-0" + (date.getDate())) : ("-" + date.getDate())).toString();
+            let myChart = echarts.init(document.getElementById("myCharts2"));
+            let options = echarUtil.initChart(this.legend,this.ds[0]);
+            myChart.setOption(options);
 
         },
         methods: {

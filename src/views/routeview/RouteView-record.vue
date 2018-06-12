@@ -1,7 +1,7 @@
 <template>
     <vue-view>
         <navbar class="header" blue>
-            巡检计划
+            巡检记录
             <icon name="left-nav" slot="left" titleRight="返回" back></icon>
         </navbar>
 
