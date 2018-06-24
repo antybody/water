@@ -265,7 +265,7 @@ export default {
                           color:'#37a2da'
                         }
                     },
-                    data: [20203]
+                    data: x1
                 },
                 {
                     name: '实际',
@@ -275,7 +275,7 @@ export default {
                           color:'#ffd85c'
                         }
                     },
-                    data: [19325]
+                    data: x2
                 }
             ]
         };
@@ -295,8 +295,10 @@ export default {
              },
              xAxis : [
                  {
-                     type : 'category',
-                     boundaryGap : false
+                     // type : 'category',
+                     // boundaryGap : false
+                     data: ds[0],
+                     show:false
                  }
              ],
              yAxis : [
@@ -308,19 +310,7 @@ export default {
                  {
                      name:legend[0],
                      type:'line',
-                     stack: '总量',
-                     label: {
-                         normal: {
-                             show: true,
-                             position: 'top'
-                         }
-                     },
-                     data:ds[0]
-                 },
-                 {
-                     name:legend[1],
-                     type:'line',
-                     stack: '总量',
+                     //stack: '总量',
                      label: {
                          normal: {
                              show: true,
@@ -330,9 +320,9 @@ export default {
                      data:ds[1]
                  },
                  {
-                     name:legend[2],
+                     name:legend[1],
                      type:'line',
-                     stack: '总量',
+                    // stack: '总量',
                      label: {
                          normal: {
                              show: true,
@@ -340,6 +330,18 @@ export default {
                          }
                      },
                      data:ds[2]
+                 },
+                 {
+                     name:legend[2],
+                     type:'line',
+                     //stack: '总量',
+                     label: {
+                         normal: {
+                             show: true,
+                             position: 'top'
+                         }
+                     },
+                     data:ds[3]
                  }
              ]
          };

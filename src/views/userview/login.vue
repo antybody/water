@@ -30,7 +30,7 @@ login
 
 <script>
     import * as util from '../../libs/utils'
-
+    import * as API from '../../store/api/api'
     export default {
         data() {
             return {
@@ -60,23 +60,38 @@ login
                     return
                 }
 
-                // 这里开启登录 await
-                this.userInfo = {user_id: this.username}
-
-                // 登录后的情况
-                if (!this.userInfo.user_id) {
-                    this.open2 = true;
-                    this.alertText = '账号或密码错误'
-                } else {
-                    // 记录信息
-                    util.setStore('userInfo', this.userInfo);
-                    util.setStore('userRole','b'); // 用户角色
-                    var nextUrl = this.$route.params.next;
-                    if (!nextUrl)
-                        this.$router.go(-1);
-                    else
-                        this.$router.push({path: nextUrl});
+                let paramData = {
+                    user_code:this.username,
+                    user_pwd: this.pwd
                 }
+                paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+                this.$http.jsonp(API.LOGIN + "&params=" + paramData).then(
+                    response => {
+                        if(response.data.message=='SUCCESS'){
+                            this.userInfo = {
+                                user_id: response.data.data.user_code,
+                                name:response.data.data.user_name,
+                                phone:response.data.data.user_phone,
+                                tel:response.data.data.user_tel,
+                                mail:response.data.data.user_mail,
+                                roleCode:response.data.data.role_code,
+                                roleName:response.data.data.role_zhname
+                            }
+                            // 记录信息
+                            util.setStore('userInfo', this.userInfo);
+                            util.setStore('userRole','b'); // 用户角色
+                            var nextUrl = this.$route.params.next;
+                            if (!nextUrl)
+                                this.$router.go(-1);
+                            else
+                                this.$router.push({path: nextUrl});
+                        }else{
+                            this.open2 = true;
+                            this.alertText = '账号或密码错误'
+                        }
+                    }, response => {
+                        console.log("error");
+                    });
             },
             urlParam: function () {
                 return this.$route.params.next

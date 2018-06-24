@@ -1,5 +1,5 @@
 <!--新的界面样式-->
-<template>
+<template xmlns="http://www.w3.org/1999/html">
     <vue-view>
         <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
             上海水资源
@@ -31,9 +31,14 @@
                     <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>红线指标</span></div>
                 </h5>
                 <div class="wt-tab-lists">
-                    <router-link :to="item.href" v-for="item in tablists" :key="item.id" :class="item.cl">
-                        <span>{{item.num}}</span>
-                        <span>{{item.text}}</span>
+                    <router-link :to="item.href" v-for="item in tablists1" :key="item.id" :class="item.cl">
+                        <span class="span1">{{item.text}}</span><br/><span class="span2">{{item.num}}</span>
+                    </router-link>
+                </div>
+                <div class="wt-tab-lists">
+                    <router-link :to="item.href" v-for="item in tablists2" :key="item.id" :class="item.cl">
+                        <span class="span1">{{item.text}}</span><br/><span class="span2">{{item.num}}</span>
+
                     </router-link>
                 </div>
             </div>
@@ -75,12 +80,14 @@
                     // {href: '/redsyd', img: 'wt-bar-i-46 wt-bar-5', title: '水源地'},
                     {href: '/redsgnq', img: 'wt-bar-i-46 wt-bar-6', title: '水功能区'},
                     {href: '/redxc', img: 'wt-bar-i-46 wt-bar-7', title: '咸潮'},
-                    {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-4', title: '水质监测'}
-
+                    {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-4', title: '水质监测'},
+                    {href: '#', img: '', title: ''}
                 ],
-                tablists: [
+                tablists1: [
                     {href: 'redwater', cl: 'wt-linear-purple', num: '60.34', text: '年度取水总量'},
-                    {href: '/cxksl', cl: 'wt-linear-blue', num: '3', text: '超许可取水'},
+                    {href: '/cxksl', cl: 'wt-linear-blue', num: '3', text: '超许可取水'}
+                ],
+                tablists2: [
                     {href: '/xkz', cl: 'wt-linear-red', num: '30', text: '取水许可超期'},
                     {href: '/sgnq', cl: 'wt-linear-yellow', num: '30%', text: '水功能区达标率'}
                 ],
@@ -148,7 +155,13 @@
         color: #ffffff;
         text-align: center;
     }
-
+    .span1{
+        margin-left: 1rem;
+        margin-top: 3rem;
+    }
+    .span2 {
+        margin-left: 3rem;
+    }
     .wt-h-15 {
         display: block;
         height: 2.875rem;
@@ -258,16 +271,17 @@
 
     .wt-tab-lists {
         white-space: nowrap;
-        overflow-x: auto;
+        /*overflow-x: auto;*/
+        width: 100%;
     }
 
     .wt-tab-lists a {
         position: relative;
         display: inline-block;
         width: 10.3125rem;
-        line-height: 4.375rem;
-        height: 4.375rem;
-        margin: 0.125rem 0.5rem;
+        /*line-height: 4.375rem;*/
+        height: 3.375rem;
+        margin: 0.125rem 0.6rem;
         padding: 0 0.625rem;
         box-shadow: 0 0 0.2375rem rgba(117, 117, 117, 0.8);
     }

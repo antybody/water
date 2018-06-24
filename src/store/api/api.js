@@ -3,8 +3,8 @@
  */
 import * as Url from "../url/url"
 //后台接口地址
-const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
-// const BASE_URL = 'http://localhost:8080'
+//const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
+ const BASE_URL = 'http://localhost:8080/wrmsApp'
 /**
  * @name 取水相关新闻列表
  * @param
@@ -98,3 +98,29 @@ export const DYSH_CONTENT = BASE_URL + '/app/wateruser/getJcxx?access_token=[b36
 export const WARN_LIST = BASE_URL + '/app/route/getWarnList?access_token=[b36680850768ff1b]';
 //巡检计划接口
 export const ROUTE_PLAN = BASE_URL + '/app/route/routePlan?access_token=[b36680850768ff1b]';
+/**
+ * @name 管理考核
+ * @params
+ * */
+//数据上报
+export const GLKH_SJSB = BASE_URL + '/app/sjsb/getSjsb?access_token=[b36680850768ff1b]';
+//数据上报-今日情况
+export const GLKH_SJSB_JRQK = BASE_URL + '/app/sjsb/getJrqk?access_token=[b36680850768ff1b]';
+//数据上报-取用水
+export const GLKH_SJSB_QYS = BASE_URL + '/app/sjsb/getQyshsbqk?access_token=[b36680850768ff1b]';
+//数据上报-取用水走势
+export const GLKH_SJSB_QYSZS = BASE_URL + '/app/sjsb/getQyshsblzs?access_token=[b36680850768ff1b]';
+//数据上报-水质监测上报
+export const GLKH_SJSB_SZJC = BASE_URL + '/app/sjsb/getSzjcsb?access_token=[b36680850768ff1b]';
+//数据上报-水质监测上报走势
+export const GLKH_SJSB_SZJCZS = BASE_URL + '/app/sjsb/getSblzs?access_token=[b36680850768ff1b]';
+//数据质量
+export const GLKH_SJZL = BASE_URL + '/app/sjzl/getSjzl?access_token=[b36680850768ff1b]';
+//运维巡检
+export const GLKH_YWXJ = BASE_URL + '/app/route/getWarnList?access_token=[b36680850768ff1b]';
+//业务监管
+export const GLKH_YWJG = BASE_URL + '/app/route/routePlan?access_token=[b36680850768ff1b]';
+//登录接口
+export const LOGIN = BASE_URL + '/system/login/judge?access_token=[b36680850768ff1b]';
+
+
