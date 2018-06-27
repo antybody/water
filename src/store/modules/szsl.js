@@ -5,12 +5,26 @@ import Vue from 'vue'
  * 2、取水户数据信息
  * 3、水质评价数据信息
  */
+
+// Helper method to retrieve information stored on page through HTTP
+// *Suggestion for improvement: Make GET request asynchronous for better end-user experience
+function httpGet(url) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", url, false);
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+}
+
+// Retrieve values from link and parse the JSON
+const api_retrieved_values = JSON.parse(httpGet("http://101.230.199.221:7005/wrmsApp/app/sjzl/getSjzlkhJrqk?access_token=[b36680850768ff1b]"));
+
 const state = {
+    // updated using new data
     qshList:[
-        {txt:'异常站点',value:'10'},
-        {txt:'正常站点',value:'20'},
-        {txt:'站点总数',value:'30'}
-     ],
+        {txt:'异常站点',value:api_retrieved_values["qysh"]["yczd"]},
+        {txt:'正常站点',value:api_retrieved_values["qysh"]["zczd"]},
+        {txt:'站点总数',api_retrieved_values["qysh"]["zdzs"]]}
+    ],
     sydList:[
         {txt:'异常站点',value:'60'},
         {txt:'正常站点',value:'20'},
@@ -57,21 +71,29 @@ const state = {
         {txt:'用水总量',value:'30',dw:''},
         {txt:'计划比率',value:'30',dw:''}
     ],
+    // updated using new data
     sydList:[
-        {txt:'水源地',value:'20',dw:''},
-        {txt:'监测数量',value:'20',dw:''},
-        {txt:'超标数量',value:'30',dw:''},
-        {txt:'超标比率',value:'30',dw:''},
-        {txt:'超标项数',value:'30',dw:''},
-        {txt:'超标测站',value:'0',dw:''}
-    ],
-    sgnqList:[
-        {txt:'水功能区',value:'20',dw:''},
-        {txt:'监测数量',value:'20',dw:''},
-        {txt:'超标数量',value:'30',dw:''},
-        {txt:'超标比率',value:'30',dw:''},
-        {txt:'超标项数',value:'30',dw:''},
+        {txt:'水源地',value:api_retrieved_values["syd"]["sydSl"]},
+        {txt:'监测数量',value:'0',dw:''},
+        {txt:'超标数量',value:'0',dw:''},
+        {txt:'超标比率',value:'0',dw:''},
+        {txt:'超标项数',value:'0',dw:''},
         {txt:'超标水源地',value:'0',dw:''}
+        // if data is now provided/available, uncomment the following code and delete the above [5] lines
+//        {txt:'监测数量',value:api_retrieved_values["syd"]["sydJcsl"],dw:''},
+//        {txt:'超标数量',value:api_retrieved_values["syd"]["sydCbsl"],dw:''},
+//        {txt:'超标比率',value:api_retrieved_values["syd"]["sydCbl"],dw:''},
+//        {txt:'超标项数',value:api_retrieved_values["syd"]["sydCbxs"],dw:''},
+//        {txt:'超标水源地',value:api_retrieved_values["syd"]["sydCbsyd"],dw:''}
+    ],
+    // updated using new data
+    sgnqList:[
+        {txt:'水功能区',value:api_retrieved_values["sgnq"]["sgnqSl"],dw:''},
+        {txt:'监测数量',value:api_retrieved_values["sgnq"]["sgnqJcsl"],dw:''},
+        {txt:'超标数量',value:api_retrieved_values["sgnq"]["sgnqCbsl"],dw:''},
+        {txt:'超标比率',value:api_retrieved_values["sgnq"]["sgnqCbl"],dw:''},
+        {txt:'超标项数',value:api_retrieved_values["sgnq"]["sgnqCbxs"],dw:''},
+        {txt:'超标测站',value:api_retrieved_values["sgnq"]["sgnqCbcz"],dw:''}
     ],
     // 首页的- 
     sjsbList:[  // 数据上报

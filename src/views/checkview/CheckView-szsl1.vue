@@ -17,6 +17,9 @@
         </ul>
       </div>
       <!--环形图-->
+
+      <!--updated to reflect data from provided link-->
+
       <group header="取用水户上报质量" :footer="nowTime">
         <grid>
             <cell cells="3"><div class="pies" id="qsh" :style="{width:'200px',height:'150px'}"></div>
@@ -37,7 +40,7 @@
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in sydList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <li :key="item.id" v-for="item in sgnqList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
               </ul>
             </cell>
         </grid>
@@ -51,7 +54,7 @@
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in sgnqList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <li :key="item.id" v-for="item in sydList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
               </ul>
             </cell>
         </grid>
@@ -96,7 +99,7 @@ export default {
         let qsh_myChart = echarts.init(document.getElementById("qsh"));
         let syd_myChart = echarts.init(document.getElementById("syd"));
         let sgnq_myChart = echarts.init(document.getElementById("sgnq"));
-        let qshO = this.initChart("取用水户","20","50","#de4751");
+        let qshO = this.initChart("取用水户","25","50","#de4751");
         let sydO = this.initChart("水源地","20","50","#62ab00");
         let sgnqO = this.initChart("水功能区","20","50","#0a9fde");
         qsh_myChart.setOption(qshO);
@@ -183,7 +186,7 @@ export default {
                     itemStyle : labelFromatter,
                     data : [
                         {name:'异常', value:x1, itemStyle : labelBottom},
-                        {name:'正常', value:x2,itemStyle : labelTop}
+                        {name:'正常', value:x2, itemStyle : labelTop}
                     ]
                 }
             ]
