@@ -10,9 +10,9 @@ import {JRQK_LIST} from '../api/api'
 const state = {
     // updated using new data
     qshList:[
-        {txt:'异常站点',value:'20'},
-        {txt:'正常站点',value:'30'},
-        {txt:'站点总数',value:'50'}
+        {txt:'异常站点',value:'加载中'},
+        {txt:'正常站点',value:'加载中'},
+        {txt:'站点总数',value:'加载中'}
     ],
     sydList:[
         {txt:'异常站点',value:'60'},
@@ -62,21 +62,21 @@ const state = {
     ],
     // updated using new data
     sydList:[
-        {txt:'水源地',value:'10',dw:''},
-        {txt:'监测数量',value:'0',dw:''},
-        {txt:'超标数量',value:'0',dw:''},
-        {txt:'超标比率',value:'0',dw:''},
-        {txt:'超标项数',value:'0',dw:''},
-        {txt:'超标水源地',value:'0',dw:''}
+        {txt:'水源地',value:'加载中',dw:''},
+        {txt:'监测数量',value:'加载中',dw:''},
+        {txt:'超标数量',value:'加载中',dw:''},
+        {txt:'超标比率',value:'加载中',dw:''},
+        {txt:'超标项数',value:'加载中',dw:''},
+        {txt:'超标水源地',value:'加载中',dw:''}
     ],
     // updated using new data
     sgnqList:[
-        {txt:'水功能区',value:'20',dw:''},
-        {txt:'监测数量',value:'20',dw:''},
-        {txt:'超标数量',value:'30',dw:''},
-        {txt:'超标比率',value:'30',dw:''},
-        {txt:'超标项数',value:'30',dw:''},
-        {txt:'超标测站',value:'0',dw:''}
+        {txt:'水功能区',value:'加载中',dw:''},
+        {txt:'监测数量',value:'加载中',dw:''},
+        {txt:'超标数量',value:'加载中',dw:''},
+        {txt:'超标比率',value:'加载中',dw:''},
+        {txt:'超标项数',value:'加载中',dw:''},
+        {txt:'超标测站',value:'加载中',dw:''}
     ],
     // 首页的- 
     sjsbList:[  // 数据上报
@@ -158,9 +158,10 @@ const state = {
 }
 
 const mutations = {
-    setLists (state, payload) {
-        // Helper method to retrieve information stored on page through HTTP
-        // Retrieve values from link and parse the JSON
+    jrqk_getLists (state, payload) { // 数据质量-首页
+//        state.qshList = payload.res[0];
+//        state.sydList = payload.res[1];
+//        state.sgnqList = payload.res[2];
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", JRQK_LIST, false);
         xmlHttp.send(null);
@@ -193,11 +194,6 @@ const mutations = {
         // 结果处理
         state.sjListUp = payload.res[0];
         state.sjListDown = payload.res[1];
-    },
-    getLists (state, payload) { // 数据质量-首页
-        state.qshList = payload.res[0];
-        state.sydList = payload.res[1];
-        state.sgnqList = payload.res[2];
     },
     getYwLists (state, payload) { // 运维考核的 - 整体
         state.ywList = payload.res[0];
@@ -244,18 +240,15 @@ const actions = {
     getTime({commit}){
         commit('getTime')
     },
-    setLists({commit}) {
-        commit('setLists')
-    },
-    getLists({commit},payload){
+    jrqk_getLists({commit},payload){
         return new Promise((resolve,reject) =>{
-            Vue.http.jsonp('/api/map',{param:payload.param})
-                .then(res => {
+            Vue.http.jsonp(JRQK_LIST, {param:payload.param})
+                .then(response => {
                     commit({
-                        type: 'getLists',
-                        res: res.body.results   
+                        type: 'jrqk_getLists',
+                        res: response.body
                     })
-                resolve(res);
+                resolve(response);
             }).catch(err => {
                 console.log(err);
                 reject(err);

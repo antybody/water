@@ -84,16 +84,19 @@ export default {
    },
   mounted(){
     this.getTime();
-    this.loadChart("");
+    this.loadChart();
+    this.jrqk_getLists({
+        param:'0'
+    });
   },
   methods:{
     ...mapActions([
-        'getTime','getLists'
+        'getTime','jrqk_getLists'
      ]),
     reback:function(e){
        this.$router.push({path:'/check'});
     },
-     loadChart:function(val){
+     loadChart:function(){
        // 这里先调用下 getLists 方法
 
         let qsh_myChart = echarts.init(document.getElementById("qsh"));
