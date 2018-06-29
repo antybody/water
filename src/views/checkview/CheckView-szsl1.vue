@@ -22,7 +22,7 @@
 
       <group header="取用水户上报质量" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="qsh" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="qsh" :style="{width:'200px',height:'150px',margin:'0 0 0 -30px'}"></div>
             </cell>
             <cell cells="7">
               <ul class="pieHead">
@@ -36,7 +36,7 @@
       </grid>
       <group header="水功能区上报质量" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="sgnq" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="sgnq" :style="{width:'200px',height:'150px',margin:'0 0 0 -30px'}"></div>
             </cell>
             <cell>
               <ul class="pieHead">
@@ -50,7 +50,7 @@
       </grid>
       <group header="水源地上报质量" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="syd" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="syd" :style="{width:'200px',height:'150px',margin:'0 0 0 -30px' }"></div>
             </cell>
             <cell>
               <ul class="pieHead">
@@ -233,5 +233,7 @@ export default {
   .pieHead{
     color:#6d6d72;
     padding-top:20px;
+    margin:0;
+    padding-left:0;
   }
 </style>

@@ -14,16 +14,6 @@ const state = {
         {txt:'正常站点',value:'加载中'},
         {txt:'站点总数',value:'加载中'}
     ],
-    sydList:[
-        {txt:'异常站点',value:'60'},
-        {txt:'正常站点',value:'20'},
-        {txt:'站点总数',value:'30'}
-    ],
-    sgnqList:[
-        {txt:'异常站点',value:'20'},
-        {txt:'正常站点',value:'20'},
-        {txt:'站点总数',value:'30'}
-    ],
     zdList:[
         {txt:'站点总数',value:'10'},
         {txt:'巡检总数',value:'20'},
@@ -162,11 +152,10 @@ const mutations = {
 //        state.qshList = payload.res[0];
 //        state.sydList = payload.res[1];
 //        state.sgnqList = payload.res[2];
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", JRQK_LIST, false);
-        xmlHttp.send(null);
-        const api_retrieved_values = JSON.parse(xmlHttp.responseText);
-        console.log(api_retrieved_values)
+        // var xmlHttp = new XMLHttpRequest();
+        // xmlHttp.open("GET", JRQK_LIST, false);
+        // xmlHttp.send(null);
+        const api_retrieved_values = payload.res;
         state.qshList = [
             {txt:'异常站点',value:api_retrieved_values["qysh"]["yczd"]},
             {txt:'正常站点',value:api_retrieved_values["qysh"]["zczd"]},
@@ -183,11 +172,11 @@ const mutations = {
         state.sydList = [
             {txt:'水源地',value:api_retrieved_values["syd"]["sydSl"],dw:''},
 //  If data is now provided/becomes available, uncomment the following code
-//          {txt:'监测数量',value:api_retrieved_values["syd"]["sydJcsl"],dw:''},
-//          {txt:'超标数量',value:api_retrieved_values["syd"]["sydCbsl"],dw:''},
-//          {txt:'超标比率',value:api_retrieved_values["syd"]["sydCbl"],dw:''},
-//          {txt:'超标项数',value:api_retrieved_values["syd"]["sydCbxs"],dw:''},
-//          {txt:'超标水源地',value:api_retrieved_values["syd"]["sydCbsyd"],dw:''}
+            {txt:'监测数量',value:api_retrieved_values["syd"]["sydJcsl"]||0,dw:''},
+           {txt:'超标数量',value:api_retrieved_values["syd"]["sydCbsl"]||0,dw:''},
+           {txt:'超标比率',value:api_retrieved_values["syd"]["sydCbl"]||0,dw:''},
+           {txt:'超标项数',value:api_retrieved_values["syd"]["sydCbxs"]||0,dw:''},
+           {txt:'超标水源地',value:api_retrieved_values["syd"]["sydCbsyd"]||0,dw:''}
         ];
     },
     getSjLists (state, payload) { //数据质量 -排行榜
