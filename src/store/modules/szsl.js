@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {JRQK_LIST} from '../api/api'
+import * as API from '../api/api'
 /**
  * 管理考核
  * 1、整体的环形图
@@ -231,7 +231,7 @@ const actions = {
     },
     jrqk_getLists({commit},payload){
         return new Promise((resolve,reject) =>{
-            Vue.http.jsonp(JRQK_LIST, {param:payload.param})
+            Vue.http.jsonp(API.JRQK_LIST, {param:payload.param})
                 .then(response => {
                     commit({
                         type: 'jrqk_getLists',
