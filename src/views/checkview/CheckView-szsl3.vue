@@ -19,8 +19,8 @@
       <!--二级目录-->
       <div class="wttabs-second">
          <ul>
-            <li><span :class="isClick4 == 1 ? 'wtac':''" @click="changeEvent('ml',1)">水源地</span></li>
-            <li><span :class="isClick4 == 2 ? 'wtac':''" @click="changeEvent('ml',2)">水功能区</span></li>
+            <li><span :class="isClick4 == '水源地' ? 'wtac':''" @click="changeEvent('ml','水源地')">水源地</span></li>
+            <li><span :class="isClick4 == '水功能区' ? 'wtac':''" @click="changeEvent('ml','水功能区')">水功能区</span></li>
          </ul>
          <div class="clearfixed"></div>
       </div>
@@ -30,9 +30,9 @@
         <div class="mod-head">
           <h3>监测情况</h3>
           <ul>
-            <li :class="isClick1 == 1 ? 'cur':''" @click="changeEvent('qk',1)">本日</li>
-            <li :class="isClick1 == 2 ? 'cur':''" @click="changeEvent('qk',2)">本月</li>
-            <li :class="isClick1 == 3 ? 'cur':''" @click="changeEvent('qk',3)">本年</li>
+            <li :class="isClick1 == 'day' ? 'cur':''" @click="changeEvent('qk','day')">本日</li>
+            <li :class="isClick1 == 'yue' ? 'cur':''" @click="changeEvent('qk','yue')">本月</li>
+            <li :class="isClick1 == 'year' ? 'cur':''" @click="changeEvent('qk','year')">本年</li>
           </ul>
           <div class="clearfixed"></div>
         </div>
@@ -44,8 +44,8 @@
         <div class="mod-head">
           <h3>数据质量走势</h3>
           <ul>
-            <li :class="isClick2 == 1 ? 'cur':''" @click="changeEvent('zs',1)">近一年</li>
-            <li :class="isClick2 == 2 ? 'cur':''" @click="changeEvent('zs',2)">近三年</li>
+            <li :class="isClick2 == 'year1' ? 'cur':''" @click="changeEvent('zs','year1')">近一年</li>
+            <li :class="isClick2 == 'year3' ? 'cur':''" @click="changeEvent('zs','year3')">近三年</li>
           </ul>
           <div class="clearfixed"></div>
         </div>
@@ -57,17 +57,19 @@
          <div class="mod-head">
            <h3>数据质量排行榜</h3>
            <ul>
-             <li :class="isClick3 == 1 ? 'cur':''" @click="changeEvent('ph',1)">高</li>
-             <li :class="isClick3 == 2 ? 'cur':''" @click="changeEvent('ph',2)">低</li>
+             <li :class="isClick3 == 'gao' ? 'cur':''" @click="changeEvent('ph','gao')">高</li>
+             <li :class="isClick3 == 'di' ? 'cur':''" @click="changeEvent('ph','di')">低</li>
            </ul>
            <div class="clearfixed"></div>
          </div>
-         <ul class="sort-wrap" :style="isClick3 == 1 ?'display:block':'display:none'">
+         <ul class="sort-wrap" :style="isClick3 == 'gao' ?'display:block':'display:none'">
+            <p v-if='!sjListUp.length'>暂无数据</p>
             <li v-for="(item,index) in sjListUp" :key="index">
                <span><em>{{index+1}}.</em> {{item.name}}，故障次数 {{item.num}} </span>
             </li>
          </ul>
-         <ul class="sort-wrap" :style="isClick3 == 2 ?'display:block':'display:none'">
+         <ul class="sort-wrap" :style="isClick3 == 'di' ?'display:block':'display:none'">
+            <p v-if='!sjListDown.length'>暂无数据</p>
             <li v-for="(item,index) in sjListDown" :key="index">
                <span><em>{{index+1}}.</em> {{item.name}}，故障次数 {{item.num}}，多为 {{item.type}} </span>
             </li>
@@ -90,40 +92,70 @@ export default {
        legend:['上报中断','上报延迟','数据跳大','数据跳小','水质超标'],
        ds:[[111,23,43,21,23],[211,323,143,121,423],[211,323,143,121,423]
            ,[211,323,143,121,423],[211,323,143,121,423]],
-       isClick1:1, // 监测情况
-       isClick2:1, // 数据质量走势
-       isClick3:1,  // 数据排行榜
-       isClick4:1,  // 二级查询条件
-       sjListUp:[{name:'国泰君安',num:'0'},{name:'国泰君安',num:'0'}],
-       sjListDown:[{name:'国泰君安',num:'10',type:'数据中断'},{name:'国泰君安',num:'20',type:'数据跳大'}]
+       isClick1:'day', // 监测情况
+       isClick2:'year1', // 数据质量走势
+       isClick3:'gao',  // 数据排行榜
+       isClick4:'水源地',  // 二级查询条件
+       isClick5:'10201'
+      //  sjListUp:[{name:'国泰君安',num:'0'},{name:'国泰君安',num:'0'}],
+      //  sjListDown:[{name:'国泰君安',num:'10',type:'数据中断'},{name:'国泰君安',num:'20',type:'数据跳大'}]
      }
   },
   computed:{
       ...mapState({
-          // sjListUp: state => state.sjzl.sjListUp,
-          // sjListDown: state => state.sjzl.sjListDown
+          sjListUp: state => state.sjzl.sjListUp,
+          sjListDown: state => state.sjzl.sjListDown,
+          jcsjList: state => state.sjzl.jcsjList,
+          zssjList: state => state.sjzl.zssjList,
+          sjLegend: state => state.sjzl.sjLegend,
+          zsLegend: state => state.sjzl.zsLegend
     })
    },
   mounted(){
-    this.loadChart();
+    // 加载监测数据
+    this.getJcsjLists({date:'day',type:'水源地'}).then(
+       () => {this.loadChart();}
+    )
+    // 加载质量走势
+    this.getZssjLists({date:'year1',type:'水源地',ycqk:'10201'}).then(
+       () => {this.loadLineChart();}
+    )
+    // 加载排行版
+    this.getSjLists({date:'year1',hdst_type:'水源地',type:'gao'});
   },
   methods:{
     ...mapActions([
-        'getSjLists'
+        'getSjLists','getJcsjLists','getZssjLists'
      ]),
     reback:function(e){
        this.$router.push({path:'/check'});
     },
     changeEvent:function(tag,index){
-      if(tag == 'qk') // 情况
+      if(tag == 'qk'){ // 情况
        this.isClick1 = index;
-      if(tag == 'zs') // 走势
+       this.getJcsjLists({date:this.isClick1,type:this.isClick4}).then(
+          () => {this.loadChart();}
+       )
+      }if(tag == 'zs'){ // 走势
        this.isClick2 = index;
-      if(tag == 'ph'){ // 排行
+       this.getZssjLists({date:this.isClick2,type:this.isClick4,ycqk:this.isClick5}).then(
+          () => {this.loadLineChart();}
+        )
+      }if(tag == 'ph'){ // 排行
        this.isClick3 = index;
-       
-      }if(tag == 'ml') // 目录
+       this.getSjLists({date:this.isClick2,hdst_type:this.isClick4,type:this.isClick3});
+      }if(tag == 'ml'){ // 目录
        this.isClick4 = index;
+       // 监测情况
+       this.getJcsjLists({date:this.isClick1,type:this.isClick4}).then(
+          () => {this.loadChart();}
+       );
+       this.getZssjLists({date:this.isClick2,type:this.isClick4,ycqk:this.isClick5}).then(
+          () => {this.loadLineChart();}
+        );
+        this.getSjLists({date:this.isClick2,hdst_type:this.isClick4,type:this.isClick3});
+
+      }
     },
     getYear: function(val) {
         console.log(val);
@@ -131,10 +163,24 @@ export default {
     loadChart:function(){
       // 这里要修改的 -- 即加载真实的数据
       let myChart = echarts.init(document.getElementById("myChart"));
-      let options = echarUtil.initChart(this.legend,this.ds[0]);
+      let options = echarUtil.initChart(this.sjLegend,this.jcsjList);
       myChart.setOption(options);
+      myChart.on('click',this.barChartClick);
+    },
+    barChartClick:function(param){
+        switch(param.name){
+           case '数据延时' :this.isClick5 = '10201';break;
+           case '数据跳大' : this.isClick5 = '10101';break;
+           case '数据负值' : this.isClick5 = '10102';break;
+           case '数据量异常' : this.isClick5 = '10501';  break; 
+        }
+        this.getZssjLists({date:this.isClick2,type:this.isClick4,ycqk:this.isClick5}).then(
+          () => {this.loadLineChart();}
+        );
+    },
+    loadLineChart:function(){
       let lineChart = echarts.init(document.getElementById("lineChart"));
-      let lineoptions = echarUtil.initLine(this.legend,this.ds);
+      let lineoptions = echarUtil.initLine(this.zsLegend,this.zssjList);
       lineChart.setOption(lineoptions);
     }
     
