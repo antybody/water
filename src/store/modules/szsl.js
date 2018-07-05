@@ -192,6 +192,14 @@ const mutations = {
     getSjList (state, payload) { //数据质量 -排行榜
         // 结果处理
         let org_data = payload.res.data;
+        if(payload.sjtype == '水源地'){
+          var org_data_temp = [];
+          org_data.forEach((element,index) => {
+                if(index <3)
+                org_data_temp.push(element);
+          })
+          org_data = org_data_temp;
+        }
         // console.log(org_data);
         let page_param = payload.opar;
         if(page_param == 'gao')
@@ -319,7 +327,8 @@ const actions = {
                     commit({
                         type: 'getSjList',
                         res: response.body,
-                        opar:payload.type
+                        opar:payload.type,
+                        sjtype:payload.hdst_type
                     })
                 resolve(response);
             }).catch(err => {
