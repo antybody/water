@@ -111,7 +111,7 @@ export const QYSJC_LIST = BASE_URL + '/app/sjzl/getSjzlkhQyssjJcqk?access_token=
 //数据质量走势接口
 export const QYSZS_LIST = BASE_URL + '/app/sjzl/getSjzlkhQyssjSjzlZs?access_token=[b36680850768ff1b]';
 //数据质量排行榜
-export const QYS_PHB = BASE_URL + '/app/sizl/getSjzlkhQyssjSjzlphb?access_token=[b36680850768ff1b]';
+export const QYS_PHB = BASE_URL + '/app/sjzl/getSjzlkhQyssjSjzlphb?access_token=[b36680850768ff1b]';
 //水质评价数据
 //监测情况接口
 export const SZPJQK_LIST = BASE_URL + '/app/sjzl/getSzpjsjJcqk?access_token=[b36680850768ff1b]';

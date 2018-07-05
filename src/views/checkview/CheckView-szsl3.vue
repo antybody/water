@@ -65,13 +65,13 @@
          <ul class="sort-wrap" :style="isClick3 == 'gao' ?'display:block':'display:none'">
             <p v-if='!sjListUp.length'>暂无数据</p>
             <li v-for="(item,index) in sjListUp" :key="index">
-               <span><em>{{index+1}}.</em> {{item.name}}，故障次数 {{item.num}} </span>
+               <span><em>{{index+1}}.</em> {{item.HDST_NAME}}，故障次数 {{item.NUM}} </span>
             </li>
          </ul>
          <ul class="sort-wrap" :style="isClick3 == 'di' ?'display:block':'display:none'">
             <p v-if='!sjListDown.length'>暂无数据</p>
             <li v-for="(item,index) in sjListDown" :key="index">
-               <span><em>{{index+1}}.</em> {{item.name}}，故障次数 {{item.num}}，多为 {{item.type}} </span>
+               <span><em>{{index+1}}.</em> {{item.HDST_NAME}}，故障次数 {{item.NUM}} </span>
             </li>
          </ul>
       </div>

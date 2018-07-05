@@ -26,12 +26,18 @@ const state = {
         {txt:'完成率',value:'70%'}
     ],
     nowDate:'',
+    qsListUp:[],
+    qsListDown:[],
     sjListUp:[],  // 数据质量 - 数据排行 - 高
     sjListDown:[], // 数据质量 - 数据排行 - 低
     jcsjList:[], //  数据质量 - 监测数据
     zssjList:[], // 数据质量 - 数据走势
     sjLegend:[], // 数据质量 - 图例
-    zsLegend:'', // 数据质量 走势 -legend
+    zsLegend:[], // 数据质量 走势 -legend
+    jcqsList:[], //  数据质量 - 监测数据
+    zsqsList:[], // 数据质量 - 数据走势
+    jcqsLegend:[], // 数据质量 - 图例
+    zsqsLegend:[], // 数据质量 走势 -legend
     qsList:[
         {txt:'取水户数',value:'20',dw:''},
         {txt:'许可总量',value:'20',dw:'亿m³'},
@@ -186,9 +192,22 @@ const mutations = {
     getSjList (state, payload) { //数据质量 -排行榜
         // 结果处理
         let org_data = payload.res.data;
-        console.log(org_data);
+        // console.log(org_data);
+        let page_param = payload.opar;
+        if(page_param == 'gao')
         state.sjListUp = org_data;
+        else
         state.sjListDown = org_data;
+    },
+    getSjList_QS (state, payload) { //数据质量 -排行榜 - 取用水
+        // 结果处理
+        let org_data = payload.res.data;
+        // console.log(org_data);
+        let page_param = payload.opar;
+        if(page_param == 'gao')
+          state.qsListUp = org_data;
+        else
+        state.qsListDown = org_data;
     },
     getJcsjList (state, payload) { //数据质量 - 监测情况
         // 结果处理
@@ -209,6 +228,27 @@ const mutations = {
         org_data.forEach(element => {
             state.zsLegend = element.error_title;
             state.zssjList.push(element.num);
+        });
+    },
+    getJcqsList (state, payload) { //数据质量 - 监测情况
+        // 结果处理
+        let org_data = payload.res.data;
+        state.jcqsLegend = [];
+        state.jcqsList = [];
+        org_data.forEach(element => {
+            state.jcqsLegend.push(element.error_title);
+            state.jcqsList.push(element.num);
+        });
+        
+    },
+    getZsqsList (state, payload) { //数据质量 - 质量走势
+        // 结果处理
+        state.zsqsList = [];
+        state.zsqsLegend = '';
+        let org_data = payload.res.data;
+        org_data.forEach(element => {
+            state.zsqsLegend = element.error_title;
+            state.zsqsList.push(element.num);
         });
     },
     getYwLists (state, payload) { // 运维考核的 - 整体
@@ -278,7 +318,25 @@ const actions = {
                 .then(response => {
                     commit({
                         type: 'getSjList',
-                        res: response.body
+                        res: response.body,
+                        opar:payload.type
+                    })
+                resolve(response);
+            }).catch(err => {
+                console.log(err);
+                reject(err);
+            })
+        })
+    },
+    getSjList_QS({commit},payload){
+        let param = encodeURI(encodeURI(JSON.stringify(payload)));
+        return new Promise((resolve,reject) =>{
+            Vue.http.jsonp(API.QYS_PHB+"&params="+param)
+                .then(response => {
+                    commit({
+                        type: 'getSjList_QS',
+                        res: response.body,
+                        opar:payload.type
                     })
                 resolve(response);
             }).catch(err => {
@@ -303,6 +361,22 @@ const actions = {
             })
         })
     },
+    getJcqsLists({commit},payload){ // 数据质量 - 监测情况
+        let param = encodeURI(encodeURI(JSON.stringify(payload)));
+        return new Promise((resolve,reject) =>{
+            Vue.http.jsonp(API.QYSJC_LIST+"&params="+param)
+                .then(response => {
+                    commit({
+                        type: 'getJcqsList',
+                        res: response.body
+                    })
+                resolve(response);
+            }).catch(err => {
+                console.log(err);
+                reject(err);
+            })
+        })
+    },
     getZssjLists({commit},payload){ // 数据质量 - 数据走势
         let param = encodeURI(encodeURI(JSON.stringify(payload)));
         return new Promise((resolve,reject) =>{
@@ -310,6 +384,22 @@ const actions = {
                 .then(response => {
                     commit({
                         type: 'getZssjList',
+                        res: response.body
+                    })
+                resolve(response);
+            }).catch(err => {
+                console.log(err);
+                reject(err);
+            })
+        })
+    },
+    getZsqsLists({commit},payload){ // 数据质量 - 数据走势
+        let param = encodeURI(encodeURI(JSON.stringify(payload)));
+        return new Promise((resolve,reject) =>{
+            Vue.http.jsonp(API.QYSZS_LIST+"&params="+param)
+                .then(response => {
+                    commit({
+                        type: 'getZsqsList',
                         res: response.body
                     })
                 resolve(response);
