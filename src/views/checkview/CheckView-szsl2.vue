@@ -19,10 +19,10 @@
       <!--二级目录-->
       <div class="wttabs-second">
          <ul>
-            <li><span :class="isClick4 == 1 ? 'wtac':''" @click="changeEvent('ml',1)">地表水户</span></li>
-            <li><span :class="isClick4 == 2 ? 'wtac':''" @click="changeEvent('ml',2)">地下水户</span></li>
-            <li><span :class="isClick4 == 3 ? 'wtac':''" @click="changeEvent('ml',3)">大用水户</span></li>
-            <li><span :class="isClick4 == 4 ? 'wtac':''" @click="changeEvent('ml',4)">灌区用水</span></li>
+            <li><span :class="isClick4 == '地表水取水' ? 'wtac':''" @click="changeEvent('ml','地表水取水')">地表水户</span></li>
+            <li><span :class="isClick4 == '地下水开采' ? 'wtac':''" @click="changeEvent('ml','地下水开采')">地下水户</span></li>
+            <li><span :class="isClick4 == '用水户取水' ? 'wtac':''" @click="changeEvent('ml','用水户取水')">大用水户</span></li>
+            <li><span :class="isClick4 == '农业用水' ? 'wtac':''" @click="changeEvent('ml','农业用水')">灌区用水</span></li>
          </ul>
          <div class="clearfixed"></div>
       </div>
@@ -32,9 +32,9 @@
         <div class="mod-head">
           <h3>监测情况</h3>
           <ul>
-            <li :class="isClick1 == 1 ? 'cur':''" @click="changeEvent('qk',1)">本日</li>
-            <li :class="isClick1 == 2 ? 'cur':''" @click="changeEvent('qk',2)">本月</li>
-            <li :class="isClick1 == 3 ? 'cur':''" @click="changeEvent('qk',3)">本年</li>
+            <li :class="isClick1 == 'day' ? 'cur':''" @click="changeEvent('qk','day')">本日</li>
+            <li :class="isClick1 == 'yue' ? 'cur':''" @click="changeEvent('qk','yue')">本月</li>
+            <li :class="isClick1 == 'year' ? 'cur':''" @click="changeEvent('qk','year')">本年</li>
           </ul>
           <div class="clearfixed"></div>
         </div>
@@ -46,8 +46,8 @@
         <div class="mod-head">
           <h3>数据质量走势</h3>
           <ul>
-            <li :class="isClick2 == 1 ? 'cur':''" @click="changeEvent('zs',1)">近一年</li>
-            <li :class="isClick2 == 2 ? 'cur':''" @click="changeEvent('zs',2)">近三年</li>
+            <li :class="isClick2 == 'year1' ? 'cur':''" @click="changeEvent('zs','year1')">近一年</li>
+            <li :class="isClick2 == 'year3' ? 'cur':''" @click="changeEvent('zs','year3')">近三年</li>
           </ul>
           <div class="clearfixed"></div>
         </div>
@@ -59,19 +59,21 @@
          <div class="mod-head">
            <h3>数据质量排行榜</h3>
            <ul>
-             <li :class="isClick3 == 1 ? 'cur':''" @click="changeEvent('ph',1)">高</li>
-             <li :class="isClick3 == 2 ? 'cur':''" @click="changeEvent('ph',2)">低</li>
+             <li :class="isClick3 == 'gao' ? 'cur':''" @click="changeEvent('ph','gao')">高</li>
+             <li :class="isClick3 == 'di' ? 'cur':''" @click="changeEvent('ph','di')">低</li>
            </ul>
            <div class="clearfixed"></div>
          </div>
-         <ul class="sort-wrap" :style="isClick3 == 1 ?'display:block':'display:none'">
-            <li v-for="(item,index) in sjListUp" :key="index">
-               <span><em>{{index+1}}.</em> {{item.name}}，故障次数 {{item.num}} </span>
+         <ul class="sort-wrap" :style="isClick3 == 'gao' ?'display:block':'display:none'">
+           <p v-if='!qsListUp.length'>暂无数据</p>
+            <li v-for="(item,index) in qsListUp" :key="index">
+               <span><em>{{index+1}}.</em> {{item.MP_NM}}，故障次数 {{item.NUM}} </span>
             </li>
          </ul>
-         <ul class="sort-wrap" :style="isClick3 == 2 ?'display:block':'display:none'">
-            <li v-for="(item,index) in sjListDown" :key="index">
-               <span><em>{{index+1}}.</em> {{item.name}}，故障次数 {{item.num}}，多为 {{item.type}} </span>
+         <ul class="sort-wrap" :style="isClick3 == 'di' ?'display:block':'display:none'">
+           <p v-if='!qsListDown.length'>暂无数据</p>
+            <li v-for="(item,index) in qsListDown" :key="index">
+               <span><em>{{index+1}}.</em> {{item.MP_NM}}，故障次数 {{item.NUM}} </span>
             </li>
          </ul>
       </div>
@@ -92,26 +94,41 @@ export default {
        legend:['上报中断','上报延迟','数据跳大','数据跳小','数据为负'],
        ds:[[111,23,43,21,23],[211,323,143,121,423],[211,323,143,121,423]
            ,[211,323,143,121,423],[211,323,143,121,423]],
-       isClick1:1, // 监测情况
-       isClick2:1, // 数据质量走势
-       isClick3:1,  // 数据排行榜
-       isClick4:1,  // 二级查询条件
-       sjListUp:[{name:'国泰君安',num:'0'},{name:'国泰君安',num:'0'}],
-       sjListDown:[{name:'国泰君安',num:'10',type:'数据中断'},{name:'国泰君安',num:'20',type:'数据跳大'}]
+       isClick1:'day', // 监测情况
+       isClick2:'year1', // 数据质量走势
+       isClick3:'gao',  // 数据排行榜
+       isClick4:'地表水取水',  // 二级查询条件
+       isClick5:'10201'
+      //  sjListUp:[{name:'国泰君安',num:'0'},{name:'国泰君安',num:'0'}],
+      //  sjListDown:[{name:'国泰君安',num:'10',type:'数据中断'},{name:'国泰君安',num:'20',type:'数据跳大'}]
      }
   },
   computed:{
       ...mapState({
-          // sjListUp: state => state.sjzl.sjListUp,
-          // sjListDown: state => state.sjzl.sjListDown
+          qsListUp: state => state.sjzl.qsListUp,
+          qsListDown: state => state.sjzl.qsListDown,
+          jcqsList: state => state.sjzl.jcqsList,
+          zsqsList: state => state.sjzl.zsqsList,
+          jcqsLegend: state => state.sjzl.jcqsLegend,
+          zsqsLegend: state => state.sjzl.zsqsLegend
     })
    },
   mounted(){
-    this.loadChart();
+    // this.loadChart();
+    // 加载监测数据
+    this.getJcqsLists({type:'day',jllx:'地表水取水'}).then(
+       () => {this.loadChart();}
+    )
+    // 加载质量走势
+    this.getZsqsLists({date:'year1',jllx:'地表水取水',ycqk:'10201'}).then(
+       () => {this.loadLineChart();}
+    )
+     // 加载排行版
+    this.getSjList_QS({date:'year1',jllx:'地表水取水',type:'gao'});
   },
   methods:{
     ...mapActions([
-        'getSjLists'
+        'getSjList_QS','getJcqsLists','getZsqsLists'
      ]),
     reback:function(e){
        this.$router.push({path:'/check'});
@@ -119,13 +136,26 @@ export default {
     changeEvent:function(tag,index){
       if(tag == 'qk') // 情况
        this.isClick1 = index;
-      if(tag == 'zs') // 走势
+      if(tag == 'zs'){ // 走势
        this.isClick2 = index;
-      if(tag == 'ph'){ // 排行
+       this.getZsqsLists({date:this.isClick2,jllx:this.isClick4,ycqk:this.isClick5}).then(
+          () => {this.loadLineChart();}
+        )
+      }if(tag == 'ph'){ // 排行
        this.isClick3 = index;
-       
-      }if(tag == 'ml') // 目录
+       this.getSjList_QS({date:this.isClick2,jllx:this.isClick4,type:this.isClick3});
+
+      }if(tag == 'ml'){ // 目录
        this.isClick4 = index;
+       // 监测情况
+       this.getJcqsLists({type:this.isClick1,jllx:this.isClick4}).then(
+          () => {this.loadChart();}
+       );
+       this.getZsqsLists({date:this.isClick2,jllx:this.isClick4,ycqk:this.isClick5}).then(
+          () => {this.loadLineChart();}
+        );
+        this.getSjList_QS({date:this.isClick2,jllx:this.isClick4,type:this.isClick3});
+      }
     },
     getYear: function(val) {
         console.log(val);
@@ -133,10 +163,24 @@ export default {
     loadChart:function(){
       // 这里要修改的 -- 即加载真实的数据
       let myChart = echarts.init(document.getElementById("myChart"));
-      let options = echarUtil.initChart(this.legend,this.ds[0]);
+      let options = echarUtil.initChart(this.jcqsLegend,this.jcqsList);
       myChart.setOption(options);
+      myChart.on('click',this.barChartClick);
+    },
+    barChartClick:function(param){
+        switch(param.name){
+           case '数据延时' :this.isClick5 = '10201';break;
+           case '数据跳大' : this.isClick5 = '10101';break;
+           case '数据负值' : this.isClick5 = '10102';break;
+           case '数据量异常' : this.isClick5 = '10501';  break; 
+        }
+        this.getZsqsLists({date:this.isClick2,jllx:this.isClick4,ycqk:this.isClick5}).then(
+          () => {this.loadLineChart();}
+        );
+    },
+    loadLineChart:function(){
       let lineChart = echarts.init(document.getElementById("lineChart"));
-      let lineoptions = echarUtil.initLine(this.legend,this.ds);
+      let lineoptions = echarUtil.initLine(this.zsqsLegend,this.zsqsList);
       lineChart.setOption(lineoptions);
     }
     
