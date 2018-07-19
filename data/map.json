@@ -6,7 +6,7 @@
             "lng":121.372882,
             "lat":31.176523,
             "name":"上海水资源1",
-            "icon": "../../statics/images/redPoint.png",
+            "icon": "../../../statics/images/redPoint.png",
             "desc":"<div>地址：是1444</div>"
        },
        { 
