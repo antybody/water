@@ -14,12 +14,15 @@ import {_beforeEnter} from '../src/libs/router'
 
 import Indicator from 'vue-indicator';
 
+
 FastClick.attach(document.body);
 Vue.use(VueAmazeui)
 
 Vue.use(VueRouter)
 Vue.use(vueResource)
 Vue.use(Indicator)
+
+
 
 // tab 切换
 
@@ -131,7 +134,7 @@ const route = resolve => {
     // console.log(Indicator);
     // Indicator.open();
       require.ensure([], () => {
-        resolve(require('./views/RouteView'))
+        resolve(require('./views/RouteView1.vue'))
         // Indicator.close()
       },'group-route')
 }
@@ -259,7 +262,7 @@ const sydDetail = resolve => {
 const redv1 = resolve => {
     // Indicator.open();
       require.ensure([], () => {
-        resolve(require('./views/RedView-v1.vue'))
+        resolve(require('./views/RedView-v2.vue'))
         // Indicator.close()
       },'group-home')
 }
