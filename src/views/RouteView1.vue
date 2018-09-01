@@ -25,7 +25,7 @@
             </div>
             </div>
             <div class="route-lists">
-                <div style="background:#fff;margin-bottom:10px" v-for="list in ywLists" :key="list.index" @click="listClick(list)">
+                <div style="background:#fff;margin-bottom:10px" v-for="list in ywLists" :key="list.index" href="/routeReback1/111" @click="listClick(list)">
                     <div class="route-header clearfix">
                         <span class="l">编号：{{list.id}}</span>
                         <span class="r">{{list.dwname}}</span>
@@ -117,7 +117,7 @@
                 } 
             },
             listClick:function(data){
-                this.$router.push({name:'search',params:{text:'请搜索水功能区',t:'sgnq'}});
+                this.$router.push({name:'routeReback1',params:{text:'请搜索水功能区',t:'routeReback1'}});
             }
         }
     }
