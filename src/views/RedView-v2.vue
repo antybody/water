@@ -183,16 +183,6 @@
         /* box-shadow: 0 0 5px rgba(250,0,0,0.5); */
     }
 
-    .wt-bar-i-16 {
-        display: block;
-        height: 1.3125rem;
-        width: 1rem;
-        margin: 0 auto;
-        float: left;
-        padding: 0 0.625rem;
-        line-height: 1.3125rem;
-        /* box-shadow: 0 0 5px rgba(250,0,0,0.5); */
-    }
     .riverlist{
         background: url('../../statics/images/icon_28.png');
         background-size:100%;
@@ -282,17 +272,7 @@
         /* color:#ffffff; */
     }
 
-    .wt-title {
-        color: #3d3d3d;
-        padding: 0.625rem 0.9375rem;
-        font-weight: 500;
-        margin: 0;
-    }
-
-    .wt-title .red-c {
-        background: url('../../statics/images/article.png') no-repeat;
-        background-size: 4px;
-    }
+    
 
     .red-news {
         background: url('../../statics/images/article.png') no-repeat;

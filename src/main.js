@@ -354,17 +354,17 @@ const routePlan = resolve => {
       },'group-route')
 }
 // import routeReback from './views/routeview/RouteView-reback'
-const routeReback = resolve => {
-    // Indicator.open();
-      require.ensure([], () => {
-        resolve(require('./views/routeview/RouteView-reback.vue'))
-        // Indicator.close()
-      },'group-route')
-}
 const routeReback1 = resolve => {
     // Indicator.open();
     require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-reback1.vue'))
+        // Indicator.close()
+    },'group-route')
+}
+const routeView = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-review.vue'))
         // Indicator.close()
     },'group-route')
 }
@@ -497,6 +497,7 @@ const router = new VueRouter({
         },
         { 
             path:'/route',
+            name:'route',
             component:route
         },
         { 
@@ -582,9 +583,9 @@ const router = new VueRouter({
             component:sredmap
         },
         { 
-            path:'/routeReback/:id',
-            name:'routeReback',
-            component:routeReback
+            path:'/routeView',
+            name:'routeView',
+            component:routeView
         },
         {
             path:'/routeReback1/:id',
