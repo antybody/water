@@ -121,7 +121,9 @@
                 this.$router.push({name:'routeReback1',params:{id:'',t:''}});
                 if(this.menu1 == 2 && data.ywtype == 1)
                 this.$router.push({name:'routeView',params:{id:data.id,t:'pd'}});
- 
+                if(this.menu1 == 2 && data.ywtype == 0)
+                this.$router.push({name:'routeReback2',params:{id:data.id,t:'pd'}});
+
             }
         }
     }

@@ -361,6 +361,13 @@ const routeReback1 = resolve => {
         // Indicator.close()
     },'group-route')
 }
+const routeReback2 = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-reback2.vue'))
+        // Indicator.close()
+    },'group-route')
+}
 const routeView = resolve => {
     // Indicator.open();
     require.ensure([], () => {
@@ -588,12 +595,17 @@ const router = new VueRouter({
             component:routeView
         },
         {
-            path:'/routeReback1/:id',
+            path:'/routeReback1',
             name:'routeReback1',
             component:routeReback1
         },
+        {
+            path:'/routeReback2',
+            name:'routeReback2',
+            component:routeReback2
+        },
         { 
-            path:'/routeDone/:id',
+            path:'/routeDone',
             name:'routeDone',
             component:routeDone
         },

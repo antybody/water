@@ -57,89 +57,25 @@
                 </list-item>
             </tabs-desc>
             <tabs-desc slot="desc">
-                <h5 class="wt-title">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>地表水取水</span>
-                        <span class="wt-bar-subtitle"></span>
-                    </div>
-                </h5>
-
-                <list-item title="流量计通讯输出检查">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="lljtxsc"/>正常
-                        <input type="radio" name="lljtxsc"/>异常
-                    </a>
-                </list-item>
-                <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
-                    <field-input type="textarea" placeholder="请填写情况说明及处理结果"></field-input>
-                </field>
                 <h5 class="wt-title" style="padding:0.925rem 0">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>地下取水（回灌井）</span>
+                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>异常信息</span>
                         <span class="wt-bar-subtitle"></span>
                     </div>
                 </h5>
-                <list-item title="水表通讯输出检测">
+                <textarea name="errormsg" readonly="readonly" v-model="xjList.errormsg"></textarea>
+                
+                <h5 class="wt-title" style="padding:0.925rem 0">
+                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>巡检反馈</span>
+                        <span class="wt-bar-subtitle"></span>
+                    </div>
+                </h5>
+                <list-item title="是否去现场核查">
                     <a class="radio" slot="after">
-                        <input type="radio" name="lljtxsc"/>正常
-                        <input type="radio" name="lljtxsc"/>异常
+                        <input type="radio" value="1" name="lljtxsc"/><span @click="rClick(1)">去现场</span>
+                        <input type="radio" value="2" name="lljtxsc"/><span @click="rClick(2)">无需</span>
                     </a>
                 </list-item>
-                <list-item title="流量计数据核对">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="lljsjhd"/>正常
-                        <input type="radio" name="lljsjhd"/>异常
-                    </a>
-                </list-item>
-                <list-item title="通讯信号检查">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="txxhjc"/>正常
-                        <input type="radio" name="txxhjc"/>异常
-                    </a>
-                </list-item>
-                <list-item title="检测柜内电子元器件及表面清洁工作">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="txxhjc"/>正常
-                        <input type="radio" name="txxhjc"/>异常
-                    </a>
-                </list-item>
-                <list-item title="电源、避雷检查">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="txxhjc"/>正常
-                        <input type="radio" name="txxhjc"/>异常
-                    </a>
-                </list-item>
-                <list-item title="接地测试">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="txxhjc"/>正常
-                        <input type="radio" name="txxhjc"/>异常
-                    </a>
-                </list-item>
-                <list-item title="后台数据核对">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="txxhjc"/>正常
-                        <input type="radio" name="txxhjc"/>异常
-                    </a>
-                </list-item>
-                <list-item title="PLC程序备份">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="txxhjc"/>正常
-                        <input type="radio" name="txxhjc"/>异常
-                    </a>
-                </list-item>
-                <list-item title="防水接线处理检查">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="txxhjc"/>正常
-                        <input type="radio" name="txxhjc"/>异常
-                    </a>
-                </list-item>
-                <list-item title="锂电池更换">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="txxhjc"/>正常
-                        <input type="radio" name="txxhjc"/>异常
-                    </a>
-                </list-item>
-                <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
-                    <field-input type="textarea" placeholder="请填写情况说明及处理结果"></field-input>
-                </field>
+                
                 <div class="wt-list-info">
                     <div class="wt-list-lineover">
                         <label>现场照片：
@@ -154,11 +90,11 @@
                         </span>
                              </span>
                         <ul class="upload-pre-img" v-show="imgLists.length >0">
-                            <li v-for="item in imgLists" :key="imgLists.index">
+                            <li v-for="item in imgLists" :key="index">
                                 <div><img :src="item.url"></div>
                                 <span class="upload-pre-del"><i class="icons-e616" @click="delImg(item)"></i></span>
                             </li>
-                            <vue-button block @buttonClick="imgSubmit()">提交照片</vue-button>
+                            <div class="clear"></div>
                         </ul>
                         </p>
                     </div>
@@ -166,18 +102,18 @@
                 <list>
                     <list-item nested="input">
                         <field label="巡检人员">
-                            <field-input placeholder="巡检人员"></field-input>
+                            <field-input name="xjperson" placeholder="巡检人员"></field-input>
                         </field>
                     </list-item>
                     <list-item nested="input">
                         <field label="巡检时间">
-                            <field-input type="date" placeholder="选择巡检时间"></field-input>
+                            <field-input name="xjdate" type="date" placeholder="选择巡检时间"></field-input>
                         </field>
                     </list-item>
                 </list>
                 <div class="bottom-button" style="text-align: center;margin-left: 0.88rem;margin-top: 1.625rem;">
                     <vue-button amSize="xs" sblue @buttonClick="formSubmit()">完成提交</vue-button>
-                    <vue-button amSize="xs" orange>稍后巡检</vue-button>
+                    <vue-button amSize="xs" orange @buttonClick="lateSumit()">稍后巡检</vue-button>
                 </div>
                 <!-- 从下向上 弹出框组件-->
                 <offcanvas style="height:4.375rem" sildewh="82%" silde="top" :open="offcanvas5"
@@ -193,7 +129,30 @@
                 </modal>
             </tabs-desc>
             <tabs-desc slot="desc">
-                处理流程
+                <ul class="route-timeline">
+                    <li v-if="index == 0" class="route-timeline-item cur" v-for="(tl,index) in timeline" :key="tl.index">
+                        <i class="wt-bar-i-16"></i>
+                        <div class="route-timline-h">
+                        <div class="desc">
+                            <h3 style="color:rgb(254, 155, 30)">{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>
+                            <p>{{tl.dealtime}}</p>
+                        </div>
+                        </div>
+                    </li>
+                    <li v-else class="route-timeline-item none">
+                        <i class="wt-bar-i-16"></i>
+                        <div class="route-timline-h">
+                        <div class="desc">
+                            <h3>{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>
+                            <p>{{tl.dealtime}}</p>
+                        </div>
+                        </div>
+                    </li>
+                    <li class="route-timeline-item none">
+                        <i class="wt-bar-i-16"></i>
+                        <div v-if="timeline.length == 0"> 暂未开始</div>
+                    </li>
+                </ul>
             </tabs-desc>
         </tabs>
     </vue-view>
@@ -206,6 +165,8 @@
     import * as API from '../../store/api/api'
     import VueView from "vue-amazeui/src/components/vueview/vueview";
     import redMap from '../../components/redmap'
+    import * as util from '../../libs/utils'
+    import 'jquery' 
 
     export default {
         components: {
@@ -228,7 +189,9 @@
                 BZ: '',
                 mapPoints: [
                     {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
-                ]
+                ],
+                xjList:{errormsg:'111111'},
+                timeline:[]
             }
         },
         computed: {
@@ -250,6 +213,7 @@
                 if (this.imgLists.length < 6) {
                     this.imgLists.push({id: this.imgIndex, url: blob});
                     this.imgIndex += 1;
+                    console.log(this.imgLists);
                 }
                 else
                     this.open3 = true;
@@ -286,7 +250,7 @@
             },
             formSubmit() {
                 let ID = this.$route.params.id;
-                console.log("提交表单信息");
+                console.log(ID);
                 let paramData = {
                     type: 'resultPlan',
                     ID: ID,
@@ -301,14 +265,29 @@
                         console.log("error:" + response.data);
                     });
             },
-            imgSubmit() {
-                console.log("提交照片信息");
+            rClick:function(v){
+                for(var i = 0 ; i < $("input[name='lljtxsc']").length; i++){
+                    $($("input[name='lljtxsc']")[i]).prop("checked",false);
+                    console.log($("input[name='lljtxsc']")[i]);
+                    if($($("input[name='lljtxsc']")[i]).val() == v){
+                        $($("input[name='lljtxsc']")[i]).prop("checked","checked");
+                    }
+                }       
+            },
+            lateSumit:function(){
+                // 这里记录 收单人
+                let username = util.getJStore("userInfo")["user_info"];
+                console.log(username);
+                this.$router.go(-1);
             }
         }
     }
 </script>
 
 <style>
+    .clear{
+        clear:both
+    }
     .upload-pre-del {
         position: relative;
         color: #000;
