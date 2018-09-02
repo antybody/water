@@ -88,13 +88,13 @@
             return {
                 clists: [
                     {href: '/qsh', img: 'wt-bar-i-46 wt-bar-1', title: '取水户'},
-                    {href: '/qsxkz', img: 'wt-bar-i-46 wt-bar-3', title: '许可证'},
-                    {href: '/redsyd', img: 'wt-bar-i-46 wt-bar-5', title: '水源地'},
-                    {href: '/dysh', img: 'wt-bar-i-46 wt-bar-2', title: '大用水户'},
+                    {href: '/qsxkz', img: 'wt-bar-i-46 wt-bar-2', title: '许可证'},
+                    {href: '/redsyd', img: 'wt-bar-i-46 wt-bar-7', title: '水源地'},
+                    {href: '/dysh', img: 'wt-bar-i-46 wt-bar-3', title: '大用水户'},
                     // {href: '/redsyd', img: 'wt-bar-i-46 wt-bar-5', title: '水源地'},
-                    {href: '/redsgnq', img: 'wt-bar-i-46 wt-bar-6', title: '水功能区'},
-                    {href: '/redxc', img: 'wt-bar-i-46 wt-bar-7', title: '咸潮'},
-                    {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-4', title: '水质监测'},
+                    {href: '/redsgnq', img: 'wt-bar-i-46 wt-bar-4', title: '水功能区'},
+                    {href: '/redxc', img: 'wt-bar-i-46 wt-bar-5', title: '咸潮'},
+                    {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-6', title: '水质监测'},
                     {href: '', img: '', title: ''}
 
                 ],
@@ -223,37 +223,44 @@
 
     .wt-bar-1 {
         background: url('../../statics/images/icon_03.png') no-repeat;
-        background-size: 90%;
+        background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-2 {
         background: url('../../statics/images/icon_05.png') no-repeat;
-        background-size: 90%;
+        background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-7 {
         background: url('../../statics/images/icon_07.png') no-repeat;
-        background-size: 90%;
+        background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-3 {
         background: url('../../statics/images/icon_09.png') no-repeat;
-        background-size: 90%;
+        background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-4 {
         background: url('../../statics/images/icon_16.png') no-repeat;
-        background-size: 90%;
+        background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-5 {
         background: url('../../statics/images/icon_18.png') no-repeat;
-        background-size: 90%;
+        background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-6 {
         background: url('../../statics/images/icon_19.png') no-repeat;
-        background-size: 90%;
+        background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-8 {
@@ -364,7 +371,8 @@
         font-size:0.75rem;
     }
     .grid-title{
-        background: #f9f9f9;
+        background: #c1b7bc0d;
+        border-top:1px solid #e3e3e3;
         border-top:1px solid #e8e7e7;
     }
     .grid-top-border{
