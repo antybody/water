@@ -71,8 +71,12 @@
                 </h5>
                 <list-item title="是否去现场核查">
                     <a class="radio" slot="after">
-                        <input type="radio" value="1" name="lljtxsc"/><span @click="rClick(1)">去现场</span>
-                        <input type="radio" value="2" name="lljtxsc"/><span @click="rClick(2)">无需</span>
+                        <input type="radio" name="lljtxsc" id="lljtxsc_yes" value="1" hidden checked/>
+                        <label for="lljtxsc_yes" class="advice"></label>
+                        <span class="radio-name" @click="rClick(1)">去现场</span>
+                        <input type="radio" name="lljtxsc" id="lljtxsc_no" value="0" hidden/>
+                        <label for="lljtxsc_no" class="advice"></label>
+                        <span class="radio-name" @click="rClick(0)">无需</span>
                     </a>
                 </list-item>
                 
@@ -414,6 +418,19 @@
         padding: 0.6rem 2.625rem 0.6rem 2.625rem !important;
         font-size: 0.9rem !important;
         border-radius: 0.2rem;
+    }
+    .advice{
+        height: 16px;
+        width: 16px;
+        display: inline-block;
+        background-image: url('../../../statics/images/radio_no.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        vertical-align: middle;
+        margin-top: 5px;
+    }
+    input[type="radio"]:checked + .advice{
+        background-image: url('../../../statics/images/radio_yes.png');
     }
 
 </style>
