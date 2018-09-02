@@ -307,7 +307,29 @@
                 </modal>
             </tabs-desc>
             <tabs-desc slot="desc">
-                养护记录
+                <ul class="route-timeline">
+                    <li v-if="index == 0" class="route-timeline-item cur" v-for="(tl,index) in timeline" :key="tl.index">
+                        <i class="wt-bar-i-16"></i>
+                        <div class="route-timline-h">
+                            <div class="desc">
+                                <h3 style="color:rgb(254, 155, 30)">{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>
+                                <p>{{tl.dealtime}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-else class="route-timeline-item none">
+                        <i class="wt-bar-i-16"></i>
+                        <div class="route-timline-h">
+                            <div class="desc">
+                                <h3>{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>
+                                <p>{{tl.dealtime}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="route-timeline-item none">
+                        <i class="wt-bar-i-16"></i>
+                    </li>
+                </ul>
             </tabs-desc>
         </tabs>
     </vue-view>
@@ -339,7 +361,10 @@
                 BZ: '',
                 mapPoints: [
                     {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
-                ]
+                ],
+                timeline:[{dealtime:'2018-10-10 12:10',dealperson:'张三',dealmsg:'已处理并回复处理结果',dealcompany:'城投公司'}
+                    ,{dealtime:'2018-10-10 11:10',dealperson:'张三',dealmsg:'已前往处理',dealcompany:'城投公司'}
+                    ,{dealtime:'2018-10-10 10:10',dealperson:'admin',dealmsg:'异常派单',dealcompany:'城投公司'}]
             }
         },
         computed: {
