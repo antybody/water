@@ -44,7 +44,7 @@
                             <span>本年累计</span>
                         </cell>
                     </grid>
-                    <grid avg="3" v-for="water in waters" align="center">
+                    <grid avg="3" v-for="water in waters" align="center" :key="water.index">
                       <cell class="cell-box">{{water.type}}</cell>
                       <cell class="cell-box wt-dblue">{{water.today}}万m³</cell>
                       <cell class="cell-box wt-orange">{{water.year}}万m³</cell>
@@ -60,9 +60,15 @@
                 </div>
             </h5>
             <div class="grid-top-border"></div>
-            <grid avg="2" v-for="river in rivers" align="center">
-                <cell class="cell-box">{{river.typeName}}</cell>
-                <cell class="cell-box wt-dblue">{{river.name}}</cell>
+            <grid avg="2"  align="center" >
+                <cell v-for="river in rivers" :key="river.index">
+                   <div class="riverlist"> 
+                       <i v-if="river.type == 1" class="vgood"></i>
+                       <i v-if="river.type == 0" class="good"></i>
+                       <i v-if="river.type == 2" class="bad"></i>
+                       <span>{{river.name}}</span>
+                    </div>
+                </cell>
             </grid>
         </group>
 
@@ -99,10 +105,12 @@
                     {type: '火力发电', today: '0.1', year: '60.34'}
                 ],
                 rivers: [
-                    {name: '黄浦江', type: 'I', typeName: '优'},
-                    {name: '黄浦江', type: 'I', typeName: '优'},
-                    {name: '黄浦江', type: 'I', typeName: '优'},
-                    {name: '黄浦江', type: 'I', typeName: '优'}
+                    {name: '黄浦江', type: '1', typeName: '优'},
+                    {name: '黄浦江', type: '0', typeName: '良'},
+                    {name: '黄浦江', type: '2', typeName: '差'},
+                    {name: '黄浦江', type: '1', typeName: '优'},
+                    {name: '黄浦江', type: '1', typeName: '优'},
+                    {name: '黄浦江', type: '1', typeName: '优'}
                 ]
             }
         },
@@ -151,12 +159,6 @@
         color:#8b8b8b;
     }
 
-    .wt-linear-blue {
-        color: #ffffff;
-        background-image: -webkit-linear-gradient(90deg, #66c4ff, #5d85ff);
-        background-image: linear-gradient(90deg, #66c4ff, #5d85ff);
-    }
-
     .wt-text {
         font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: 500;
@@ -181,57 +183,84 @@
         /* box-shadow: 0 0 5px rgba(250,0,0,0.5); */
     }
 
-    .wt-bar-i-16 {
-        display: block;
-        height: 1.3125rem;
-        width: 1rem;
+    .riverlist{
+        background: url('../../statics/images/icon_28.png');
+        background-size:100%;
+        height:50px;
+        width:100%;
+        line-height: 35px;
+        padding:10px;
+        text-align: left;
+    }
+    .riverlist span{
+        vertical-align:text-bottom;
+        padding-left:10px;
+    }
+    .vgood{
+        display: inline-block;
         margin: 0 auto;
-        float: left;
-        padding: 0 0.625rem;
-        line-height: 1.3125rem;
-        /* box-shadow: 0 0 5px rgba(250,0,0,0.5); */
+        height:32px;
+        width:32px;
+        background: url('../../statics/images/27.png');
+        background-size:100%;
+    }
+    .good{
+        display: inline-block;
+        margin: 0 auto;
+        height:32px;
+        width:32px;
+        background: url('../../statics/images/27-11.png');
+        background-size:100%;
+    }
+    .bad{
+        display: inline-block;
+        margin: 0 auto;
+        height:32px;
+        width:32px;
+        background: url('../../statics/images/27-12.png');
+        background-size:100%;
     }
 
     .wt-bar-1 {
         background: url('../../statics/images/icon_03.png') no-repeat;
-        background-size: 70%;
         background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-2 {
         background: url('../../statics/images/icon_05.png') no-repeat;
-        background-size: 70%;
         background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-7 {
         background: url('../../statics/images/icon_07.png') no-repeat;
-        background-size: 70%;
         background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-3 {
         background: url('../../statics/images/icon_09.png') no-repeat;
-        background-size: 70%;
         background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-4 {
         background: url('../../statics/images/icon_16.png') no-repeat;
-        background-size: 70%;
         background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-5 {
         background: url('../../statics/images/icon_18.png') no-repeat;
-        background-size: 70%;
         background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-6 {
         background: url('../../statics/images/icon_19.png') no-repeat;
-        background-size: 70%;
         background-position: 10px 10px;
+        background-size: 70%;
     }
 
     .wt-bar-8 {
@@ -243,23 +272,14 @@
     .icon-title {
         font-size: .875rem;
         line-height: .3466666667rem;
+        color:#3d3d3d;
     }
 
     .wt-text a {
         /* color:#ffffff; */
     }
 
-    .wt-title {
-        color: #3d3d3d;
-        padding: 0.625rem 0.9375rem;
-        font-weight: 500;
-        margin: 0;
-    }
-
-    .wt-title .red-c {
-        background: url('../../statics/images/article.png') no-repeat;
-        background-size: 4px;
-    }
+    
 
     .red-news {
         background: url('../../statics/images/article.png') no-repeat;
@@ -299,11 +319,6 @@
         background-image: linear-gradient(90deg, #4fa1f5, #3d61f5);
     }
 
-    .wt-linear-blue {
-        color: #ffffff;
-        background-image: -webkit-linear-gradient(270deg, #5ccfff, #69baff);
-        background-image: linear-gradient(270deg, #5ccfff, #69baff);
-    }
 
     .wt-linear-purple {
         color: #ffffff;
@@ -358,6 +373,7 @@
     .grid-title{
         background: #c1b7bc0d;
         border-top:1px solid #e3e3e3;
+        border-top:1px solid #e8e7e7;
     }
     .grid-top-border{
         border-top:1px solid #e3e3e3;

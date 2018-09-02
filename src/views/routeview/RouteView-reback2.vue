@@ -1,5 +1,5 @@
 /**
-巡检反馈
+巡检反馈-查看界面
 2018.1.15 by diana
 */
 <template>
@@ -21,19 +21,19 @@
                     </div>
                 </h5>
                 <list-item title="取水户名称">
-                    <a class="content" slot="after">宝信软件</a>
+                    <a class="content" slot="after">{{qsh.name}}</a>
                 </list-item>
                 <list-item title="取水站点">
-                    <a class="content" slot="after">宝信软件监测点</a>
+                    <a class="content" slot="after">{{qsh.station}}</a>
                 </list-item>
                 <list-item title="取水许可证">
-                    <a class="content" slot="after">国长 字[2015]第01001号</a>
+                    <a class="content" slot="after">{{qsh.xkz}}</a>
                 </list-item>
                 <list-item title="瞬时流量">
-                    <a class="content" slot="after">120 m³/s</a>
+                    <a class="content" slot="after">{{qsh.ssll}} m³/s</a>
                 </list-item>
-                <list-item title="累计流量">
-                    <a class="content" slot="after">3000120 m³</a>
+                <list-item title="累计流量（本年）">
+                    <a class="content" slot="after">{{qsh.ljll}} m³</a>
                 </list-item>
                 <h5 class="wt-title" style="padding:0.925rem 0">
                     <div class="wt-title-center">
@@ -41,19 +41,19 @@
                     </div>
                 </h5>
                 <list-item title="站点编号">
-                    <a class="content" slot="after">宝信软件测站</a>
+                    <a class="content" slot="after">{{station.bh}}</a>
                 </list-item>
                 <list-item title="计量设施厂家">
-                    <a class="content" slot="after">宝信软件</a>
+                    <a class="content" slot="after">{{station.cs}}</a>
                 </list-item>
                 <list-item title="计量设施型号">
-                    <a class="content" slot="after">A001</a>
+                    <a class="content" slot="after">{{station.xh}}</a>
                 </list-item>
                 <list-item title="计量设施类型">
-                    <a class="content" slot="after">流量计</a>
+                    <a class="content" slot="after">{{station.lx}}</a>
                 </list-item>
                 <list-item title="安装时间">
-                    <a class="content" slot="after">2018-01-01</a>
+                    <a class="content" slot="after">{{station.addtime}}</a>
                 </list-item>
             </tabs-desc>
             <tabs-desc slot="desc">
@@ -65,82 +65,8 @@
 
                 <list-item title="流量计通讯输出检查">
                     <a class="radio" slot="after">
-                        <input type="radio" name="db_lljtxscjc" id="db_lljtxscjc_yes" value="1" hidden checked/>
-                        <label for="db_lljtxscjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="db_lljtxscjc" id="db_lljtxscjc_no" value="2" hidden/>
-                        <label for="db_lljtxscjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="流量计数据核对">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="db_lljsjhd" id="db_lljsjhd_yes" value="1" hidden checked/>
-                        <label for="db_lljsjhd_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="db_lljsjhd" id="db_lljsjhd_no" value="2" hidden/>
-                        <label for="db_lljsjhd_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="通讯信号检查">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="db_txxhjc" id="db_txxhjc_yes" value="1" hidden checked/>
-                        <label for="db_txxhjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="db_txxhjc" id="db_txxhjc_no" value="2" hidden/>
-                        <label for="db_txxhjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检测柜内电子元器件及表面清洁工作">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="db_dzyjjc" id="db_dzyjjc_yes" value="1" hidden checked/>
-                        <label for="db_dzyjjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="db_dzyjjc" id="db_dzyjjc_no" value="2" hidden/>
-                        <label for="db_dzyjjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="电源、避雷检查">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="db_dybljc" id="db_dybljc_yes" value="1" hidden checked/>
-                        <label for="db_dybljc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="db_dybljc" id="db_dybljc_no" value="2" hidden/>
-                        <label for="db_dybljc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="接地测试">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="db_jdcs" id="db_jdcs_yes" value="1" hidden checked/>
-                        <label for="db_jdcs_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="db_jdcs" id="db_jdcs_no" value="2" hidden/>
-                        <label for="db_jdcs_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="后台数据核对">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="db_htsjhd" id="db_htsjhd_yes" value="1" hidden checked/>
-                        <label for="db_htsjhd_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="db_htsjhd" id="db_htsjhd_no" value="2" hidden/>
-                        <label for="db_htsjhd_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="PLC程序备份">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="db_plc" id="db_plc_yes" value="1" hidden checked/>
-                        <label for="db_plc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="db_plc" id="db_plc_no" value="2" hidden/>
-                        <label for="db_plc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="lljtxsc"/>正常
+                        <input type="radio" name="lljtxsc"/>异常
                     </a>
                 </list-item>
                 <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
@@ -151,104 +77,64 @@
                         <span class="wt-bar-subtitle"></span>
                     </div>
                 </h5>
-                <list-item title="流量计通讯输出检查">
+                <list-item title="水表通讯输出检测">
                     <a class="radio" slot="after">
-                        <input type="radio" name="dx_lljtxscjc" id="dx_lljtxscjc_yes" value="1" hidden checked/>
-                        <label for="dx_lljtxscjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_lljtxscjc" id="dx_lljtxscjc_no" value="2" hidden/>
-                        <label for="dx_lljtxscjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="lljtxsc"/>正常
+                        <input type="radio" name="lljtxsc"/>异常
                     </a>
                 </list-item>
                 <list-item title="流量计数据核对">
                     <a class="radio" slot="after">
-                        <input type="radio" name="dx_lljsjhd" id="dx_lljsjhd_yes" value="1" hidden checked/>
-                        <label for="dx_lljsjhd_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_lljsjhd" id="dx_lljsjhd_no" value="2" hidden/>
-                        <label for="dx_lljsjhd_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="lljsjhd"/>正常
+                        <input type="radio" name="lljsjhd"/>异常
                     </a>
                 </list-item>
                 <list-item title="通讯信号检查">
                     <a class="radio" slot="after">
-                        <input type="radio" name="dx_txxhjc" id="dx_txxhjc_yes" value="1" hidden checked/>
-                        <label for="dx_txxhjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_txxhjc" id="dx_txxhjc_no" value="2" hidden/>
-                        <label for="dx_txxhjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="txxhjc"/>正常
+                        <input type="radio" name="txxhjc"/>异常
                     </a>
                 </list-item>
                 <list-item title="检测柜内电子元器件及表面清洁工作">
                     <a class="radio" slot="after">
-                        <input type="radio" name="dx_dzyjjc" id="dx_dzyjjc_yes" value="1" hidden checked/>
-                        <label for="dx_dzyjjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_dzyjjc" id="dx_dzyjjc_no" value="2" hidden/>
-                        <label for="dx_dzyjjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="txxhjc"/>正常
+                        <input type="radio" name="txxhjc"/>异常
                     </a>
                 </list-item>
                 <list-item title="电源、避雷检查">
                     <a class="radio" slot="after">
-                        <input type="radio" name="dx_dybljc" id="dx_dybljc_yes" value="1" hidden checked/>
-                        <label for="dx_dybljc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_dybljc" id="dx_dybljc_no" value="2" hidden/>
-                        <label for="dx_dybljc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="txxhjc"/>正常
+                        <input type="radio" name="txxhjc"/>异常
                     </a>
                 </list-item>
                 <list-item title="接地测试">
                     <a class="radio" slot="after">
-                        <input type="radio" name="dx_jdcs" id="dx_jdcs_yes" value="1" hidden checked/>
-                        <label for="dx_jdcs_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_jdcs" id="dx_jdcs_no" value="2" hidden/>
-                        <label for="dx_jdcs_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="txxhjc"/>正常
+                        <input type="radio" name="txxhjc"/>异常
                     </a>
                 </list-item>
                 <list-item title="后台数据核对">
                     <a class="radio" slot="after">
-                        <input type="radio" name="dx_htsjhd" id="dx_htsjhd_yes" value="1" hidden checked/>
-                        <label for="dx_htsjhd_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_htsjhd" id="dx_htsjhd_no" value="2" hidden/>
-                        <label for="dx_htsjhd_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="txxhjc"/>正常
+                        <input type="radio" name="txxhjc"/>异常
                     </a>
                 </list-item>
                 <list-item title="PLC程序备份">
                     <a class="radio" slot="after">
-                        <input type="radio" name="dx_plc" id="dx_plc_yes" value="1" hidden checked/>
-                        <label for="dx_plc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_plc" id="dx_plc_no" value="2" hidden/>
-                        <label for="dx_plc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="txxhjc"/>正常
+                        <input type="radio" name="txxhjc"/>异常
                     </a>
                 </list-item>
                 <list-item title="防水接线处理检查">
                     <a class="radio" slot="after">
-                        <input type="radio" name="dx_fsjs" id="dx_fsjs_yes" value="1" hidden checked/>
-                        <label for="dx_fsjs_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_fsjs" id="dx_fsjs_no" value="2" hidden/>
-                        <label for="dx_fsjs_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="txxhjc"/>正常
+                        <input type="radio" name="txxhjc"/>异常
                     </a>
                 </list-item>
                 <list-item title="锂电池更换">
                     <a class="radio" slot="after">
-                        <input type="radio" name="dx_ldc" id="dx_ldc_yes" value="1" hidden checked/>
-                        <label for="dx_ldc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_ldc" id="dx_ldc_no" value="2" hidden/>
-                        <label for="dx_ldc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="txxhjc"/>正常
+                        <input type="radio" name="txxhjc"/>异常
                     </a>
                 </list-item>
                 <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
@@ -307,7 +193,7 @@
                 </modal>
             </tabs-desc>
             <tabs-desc slot="desc">
-                养护记录
+                处理流程
             </tabs-desc>
         </tabs>
     </vue-view>
@@ -335,6 +221,9 @@
                 open2: false,
                 open3: false,
                 selectDel: -1,
+                qsh:{name:'宝信软件',station:'宝信监测点',xkz:'国长 字[2015]第01001号',
+                    ssll:'120',ljll:'2300'},
+                station:{bh:'宝信测站',cs:'宝信厂商',xh:'A0001',lx:'流量计',addtime:'2010-01-01'},
                 PATROL_CONTENT: '',
                 BZ: '',
                 mapPoints: [
@@ -350,6 +239,8 @@
             })
         },
         mounted() {
+            let id = this.$route.params.id;
+
             var imgload = new ImageUpload({
                 inputEl: '#imgupload',
                 showEl: false,
@@ -480,7 +371,6 @@
         background-color: #d9d9d9;
     }
 
-    
 
     h3 {
         color: #3b3b3b;
@@ -511,11 +401,6 @@
         user-select: none;
     }
 
-    .wt-font-600 {
-        font-weight: 700;
-        font-size: 0.75rem;
-    }
-
     .grid-title {
         background: #f5f5f5;
         border-top: 1px solid #e3e3e3;
@@ -535,6 +420,7 @@
         font-weight: 300 !important;
     }
 
+    
 
     .item {
         padding-right: 0 !important;
@@ -549,20 +435,6 @@
         padding: 0.6rem 2.625rem 0.6rem 2.625rem !important;
         font-size: 0.9rem !important;
         border-radius: 0.2rem;
-    }
-
-    .advice{
-        height: 16px;
-        width: 16px;
-        display: inline-block;
-        background-image: url('../../../statics/images/radio_no.png');
-        background-repeat: no-repeat;
-        background-position: center;
-        vertical-align: middle;
-        margin-top: 5px;
-    }
-    input[type="radio"]:checked + .advice{
-        background-image: url('../../../statics/images/radio_yes.png');
     }
 
 </style>

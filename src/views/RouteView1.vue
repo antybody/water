@@ -76,9 +76,9 @@
                     selectedDate: dateFormat(new Date(), "yyyy-MM")
                 },
                 ywLists:[
-                    {"id":"SH20180001","dwname":"上海城投","img":"https://dimg04.c-ctrip.com/images/300o0b0000005a6rh3D5A_C_300_200.jpg"
+                    {"id":"SH20180001","dwname":"上海城投-站点1","img":"https://dimg04.c-ctrip.com/images/300o0b0000005a6rh3D5A_C_300_200.jpg"
                      ,"ywdate":" 2018-01-01至2019-10-11","ywdesc":"已巡检 无异常","ywtype":1}
-                    ,{"id":"SH20180002","dwname":"上海城投","img":"https://dimg04.c-ctrip.com/images/300o0b0000005a6rh3D5A_C_300_200.jpg"
+                    ,{"id":"SH20180002","dwname":"上海城投-站点2","img":"https://dimg04.c-ctrip.com/images/300o0b0000005a6rh3D5A_C_300_200.jpg"
                      ,"ywdate":" 2018-01-01至2019-10-11","ywdesc":"未开始","ywtype":0}
                    
                 ]
@@ -117,7 +117,11 @@
                 } 
             },
             listClick:function(data){
-                this.$router.push({name:'routeReback1',params:{text:'请搜索水功能区',t:'routeReback1'}});
+                if(this.menu1 == 1)
+                this.$router.push({name:'routeReback1',params:{id:'',t:''}});
+                if(this.menu1 == 2 && data.ywtype == 1)
+                this.$router.push({name:'routeView',params:{id:data.id,t:'pd'}});
+ 
             }
         }
     }
@@ -167,6 +171,7 @@
     .route-body-content{
         display: inline-block;
         vertical-align:top;
+        color:rgb(141, 140, 140);
     }
     .route-body-content p{
         margin-bottom:10px !important;
@@ -192,11 +197,7 @@
         height:28px;
         margin:0;
     }
-    .wt-linear-blue {
-        color: #ffffff;
-        background-image: -webkit-linear-gradient(90deg, #66c4ff, #5d85ff);
-        background-image: linear-gradient(90deg, #66c4ff, #5d85ff);
-    }
+
     .route-lists{
         -webkit-overflow-scrolling: touch; 
         top:93px;
@@ -205,7 +206,7 @@
     .route-tabs{
         line-height: 45px;
         text-align: center;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #f1ecec;
         background: #fff;
         display:block;
     }
@@ -218,7 +219,7 @@
     }
     .route-tabs a.cur{
         color:#000;
-        border-bottom: 2px solid #009fde;
+        border-bottom: 2px solid #ff9d1f;
     }
     .route-subtabs{
         overflow:hidden;
@@ -236,10 +237,9 @@
         margin:5px 5px;
     }
     .sub span.cur{
-        background: #f5f5f5;
         border-radius:50px;
-        background:#009fde;
-        color:#fff;
+        background:#ffe2d7;
+        color:#f66e3c;
     }
     .sub span{
         width:48px;
@@ -256,6 +256,8 @@
     }
     .route-header{
         border-bottom:1px solid #e5e5e5;
+        height:45px;
+        line-height: 35px;
     }
     .route-header span{
         padding:6px;
