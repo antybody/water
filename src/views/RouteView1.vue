@@ -117,7 +117,7 @@
                 } 
             },
             listClick:function(data){
-                this.$router.push({name:'routeReback1',params:{text:'请搜索水功能区',t:'routeReback1'}});
+                this.$router.push({name:'routeReback1',params:{id:'',t:'routeReback1'}});
             }
         }
     }
@@ -192,11 +192,7 @@
         height:28px;
         margin:0;
     }
-    .wt-linear-blue {
-        color: #ffffff;
-        background-image: -webkit-linear-gradient(90deg, #66c4ff, #5d85ff);
-        background-image: linear-gradient(90deg, #66c4ff, #5d85ff);
-    }
+
     .route-lists{
         -webkit-overflow-scrolling: touch; 
         top:93px;

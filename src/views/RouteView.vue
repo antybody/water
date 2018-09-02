@@ -159,12 +159,6 @@
         color: #3b3b3b;
     }
 
-    .wt-linear-blue {
-        color: #ffffff;
-        background-image: -webkit-linear-gradient(90deg, #66c4ff, #5d85ff);
-        background-image: linear-gradient(90deg, #66c4ff, #5d85ff);
-    }
-
     .wt-text {
         font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: 500;
@@ -257,12 +251,6 @@
         color: #ffffff;
         background-image: -webkit-linear-gradient(90deg, #4fa1f5, #3d61f5);
         background-image: linear-gradient(90deg, #4fa1f5, #3d61f5);
-    }
-
-    .wt-linear-blue {
-        color: #ffffff;
-        background-image: -webkit-linear-gradient(270deg, #5ccfff, #69baff);
-        background-image: linear-gradient(270deg, #5ccfff, #69baff);
     }
 
     .wt-linear-purple {

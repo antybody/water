@@ -48,16 +48,23 @@ body{
     color:#62ab00;
 }
 .wt-dblue{
-    color:#5d85ff;
+    color:#29a2f5;
 }
 .wt-orange{
-    color:#CC6600;
+    color:#f66e3c;
 }
 .wt-b-dblue{
     background:#5d85ff;
 }
 .wt-b-yellow{
     background:#fcbe60;
+}
+
+.wt-linear-blue {
+    color: #ffffff;
+    /*background-image: -webkit-linear-gradient(90deg, #66c4ff, #5d85ff);
+    background-image: linear-gradient(90deg, #66c4ff, #5d85ff);*/
+    background: #29a2f5;
 }
 
 /** redview */
