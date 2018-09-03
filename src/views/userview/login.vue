@@ -59,7 +59,6 @@ login
                     this.alertText = '请输入密码';
                     return
                 }
-
                 let paramData = {
                     user_code:this.username,    
                     user_pwd: this.pwd

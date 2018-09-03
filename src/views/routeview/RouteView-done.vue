@@ -57,7 +57,7 @@
                    <label>现场照片：</label>                   
                    <p class="g-overflow preview">
                        <span class="wt-img-preview" @click="pre_Handle()">
-                            <img src="ftp://admin:Zygszy2013$@31.16.10.52:21/App/123.jpg" />
+                            <img src="ftp://admin:Zygszy2013$@31.16.10.52:80/App/123.jpg" />
                        </span>
                        <span class="wt-img-total">共6张</span>
                    </p>

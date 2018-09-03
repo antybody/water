@@ -2,7 +2,7 @@
   数据质量考核-整体页面
  */
 <template>
-  <vue-view class="container-check">
+  <vue-view class="container">
     <!--页面头部区域-->
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
          数据质量考核
@@ -140,7 +140,7 @@ export default {
                 label : {
                     formatter : function (params){
                         if(params.name == '异常')
-                        return ((x1/(x2+x1)).toFixed(2)*100).toFixed(2) +'%'
+                        return (x1/(x2+x1)).toFixed(2)*100 +'%'
                         else
                           return ''
                     },
@@ -214,6 +214,9 @@ export default {
     text-align: center;
     font-size:16px;
     padding-top:5px;
+  }
+  .container{
+    background:#fff;
   }
   .wtabs{
     width:100%;

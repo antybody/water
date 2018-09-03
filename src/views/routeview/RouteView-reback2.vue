@@ -79,9 +79,7 @@
                         <span class="radio-name" @click="rClick(0)">无需</span>
                     </a>
                 </list-item>
-                <list-item title="处理详情：">
-                </list-item>
-                <textarea name="clmsg" placeholder="请描述处理过程"></textarea>
+                
                 <div class="wt-list-info">
                     <div class="wt-list-lineover">
                         <label>现场照片：
@@ -89,11 +87,11 @@
                             <span style="float:right">{{imgLists.length}}/6</span>
                         </label>
                         <p class="g-overflow">
-                             <span class="js_add_img">
+                        <span class="js_add_img">
                              <i class="icon_add_gray" @click="open('offcanvas5')"></i>
                                  <span class="input-add-img-box">
-                           <input id="imgupload" capture="camera" class="input-add-img" type="file" accept="image/*"/>
-                        </span>
+                                     <input id="imgupload" capture="camera" class="input-add-img" type="file" accept="image/*"/>
+                                 </span>
                              </span>
                         <ul class="upload-pre-img" v-show="imgLists.length >0">
                             <li v-for="item in imgLists" :key="index">

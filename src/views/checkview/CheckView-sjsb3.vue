@@ -2,7 +2,7 @@
   数据上报考核-水质监测
  */
 <template>
-  <vue-view class="container-check">
+  <vue-view class="container">
     <!--页面头部区域-->
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
          数据上报考核
@@ -33,15 +33,9 @@
          <div class="chartDesc">
              <ul>
                 <li><h3>水文测站</h3></li>
-                <li >
-                    应报站点：{{swczYbzd}}
+                <li v-for="(item,index) in swczList" :key="index">
+                    {{item.txt}}：{{item.value}}
                 </li>
-                 <li >
-                     实报站点：{{swczSbzd}}
-                 </li>
-                 <li >
-                     上报率：{{swczSbl}}
-                 </li>
              </ul>
          </div>
         </div>
@@ -50,15 +44,9 @@
          <div class="chartDesc">
              <ul>
                 <li><h3>水源地</h3></li>
-                 <li >
-                     应报站点：{{sydYbzd}}
-                 </li>
-                 <li >
-                     实报站点：{{sydSbzd}}
-                 </li>
-                 <li >
-                     上报率：{{sydSbl}}
-                 </li>
+                <li v-for="(item,index) in sydczList" :key="index">
+                    {{item.txt}}：{{item.value}}
+                </li>
              </ul>
          </div>
         </div>
@@ -67,15 +55,9 @@
          <div class="chartDesc">
              <ul>
                 <li><h3>水功能区</h3></li>
-                 <li >
-                     应报站点：{{sgnqYbzd}}
-                 </li>
-                 <li >
-                     实报站点：{{sgnqSbzd}}
-                 </li>
-                 <li >
-                     上报率：{{sgnqSbl}}
-                 </li>
+                <li v-for="(item,index) in sgnqczList" :key="index">
+                    {{item.txt}}：{{item.value}}
+                </li>
              </ul>
          </div>
         </div>
@@ -101,7 +83,6 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import echarUtil from '../../utils/echarUtil'
-import * as API from '../../store/api/api'
 export default {
   data(){
      return {
@@ -109,75 +90,18 @@ export default {
        legend:['水源地','水功能区'],
        ds:[[111,23,43,21,23],[211,323,143,121,423]],
        isClick1:1, // 监测情况
-       isClick2:1, // 数据质量走
-
-         sydYbzd:0,
-         sydSbzd:0,
-         sydSbl:0,
-
-         sgnqYbzd:0,
-         sgnqSbzd:0,
-         sgnqSbl:0,
-
-         swczYbzd:0,
-         swczSbzd:0,
-         swczSbl:0
-
+       isClick2:1 // 数据质量走势
      }
   },
   computed:{
       ...mapState({
-          // swczList: state => state.sjzl.swczList,
-          // sydczList: state => state.sjzl.sydczList,
-          // sgnqczList: state =>  state.sjzl.sgnqczList
+          swczList: state => state.sjzl.swczList,
+          sydczList: state => state.sjzl.sydczList,
+          sgnqczList: state =>  state.sjzl.sgnqczList
     })
    },
   mounted(){
-      let paramData = {jllx:'',date:'day'}//yue/year
-      paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-      this.$http.jsonp(API.GLKH_SJSB_SZJC + "&params=" + paramData).then(
-          response => {
-              this.sydYbzd=response.data.syd.sydYbzd;
-              this.sydSbzd=response.data.syd.sydSbzd;
-              this.sydSbl=response.data.syd.sydSbl;
-
-              this.sgnqYbzd=response.data.syd.sgnqYbzd;
-              this.sgnqSbzd=response.data.syd.sgnqSbzd;
-              this.sgnqSbl=response.data.syd.sgnqSbl;
-
-              this.swczYbzd=response.data.swcz.swczYbzd;
-              this.swczSbzd=response.data.swcz.swczSbzd;
-              this.swczSbl=response.data.swcz.swczSbl;
-
-              this.loadChartPi();
-          }, response => {
-              console.log("error");
-          });
-//走势
-      let paramData2 = {date:'year'}//year/year3
-      let sgnqA=[];
-      let sydA=[];
-      let xA=[];
-      paramData2 = encodeURI(encodeURI(JSON.stringify(paramData2)));
-      this.$http.jsonp(API.GLKH_SJSB_QYSZS + "&params=" + paramData2).then(
-          response => {
-              for (let value1 of response.data.jczd) {
-                  xA.push(value1.time);
-                  sgnqA.push(parseInt(value1.num.replace('%','')));
-              }
-              for (let value2 of response.data.rsl) {
-                  sydA.push(parseInt(value2.num.replace('%','')));
-              }
-              this.ds=[];
-              this.ds.push(xA);
-              this.ds.push(sgnqA);
-              this.ds.push(sydA);
-
-              this.loadChartLi("");
-          }, response => {
-              console.log("error");
-          });
-
+    this.loadChart();
   },
   methods:{
     ...mapActions([
@@ -195,30 +119,21 @@ export default {
     getYear: function(val) {
         console.log(val);
     },
-    loadChartPi:function(){
+    loadChart:function(){
       // 这里要修改的 -- 即加载真实的数据
-        var arr1=[],arr2=[],arr3=[],arr4=[],arr5=[],arr6=[];
-        arr1.push(this.swczYbzd);
-        arr2.push(this.swczSbzd);
-        arr3.push(this.sydYbzd);
-        arr4.push(this.sydSbzd);
-        arr5.push(this.sgnqYbzd);
-        arr6.push(this.sgnqSbzd);
       let myChart = echarts.init(document.getElementById("myChart1"));
-      let options = echarUtil.initHBar("",arr1,arr2);
+      let options = echarUtil.initHBar("");
       myChart.setOption(options);
       let myChart1 = echarts.init(document.getElementById("myChart2"));
-      let options1 = echarUtil.initHBar("",arr3,arr4);
+      let options1 = echarUtil.initHBar("");
       myChart1.setOption(options1);
       let myChart2 = echarts.init(document.getElementById("myChart3"));
-      let options2 = echarUtil.initHBar("",arr5,arr6);
+      let options2 = echarUtil.initHBar("");
       myChart2.setOption(options2);
-    },
-      loadChartLi:function(){
-          let lineChart = echarts.init(document.getElementById("lineChart"));
-          let lineoptions = echarUtil.initLine3(this.legend,this.ds);
-          lineChart.setOption(lineoptions);
-      }
+      let lineChart = echarts.init(document.getElementById("lineChart"));
+      let lineoptions = echarUtil.initLine3(this.legend,this.ds);
+      lineChart.setOption(lineoptions);
+    }
     
   }
 }
@@ -279,7 +194,9 @@ export default {
     font-size:16px;
     padding-top:5px;
   }
-
+  .container{
+    background:#fff;
+  }
   .wtabs{
     width:100%;
     height:40px;

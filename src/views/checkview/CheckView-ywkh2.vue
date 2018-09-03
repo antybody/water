@@ -2,7 +2,7 @@
   运维维护考核-取用水
  */
 <template>
-  <vue-view class="container-check">
+  <vue-view class="container">
     <!--页面头部区域-->
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
          运维巡检考核
@@ -194,7 +194,9 @@ export default {
     font-size:16px;
     padding-top:5px;
   }
-
+  .container{
+    background:#fff;
+  }
   .wtabs{
     width:100%;
     height:40px;

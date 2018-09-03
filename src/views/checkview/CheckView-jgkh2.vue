@@ -2,7 +2,7 @@
   业务监管考核-水质评价
  */
 <template>
-  <vue-view class="container-check">
+  <vue-view class="container">
     <!--页面头部区域-->
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
          业务监管考核
@@ -224,6 +224,9 @@ export default {
     text-align: center;
     font-size:16px;
     padding-top:5px;
+  }
+  .container{
+    background:#fff;
   }
   .wtabs{
     width:100%;
