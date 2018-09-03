@@ -12,6 +12,7 @@
   "dependencies": {
     "exif-js": "^2.3.0",
     "fastclick": "^1.0.6",
+    "jquery": "^3.3.1",
     "leaflet": "^1.2.0",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",

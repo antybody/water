@@ -2,7 +2,7 @@
   业务监管考核-取用水
  */
 <template>
-  <vue-view class="container">
+  <vue-view class="container-check">
     <!--页面头部区域-->
       <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
          业务监管考核
@@ -296,7 +296,7 @@ export default {
     font-size:16px;
     padding-top:5px;
   }
-  .container{
+  .container-check{
     background:#fff;
   }
   .wtabs{

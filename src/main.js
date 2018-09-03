@@ -14,12 +14,15 @@ import {_beforeEnter} from '../src/libs/router'
 
 import Indicator from 'vue-indicator';
 
+
 FastClick.attach(document.body);
 Vue.use(VueAmazeui)
 
 Vue.use(VueRouter)
 Vue.use(vueResource)
 Vue.use(Indicator)
+
+
 
 // tab 切换
 
@@ -131,7 +134,7 @@ const route = resolve => {
     // console.log(Indicator);
     // Indicator.open();
       require.ensure([], () => {
-        resolve(require('./views/RouteView'))
+        resolve(require('./views/RouteView1.vue'))
         // Indicator.close()
       },'group-route')
 }
@@ -259,7 +262,7 @@ const sydDetail = resolve => {
 const redv1 = resolve => {
     // Indicator.open();
       require.ensure([], () => {
-        resolve(require('./views/RedView-v1.vue'))
+        resolve(require('./views/RedView-v2.vue'))
         // Indicator.close()
       },'group-home')
 }
@@ -351,12 +354,26 @@ const routePlan = resolve => {
       },'group-route')
 }
 // import routeReback from './views/routeview/RouteView-reback'
-const routeReback = resolve => {
+const routeReback1 = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
-        resolve(require('./views/routeview/RouteView-reback.vue'))
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-reback1.vue'))
         // Indicator.close()
-      },'group-route')
+    },'group-route')
+}
+const routeReback2 = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-reback2.vue'))
+        // Indicator.close()
+    },'group-route')
+}
+const routeView = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-review.vue'))
+        // Indicator.close()
+    },'group-route')
 }
 // import routeDone from './views/routeview/RouteView-done'
 const routeDone = resolve => {
@@ -405,9 +422,13 @@ const router = new VueRouter({
     mode: 'hash',  //不想看到#号则配置这个 (可以用来解决与html本身锚点冲突的问题)
     routes: [
    		{ path: '/', redirect:'/redv1'},
-        { path: '/home', component: home },
+        { path: '/home', 
+          name:'home',
+          component: home 
+        },
         { 
             path:'/redv1',
+            name:'redv1',
             component:redv1
         },
         {
@@ -417,6 +438,7 @@ const router = new VueRouter({
         },
         { 
             path:'/check',
+            name:'check',
             component:check
         },
         { 
@@ -487,6 +509,7 @@ const router = new VueRouter({
         },
         { 
             path:'/route',
+            name:'route',
             component:route
         },
         { 
@@ -572,12 +595,22 @@ const router = new VueRouter({
             component:sredmap
         },
         { 
-            path:'/routeReback/:id',
-            name:'routeReback',
-            component:routeReback
+            path:'/routeView',
+            name:'routeView',
+            component:routeView
+        },
+        {
+            path:'/routeReback1',
+            name:'routeReback1',
+            component:routeReback1
+        },
+        {
+            path:'/routeReback2',
+            name:'routeReback2',
+            component:routeReback2
         },
         { 
-            path:'/routeDone/:id',
+            path:'/routeDone',
             name:'routeDone',
             component:routeDone
         },

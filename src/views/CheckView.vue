@@ -1,5 +1,5 @@
 <template>
- <vue-view class="container">
+ <vue-view class="container-check">
    <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
           管理考核
    </navbar>
@@ -183,7 +183,7 @@ export default {
 </script>
 
 <style>
-.container{
+.container-check{
     background: #fff;
 }
 .ckhome{
