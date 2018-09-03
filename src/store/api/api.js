@@ -98,6 +98,7 @@ export const DYSH_CONTENT = BASE_URL + '/app/wateruser/getJcxx?access_token=[b36
 export const WARN_LIST = BASE_URL + '/app/route/getWarnList?access_token=[b36680850768ff1b]';
 //巡检计划接口
 export const ROUTE_PLAN = BASE_URL + '/app/route/routePlan?access_token=[b36680850768ff1b]';
+
 /**
  * @name 管理考核
  * @params
@@ -124,3 +125,57 @@ export const GLKH_YWJG = BASE_URL + '/app/route/routePlan?access_token=[b3668085
 export const LOGIN = BASE_URL + '/system/login/judge?access_token=[b36680850768ff1b]';
 
 
+
+
+/**
+ * @name 数据质量考核
+ * @params
+ * */
+//今日情况
+export const JRQK_LIST = BASE_URL + '/app/sjzl/getSjzlkhJrqk?access_token=[b36680850768ff1b]';
+//取用水数据
+//监测情况接口
+export const QYSJC_LIST = BASE_URL + '/app/sjzl/getSjzlkhQyssjJcqk?access_token=[b36680850768ff1b]';
+//数据质量走势接口
+export const QYSZS_LIST = BASE_URL + '/app/sjzl/getSjzlkhQyssjSjzlZs?access_token=[b36680850768ff1b]';
+//数据质量排行榜
+export const QYS_PHB = BASE_URL + '/app/sjzl/getSjzlkhQyssjSjzlphb?access_token=[b36680850768ff1b]';
+//水质评价数据
+//监测情况接口
+export const SZPJQK_LIST = BASE_URL + '/app/sjzl/getSzpjsjJcqk?access_token=[b36680850768ff1b]';
+//数据质量走势接口
+export const SZPJZS_LIST = BASE_URL + '/app/sjzl/getSzpjsjSjzlzs?access_token=[b36680850768ff1b]';
+//数据质量排行榜
+export const SZPJ_PHB = BASE_URL + '/app/sjzl/getSzpjsjSjzlphb?access_token=[b36680850768ff1b]';
+
+/**
+ * @name 运维巡检考核
+ * @params
+ * */
+//首页
+export const YWXJ_SY = BASE_URL + '/app/ywxj/getYwxjSy?access_token=[b36680850768ff1b]';
+//今日情况
+export const YWXJ_JR = BASE_URL + '/app/ywxj/getYwxjJrqk?access_token=[b36680850768ff1b]';
+//取用排行榜
+export const YWXJ_QY_PHB = BASE_URL + '/app/ywxj/getQysywPhb?access_token=[b36680850768ff1b]';
+//取用水例行巡检
+export const YWXJ_QY_JC = BASE_URL + '/app/ywxj/getQysywLxxj?access_token=[b36680850768ff1b]';
+
+//水质监测排行榜
+export const YWXJ_SZ_PHB = BASE_URL + '/app/ywxj/jgetSzjcPhb?access_token=[b36680850768ff1b]';
+//水质例行检测
+export const YWXJ_SZ_JC = BASE_URL + '/app/ywxj/getSzjcLxxj?access_token=[b36680850768ff1b]';
+
+
+/**
+ * @name 业务监管
+ * @params
+ * */
+//首页
+export const YWJG_SY = BASE_URL + '/app/ywjg/getYwjgSy?access_token=[b36680850768ff1b]';
+//取用水情况接口
+export const YWJG_QYS = BASE_URL + '/app/ywjg/getQysqk?access_token=[b36680850768ff1b]';//超量取水
+//水功能区评价
+export const YWJG_SGNQ = BASE_URL + '/app/ywjg/getSgnqPj?access_token=[b36680850768ff1b]';
+//水质评价
+export const YWJG_SZ = BASE_URL + '/app/ywjg/getSzpjjg?access_token=[b36680850768ff1b]';//有问题
