@@ -14,7 +14,7 @@
             <tabs-item slot="tabs" blue hollow>处理流程</tabs-item>
             <tabs-desc slot="desc">
                 <div class="plan-map" style="height: 170px;">
-                    <red-map :points="mapPoints"></red-map>
+                    <red-map ref="redmap" :points="mapPoints" v-on:mapAddress="mapAddress"></red-map>
                 </div>
                 <h5 class="wt-title" style="padding:0.925rem 0">
                     <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>取水户信息</span>
@@ -284,6 +284,18 @@
                         </field>
                     </list-item>
                     <list-item nested="input">
+                        <field label="巡检地点">
+                            <span :class="mapAddressNow.type" style="width: 80%;padding-right: 0.625rem;">{{mapAddressNow.address}}</span>
+                            <span hidden id="lng">{{mapAddressNow.lng}}</span>
+                            <span hidden id="lat">{{mapAddressNow.lat}}</span>
+                            <span style="width: 10%">
+                                <img title="刷新" style="text-align: center;" @click="refreshMap()" width="16" height="16"
+                                     src="../../../statics/images/refresh.png" />
+                            </span>
+
+                        </field>
+                    </list-item>
+                    <list-item nested="input">
                         <field label="巡检时间">
                             <field-input type="date" placeholder="选择巡检时间"></field-input>
                         </field>
@@ -359,6 +371,10 @@
                 selectDel: -1,
                 PATROL_CONTENT: '',
                 BZ: '',
+                mapAddressNow: {
+                    address: '获取位置中...',
+                    type: 'error'
+                },
                 mapPoints: [
                     {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
                 ],
@@ -392,6 +408,9 @@
             Vue.set(this.$store.state.redmap, "loading", false);
         },
         methods: {
+            mapAddress: function(mapAddress) {
+                this.mapAddressNow = mapAddress;
+            },
             close(value, push) {
                 this[value] = false;
                 if (push) this[push] = false;
@@ -437,12 +456,23 @@
             },
             imgSubmit() {
                 console.log("提交照片信息");
+            },
+            refreshMap() {
+                console.log("刷新");
+                //重新获取位置
+                this.$refs.redmap.initMap();
             }
         }
     }
 </script>
 
 <style>
+    .error {
+        color: red !important;
+    }
+    .success {
+        color: #5d85ff !important;
+    }
     .upload-pre-del {
         position: relative;
         color: #000;

@@ -10,7 +10,9 @@
 -->
 <template>
     <div class="m-map">
-        <div id="js-container" class="map"></div>
+        <div id="js-container" class="map">
+
+        </div>
     </div>
 </template>
 
@@ -27,19 +29,33 @@
                 dragStatus: false,
                 AMapUI: null,
                 AMap: null,
-                map: ''
+                map: '',
+                mapAddress: {
+                    address: '获取地址中...',
+                    lng: '',
+                    lat: '',
+                    type: 'success'
+                }
             }
         },
         watch: {
             points() {
                 console.log(this.points);
                 this.refreshMap();
+            },
+            mapAddress(val, oldVal) {
+                this.$emit('mapAddress', this.mapAddress);
             }
         },
         methods: {
             // 实例化地图
-
             initMap() {
+                this.$emit('mapAddress', {
+                    address: '获取地址中...',
+                    lng: '',
+                    lat: '',
+                    type: 'success'
+                });
                 // 加载PositionPicker，loadUI的路径参数为模块名中 'ui/' 之后的部分
                 let AMapUI = this.AMapUI = window.AMapUI
                 let AMap = this.AMap = window.AMap
@@ -61,6 +77,7 @@
                     console.log(map);
 
                     //定位
+                    var _this = this;
                     map.plugin('AMap.Geolocation', function() {
                         var geolocation = new AMap.Geolocation({
                             // 是否使用高精度定位，默认：true
@@ -75,23 +92,33 @@
                             buttonPosition: 'RB'
                         })
 
-                        geolocation.getCurrentPosition()
-                        AMap.event.addListener(geolocation, 'complete', onComplete)
-                        AMap.event.addListener(geolocation, 'error', onError)
+                        geolocation.getCurrentPosition();
+                        AMap.event.addListener(geolocation, 'complete', onComplete);
+                        AMap.event.addListener(geolocation, 'error', onError);
 
                         function onComplete (data) {
                             // data是具体的定位信息
                             console.log('地点：' + data.formattedAddress);
                             console.log('经度：' + data.position.getLng());
                             console.log('纬度：' + data.position.getLat());
+                            _this.mapAddress = {
+                                address: data.formattedAddress,
+                                lng: data.position.getLng(),
+                                lat: data.position.getLat(),
+                                type: 'success'
+                            };
                         }
-
                         function onError (data) {
                             // 定位出错
                             console.log('定位失败' + data);
+                            _this.mapAddress = {
+                                address: "获取位置失败",
+                                lng: "获取位置失败",
+                                lat: "获取位置失败",
+                                type: 'error'
+                            };
                         }
-                    })
-
+                    });
                     // 加载地图搜索插件
                     AMap.service('AMap.PlaceSearch', () => {
                         this.placeSearch = new AMap.PlaceSearch({
@@ -125,7 +152,6 @@
                         });
                         // marker.emit('click', {target: marker});
                     }
-
                 })
             },
             refreshMap() {
