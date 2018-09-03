@@ -61,7 +61,7 @@ login
                 }
 
                 let paramData = {
-                    user_code:this.username,
+                    user_code:this.username,    
                     user_pwd: this.pwd
                 }
                 paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
