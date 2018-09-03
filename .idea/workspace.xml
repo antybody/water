@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c03dada4-31fc-41ed-9a62-f16fb45bd05c" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/statics/images/refresh.png" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/src/components/redmap.vue" afterPath="$PROJECT_DIR$/src/components/redmap.vue" />
-      <change beforePath="$PROJECT_DIR$/src/views/routeview/RouteView-reback1.vue" afterPath="$PROJECT_DIR$/src/views/routeview/RouteView-reback1.vue" />
-      <change beforePath="$PROJECT_DIR$/src/views/routeview/RouteView-reback2.vue" afterPath="$PROJECT_DIR$/src/views/routeview/RouteView-reback2.vue" />
-    </list>
+    <list default="true" id="c03dada4-31fc-41ed-9a62-f16fb45bd05c" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/dist/" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -39,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/src/views/routeview/RouteView-reback2.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="433">
-              <caret line="29" column="67" lean-forward="true" selection-start-line="29" selection-start-column="67" selection-end-line="29" selection-end-column="67" />
+              <caret line="29" column="67" lean-forward="false" selection-start-line="29" selection-start-column="67" selection-end-line="29" selection-end-column="67" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#tabs-desc#0;n#tabs#0;n#vue-view#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h5#1;n#tabs-desc#0;n#tabs#0;n#vue-view#0;n#template#0;n#!!top" expanded="true" />
@@ -79,8 +71,8 @@
       <file leaf-file-name="RedView-v2.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/views/RedView-v2.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="43">
-              <caret line="176" column="0" lean-forward="true" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
+            <state relative-caret-position="939">
+              <caret line="199" column="30" lean-forward="true" selection-start-line="199" selection-start-column="30" selection-end-line="199" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -102,7 +94,7 @@
         <entry file="file://$PROJECT_DIR$/src/views/userview/login.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="86">
-              <caret line="52" column="37" lean-forward="true" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+              <caret line="52" column="37" lean-forward="false" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -199,8 +191,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="86" />
-    <option name="y" value="23" />
+    <option name="x" value="129" />
+    <option name="y" value="54" />
     <option name="width" value="1429" />
     <option name="height" value="850" />
   </component>
@@ -300,12 +292,12 @@
       <workItem from="1535729971447" duration="34000" />
       <workItem from="1535730103443" duration="946000" />
       <workItem from="1535773828191" duration="21830000" />
-      <workItem from="1535906945938" duration="17639000" />
+      <workItem from="1535906945938" duration="17915000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45389000" />
+    <option name="totallyTimeSpent" value="45665000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -317,10 +309,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="86" y="23" width="1429" height="850" extended-state="0" />
-    <editor active="true" />
+    <frame x="129" y="54" width="1429" height="850" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22301136" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22301136" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980132" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980132" sideWeight="0.50284094" order="7" side_tool="true" content_ui="tabs" />
@@ -661,7 +652,7 @@
     <entry file="file://$PROJECT_DIR$/src/views/routeview/RouteView-reback2.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="433">
-          <caret line="29" column="67" lean-forward="true" selection-start-line="29" selection-start-column="67" selection-end-line="29" selection-end-column="67" />
+          <caret line="29" column="67" lean-forward="false" selection-start-line="29" selection-start-column="67" selection-end-line="29" selection-end-column="67" />
           <folding>
             <element signature="n#style#0;n#div#0;n#tabs-desc#0;n#tabs#0;n#vue-view#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h5#1;n#tabs-desc#0;n#tabs#0;n#vue-view#0;n#template#0;n#!!top" expanded="true" />
@@ -716,7 +707,7 @@
         <state relative-caret-position="339">
           <caret line="85" column="29" lean-forward="true" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -740,7 +731,7 @@
     <entry file="file://$PROJECT_DIR$/src/views/userview/login.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="86">
-          <caret line="52" column="37" lean-forward="true" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+          <caret line="52" column="37" lean-forward="false" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -773,8 +764,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/RedView-v2.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="43">
-          <caret line="176" column="0" lean-forward="true" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
+        <state relative-caret-position="939">
+          <caret line="199" column="30" lean-forward="true" selection-start-line="199" selection-start-column="30" selection-end-line="199" selection-end-column="30" />
           <folding />
         </state>
       </provider>
