@@ -162,6 +162,22 @@ export default {
             }, response => {
                 console.log("error");
             });
+        this.$http.jsonp(API.YWXJ_SY).then(
+            response => {
+                this.ywxj_xjzd = response.data.data.XJZD;
+                this.ywxj_yxwhzd = response.data.data.YXWHZD;
+            }, response => {
+                console.log("error");
+            });
+        this.$http.jsonp(API.YWJG_SY).then(
+            response => {
+                this.ywjg_qsh = response.data.data[0].QSH;
+                this.ywjg_ysh = response.data.data[0].YSH;
+                this.ywjg_yysyd = response.data.data[0].YYSYD;
+                this.ywjg_sgnq = response.data.data[0].SGNQ;
+            }, response => {
+                console.log("error");
+            });
     }
 }
 </script>

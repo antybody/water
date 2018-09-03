@@ -31,7 +31,11 @@
             </cell>
             <cell cells="7">
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in qsList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
+                <!--<li :key="item.id" v-for="item in qsList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>-->
+                  <li >取水户数：<span class='forange'>{{qshs}}</span>个</li>
+                  <li >许可总量：<span class='forange'>{{xkzl}}</span></li>
+                  <li >取水总量：<span class='forange'>{{qszl}}</span></li>
+                  <li >取水许可比：<span class='forange'>{{qsxkb}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -45,7 +49,10 @@
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in clList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
+                <!--<li :key="item.id" v-for="item in clList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>-->
+                  <li >超量户数：<span class='forange'>{{clhs}}</span>个</li>
+                  <li >超标水量：<span class='forange'>{{cbsl}}</span></li>
+                  <li >超标比率：<span class='forange'>{{cbbl}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -59,7 +66,11 @@
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in xkzList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <!--<li :key="item.id" v-for="item in xkzList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>-->
+
+                  <li >证总数：<span class='forange'>{{xkzSum}}</span>个</li>
+                  <li >失效证数：<span class='forange'>{{sxzs}}</span>个</li>
+                  <li >失效比率：<span class='forange'>{{sxbl}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -73,7 +84,11 @@
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in dysList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <!--<li :key="item.id" v-for="item in dysList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>-->
+                  <li >用水户数：<span class='forange'>{{yshs}}</span>个</li>
+                  <li >用水计划：<span class='forange'>{{ysjh}}</span>个</li>
+                  <li >用水总量：<span class='forange'>{{yszl}}</span>个</li>
+                  <li >计划比率：<span class='forange'>{{jhbl}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -83,24 +98,73 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import * as API from '../../store/api/api'
 export default {
   data(){
      return {
-        isClick4:1
+         yshs:0,
+         ysjh:0,
+         yszl:0,
+         jhbl:0,
+
+         qshs:0,
+         qsxkb:0,
+         qszl:0,
+         xkzl:0,
+
+         QSZL:0,
+         XKZL:0,
+
+         sxbl:0,
+         sxzs:0,
+         xkzSum:0,
+
+         isClick4:1,
+
+         clhs:0,
+         cbsl:0,
+         cbbl:0
      }
   },
   computed:{
       ...mapState({
-          qsList: state => state.sjzl.qsList,
-          clList: state => state.sjzl.clList,
-          xkzList: state => state.sjzl.xkzList,
-          dysList: state => state.sjzl.dysList,
+          // qsList: state => state.sjzl.qsList,
+          // clList: state => state.sjzl.clList,
+          // xkzList: state => state.sjzl.xkzList,
+          // dysList: state => state.sjzl.dysList,
           nowTime: state => state.sjzl.nowDate
+
     })
    },
   mounted(){
     this.getTime();
-    this.loadChart("");
+
+      var paramsData = {
+          date: 'day'
+      };
+      paramsData = encodeURIComponent(JSON.stringify(paramsData));
+      this.$http.jsonp(API.YWJG_QYS + "&params=" + paramsData).then(
+          response => {
+              this.qshs = response.data.data[0].qshs;
+              this.qsxkb = response.data.data[0].qsxkb;
+              this.qszl = response.data.data[0].qszl;
+              this.xkzl = response.data.data[0].xkzl;
+
+              // this.QSZL = response.data.data[1].QSZL;
+              // this.XKZL = response.data.data[1].XKZL;
+
+              this.sxbl = response.data.data[2].sxbl;
+              this.sxzs = response.data.data[2].sxzs;
+              this.xkzSum = response.data.data[2].xkzSum;
+
+              this.yshs = response.data.data[3].yshs;
+              this.ysjh = response.data.data[3].ysjh;
+              this.yszl = response.data.data[3].yszl;
+              this.jhbl = response.data.data[3].jhbl;
+              this.loadChart("");
+          }, response => {
+              console.log("error");
+          });
   },
   methods:{
     ...mapActions([
@@ -120,10 +184,10 @@ export default {
         let cl_myChart = echarts.init(document.getElementById("cl"));
         let xkz_myChart = echarts.init(document.getElementById("xkz"));
         let dys_myChart = echarts.init(document.getElementById("dys"));
-        let qs = this.initChart("取水/许可","20","50","#de4751");
-        let cl = this.initChart("超量取水","20","50","#62ab00");
-        let xkz = this.initChart("许可逾期","20","50","#0a9fde");
-        let dys = this.initChart("大用水","20","50","#FFBB00");
+        let qs = this.initChart("取水/许可",this.xkzl,this.qszl,"#de4751");
+        let cl = this.initChart("超量取水","0","50","#62ab00");
+        let xkz = this.initChart("许可逾期",this.sxzs,this.xkzSum,"#0a9fde");
+        let dys = this.initChart("大用水",this.ysjh,this.yszl,"#FFBB00");
         qs_myChart.setOption(qs);
         cl_myChart.setOption(cl);
         xkz_myChart.setOption(xkz);

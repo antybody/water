@@ -30,7 +30,11 @@
             </cell>
             <cell cells="7">
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in zdList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
+                  <!--<li :key="item.id" v-for="item in zdList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>-->
+                  <li >站点总数：<span class='forange'>{{zdzs}}</span></li>
+                  <li >巡检总数：<span class='forange'>{{xjzs}}</span></li>
+                  <li >巡检率：  <span class='forange'>{{xjl}}</span></li>
+                  <!--<li >到报站点：<span class='forange'>{{item.value}}</span></li>-->
               </ul>
             </cell>
         </grid>
@@ -44,7 +48,10 @@
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in ywList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
+                  <!--<li :key="item.id" v-for="item in ywList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>-->
+                  <li >任务总数：<span class='forange'>{{rwzs}}</span></li>
+                  <li >完成数：<span class='forange'>{{wcs}}</span></li>
+                  <li >完成率：<span class='forange'>{{wcl}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -61,22 +68,43 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import * as API from '../../store/api/api'
+
 export default {
   data(){
      return {
-      
+         zdzs:0,
+         xjzs:0,
+         xjl:0,
+
+         rwzs:0,
+         wcs:0,
+         wcl:0
      }
   },
   computed:{
       ...mapState({
-          zdList: state => state.sjzl.zdList,
-          ywList: state => state.sjzl.ywList,
-          nowTime: state => state.sjzl.nowDate
+          // zdList: state => state.sjzl.zdList,
+           //ywList: state => state.sjzl.ywList,
+          // nowTime: state => state.sjzl.nowDate
     })
    },
   mounted(){
     this.getTime();
     this.loadChart("");
+      this.$http.jsonp(API.YWXJ_JR).then(
+          response => {
+              this.zdzs = response.data.zdxj.ZDZS;
+              this.xjzs = response.data.zdxj.XJZS;
+              this.xjl = response.data.zdxj.XJL;
+
+              this.rwzs = response.data.wcl.RWZS;
+              this.wcs = response.data.wcl.WCS;
+              this.wcl = response.data.wcl.WCL;
+
+          }, response => {
+              console.log("error");
+          });
   },
   methods:{
     ...mapActions([

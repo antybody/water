@@ -28,60 +28,63 @@ export default {
              ],
              yAxis : [
                  {
-                     type : 'value'
+                     type : 'value',
+                     max:function(value) {
+                        return value.max + 5;
+                     }
                  }
              ],
              series : [
+                //  {
+                //      name:legend[0],
+                //      type:'line',
+                //      stack: '总量',
+                //     //  label: {
+                //     //      normal: {
+                //     //          show: true,
+                //     //          position: 'top'
+                //     //      }
+                //     //  },
+                //      data:ds[0]
+                //  },
+                //  {
+                //      name:legend[1],
+                //      type:'line',
+                //      stack: '总量',
+                //     //  label: {
+                //     //      normal: {
+                //     //          show: true,
+                //     //          position: 'top'
+                //     //      }
+                //     //  },
+                //      data:ds[1]
+                //  },
+                //  {
+                //      name:legend[2],
+                //      type:'line',
+                //      stack: '总量',
+                //     //  label: {
+                //     //      normal: {
+                //     //          show: true,
+                //     //          position: 'top'
+                //     //      }
+                //     //  },
+                //      data:ds[2]
+                //  },
+                //  {
+                //      name:legend[3],
+                //      type:'line',
+                //      stack: '总量',
+                //     //  label: {
+                //     //      normal: {
+                //     //          show: true,
+                //     //          position: 'top'
+                //     //      }
+                //     //  },
+                //      data:ds[3]
+                //  },
                  {
-                     name:legend[0],
-                     type:'line',
-                     stack: '总量',
-                    //  label: {
-                    //      normal: {
-                    //          show: true,
-                    //          position: 'top'
-                    //      }
-                    //  },
-                     data:ds[0]
-                 },
-                 {
-                     name:legend[1],
-                     type:'line',
-                     stack: '总量',
-                    //  label: {
-                    //      normal: {
-                    //          show: true,
-                    //          position: 'top'
-                    //      }
-                    //  },
-                     data:ds[1]
-                 },
-                 {
-                     name:legend[2],
-                     type:'line',
-                     stack: '总量',
-                    //  label: {
-                    //      normal: {
-                    //          show: true,
-                    //          position: 'top'
-                    //      }
-                    //  },
-                     data:ds[2]
-                 },
-                 {
-                     name:legend[3],
-                     type:'line',
-                     stack: '总量',
-                    //  label: {
-                    //      normal: {
-                    //          show: true,
-                    //          position: 'top'
-                    //      }
-                    //  },
-                     data:ds[3]
-                 },
-                 {
-                     name:legend[4],
+                     name:legend,
                      type:'line',
                      stack: '总量',
                      label: {
@@ -90,7 +93,7 @@ export default {
                              position: 'top'
                          }
                      },
-                     data:ds[4]
+                     data:ds
                  }
              ]
          };
@@ -100,7 +103,7 @@ export default {
         
               var option = {
                   grid:{
-                    top:'3%',
+                    top:'14%',
                     left:'2',
                     bottom: '10%'
                   },

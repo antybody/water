@@ -17,9 +17,12 @@
         </ul>
       </div>
       <!--环形图-->
+
+      <!--updated to reflect data from provided link-->
+
       <group header="取用水户上报质量" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="qsh" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="qsh" :style="{width:'200px',height:'150px',margin:'0 0 0 -30px'}"></div>
             </cell>
             <cell cells="7">
               <ul class="pieHead">
@@ -33,11 +36,11 @@
       </grid>
       <group header="水功能区上报质量" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="sgnq" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="sgnq" :style="{width:'200px',height:'150px',margin:'0 0 0 -30px'}"></div>
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in sydList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <li :key="item.id" v-for="item in sgnqList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
               </ul>
             </cell>
         </grid>
@@ -47,11 +50,11 @@
       </grid>
       <group header="水源地上报质量" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="syd" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="syd" :style="{width:'200px',height:'150px',margin:'0 0 0 -30px' }"></div>
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in sgnqList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <li :key="item.id" v-for="item in sydList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
               </ul>
             </cell>
         </grid>
@@ -81,24 +84,29 @@ export default {
    },
   mounted(){
     this.getTime();
-    this.loadChart("");
+    this.loadChart();
+    this.jrqk_getLists({
+        param:'0'
+    }).then(
+        () => { this.loadChart();}
+    );
   },
   methods:{
     ...mapActions([
-        'getTime','getLists'
+        'getTime','jrqk_getLists'
      ]),
     reback:function(e){
        this.$router.push({path:'/check'});
     },
-     loadChart:function(val){
+     loadChart:function(){
        // 这里先调用下 getLists 方法
 
         let qsh_myChart = echarts.init(document.getElementById("qsh"));
         let syd_myChart = echarts.init(document.getElementById("syd"));
         let sgnq_myChart = echarts.init(document.getElementById("sgnq"));
-        let qshO = this.initChart("取用水户","20","50","#de4751");
-        let sydO = this.initChart("水源地","20","50","#62ab00");
-        let sgnqO = this.initChart("水功能区","20","50","#0a9fde");
+        let qshO = this.initChart("取用水户",this.qshList[0].value,this.qshList[1].value,"#de4751");
+        let sydO = this.initChart("水源地",this.sydList[5].value,this.sydList[0].value-this.sydList[5].value,"#62ab00");
+        let sgnqO = this.initChart("水功能区",this.sgnqList[5].value,this.sgnqList[1].value-this.sgnqList[5].value,"#0a9fde");
         qsh_myChart.setOption(qshO);
         syd_myChart.setOption(sydO);
         sgnq_myChart.setOption(sgnqO);
@@ -132,7 +140,7 @@ export default {
                 label : {
                     formatter : function (params){
                         if(params.name == '异常')
-                        return (x1/x2).toFixed(2)*100 +'%'
+                        return (x1/(x2+x1)).toFixed(2)*100 +'%'
                         else
                           return ''
                     },
@@ -183,7 +191,7 @@ export default {
                     itemStyle : labelFromatter,
                     data : [
                         {name:'异常', value:x1, itemStyle : labelBottom},
-                        {name:'正常', value:x2,itemStyle : labelTop}
+                        {name:'正常', value:x2, itemStyle : labelTop}
                     ]
                 }
             ]
@@ -227,5 +235,7 @@ export default {
   .pieHead{
     color:#6d6d72;
     padding-top:20px;
+    margin:0;
+    padding-left:0;
   }
 </style>
