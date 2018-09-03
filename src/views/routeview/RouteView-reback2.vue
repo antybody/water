@@ -79,7 +79,9 @@
                         <span class="radio-name" @click="rClick(0)">无需</span>
                     </a>
                 </list-item>
-                
+                <list-item title="处理详情：">
+                </list-item>
+                <textarea name="clmsg" placeholder="请描述处理过程"></textarea>
                 <div class="wt-list-info">
                     <div class="wt-list-lineover">
                         <label>现场照片：
