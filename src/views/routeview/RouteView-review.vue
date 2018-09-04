@@ -159,6 +159,7 @@
         },
         mounted() {
             let id = this.$route.params.id;
+            console.log(id);
             //地图加载事件
             Vue.set(this.$store.state.redmap, "loading", false);
         },

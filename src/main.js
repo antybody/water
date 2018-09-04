@@ -23,7 +23,6 @@ Vue.use(vueResource)
 Vue.use(Indicator)
 
 
-
 // tab 切换
 
 // 管理考核
@@ -31,101 +30,101 @@ Vue.use(Indicator)
 const check = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/CheckView'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 // 数据质量考核
 const sjzl1 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-szsl1.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 const sjzl2 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-szsl2.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 const sjzl3 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-szsl3.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 // 运维巡检考核
 const ywkh1 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-ywkh1.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 const ywkh2 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-ywkh2.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 const ywkh3 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-ywkh3.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 const jgkh1 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-jgkh1.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 const jgkh2 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-jgkh2.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 // 数据上报考核
 const sjsb1 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-sjsb1.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 const sjsb2 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-sjsb2.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 const sjsb3 = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/checkview/CheckView-sjsb3.vue'))
         // Indicator.close()
-      },'group-check')
+    }, 'group-check')
 }
 
 // 巡检
@@ -133,10 +132,10 @@ const sjsb3 = resolve => {
 const route = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/RouteView1.vue'))
         // Indicator.close()
-      },'group-route')
+    }, 'group-route')
 }
 
 
@@ -145,83 +144,84 @@ const route = resolve => {
 const qsh = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/redview/RedView-query.vue'))
         // Indicator.close()
-      },'group-qsh')
+    }, 'group-qsh')
 }
 // import search from './views/redview/SearchView'
 const search = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/redview/SearchView.vue'))
         // Indicator.close()
-      },'group-qsh')
+    }, 'group-qsh')
 }
 // import redmap from './views/redview/RedView-map'
 const redmap = r => {
     // Indicator.open();
-    require.ensure([], () => {r(require('./views/redview/RedView-map.vue')); 
-    // Indicator.close() 
-    }
-    ,'group-qsh')
+    require.ensure([], () => {
+            r(require('./views/redview/RedView-map.vue'));
+            // Indicator.close()
+        }
+        , 'group-qsh')
 }
 // import sredmap from './views/redview/RedView-smap'
 const sredmap = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/redview/RedView-smap.vue'))
         // Indicator.close()
-      },'group-qsh')
+    }, 'group-qsh')
 }
 // import qshDetail from './views/redview/RedView-qshDetail'
 const qshDetail = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/redview/RedView-qshDetail.vue'))
         // Indicator.close()
-      },'group-qsh')
+    }, 'group-qsh')
 }
 
 // 三条红线水功能区
 const redsgnq = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/redview/RedView-sgnq.vue'))
         // Indicator.close()
-      },'group-qsh')
+    }, 'group-qsh')
 }
 const sgnqDetail = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/redview/RedView-sgnqDetail.vue'))
         // Indicator.close()
-      },'group-qsh')
+    }, 'group-qsh')
 }
 const qsxkzDetail = resolve => {
     // Indicator.open();
     require.ensure([], () => {
         resolve(require('./views/redview/RedView-qsxkzDetail.vue'))
         // Indicator.close()
-    },'group-qsh')
+    }, 'group-qsh')
 }
 const sgnqReback = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/redview/RedView-reback.vue'))
         // Indicator.close()
-      },'group-qsh')
+    }, 'group-qsh')
 }
 
 // 水源地
 const redsyd = resolve => {
     // console.log(Indicator);
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/redview/RedView-syd.vue'))
         // Indicator.close()
-      },'group-qsh')
+    }, 'group-qsh')
 }
 // 水功能区监测
 const redsgnqjc = resolve => {
@@ -230,7 +230,7 @@ const redsgnqjc = resolve => {
     require.ensure([], () => {
         resolve(require('./views/redview/RedView-sgnqjc.vue'))
         // Indicator.close()
-    },'group-qsh')
+    }, 'group-qsh')
 }
 //水文测站曲线
 const swczDetail = resolve => {
@@ -238,7 +238,7 @@ const swczDetail = resolve => {
     require.ensure([], () => {
         resolve(require('./views/redview/RedView-swczDetail.vue'))
         // Indicator.close()
-    },'group-qsh')
+    }, 'group-qsh')
 }
 // 咸潮
 const redxc = resolve => {
@@ -247,70 +247,70 @@ const redxc = resolve => {
     require.ensure([], () => {
         resolve(require('./views/redview/RedView-xc.vue'))
         // Indicator.close()
-    },'group-qsh')
+    }, 'group-qsh')
 }
 const sydDetail = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/redview/RedView-sydDetail.vue'))
         // Indicator.close()
-      },'group-qsh')
+    }, 'group-qsh')
 }
 
 //首页
 // import redv1 from './views/RedView-v1' // 主页面
 const redv1 = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/RedView-v2.vue'))
         // Indicator.close()
-      },'group-home')
+    }, 'group-home')
 }
 const newDetail = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/redview/newview.vue'))
         // Indicator.close()
-      },'group-home')
+    }, 'group-home')
 }
 // import redwater from './views/redview/RedView-water' // 取水量
 const redwater = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/RedView/RedView-water.vue'))
         // Indicator.close()
-      },'group-home')
+    }, 'group-home')
 }
 // import xkz from './views/homeview/HomeView-xkz' // 许可
 const xkz = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/homeview/HomeView-xkz.vue'))
         // Indicator.close()
-      },'group-home')
+    }, 'group-home')
 }
 const qsxkz = resolve => {
     // Indicator.open();
     require.ensure([], () => {
         resolve(require('./views/redview/RedView-qsxkz.vue'))
         // Indicator.close()
-    },'group-home')
+    }, 'group-home')
 }
 // import cxksl from './views/homeview/HomeView-cxksl' // 超许可
 const cxksl = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/homeview/HomeView-cxksl.vue'))
         // Indicator.close()
-      },'group-home')
+    }, 'group-home')
 }
 
 const sgnq = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/homeview/HomeView-sgnq.vue'))
         // Indicator.close()
-      },'group-home')
+    }, 'group-home')
 }
 
 //大用水户
@@ -319,14 +319,14 @@ const dysh = resolve => {
     require.ensure([], () => {
         resolve(require('./views/redview/RedView-dysh.vue'))
         // Indicator.close()
-    },'group-home')
+    }, 'group-home')
 }
 const dyshDetail = resolve => {
     // Indicator.open();
     require.ensure([], () => {
         resolve(require('./views/redview/RedView-dyshDetail.vue'))
         // Indicator.close()
-    },'group-qsh')
+    }, 'group-qsh')
 }
 
 //巡检部分
@@ -336,22 +336,22 @@ const routeWarn = resolve => {
     require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-warn.vue'))
         // Indicator.close()
-    },'group-route')
+    }, 'group-route')
 }
 const routeStation = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-station.vue'))
         // Indicator.close()
-      },'group-route')
+    }, 'group-route')
 }
 // import routePlan from './views/routeview/RouteView-plan'
 const routePlan = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-plan.vue'))
         // Indicator.close()
-      },'group-route')
+    }, 'group-route')
 }
 // import routeReback from './views/routeview/RouteView-reback'
 const routeReback1 = resolve => {
@@ -359,29 +359,36 @@ const routeReback1 = resolve => {
     require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-reback1.vue'))
         // Indicator.close()
-    },'group-route')
+    }, 'group-route')
+}
+const routeReback1View = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-reback1-view.vue'))
+        // Indicator.close()
+    }, 'group-route')
 }
 const routeReback2 = resolve => {
     // Indicator.open();
     require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-reback2.vue'))
         // Indicator.close()
-    },'group-route')
+    }, 'group-route')
 }
 const routeView = resolve => {
     // Indicator.open();
     require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-review.vue'))
         // Indicator.close()
-    },'group-route')
+    }, 'group-route')
 }
 // import routeDone from './views/routeview/RouteView-done'
 const routeDone = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-done.vue'))
         // Indicator.close()
-      },'group-route')
+    }, 'group-route')
 }
 // import routeDone from './views/routeview/RouteView-done'
 const routeRecord = resolve => {
@@ -389,17 +396,17 @@ const routeRecord = resolve => {
     require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-record.vue'))
         // Indicator.close()
-    },'group-route')
+    }, 'group-route')
 }
 
 // 页面权限部分
 // import home from './views/HomeView'
-const home = resolve => { 
+const home = resolve => {
     // Indicator.open();
-      require.ensure([], () => {
+    require.ensure([], () => {
         resolve(require('./views/HomeView'))
         // Indicator.close()
-      },'group-home')
+    }, 'group-home')
 }
 // import forbidden from './views/userview/forbidden'
 const forbidden = () => import('./views/userview/forbidden')
@@ -421,102 +428,105 @@ const person = () => import('./views/userview/person')
 const router = new VueRouter({
     mode: 'hash',  //不想看到#号则配置这个 (可以用来解决与html本身锚点冲突的问题)
     routes: [
-   		{ path: '/', redirect:'/redv1'},
-        { path: '/home',
-          name:'home', component: home },
-        { 
-            path:'/redv1',
-            name:'redv1',
-            component:redv1
+        {path: '/', redirect: '/redv1'},
+        {
+            path: '/home',
+            name: 'home',
+            component: home
         },
         {
-            path:'/newDetail/:id',
-            name:'newDetail',
-            component:newDetail
-        },
-        { 
-            path:'/check',
-            name:'check',
-            component:check
-        },
-        { 
-            path:'/check/sjsb1',
-            name:'sjsb1',
-            component:sjsb1
-            // meta:{auth:true}
-        },
-        { 
-            path:'/check/sjsb2',
-            name:'sjsb2',
-            component:sjsb2
-            // meta:{auth:true}
-        },
-        { 
-            path:'/check/sjsb3',
-            name:'sjsb3',
-            component:sjsb3
-            // meta:{auth:true}
-        },
-        { 
-            path:'/check/sjzl1',
-            name:'sjzl1',
-            component:sjzl1
-            // meta:{auth:true}
-        },
-        { 
-            path:'/check/sjzl2',
-            name:'sjzl2',
-            component:sjzl2
-            // meta:{auth:true}
-        },
-        { 
-            path:'/check/sjzl3',
-            name:'sjzl3',
-            component:sjzl3
-            // meta:{auth:true}
-        },
-        { 
-            path:'/check/ywkh1',
-            name:'ywkh1',
-            component:ywkh1
-            // meta:{auth:true}
-        },
-        { 
-            path:'/check/ywkh2',
-            name:'ywkh2',
-            component:ywkh2
-            // meta:{auth:true}
-        },
-        { 
-            path:'/check/ywkh3',
-            name:'ywkh3',
-            component:ywkh3
-            // meta:{auth:true}
-        },
-        { 
-            path:'/check/jgkh1',
-            name:'jgkh1',
-            component:jgkh1
-            // meta:{auth:true}
-        },
-        { 
-            path:'/check/jgkh2',
-            name:'jgkh2',
-            component:jgkh2
-            // meta:{auth:true}
-        },
-        { 
-            path:'/route',
-            name:'route',
-            component:route
-        },
-        { 
-            path:'/qsh',
-            component:qsh
+            path: '/redv1',
+            name: 'redv1',
+            component: redv1
         },
         {
-            path:'/redxc',
-            component:redxc
+            path: '/newDetail/:id',
+            name: 'newDetail',
+            component: newDetail
+        },
+        {
+            path: '/check',
+            name: 'check',
+            component: check
+        },
+        {
+            path: '/check/sjsb1',
+            name: 'sjsb1',
+            component: sjsb1
+            // meta:{auth:true}
+        },
+        {
+            path: '/check/sjsb2',
+            name: 'sjsb2',
+            component: sjsb2
+            // meta:{auth:true}
+        },
+        {
+            path: '/check/sjsb3',
+            name: 'sjsb3',
+            component: sjsb3
+            // meta:{auth:true}
+        },
+        {
+            path: '/check/sjzl1',
+            name: 'sjzl1',
+            component: sjzl1
+            // meta:{auth:true}
+        },
+        {
+            path: '/check/sjzl2',
+            name: 'sjzl2',
+            component: sjzl2
+            // meta:{auth:true}
+        },
+        {
+            path: '/check/sjzl3',
+            name: 'sjzl3',
+            component: sjzl3
+            // meta:{auth:true}
+        },
+        {
+            path: '/check/ywkh1',
+            name: 'ywkh1',
+            component: ywkh1
+            // meta:{auth:true}
+        },
+        {
+            path: '/check/ywkh2',
+            name: 'ywkh2',
+            component: ywkh2
+            // meta:{auth:true}
+        },
+        {
+            path: '/check/ywkh3',
+            name: 'ywkh3',
+            component: ywkh3
+            // meta:{auth:true}
+        },
+        {
+            path: '/check/jgkh1',
+            name: 'jgkh1',
+            component: jgkh1
+            // meta:{auth:true}
+        },
+        {
+            path: '/check/jgkh2',
+            name: 'jgkh2',
+            component: jgkh2
+            // meta:{auth:true}
+        },
+        {
+            path: '/route',
+            name: 'route',
+            component: route
+        },
+        {
+            path: '/qsh',
+            component: qsh
+        },
+        {
+            path: '/redxc',
+            component: redxc
         },
         {
             path: '/xkz',
@@ -538,41 +548,41 @@ const router = new VueRouter({
             path: '/dyshDetail:id',
             component: dyshDetail
         },
-        { 
-            path:'/redwater',
-            component:redwater
-        },
-        { 
-            path:'/sgnq',
-            name:'sgnq',
-            component:sgnq
-        },
-        { 
-            path:'/search',
-            name:'search',
-            component:search
-        },
-        { 
-            path:'/redmap/:kt',
-            name:'redmap',
-            component:redmap
-        },
-        { 
-            path:'/qshDetail/:id',
-            component:qshDetail
-        },
-        { 
-            path:'/sgnqDetail/:id',
-            component:sgnqDetail
+        {
+            path: '/redwater',
+            component: redwater
         },
         {
-            path:'/qsxkzDetail/:id',
-            component:qsxkzDetail
+            path: '/sgnq',
+            name: 'sgnq',
+            component: sgnq
         },
-        { 
-            path:'/sgnqreback',
-            name:'sgnqreback',
-            component:sgnqReback
+        {
+            path: '/search',
+            name: 'search',
+            component: search
+        },
+        {
+            path: '/redmap/:kt',
+            name: 'redmap',
+            component: redmap
+        },
+        {
+            path: '/qshDetail/:id',
+            component: qshDetail
+        },
+        {
+            path: '/sgnqDetail/:id',
+            component: sgnqDetail
+        },
+        {
+            path: '/qsxkzDetail/:id',
+            component: qsxkzDetail
+        },
+        {
+            path: '/sgnqreback',
+            name: 'sgnqreback',
+            component: sgnqReback
         },
         {
             path: '/routeStation',
@@ -587,102 +597,107 @@ const router = new VueRouter({
             path: '/routeWarn',
             component: routeWarn
         },
-        { 
-            path:'/smap',
-            name:'smap',
-            component:sredmap
-        },
-        { 
-            path:'/routeView',
-            name:'routeView',
-            component:routeView
+        {
+            path: '/smap',
+            name: 'smap',
+            component: sredmap
         },
         {
-            path:'/routeReback1',
-            name:'routeReback1',
-            component:routeReback1
+            path: '/routeView',
+            name: 'routeView',
+            component: routeView
         },
         {
-            path:'/routeReback2',
-            name:'routeReback2',
-            component:routeReback2
-        },
-        { 
-            path:'/routeDone',
-            name:'routeDone',
-            component:routeDone
+            path: '/routeReback1',
+            name: 'routeReback1',
+            component: routeReback1
         },
         {
-            path:'/routeRecord',
-            name:'routeRecord',
-            component:routeRecord
-        },
-        { 
-            path:'/forbidden',
-            name:'forbidden',
-            component:forbidden
-        },
-        { 
-            path:'/error404',
-            name:'error404',
-            component:error404
-        },
-        { 
-            path:'/login',
-            name:'login',
-            component:login
-        },
-        { 
-            path:'/loginInfo',
-            name:'loginInfo',
-            component:loginInfo
-        },
-        { 
-            path:'/help',
-            name:'help',
-            component:help
-        },
-        { 
-            path:'/person',
-            name:'person',
-            component:person
-        },
-        { 
-            path:'/redsgnq',
-            name:'redsgnq',
-            component:redsgnq
-        },
-        { 
-            path:'/redsyd',
-            name:'redsyd',
-            component:redsyd
+            path: '/routeReback1View',
+            name: 'routeReback1View',
+            component: routeReback1View
         },
         {
-            path:'/redsgnqjc',
-            name:'redsgnqjc',
-            component:redsgnqjc
-        },
-        { 
-            path:'/sydDetail/:id',
-            name:'sydDetail',
-            component:sydDetail
+            path: '/routeReback2',
+            name: 'routeReback2',
+            component: routeReback2
         },
         {
-            path:'/swczDetail/:id',
-            name:'swczDetail',
-            component:swczDetail
+            path: '/routeDone',
+            name: 'routeDone',
+            component: routeDone
+        },
+        {
+            path: '/routeRecord',
+            name: 'routeRecord',
+            component: routeRecord
+        },
+        {
+            path: '/forbidden',
+            name: 'forbidden',
+            component: forbidden
+        },
+        {
+            path: '/error404',
+            name: 'error404',
+            component: error404
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: login
+        },
+        {
+            path: '/loginInfo',
+            name: 'loginInfo',
+            component: loginInfo
+        },
+        {
+            path: '/help',
+            name: 'help',
+            component: help
+        },
+        {
+            path: '/person',
+            name: 'person',
+            component: person
+        },
+        {
+            path: '/redsgnq',
+            name: 'redsgnq',
+            component: redsgnq
+        },
+        {
+            path: '/redsyd',
+            name: 'redsyd',
+            component: redsyd
+        },
+        {
+            path: '/redsgnqjc',
+            name: 'redsgnqjc',
+            component: redsgnqjc
+        },
+        {
+            path: '/sydDetail/:id',
+            name: 'sydDetail',
+            component: sydDetail
+        },
+        {
+            path: '/swczDetail/:id',
+            name: 'swczDetail',
+            component: swczDetail
         }
     ]
 })
 
 // 注册跳转的钩子，判断是否需要等待验证
-router.beforeEach((to,from,next) =>{
-    _beforeEnter(to,from,next);
+router.beforeEach((to, from, next) => {
+    _beforeEnter(to, from, next);
 })
 
 new Vue({
     el: '#app',
-    router:router, //使用路由对象实例
-    store:store,
+    router: router, //使用路由对象实例
+    store: store,
     render: h => h(App)
-  })
+})
