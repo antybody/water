@@ -19,7 +19,7 @@ export default {
     },
     methods:{
         tabbarItemClick:function(e){
-            this.$router.push(e);
+            this.$router.push({name:e});
         }
     }
 }

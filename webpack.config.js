@@ -94,12 +94,12 @@ module.exports = {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
+    }),
+    new webpack.ProvidePlugin({
+      $:"jquery",
+      jQuery:"jquery",
+      "window.jQuery":"jquery"
     })
-    // new webpack.ProvidePlugin({
-    //   $:"jquery",
-    //   jQuery:"jquery",
-    //   "window.jQuery":"jquery"
-    // })
   ],
   devtool: '#eval-source-map'
 }

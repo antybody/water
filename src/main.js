@@ -422,9 +422,11 @@ const router = new VueRouter({
     mode: 'hash',  //不想看到#号则配置这个 (可以用来解决与html本身锚点冲突的问题)
     routes: [
    		{ path: '/', redirect:'/redv1'},
-        { path: '/home', component: home },
+        { path: '/home',
+          name:'home', component: home },
         { 
             path:'/redv1',
+            name:'redv1',
             component:redv1
         },
         {
@@ -434,6 +436,7 @@ const router = new VueRouter({
         },
         { 
             path:'/check',
+            name:'check',
             component:check
         },
         { 
