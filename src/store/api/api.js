@@ -123,7 +123,7 @@ export const SZPJQK_LIST = BASE_URL + '/app/sjzl/getSzpjsjJcqk?access_token=[b36
 //数据质量走势接口
 export const SZPJZS_LIST = BASE_URL + '/app/sjzl/getSzpjsjSjzlzs?access_token=[b36680850768ff1b]';
 //数据质量排行榜
-export const SZPJ_PHB = BASE_URL + '/app/sjzl/getSzpjsjSjzlphb?access_token=[b36680850768ff1b]';
+// export const SZPJ_PHB = BASE_URL + '/app/sjzl/getSzpjsjSjzlphb?access_token=[b36680850768ff1b]';
 
 /**
  * @name 管理考核

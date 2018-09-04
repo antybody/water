@@ -677,7 +677,6 @@ router.beforeEach((to,from,next) =>{
     _beforeEnter(to,from,next);
 })
 
-
 new Vue({
     el: '#app',
     router:router, //使用路由对象实例
