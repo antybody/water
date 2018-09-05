@@ -32,8 +32,9 @@
                 </h5>
                 <div class="wt-tab-lists">
                     <router-link :to="item.href" v-for="item in tablists" :key="item.id" :class="item.cl">
+
+                        <span>{{item.text}}</span><br/>
                         <span>{{item.num}}</span>
-                        <span>{{item.text}}</span>
                     </router-link>
                 </div>
             </div>
@@ -49,7 +50,7 @@
                 <div class="wt-tab-lists">
                     <grid avg="3" align="center" class="grid-title">
                         <cell class="cell-box wt-font-600">
-                            <span>用水类型</span>
+                            <span>取水类型</span>
                         </cell>
                         <cell class="cell-box wt-font-600">
                             <span>本日</span>
@@ -59,9 +60,9 @@
                         </cell>
                     </grid>
                     <grid avg="3" v-for="water in waters" align="center" :key="water.index">
-                      <cell class="cell-box">{{water.type}}</cell>
-                      <cell class="cell-box wt-dblue">{{water.today}}万m³</cell>
-                      <cell class="cell-box wt-orange">{{water.year}}万m³</cell>
+                      <cell class="cell-box">{{water.typen}}</cell>
+                      <cell class="cell-box wt-dblue">{{parseFloat(water.todayn)}}万m³</cell>
+                      <cell class="cell-box wt-orange">{{water.yearn}}万m³</cell>
                    </grid>
                 </div>
             </div>
@@ -114,10 +115,10 @@
 
                 ],
                 waters: [
-                    {type: '工业用水', today: '0.1', year: '60.34'},
-                    {type: '大用水户', today: '0.1', year: '60.34'},
-                    {type: '农业用水', today: '0.1', year: '60.34'},
-                    {type: '火力发电', today: '0.1', year: '60.34'}
+                    // {type: '地表水取水', today: '0.1', year: '60.34'},
+                    // {type: '地下水取水', today: '0.1', year: '60.34'},
+                    // {type: '大用水户', today: '0.1', year: '60.34'},
+                    // {type: '农业用水', today: '0.1', year: '60.34'}
                 ],
                 tablists: [
                     {href: 'redwater', cl: 'wt-linear-purple', num: '60.34', text: '年度取水总量'},
@@ -142,14 +143,26 @@
             // })
         },
         mounted() {
-            this.$http.jsonp(API.NEWS_LIST).then(
+            // this.$http.jsonp(API.NEWS_LIST).then(
+            //     response => {
+            //         //循环设置跳转地址 href
+            //         for (let value of response.data.data) {
+            //             value.href = "/newDetail/" + value.id;
+            //             // console.log(value);
+            //         }
+            //         this.newlists = response.data.data;
+            //     }, response => {
+            //         console.log("error");
+            //     });
+            //取水户列表查询所需要的参数
+            let params = {
+                //xzqh: ''
+            };
+            params = encodeURI(encodeURI(JSON.stringify(params)));
+            this.$http.jsonp(API.QS_XQ + "&params=" + params).then(
                 response => {
-                    //循环设置跳转地址 href
-                    for (let value of response.data.data) {
-                        value.href = "/newDetail/" + value.id;
-                        // console.log(value);
-                    }
-                    this.newlists = response.data.data;
+                    console.log(response.data.yearSl);
+                    this.waters = response.data.yearSl;
                 }, response => {
                     console.log("error");
                 });
@@ -318,10 +331,11 @@
     }
 
     .wt-tab-lists a {
+        text-align: center;
         position: relative;
         display: inline-block;
         width: 10.3125rem;
-        line-height: 4.375rem;
+        line-height: 2.19rem;
         height: 4.375rem;
         margin: 0.125rem 0.5rem;
         padding: 0 0.625rem;

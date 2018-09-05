@@ -3,7 +3,7 @@
     <vue-view>
         <navbar slot="header" class="wt-linear-blue">
             取水户
-            <icon name="left-nav" slot="left" titleRight="返回" back></icon>
+            <icon name="left-nav" slot="left" titleRight="返回"   href="/qsh"></icon>
             <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/dbqsh"></icon>
         </navbar>
         <group noPadded class="group-clear" ref="viewbox">

@@ -3,8 +3,8 @@
  */
 import * as Url from "../url/url"
 //后台接口地址
-const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
-// const BASE_URL = 'http://localhost:8080'
+//const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
+ const BASE_URL = 'http://localhost:8080/wrmsApp'
 /**
  * @name 取水相关新闻列表
  * @param
@@ -99,7 +99,7 @@ export const WARN_LIST = BASE_URL + '/app/route/getWarnList?access_token=[b36680
 //巡检计划接口
 export const ROUTE_PLAN = BASE_URL + '/app/route/routePlan?access_token=[b36680850768ff1b]';
 /**
- * @name 管理考核
+ * @name 登录
  * @params
  @ -124,3 +125,57 @@ export const GLKH_YWJG = BASE_URL + '/app/route/routePlan?access_token=[b3668085**/
  export const LOGIN = BASE_URL + '/system/login/judge?access_token=[b36680850768ff1b]';
@@ -183,3 +183,7 @@ export const YWJG_QYS = BASE_URL + '/app/ywjg/getQysqk?access_token=[b3668085076
 export const YWJG_SGNQ = BASE_URL + '/app/ywjg/getSgnqPj?access_token=[b36680850768ff1b]';
 //水质评价
 export const YWJG_SZ = BASE_URL + '/app/ywjg/getSzpjjg?access_token=[b36680850768ff1b]';//有问题
+
+//首页取水详情
+export const QS_XQ = BASE_URL + '/app/water/getDayYearQs?access_token=[b36680850768ff1b]';
+
