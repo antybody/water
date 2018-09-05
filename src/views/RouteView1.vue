@@ -18,40 +18,44 @@
                     <a :class="{cur:menu1 === 2}" @click="menu1Click(2)">历史巡检</a>
                 </div>
                 <div class="route-subtabs">
-                    <div class="sub">
-                        <span :class="{cur:menu2 === 1}" @click="menu2Click(1)">取水户</span>
-                        <span :class="{cur:menu2 === 2}" @click="menu2Click(2)">大用水户</span>
-                        <span :class="{cur:menu2 === 3}" @click="menu2Click(3)">水源地</span>
-                        <span :class="{cur:menu2 === 4}" @click="menu2Click(4)">水功能区</span>
+                    <div class="sub" v-show="listType">
+                        <span :class="{cur:menu2 === 1}" @click="menu2Click(1)">数据断开</span>
+                        <span :class="{cur:menu2 === 2}" @click="menu2Click(2)">数据负值</span>
+                    </div>
+                    <div class="sub" v-show="!listType">
+                        <span :class="{cur:menu2 === 1}" @click="menu2Click(1)">预警巡检</span>
+                        <span :class="{cur:menu2 === 2}" @click="menu2Click(2)">派单巡检</span>
                     </div>
                     <div class="selectTime">
                         <input type="text" readonly="readonly" @click="openCal" v-model="time.selectedDate">
                     </div>
                 </div>
             </div>
+            <!--管理人员列表-->
             <div class="route-lists" v-show="userRole === 'admin'">
                 <!--未加入计划列表-->
-                <div v-show="listType" style="background:#fff;margin-bottom:10px" v-for="list in lists" :key="list.ID">
+                <div v-show="listType" style="background:#fff;margin-bottom:10px" v-for="list in lists">
                     <div class="route-header clearfix">
-                        <span class="l">编号：{{list.WATUSER_ID}}</span>
-                        <span class="r">{{list.WATUSER_NAME}}</span>
+                        <span class="l">编号：{{list.companycode}}</span>
+
                     </div>
                     <div class="route-body clearfix">
                         <div class="route-body-message">
-                            <div class="route-body-img">
-                                <img src="https://dimg04.c-ctrip.com/images/300o0b0000005a6rh3D5A_C_300_200.jpg">
-                            </div>
+                            <!--<div class="route-body-img">-->
+                                <!--<img src="../../statics/images/icon_03.png">-->
+                            <!--</div>-->
                             <div class="route-body-content">
+                                <span class="r">{{list.watuser_name}}</span>
                                 <p class="route-body-content-title">
-                                    {{list.ERROR_TIME}}
+                                    {{list.error_time}}
                                 </p>
                                 <p class="route-body-content-title" style="color: #ec5c30;">
-                                    {{list.DATA_TYPE}} {{list.ERROR_NUM}}
+                                    日水量 {{list.error_num}}
                                 </p>
                             </div>
                         </div>
                         <div class="route-body-option">
-                            <span v-if="userRole === 'admin'" class="undone" @click="startPlan(item)">添加巡检</span>
+                            <span v-if="userRole === 'admin'" class="undone" @click="addPlan(list)">添加巡检</span>
                             <span v-else-if="userRole === 'xjy'" class="undone" @click="listClick(list)">巡检中</span>
                         </div>
                     </div>
@@ -60,14 +64,15 @@
                 <div v-show="!listType" style="background:#fff;margin-bottom:10px" v-for="list in lists">
                     <div class="route-header clearfix">
                         <span class="l">编号：{{list.STATION_ID}}</span>
-                        <span class="r">{{list.PATROL_TITLE}}</span>
+
                     </div>
                     <div class="route-body clearfix">
                         <div class="route-body-message">
-                            <div class="route-body-img">
-                                <img :src="list.PATROL_FILE">
-                            </div>
+                            <!--<div class="route-body-img">-->
+                                <!--<img :src="list.PATROL_FILE">-->
+                            <!--</div>-->
                             <div class="route-body-content">
+                                <span class="r">{{list.PATROL_TITLE}}</span>
                                 <p class="route-body-content-title">
                                     {{list.PATROL_TIME}}
                                 </p>
@@ -89,14 +94,15 @@
                 <div style="background:#fff;margin-bottom:10px" v-for="list in lists">
                     <div class="route-header clearfix">
                         <span class="l">编号：{{list.STATION_ID}}</span>
-                        <span class="r">{{list.PATROL_TITLE}}</span>
+
                     </div>
                     <div class="route-body clearfix">
                         <div class="route-body-message">
-                            <div class="route-body-img">
-                                <img :src="list.PATROL_FILE">
-                            </div>
+                            <!--<div class="route-body-img">-->
+                                <!--<img :src="list.PATROL_FILE">-->
+                            <!--</div>-->
                             <div class="route-body-content">
+                                <span class="r">{{list.PATROL_TITLE}}</span>
                                 <p class="route-body-content-title">
                                     {{list.PATROL_TIME}}
                                 </p>
@@ -135,72 +141,33 @@
         data() {
             return {
                 open2: false,
+                listType: true,
                 alertText: '123',
                 menu1: 1,
                 menu2: 1,
                 time: {
                     calendarShow: false,
                     defaultDate: new Date(),
-                    selectedDate: dateFormat(new Date(), "yyyy-MM")
+                    selectedDate: dateFormat(new Date(), "yyyy-MM-dd")
                 },
-                ywLists: [
-                    {
-                        "id": "SH20180001",
-                        "dwname": "上海城投-站点1",
-                        "img": "https://dimg04.c-ctrip.com/images/300o0b0000005a6rh3D5A_C_300_200.jpg"
-                        ,
-                        "ywdate": " 2018-01-01至2019-10-11",
-                        "ywdesc": "已巡检 无异常",
-                        "ywtype": 1
-                    }
-                    , {
-                        "id": "SH20180002",
-                        "dwname": "上海城投-站点2",
-                        "img": "https://dimg04.c-ctrip.com/images/300o0b0000005a6rh3D5A_C_300_200.jpg"
-                        ,
-                        "ywdate": " 2018-01-01至2019-10-11",
-                        "ywdesc": "未开始",
-                        "ywtype": 0
-                    }
-                ],
+                ywLists: [],
                 lists: [],
-                userRole: JSON.parse(localStorage.getItem("userInfo")).user_id
+                userRole: localStorage.getItem("userRole")
             }
         },
         mounted() {
-            var userRole = this.userRole;
-            if (userRole === 'admin') {
+            if (this.userRole === 'admin') {
                 //初始化数据
-                let paramData = {
-                    type: 'query'
-                }
-                //获取预警信息列表
-                paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-                this.$http.jsonp(API.WARN_LIST + '&params=' + paramData).then(
-                    response => {
-                        this.lists = response.data.data;
-                        console.log(this.lists);
-                    }, response => {
-                        console.log("error");
-                    });
-            } else if (userRole === 'xjy') {
-                let paramData = {
-                    type: 'query',
-                    PATROL_STATE: ['0']
-                }
-                paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-                this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
-                    response => {
-                        this.lists = response.data.data;
-                        console.log(this.lists);
-                    }, response => {
-                        console.log("error");
-                    });
+                this.getWarnList(this.time.selectedDate);
+            } else if (this.userRole === 'xjy') {
+                this.getPlanList(this.time.selectedDate);
             }
         },
         methods: {
             handelChange: function (date, formatDate) {
-                this.time.selectedDate = dateFormat(date, "yyyy-MM");
+                this.time.selectedDate = dateFormat(date, "yyyy-MM-dd");
+                console.log(this.time.selectedDate);
+                this.getWarnList(this.time.selectedDate);
                 // 这里查询数据库
             },
             openCal: function () {
@@ -209,48 +176,18 @@
             menu1Click: function (index) {
                 this.menu1 = index;
                 if (index == 1 && this.userRole === 'admin') {// 加载常规巡检列表
-                    let paramData = {
-                        type: 'query'
-                    }
-                    //获取预警信息列表
-                    paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-                    this.$http.jsonp(API.WARN_LIST + '&params=' + paramData).then(
-                        response => {
-                            this.lists = response.data.data;
-                            console.log(this.lists);
-                        }, response => {
-                            console.log("error");
-                        });
+                    this.listType = true;
+                    this.getWarnList(this.time.selectedDate);
+
                 } else if (index == 1 && this.userRole === 'xjy') {
+                    this.listType = false;
                     //管理员用户 加载巡检计划列表
-                    let paramData = {
-                        type: 'query',
-                        PATROL_STATE: ['0']
-                    }
-                    paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-                    this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
-                        response => {
-                            this.lists = response.data.data;
-                            console.log(this.lists);
-                        }, response => {
-                            console.log("error");
-                        });
+                    this.getPlanList(this.time.selectedDate);
                 }
                 if (index == 2) {
                     this.listType = false;
                     //管理员用户 加载巡检计划列表
-                    let paramData = {
-                        type: 'query',
-                        PATROL_STATE: ['0']
-                    }
-                    paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-                    this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
-                        response => {
-                            this.lists = response.data.data;
-                            console.log(this.lists);
-                        }, response => {
-                            console.log("error");
-                        });
+                    this.getPlanList(this.time.selectedDate);
                 }
             },
             menu2Click: function (index) {
@@ -295,7 +232,7 @@
             //开始巡检
             startPlan(val) {
                 this.type = 'startPlan';
-                this.patrolState = val;
+                this.id = val;
                 this.open2 = true;
                 this.alertText = "是否确认开始巡检";
                 return;
@@ -314,13 +251,38 @@
                 switch (type) {
                     case 'addPlan':
                         let paramDataAdd = {
-                            type: 'addPlan',
-                            val: val
+                            type: 'add',
+                            lx: 'yj',
+                            wr_patrol_b: {
+                                id: val.id,
+                                patrol_title: val.watuser_name,
+                                patrol_time: val.error_time,
+                                patrol_content: '',
+                                patrol_address: '',
+                                patrol_long: '',
+                                patrol_lat: '',
+                                patrol_x: '',
+                                patrol_y: '',
+                                patrol_user: localStorage.getItem("user"),
+                                patrol_type: 'yjgd',
+                                create_user: localStorage.getItem("user"),
+                                create_time: '',
+                                isin: '1',
+                                data_sources: '移动端',
+                                patrol_file: '',
+                                patrol_state: '0',
+                                station_id: val.mp_cd,
+                                bz: 'yjgd'
+                            },
+                            id: val.id
                         }
                         paramDataAdd = encodeURI(encodeURI(JSON.stringify(paramDataAdd)));
                         this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramDataAdd).then(
                             response => {
-                                console.log(response.data.data);
+                                console.log(response.data.code);
+                                if (response.data.code === 0) {
+                                    this.getWarnList('2018-09-04');
+                                }
                                 // this.lists = response.data.data;
                             }, response => {
                                 console.log("error");
@@ -343,6 +305,39 @@
                         break;
                 }
                 this.modalOutFun('open2');
+            },
+            getWarnList(time) {
+                let paramData = {
+                    type: 'query',
+                    beginTime: time,
+                    endTime: time
+                    // ,errornum: ['10201', '10102']
+                }
+                //获取预警信息列表
+                paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+                console.log(API.WARN_LIST + '&params=' + paramData);
+                this.$http.jsonp(API.WARN_LIST + '&params=' + paramData).then(
+                    response => {
+                        console.log(response);
+                        this.lists = response.data.data;
+                        console.log(this.lists);
+                    }, response => {
+                        console.log("error");
+                    });
+            },
+            getPlanList(time) {
+                let paramData = {
+                    type: 'query',
+                    PATROL_STATE: ['0']
+                }
+                paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+                this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
+                    response => {
+                        this.lists = response.data.data;
+                        console.log(this.lists);
+                    }, response => {
+                        console.log("error");
+                    });
             }
         }
     }
@@ -350,7 +345,7 @@
     function dateFormat(date, fmt) {
         var o = {
             "M+": date.getMonth() + 1,
-            "d+": date.getDate()
+            "d+": date.getDate()-1
         };
         if (/(y+)/.test(fmt))
             fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -363,6 +358,7 @@
 
 <style>
     .route-fixed {
+        width: 100%;
         position: fixed;
         z-index: 1200;
     }
@@ -425,7 +421,7 @@
         color: #666;
         border: 1px solid #e5e5e5;
         background: #f2f2f2;
-        padding: 0 28px 0 12px;
+        /*padding: 0 28px 0 12px;*/
         height: 28px;
         margin: 0;
     }
@@ -476,19 +472,20 @@
     }
 
     .sub span.cur {
-        border-radius: 50px;
+        border-radius: 40px;
         background: #ffe2d7;
         color: #f66e3c;
     }
 
     .sub span {
-        width: 48px;
-        line-height: 28px;
+        padding: 0.1rem 0.3rem 0.1rem 0.3rem;
+        /*width: 48px;*/
+        /*line-height: 28px;*/
         font-size: 12px;
         color: #333;
         margin-right: 5px;
         text-align: center;
-        height: 28px;
+        /*height: 28px;*/
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
