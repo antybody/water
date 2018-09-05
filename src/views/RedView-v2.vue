@@ -24,6 +24,20 @@
                 </grid>
             </div>
         </group>
+        <!--可拖动的方框-->
+        <group noPadded class="group-clear group-top-10">
+            <div style="padding:0.625rem 0">
+                <h5 class="wt-title">
+                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>红线指标</span></div>
+                </h5>
+                <div class="wt-tab-lists">
+                    <router-link :to="item.href" v-for="item in tablists" :key="item.id" :class="item.cl">
+                        <span>{{item.num}}</span>
+                        <span>{{item.text}}</span>
+                    </router-link>
+                </div>
+            </div>
+        </group>
         <!--取水详情-->
         <group noPadded class="group-clear group-top-10">
             <div style="padding:0.625rem 0">
@@ -52,25 +66,26 @@
                 </div>
             </div>
         </group>
-        <!--骨干河道水质-->
-        <group noPadded class="group-clear group-top-10">
-            <h5 class="wt-title">
-                <div class="wt-title-center"><i class="wt-bar-i-16 red-news"></i><span>骨干河道水质信息</span>
-                <span class="wt-bar-subtitle">每日更新</span>
-                </div>
-            </h5>
-            <div class="grid-top-border"></div>
-            <grid avg="2"  align="center" >
-                <cell v-for="river in rivers" :key="river.index">
-                   <div class="riverlist"> 
-                       <i v-if="river.type == 1" class="vgood"></i>
-                       <i v-if="river.type == 0" class="good"></i>
-                       <i v-if="river.type == 2" class="bad"></i>
-                       <span>{{river.name}}</span>
-                    </div>
-                </cell>
-            </grid>
-        </group>
+
+        <!--&lt;!&ndash;骨干河道水质&ndash;&gt;-->
+        <!--<group noPadded class="group-clear group-top-10">-->
+            <!--<h5 class="wt-title">-->
+                <!--<div class="wt-title-center"><i class="wt-bar-i-16 red-news"></i><span>骨干河道水质信息</span>-->
+                <!--<span class="wt-bar-subtitle">每日更新</span>-->
+                <!--</div>-->
+            <!--</h5>-->
+            <!--<div class="grid-top-border"></div>-->
+            <!--<grid avg="2"  align="center" >-->
+                <!--<cell v-for="river in rivers" :key="river.index">-->
+                   <!--<div class="riverlist"> -->
+                       <!--<i v-if="river.type == 1" class="vgood"></i>-->
+                       <!--<i v-if="river.type == 0" class="good"></i>-->
+                       <!--<i v-if="river.type == 2" class="bad"></i>-->
+                       <!--<span>{{river.name}}</span>-->
+                    <!--</div>-->
+                <!--</cell>-->
+            <!--</grid>-->
+        <!--</group>-->
 
         <!--<div class="get-more theme-blue">-->
             <!--<a href="javascript:void(0)">更新新闻</a>-->
@@ -103,6 +118,12 @@
                     {type: '大用水户', today: '0.1', year: '60.34'},
                     {type: '农业用水', today: '0.1', year: '60.34'},
                     {type: '火力发电', today: '0.1', year: '60.34'}
+                ],
+                tablists: [
+                    {href: 'redwater', cl: 'wt-linear-purple', num: '60.34', text: '年度取水总量'},
+                    {href: '/cxksl', cl: 'wt-linear-blue', num: '3', text: '超许可取水'},
+                    {href: '/xkz', cl: 'wt-linear-red', num: '30', text: '取水许可超期'},
+                    {href: '/sgnq', cl: 'wt-linear-yellow', num: '30%', text: '水功能区达标率'}
                 ],
                 rivers: [
                     {name: '黄浦江', type: '1', typeName: '优'},
