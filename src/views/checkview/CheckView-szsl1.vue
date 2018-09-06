@@ -140,7 +140,7 @@ export default {
                 label : {
                     formatter : function (params){
                         if(params.name == '异常')
-                        return (x1/(x2+x1)).toFixed(2)*100 +'%'
+                            return ((x1/(x2+x1)).toFixed(2)*100).toFixed(2) +'%'
                         else
                           return ''
                     },

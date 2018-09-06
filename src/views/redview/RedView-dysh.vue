@@ -44,28 +44,29 @@
             }
         },
         mounted() {
-            let t = document.body;
-            t.addEventListener('scroll', function () {
-                console.log("监听了");
-            });
-            //取水户列表查询所需要的参数
-            let params = {
-                xzqh: ''
-            };
-            // params = encodeURIComponent(JSON.stringify(params));
-            params = encodeURI(encodeURI(JSON.stringify(params)));
-            this.$http.jsonp(API.DYSH_LIST + "&params=" + params).then(
-                response => {
-                    console.log(response.data.data);
-                    this.listInfo = response.data.data;
-                    //循环设置跳转地址 href
-                    for (let value of response.data.data) {
-                        value.href = "/dyshView/" + value.id;
-                        // console.log(value);
-                    }
-                }, response => {
-                    console.log("error");
-                });
+            // let t = document.body;
+            // t.addEventListener('scroll', function () {
+            //     console.log("监听了");
+            // });
+            // //取水户列表查询所需要的参数
+            // let params = {
+            //     xzqh: ''
+            // };
+            // // params = encodeURIComponent(JSON.stringify(params));
+            // params = encodeURI(encodeURI(JSON.stringify(params)));
+            // this.$http.jsonp(API.DYSH_LIST + "&params=" + params).then(
+            //     response => {
+            //         console.log(response.data.data);
+            //         this.listInfo = response.data.data;
+            //         //循环设置跳转地址 href
+            //         for (let value of response.data.data) {
+            //             value.href = "/dyshDetai/" + value.id;
+            //             // console.log(value);
+            //         }
+            //     }, response => {
+            //         console.log("error");
+            //     });
+
         },
         computed: {
             ...mapState({

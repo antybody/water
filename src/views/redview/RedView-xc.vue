@@ -52,22 +52,22 @@ export default {
        }
    },
    mounted(){
-       let t = document.body;
-       t.addEventListener('scroll', function(){
-           console.log("监听了");
-       });
-       var paramsData = {
-           'name':'',
-           currentPage: this.currentPage
-       };
-       paramsData = encodeURIComponent(JSON.stringify(paramsData));
-       this.$http.jsonp(API.XC_LIST + "&params=" + paramsData).then(
-           response => {
-               this.xcList = response.data.data;
-               console.log(response.data.data);
-           }, response => {
-               console.log("error");
-           });
+       // let t = document.body;
+       // t.addEventListener('scroll', function(){
+       //     console.log("监听了");
+       // });
+       // var paramsData = {
+       //     'name':'',
+       //     currentPage: this.currentPage
+       // };
+       // paramsData = encodeURIComponent(JSON.stringify(paramsData));
+       // this.$http.jsonp(API.XC_LIST + "&params=" + paramsData).then(
+       //     response => {
+       //         this.xcList = response.data.data;
+       //         console.log(response.data.data);
+       //     }, response => {
+       //         console.log("error");
+       //     });
    },
    computed:{
        ...mapState({
