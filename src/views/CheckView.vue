@@ -11,9 +11,17 @@
         </a>
         <div class="crdesc">
             <ul>
-                <li style="display:flex" v-for="(item,index) in sjsbList" :key="index">
-                     <div class="arrow bl-arrow"></div>
-                     <div class="bl-bottom">{{item.txt}} {{item.value}}，{{item.txt1}} {{item.value1}}</div>
+                <li style="display:flex">
+                    <div class="arrow bl-arrow"></div>
+                    <div class="bl-bottom">取水户 {{qsh}}，监测站点 {{qshzd}}</div>
+                </li>
+                <li style="display:flex">
+                    <div class="arrow bl-arrow"></div>
+                    <div class="bl-bottom">用水户 {{ysh}}，监测站点 {{yshzd}}</div>
+                </li>
+                <li style="display:flex">
+                    <div class="arrow bl-arrow"></div>
+                    <div class="bl-bottom">水质监测站 {{szjcz}}</div>
                 </li>
             </ul>
         </div>
@@ -27,9 +35,22 @@
         </a>
         <div class="crdesc">
             <ul>
-                <li style="display:flex" v-for="(item,index) in sjzlList" :key="index">
+                <li style="display:flex" >
                      <div class="arrow rd-arrow"></div>
-                     <div class="rd-bottom">{{item.txt}} {{item.value}}</div>
+                    <div class="rd-bottom">监测站点 {{sjzl_jczd}}</div>
+                </li>
+                <li style="display:flex" >
+                    <div class="arrow rd-arrow"></div>
+                    <div class="rd-bottom">取水上报数据量 {{sjzl_qssl}}</div>
+                </li>
+                <li style="display:flex" >
+                    <div class="arrow rd-arrow"></div>
+                    <div class="rd-bottom">用水上报数据量 {{sjzl_yssl}}</div>
+                </li>
+                <li style="display:flex" >
+                    <div class="arrow rd-arrow"></div>
+                    <div class="rd-bottom">水质上报数据量 {{sjzl_szsl}}</div>
+
                 </li>
             </ul>
         </div>
@@ -43,10 +64,13 @@
         </a>
         <div class="crdesc">
             <ul>
-                <li style="display:flex" v-for="(item,index) in ywxjList" :key="index">
+                <li style="display:flex" >
                      <div class="arrow gr-arrow"></div>
-                     <div class="gr-bottom">{{item.txt}} {{item.value}}</div>
+                    <div class="gr-bottom">巡检站点{{ywxj_xjzd}}</div>
                 </li>
+                <li style="display:flex" >
+                    <div class="arrow gr-arrow"></div>
+                    <div class="gr-bottom">运行维护站点 {{ywxj_yxwhzd}}</div>                </li>
             </ul>
         </div>
    </div>
@@ -59,10 +83,21 @@
         </a>
         <div class="crdesc">
             <ul>
-                <li style="display:flex" v-for="(item,index) in ywjgList" :key="index">
+                <li style="display:flex" >
                      <div class="arrow or-arrow"></div>
-                     <div class="or-bottom">{{item.txt}} {{item.value}}</div>
+                    <div class="or-bottom">取水户 {{ywjg_qsh}}</div>
                 </li>
+                <li style="display:flex" >
+                    <div class="arrow or-arrow"></div>
+                    <div class="or-bottom">用水户 {{ywjg_ysh}}</div>
+                </li>
+                <li style="display:flex" >
+                    <div class="arrow or-arrow"></div>
+                    <div class="or-bottom">饮用水源地 {{ywjg_yysyd}}</div>
+                </li>
+                <li style="display:flex" >
+                    <div class="arrow or-arrow"></div>
+                    <div class="or-bottom">水功能区 {{ywjg_sgnq}}</div>                </li>
             </ul>
         </div>
    </div>
@@ -71,21 +106,77 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import * as API from '../store/api/api'
 export default {
   data(){
      return {
-        sjzl:[]
+         sjzl:[],
+         //数据上报
+         qsh:0,
+         qshzd:0,
+         ysh:0,
+         yshzd:0,
+         szjcz:0,
+         //数据 质量
+         sjzl_jczd:0,
+         sjzl_qssl:0,
+         sjzl_yssl:0,
+         sjzl_szsl:0,
+         //运维巡检
+         ywxj_xjzd:0,
+         ywxj_yxwhzd:0,
+         //业务监管
+         ywjg_qsh:0,
+         ywjg_ysh:0,
+         ywjg_yysyd:0,
+         ywjg_sgnq:0
      }
   },
   computed:{
       ...mapState({
-          sjzlList: state => state.sjzl.sjzlList,
-          sjsbList: state => state.sjzl.sjsbList,
-          ywxjList: state => state.sjzl.ywxjList,
-          ywjgList: state => state.sjzl.ywjgList,
-          nowTime: state => state.sjzl.nowDate
+          // sjzlList: state => state.sjzl.sjzlList,
+          // sjsbList: state => state.sjzl.sjsbList,
+          // ywxjList: state => state.sjzl.ywxjList,
+          // ywjgList: state => state.sjzl.ywjgList,
+          // nowTime: state => state.sjzl.nowDate
     })
-   }
+  },mounted(){
+        this.$http.jsonp(API.GLKH_SJSB).then(
+            response => {
+                this.qsh = response.data.data.qsh;
+                this.qshzd = response.data.data.qsjcd;
+                this.ysh = response.data.data.ysh;
+                this.yshzd = response.data.data.yshjcd;
+                this.szjcz = response.data.data.szjcz;
+            }, response => {
+                console.log("error");
+            });
+        this.$http.jsonp(API.GLKH_SJZL).then(
+            response => {
+                this.sjzl_jczd = response.data.zd;
+                this.sjzl_qssl = response.data.qsh;
+                this.sjzl_yssl = response.data.ysh;
+                this.sjzl_szsl = response.data.sz;
+            }, response => {
+                console.log("error");
+            });
+        this.$http.jsonp(API.YWXJ_SY).then(
+            response => {
+                this.ywxj_xjzd = response.data.data.XJZD;
+                this.ywxj_yxwhzd = response.data.data.YXWHZD;
+            }, response => {
+                console.log("error");
+            });
+        this.$http.jsonp(API.YWJG_SY).then(
+            response => {
+                this.ywjg_qsh = response.data.data[0].QSH;
+                this.ywjg_ysh = response.data.data[0].YSH;
+                this.ywjg_yysyd = response.data.data[0].YYSYD;
+                this.ywjg_sgnq = response.data.data[0].SGNQ;
+            }, response => {
+                console.log("error");
+            });
+    }
 }
 </script>
 
