@@ -53,7 +53,7 @@
                             <span>取水类型</span>
                         </cell>
                         <cell class="cell-box wt-font-600">
-                            <span>本日</span>
+                            <span>昨日水量</span>
                         </cell>
                         <cell class="cell-box wt-font-600">
                             <span>本年累计</span>

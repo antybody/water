@@ -89,6 +89,9 @@ export default {
         async modalConfirm(){
             this.waitingThing();            
             util.removeStore('userInfo');
+            util.removeStore('userRole');
+            util.removeStore('user');
+            util.setStore('_isUse', 'false');
             // 这里只是为了触发set方法
             this.getUserInfo();
         },

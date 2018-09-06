@@ -31,6 +31,8 @@ login
 <script>
     import * as util from '../../libs/utils'
     import * as API from '../../store/api/api'
+    import crypto from "crypto"
+
     export default {
         data() {
             return {
@@ -59,26 +61,35 @@ login
                     this.alertText = '请输入密码';
                     return
                 }
+                var a;
+                var md5 = crypto.createHash("md5");
+                md5.update(this.pwd);
+                var pwdMd5 = md5.digest('hex');
+                console.log(pwdMd5);
+                //47bce5c74f589f4867dbd57e9ca9f808
                 let paramData = {
                     user_code:this.username,    
-                    user_pwd: this.pwd
+                    user_pwd: pwdMd5
                 }
                 paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
                 this.$http.jsonp(API.LOGIN + "&params=" + paramData).then(
                     response => {
                         if(response.data.message=='SUCCESS'){
+                            console.log(response.data.data);
                             this.userInfo = {
-                                user_id: response.data.data.user_code,
-                                name:response.data.data.user_name,
-                                phone:response.data.data.user_phone,
+                                user_id: response.data.data.name,
+                                name:response.data.data.display_name,
+                                phone:response.data.data.mobile_phone,
                                 tel:response.data.data.user_tel,
-                                mail:response.data.data.user_mail,
-                                roleCode:response.data.data.role_code,
-                                roleName:response.data.data.role_zhname
+                                mail:response.data.data.email,
+                                roleCode:response.data.data.org_code,
+                                roleName:response.data.data.org_code
                             }
                             // 记录信息
                             util.setStore('userInfo', this.userInfo);
-                            util.setStore('userRole','b'); // 用户角色
+                            util.setStore('userRole', response.data.data.user_code); // 用户角色
+                            util.setStore('_isUse', 'true'); // 登录状态
+                            util.setStore('user', response.data.data.name); // 登录状态
                             var nextUrl = this.$route.params.next;
                             if (!nextUrl)
                                 this.$router.go(-1);
