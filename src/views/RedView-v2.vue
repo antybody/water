@@ -44,7 +44,7 @@
             <div style="padding:0.625rem 0">
                 <h5 class="wt-title">
                     <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>取水详情</span>
-                    <span class="wt-bar-subtitle">每日更新</span>
+                        <span class="wt-bar-subtitle">每日更新</span>
                     </div>
                 </h5>
                 <div class="wt-tab-lists">
@@ -60,37 +60,13 @@
                         </cell>
                     </grid>
                     <grid avg="3" v-for="water in waters" align="center" :key="water.index">
-                      <cell class="cell-box">{{water.typen}}</cell>
-                      <cell class="cell-box wt-dblue">{{parseFloat(water.todayn)}}万m³</cell>
-                      <cell class="cell-box wt-orange">{{water.yearn}}万m³</cell>
-                   </grid>
+                        <cell class="cell-box">{{water.typen}}</cell>
+                        <cell class="cell-box wt-dblue">{{parseFloat(water.todayn)}} 万m³</cell>
+                        <cell class="cell-box wt-orange">{{water.yearn/10000 | numFilter}} 亿m³</cell>
+                    </grid>
                 </div>
             </div>
         </group>
-
-        <!--&lt;!&ndash;骨干河道水质&ndash;&gt;-->
-        <!--<group noPadded class="group-clear group-top-10">-->
-            <!--<h5 class="wt-title">-->
-                <!--<div class="wt-title-center"><i class="wt-bar-i-16 red-news"></i><span>骨干河道水质信息</span>-->
-                <!--<span class="wt-bar-subtitle">每日更新</span>-->
-                <!--</div>-->
-            <!--</h5>-->
-            <!--<div class="grid-top-border"></div>-->
-            <!--<grid avg="2"  align="center" >-->
-                <!--<cell v-for="river in rivers" :key="river.index">-->
-                   <!--<div class="riverlist"> -->
-                       <!--<i v-if="river.type == 1" class="vgood"></i>-->
-                       <!--<i v-if="river.type == 0" class="good"></i>-->
-                       <!--<i v-if="river.type == 2" class="bad"></i>-->
-                       <!--<span>{{river.name}}</span>-->
-                    <!--</div>-->
-                <!--</cell>-->
-            <!--</grid>-->
-        <!--</group>-->
-
-        <!--<div class="get-more theme-blue">-->
-            <!--<a href="javascript:void(0)">更新新闻</a>-->
-        <!--</div>-->
     </vue-view>
 </template>
 
@@ -174,6 +150,14 @@
             ...mapActions([
                 'getTabLists', 'getNewLists'
             ])
+        },
+        filters: {
+            numFilter(value) {
+                // 截取当前数据到小数点后两位
+                let realVal = Number(value).toFixed(2)
+                // num.toFixed(2)获取的是字符串
+                return Number(realVal)
+            }
         }
     }
 </script>
@@ -188,9 +172,9 @@
         color: #3b3b3b;
     }
 
-    .wt-bar-subtitle{
-        font-size:0.75rem;
-        color:#8b8b8b;
+    .wt-bar-subtitle {
+        font-size: 0.75rem;
+        color: #8b8b8b;
     }
 
     .wt-text {
@@ -217,42 +201,46 @@
         /* box-shadow: 0 0 5px rgba(250,0,0,0.5); */
     }
 
-    .riverlist{
+    .riverlist {
         background: url('../../statics/images/icon_28.png');
-        background-size:100%;
-        height:50px;
-        width:100%;
+        background-size: 100%;
+        height: 50px;
+        width: 100%;
         line-height: 35px;
-        padding:10px;
+        padding: 10px;
         text-align: left;
     }
-    .riverlist span{
-        vertical-align:text-bottom;
-        padding-left:10px;
+
+    .riverlist span {
+        vertical-align: text-bottom;
+        padding-left: 10px;
     }
-    .vgood{
+
+    .vgood {
         display: inline-block;
         margin: 0 auto;
-        height:32px;
-        width:32px;
+        height: 32px;
+        width: 32px;
         background: url('../../statics/images/27.png');
-        background-size:100%;
+        background-size: 100%;
     }
-    .good{
+
+    .good {
         display: inline-block;
         margin: 0 auto;
-        height:32px;
-        width:32px;
+        height: 32px;
+        width: 32px;
         background: url('../../statics/images/27-11.png');
-        background-size:100%;
+        background-size: 100%;
     }
-    .bad{
+
+    .bad {
         display: inline-block;
         margin: 0 auto;
-        height:32px;
-        width:32px;
+        height: 32px;
+        width: 32px;
         background: url('../../statics/images/27-12.png');
-        background-size:100%;
+        background-size: 100%;
     }
 
     .wt-bar-1 {
@@ -306,14 +294,12 @@
     .icon-title {
         font-size: .875rem;
         line-height: .3466666667rem;
-        color:#3d3d3d;
+        color: #3d3d3d;
     }
 
     .wt-text a {
         /* color:#ffffff; */
     }
-
-    
 
     .red-news {
         background: url('../../statics/images/article.png') no-repeat;
@@ -353,7 +339,6 @@
         background-image: -webkit-linear-gradient(90deg, #4fa1f5, #3d61f5);
         background-image: linear-gradient(90deg, #4fa1f5, #3d61f5);
     }
-
 
     .wt-linear-purple {
         color: #ffffff;
@@ -401,16 +386,19 @@
         -webkit-tap-highlight-color: transparent;
         user-select: none;
     }
+
     .wt-font-600 {
         font-weight: 700;
-        font-size:0.75rem;
+        font-size: 0.75rem;
     }
-    .grid-title{
+
+    .grid-title {
         background: #c1b7bc0d;
-        border-top:1px solid #e3e3e3;
-        border-top:1px solid #e8e7e7;
+        border-top: 1px solid #e3e3e3;
+        border-top: 1px solid #e8e7e7;
     }
-    .grid-top-border{
-        border-top:1px solid #e3e3e3;
+
+    .grid-top-border {
+        border-top: 1px solid #e3e3e3;
     }
 </style>
