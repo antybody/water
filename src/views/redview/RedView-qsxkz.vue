@@ -51,25 +51,25 @@ export default {
        }
    },
    mounted(){
-       let t = document.body;
-       t.addEventListener('scroll', function(){
-           console.log("监听了");
-       });
-       var paramsData = {
-           currentPage: this.currentPage
-       };
-       paramsData = encodeURIComponent(JSON.stringify(paramsData));
-       this.$http.jsonp(API.QSH_XKZ + "&params=" + paramsData).then(
-           response => {
-               for (let value of response.data.data) {
-                   value.href = "/qsxkzDetail/" + value.id;
-                   // console.log(value);
-               }
-               this.sgnqList = response.data.data;
-               console.log(response.data.data);
-           }, response => {
-               console.log("error");
-           });
+       // let t = document.body;
+       // t.addEventListener('scroll', function(){
+       //     console.log("监听了");
+       // });
+       // var paramsData = {
+       //     currentPage: this.currentPage
+       // };
+       // paramsData = encodeURIComponent(JSON.stringify(paramsData));
+       // this.$http.jsonp(API.QSH_XKZ + "&params=" + paramsData).then(
+       //     response => {
+       //         for (let value of response.data.data) {
+       //             value.href = "/qsxkzDetail/" + value.id;
+       //             // console.log(value);
+       //         }
+       //         this.sgnqList = response.data.data;
+       //         console.log(response.data.data);
+       //     }, response => {
+       //         console.log("error");
+       //     });
    },
    computed:{
         ...mapState({

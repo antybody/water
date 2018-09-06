@@ -3,7 +3,7 @@
     <vue-view>
         <navbar slot="header" class="wt-linear-blue">
             取水户
-            <icon name="left-nav" slot="left" titleRight="返回"   href="/qsh"></icon>
+            <icon name="left-nav" slot="left" titleRight="返回" back ></icon>
             <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/dbqsh"></icon>
         </navbar>
         <group noPadded class="group-clear" ref="viewbox">
@@ -46,39 +46,39 @@
                     qslx: '',
                     qsyt: '',
                     xzqh: ''
+                },params :{
+                    type: "query",
+                    wiuTp: '',
+                    watuserDivname: '',
+                    watuserCom: "",
+                    watuserWatapp: '',
+                    monitorlevel: '',
+                    currentPage: 10
                 }
             }
         },
         mounted() {
-            let t = document.body;
-            t.addEventListener('scroll', function () {
-                console.log("监听了");
-            });
-            console.log(this.currentPage);
-            //取水户列表查询所需要的参数
-            let params = {
-                type: "query",
-                rowNumStar: "1",
-                rowNumEnd: "11",
-                wiuTp: "03060001",
-                watuserDivname: "",
-                watuserCom: "",
-                currentPage: this.currentPage
-            };
-            // params = encodeURIComponent(JSON.stringify(params));
-            params = encodeURI(encodeURI(JSON.stringify(params)));
-            this.$http.jsonp(API.QSH_LIST + "&params=" + params).then(
-                response => {
-                    console.log(response.data.data);
-                    this.listInfo = response.data.data;
-                    //循环设置跳转地址 href
-                    for (let value of response.data.data) {
-                        value.href = "/qshDetail/" + value.watuserId;
-                        // console.log(value);
-                    }
-                }, response => {
-                    console.log("error");
-                });
+            // let t = document.body;
+            // t.addEventListener('scroll', function () {
+            //     console.log("监听了");
+            // });
+            // console.log(this.currentPage);
+            // //取水户列表查询所需要的参数
+            // let params2 = this.params;
+            // // params = encodeURIComponent(JSON.stringify(params));
+            // params2 = encodeURI(encodeURI(JSON.stringify(params2)));
+            // this.$http.jsonp(API.QSH_LIST + "&params=" + params2).then(
+            //     response => {
+            //         console.log(response.data.data);
+            //         this.listInfo = response.data.data;
+            //         //循环设置跳转地址 href
+            //         for (let value of response.data.data) {
+            //             value.href = "/qshDetail/" + value.watuserId;
+            //             // console.log(value);
+            //         }
+            //     }, response => {
+            //         console.log("error");
+            //     });
         },
         computed: {
             ...mapState({
@@ -116,7 +116,7 @@
                     watuserWatapp = '';
                 }
                 //取水户列表查询所需要的参数
-                let params = {
+                this.params = {
                     type: "query",
                     wiuTp: wiuTp,
                     watuserDivname: watuserDivname,
@@ -126,8 +126,8 @@
                     currentPage: this.currentPage
                 };
                 // params = encodeURIComponent(JSON.stringify(params));
-                params = encodeURI(encodeURI(JSON.stringify(params)));
-                this.$http.jsonp(API.QSH_LIST + "&params=" + params).then(
+                let params2 = encodeURI(encodeURI(JSON.stringify(this.params)));
+                this.$http.jsonp(API.QSH_LIST + "&params=" + params2).then(
                     response => {
                         console.log(response.data.data);
                         this.listInfo = response.data.data;

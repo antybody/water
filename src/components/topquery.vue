@@ -49,6 +49,7 @@
         watch: {
             selected: function (val, oldval) {
                 console.log("------ 监听变化 -----");
+                console.log(val);
                 this.$emit('menuQuery', val);
             }
         },
@@ -63,9 +64,12 @@
                             ret[element.key].push(ele.key);
                     });
                 });
-
+                //this.$emit('menuQuery', ret);
                 return ret;
             }
+        },
+        mounted() {
+            this.$emit('menuQuery', this.selected);
         },
         methods: {
             itemClick(item, index) {
