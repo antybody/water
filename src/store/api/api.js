@@ -3,8 +3,8 @@
  */
 import * as Url from "../url/url"
 //后台接口地址
-//const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
- const BASE_URL = 'http://localhost:8080/wrmsApp'
+const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
+ // const BASE_URL = 'http://localhost:8080/wrmsApp'
 /**
  * @name 取水相关新闻列表
  * @param
@@ -198,4 +198,9 @@ export const YWJG_SZ = BASE_URL + '/app/ywjg/getSzpjjg?access_token=[b3668085076
  * */
 //首页取水详情
 export const QS_XQ = BASE_URL + '/app/water/getDayYearQs?access_token=[b36680850768ff1b]';
+
+
+//巡检表单提交
+export const SAVE_XJJL = BASE_URL + '/app/route/wt_xjjlCrud?access_token=[b36680850768ff1b]';
+export const SAVE_LLY = BASE_URL + '/app/route/wt_lly_whbyCrud?access_token=[b36680850768ff1b]';
 
