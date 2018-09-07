@@ -141,6 +141,8 @@ export const GLKH_SJSB_QYSZS = BASE_URL + '/app/sjsb/getQyshsblzs?access_token=[
 export const GLKH_SJSB_SZJC = BASE_URL + '/app/sjsb/getSzjcsb?access_token=[b36680850768ff1b]';
 //数据上报-水质监测上报走势
 export const GLKH_SJSB_SZJCZS = BASE_URL + '/app/sjsb/getSblzs?access_token=[b36680850768ff1b]';
+
+
 //数据质量
 export const GLKH_SJZL = BASE_URL + '/app/sjzl/getSjzl?access_token=[b36680850768ff1b]';
 //运维巡检
@@ -160,15 +162,21 @@ export const SZPJ_PHB = BASE_URL + '/app/sjzl/getSzpjsjSjzlphb?access_token=[b36
 export const YWXJ_SY = BASE_URL + '/app/ywxj/getYwxjSy?access_token=[b36680850768ff1b]';
 //今日情况
 export const YWXJ_JR = BASE_URL + '/app/ywxj/getYwxjJrqk?access_token=[b36680850768ff1b]';
+
 //取用排行榜
 export const YWXJ_QY_PHB = BASE_URL + '/app/ywxj/getQysywPhb?access_token=[b36680850768ff1b]';
 //取用水例行巡检
-export const YWXJ_QY_JC = BASE_URL + '/app/ywxj/getQysywLxxj?access_token=[b36680850768ff1b]';
+export const YWXJ_QY_LX = BASE_URL + '/app/ywxj/getQysLxxj?access_token=[b36680850768ff1b]';
+//取用水运维巡检
+export const YWXJ_QY_YW = BASE_URL + '/app/ywxj/getQysywxj?access_token=[b36680850768ff1b]';
 
 //水质监测排行榜
 export const YWXJ_SZ_PHB = BASE_URL + '/app/ywxj/jgetSzjcPhb?access_token=[b36680850768ff1b]';
 //水质例行检测
-export const YWXJ_SZ_JC = BASE_URL + '/app/ywxj/getSzjcLxxj?access_token=[b36680850768ff1b]';
+export const YWXJ_SZ_LX = BASE_URL + '/app/ywxj/getSzjcLxxj?access_token=[b36680850768ff1b]';
+//水质运维检测
+export const YWXJ_SZ_YW = BASE_URL + '/app/ywxj/getSzjcYwxj?access_token=[b36680850768ff1b]';
+
 
 
 /**
@@ -184,6 +192,10 @@ export const YWJG_SGNQ = BASE_URL + '/app/ywjg/getSgnqPj?access_token=[b36680850
 //水质评价
 export const YWJG_SZ = BASE_URL + '/app/ywjg/getSzpjjg?access_token=[b36680850768ff1b]';//有问题
 
+/**
+ * @name app首页
+ * @params
+ * */
 //首页取水详情
 export const QS_XQ = BASE_URL + '/app/water/getDayYearQs?access_token=[b36680850768ff1b]';
 

@@ -75,6 +75,7 @@
 <script>
 import VueDatepickerLocal from 'vue-datepicker-local'
 import { mapState, mapActions } from 'vuex'
+import * as API from '../../store/api/api'
 import echarUtil from '../../utils/echarUtil'
 export default {
   components: {
@@ -84,8 +85,10 @@ export default {
      return {
        time:new Date(),
        legend:['实际','计划'],
-       ds:[[111,23,43,21,23],[211,323,143,121,423],[211,323,143,121,423]
-           ,[211,323,143,121,423],[211,323,143,121,423]],
+         ds1:[],
+         dt1:[],
+         ds2:[],
+         dt2:[],
        isClick1:1, // 监测情况
        isClick2:1, // 数据质量走势
        isClick3:1,  // 数据排行榜
@@ -100,7 +103,45 @@ export default {
     })
    },
   mounted(){
-    this.loadChart();
+      let params1 = {
+          date: "year1",
+          jllx: '水源地',
+      };
+      let lxA=[];
+      let dtA=[];
+      params1 = encodeURI(encodeURI(JSON.stringify(params1)));
+      this.$http.jsonp(API.YWXJ_QY_LX + "&params=" + params1).then(//例行
+          response => {
+              for (let value of response.data.data) {
+                  lxA.push(value.NUM);
+                  dtA.push(value.DT);
+              }
+              this.ds1.push(lxA);
+              this.dt1.push(dtA);
+              this.loadChartLx();
+          }, response => {
+              console.log("error");
+          });
+
+      let params2 = {
+          date: "year1",
+          jllx: '水源地',
+      };
+      let ywA=[];
+      let ywAdt=[];
+      params2 = encodeURI(encodeURI(JSON.stringify(params2)));
+      this.$http.jsonp(API.YWXJ_QY_YW + "&params=" + params2).then(//运维
+          response => {
+              for (let value of response.data.data) {
+                  ywA.push(value.NUM);
+                  ywAdt.push(value.DT);
+              }
+              this.ds2.push(ywA);
+              this.dt2.push(ywAdt);
+              this.loadChartYw();
+          }, response => {
+              console.log("error");
+          });
   },
   methods:{
     ...mapActions([
@@ -116,22 +157,23 @@ export default {
        this.isClick2 = index;
       if(tag == 'ph'){ // 排行
        this.isClick3 = index;
-       
       }if(tag == 'ml') // 目录
        this.isClick4 = index;
     },
     getYear: function(val) {
         console.log(val);
     },
-    loadChart:function(){
-      // 这里要修改的 -- 即加载真实的数据
-      let myChart = echarts.init(document.getElementById("myChart"));
-      let options = echarUtil.initYwLine1(this.legend,this.ds);
-      myChart.setOption(options);
-      let lineChart = echarts.init(document.getElementById("lineChart"));
-      let lineoptions = echarUtil.initYwLine2(this.ds[0]);
-      lineChart.setOption(lineoptions);
-    }
+      loadChartLx:function(){
+          // 这里要修改的 -- 即加载真实的数据
+          let myChart = echarts.init(document.getElementById("myChart"));
+          let options = echarUtil.initYwLine2(this.ds1);
+          myChart.setOption(options);
+      },
+      loadChartYw:function(){
+          let lineChart = echarts.init(document.getElementById("lineChart"));
+          let lineoptions = echarUtil.initYwLine2(this.ds2);
+          lineChart.setOption(lineoptions);
+      }
     
   }
 }

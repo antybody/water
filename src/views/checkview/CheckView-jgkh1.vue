@@ -16,14 +16,14 @@
         </ul>
       </div>
       <!--日期选择-->
-      <div class="wttabs-second">
-         <ul>
-            <li><span :class="isClick4 == 1 ? 'wtac':''" @click="changeEvent('ml',1)">本日</span></li>
-            <li><span :class="isClick4 == 2 ? 'wtac':''" @click="changeEvent('ml',2)">本月</span></li>
-            <li><span :class="isClick4 == 3 ? 'wtac':''" @click="changeEvent('ml',3)">本年</span></li>
-         </ul>
-         <div class="clearfixed"></div>
-      </div>
+      <!--<div class="wttabs-second">-->
+         <!--<ul>-->
+            <!--<li><span :class="isClick4 == 1 ? 'wtac':''" @click="changeEvent('ml',1)">本日</span></li>-->
+            <!--<li><span :class="isClick4 == 2 ? 'wtac':''" @click="changeEvent('ml',2)">本月</span></li>-->
+            <!--<li><span :class="isClick4 == 3 ? 'wtac':''" @click="changeEvent('ml',3)">本年</span></li>-->
+         <!--</ul>-->
+         <!--<div class="clearfixed"></div>-->
+      <!--</div>-->
       <!--环形图-->
       <group header="取水量/许可量" :footer="nowTime">
         <grid>
@@ -137,59 +137,67 @@ export default {
    },
   mounted(){
     this.getTime();
-      var paramsData = {
-          date: 'day'
-      };
-      paramsData = encodeURIComponent(JSON.stringify(paramsData));
-      this.$http.jsonp(API.YWJG_QYS + "&params=" + paramsData).then(
-          response => {
-              this.qshs = response.data.data[0].qshs;
-              this.qsxkb = response.data.data[0].qsxkb;
-              this.qszl = response.data.data[0].qszl;
-              this.xkzl = response.data.data[0].xkzl;
+    this.loadChart("");
 
-              // this.QSZL = response.data.data[1].QSZL;
-              // this.XKZL = response.data.data[1].XKZL;
-
-              this.sxbl = response.data.data[2].sxbl;
-              this.sxzs = response.data.data[2].sxzs;
-              this.xkzSum = response.data.data[2].xkzSum;
-
-              this.yshs = response.data.data[3].yshs;
-              this.ysjh = response.data.data[3].ysjh;
-              this.yszl = response.data.data[3].yszl;
-              this.jhbl = response.data.data[3].jhbl;
-              this.loadChart("");
-          }, response => {
-              console.log("error");
-          });
   },
   methods:{
     ...mapActions([
         'getTime','getLists'
      ]),
     changeEvent:function(tag,index){
-        if(tag == 'ml') // 目录
-          this.isClick4 = index;
+        if(tag == 'ml'){
+            this.isClick4 = index;
+            this.loadChart("");
+        } // 目录
+
     },
     reback:function(e){
        this.$router.push({path:'/check'});
     },
      loadChart:function(val){
        // 这里先调用下 getLists 方法
+         var date=this.isClick4==1?'day':(this.isClick4==2?'yue':'year')
+         var paramsData = {
+             date: date
+         };
+         paramsData = encodeURIComponent(JSON.stringify(paramsData));
+         this.$http.jsonp(API.YWJG_QYS + "&params=" + paramsData).then(
+             response => {
+                 this.qshs = response.data.data[0].qshs;
+                 this.qsxkb = response.data.data[0].qsxkb;
+                 this.qszl = response.data.data[0].qszl;
+                 this.xkzl = response.data.data[0].xkzl;
 
-        let qs_myChart = echarts.init(document.getElementById("qs"));
-        let cl_myChart = echarts.init(document.getElementById("cl"));
-        let xkz_myChart = echarts.init(document.getElementById("xkz"));
-        let dys_myChart = echarts.init(document.getElementById("dys"));
-         let qs = this.initChart("取水/许可",this.xkzl,this.qszl,"#de4751");
-         let cl = this.initChart("超量取水","0","50","#62ab00");
-         let xkz = this.initChart("许可逾期",this.sxzs,this.xkzSum,"#0a9fde");
-         let dys = this.initChart("大用水",this.ysjh,this.yszl,"#FFBB00");
-        qs_myChart.setOption(qs);
-        cl_myChart.setOption(cl);
-        xkz_myChart.setOption(xkz);
-        dys_myChart.setOption(dys);
+                 this.clhs = response.data.data[1].clhs;
+                 this.cbsl = response.data.data[1].cbsl;
+                 this.cbbl = response.data.data[1].cbbl
+                 let bl=parseInt(this.cbbl.replace('%',''));
+
+                 this.sxbl = response.data.data[2].sxbl;
+                 this.sxzs = response.data.data[2].sxzs;
+                 this.xkzSum = response.data.data[2].xkzSum;
+
+                 this.yshs = response.data.data[3].yshs;
+                 this.ysjh = response.data.data[3].ysjh;
+                 this.yszl = response.data.data[3].yszl;
+                 this.jhbl = response.data.data[3].jhbl;
+
+                 let qs_myChart = echarts.init(document.getElementById("qs"));
+                 let cl_myChart = echarts.init(document.getElementById("cl"));
+                 let xkz_myChart = echarts.init(document.getElementById("xkz"));
+                 let dys_myChart = echarts.init(document.getElementById("dys"));
+                 let qs = this.initChart("取水/许可",this.xkzl,this.qszl,"#de4751");
+                 let cl = this.initChart("超量取水",bl,100,"#62ab00");
+                 let xkz = this.initChart("许可逾期",this.sxzs,this.xkzSum,"#0a9fde");
+                 let dys = this.initChart("大用水",this.ysjh,this.yszl,"#FFBB00");
+                 qs_myChart.setOption(qs);
+                 cl_myChart.setOption(cl);
+                 xkz_myChart.setOption(xkz);
+                 dys_myChart.setOption(dys);
+             }, response => {
+                 console.log("error");
+             });
+
      },
      initChart:function(t,x1,x2,c){
 
