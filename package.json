@@ -10,6 +10,7 @@
     "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run deploy:prod"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "exif-js": "^2.3.0",
     "fastclick": "^1.0.6",
     "jquery": "^3.3.1",
@@ -20,6 +21,7 @@
     "mint-ui": "^2.2.13",
     "use-iconfonts": "^1.9.15",
     "vue": "^2.1.8",
+    "vue-layer": "^0.9.9",
     "vue-lazyload": "^1.0.0-rc4",
     "vue-plain-slider": "^1.0.2",
     "vue-progress": "^0.2.1",

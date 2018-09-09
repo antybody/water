@@ -90,6 +90,7 @@ login
                             util.setStore('userRole', response.data.data.user_code); // 用户角色
                             util.setStore('_isUse', 'true'); // 登录状态
                             util.setStore('user', response.data.data.name); // 登录状态
+                            util.setStore('userName', response.data.data.display_name); // 登录状态
                             var nextUrl = this.$route.params.next;
                             if (!nextUrl)
                                 this.$router.go(-1);

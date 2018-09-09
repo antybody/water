@@ -19,6 +19,9 @@
             //登陆验证
             if (localStorage.getItem("_isUse") === 'false') {
                 this.$router.push({name: 'home'});
+                this.$layer.msg("请登录！");
+            } else {
+                this.$router.push({name: 'redv1'});
             }
         },
         methods: {
@@ -27,6 +30,7 @@
                 //登陆验证
                 if (localStorage.getItem("_isUse") === 'false') {
                     this.$router.push({name: 'home'});
+                    this.$layer.msg("请登录！");
                     console.log(localStorage.getItem("_isUse"));
                 } else {
                     this.$router.push({name: e});

@@ -4,14 +4,14 @@
         <navbar slot="header" class="wt-linear-blue" style="z-index:1010">
             运维巡检
             <icon name="more-vertical" slot="left"></icon>
-            <icon v-show="userRole === 'xjy'" name="plus" slot="right" href="/routeReback1"></icon>
+            <icon name="plus" slot="right" @click.native="addPlanTable()"></icon>
         </navbar>
         <!--巡检人员页面-->
         <div>
             <div class="route-fixed">
                 <div class="route-tabs" v-if="userRole === 'xjy'">
-                    <a :class="{cur:menu1 === 1}" @click="menu1Click(1)">常规巡检</a>
-                    <a :class="{cur:menu1 === 2}" @click="menu1Click(2)">派单巡检</a>
+                    <a :class="{cur:menu1 === 1}" @click="menu1Click(1)">待巡检</a>
+                    <a :class="{cur:menu1 === 2}" @click="menu1Click(2)">历史巡检</a>
                 </div>
                 <div class="route-tabs" v-else-if="userRole === 'admin'">
                     <a :class="{cur:menu1 === 1}" @click="menu1Click(1)">计划列表</a>
@@ -31,89 +31,110 @@
                     </div>
                 </div>
             </div>
-            <!--管理人员列表-->
-            <div class="route-lists" v-show="userRole === 'admin'">
-                <!--未加入计划列表-->
-                <div v-show="listType" style="background:#fff;margin-bottom:10px" v-for="list in lists">
-                    <div class="route-header clearfix">
-                        <span class="l">编号：{{list.companycode}}</span>
-
+            <!--巡检人员-->
+            <div class="route-lists" v-show="userRole === 'xjy'">
+                <!--
+                待办列表
+                  1.预警巡检计划列表
+                  2.派单计划列表
+                -->
+                <div v-show="listType" class="mui-table-view mt0" v-for="list in lists" v-if="list.patrol_state === '0'">
+                    <div class="mui-card-header">
+                        <span class="l">编号：{{list.station_id}}</span>
+                        <span>{{list.patrol_time}}</span>
                     </div>
-                    <div class="route-body clearfix">
-                        <div class="route-body-message">
-                            <!--<div class="route-body-img">-->
-                                <!--<img src="../../statics/images/icon_03.png">-->
-                            <!--</div>-->
-                            <div class="route-body-content">
-                                <span class="r">{{list.watuser_name}}</span>
-                                <p class="route-body-content-title">
-                                    {{list.error_time}}
-                                </p>
-                                <p class="route-body-content-title" style="color: #ec5c30;">
-                                    日水量 {{list.error_num}}
-                                </p>
+                    <div class="mui-card-content">
+                        <div class="mui-card-content-inner">
+                            <div class="row">
+                                <span>工单标题：{{list.patrol_title|titleSplit}}</span>
+                                <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
+                                   @click="listClick(list)">查看详情</a>
+                                <a v-else class="banli" href="javascript:void(0);" @click="listClick(list)">办理</a>
                             </div>
-                        </div>
-                        <div class="route-body-option">
-                            <span v-if="userRole === 'admin'" class="undone" @click="addPlan(list)">添加巡检</span>
-                            <span v-else-if="userRole === 'xjy'" class="undone" @click="listClick(list)">巡检中</span>
+                            <div class="row">
+                                <span>测点编号：{{list.station_id}}</span>
+                                <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
+                                <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!--历史列表-->
-                <div v-show="!listType" style="background:#fff;margin-bottom:10px" v-for="list in lists">
-                    <div class="route-header clearfix">
-                        <span class="l">编号：{{list.STATION_ID}}</span>
-
+                <!--
+                已办列表
+                  1.预警巡检计划列表
+                  2.派单计划列表
+                -->
+                <div v-show="!listType" class="mui-table-view mt0" v-for="list in lists" v-if="list.patrol_state === '2'">
+                    <div class="mui-card-header">
+                        <span class="l">编号：{{list.station_id}}</span>
+                        <span>{{list.patrol_time}}</span>
                     </div>
-                    <div class="route-body clearfix">
-                        <div class="route-body-message">
-                            <!--<div class="route-body-img">-->
-                                <!--<img :src="list.PATROL_FILE">-->
-                            <!--</div>-->
-                            <div class="route-body-content">
-                                <span class="r">{{list.PATROL_TITLE}}</span>
-                                <p class="route-body-content-title">
-                                    {{list.PATROL_TIME}}
-                                </p>
-                                <p class="route-body-content-title" style="color: #ec5c30;">
-                                    {{list.DATA_TYPE}} {{list.ERROR_NUM}}
-                                </p>
+                    <div class="mui-card-content">
+                        <div class="mui-card-content-inner">
+                            <div class="row">
+                                <span>工单标题：{{list.patrol_title|titleSplit}}</span>
+                                <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
+                                   @click="listClick(list)">查看详情</a>
+                                <a v-else class="banli" href="javascript:void(0);" @click="listClick(list)">办理</a>
                             </div>
-                        </div>
-                        <div class="route-body-option">
-                            <span v-if="list.PATROL_STATE === '2'" class="done" @click="listClick(list)">查看详情</span>
-                            <span v-else class="undone" @click="listClick(list)">待处理</span>
+                            <div class="row">
+                                <span>测点编号：{{list.station_id}}</span>
+                                <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
+                                <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="route-lists" v-show="userRole === 'xjy'">
-                <!--未加入计划列表-->
-                <!--历史列表-->
-                <div style="background:#fff;margin-bottom:10px" v-for="list in lists">
-                    <div class="route-header clearfix">
-                        <span class="l">编号：{{list.STATION_ID}}</span>
-
+            <!--管理人员列表-->
+            <div class="route-lists" v-show="userRole === 'admin'">
+                <!--
+                计划列表
+                  1.预警列表
+                    ①日水量断开
+                    ②日水量负值
+                -->
+                <div v-show="listType" class="mui-table-view mt0" v-for="list in lists">
+                    <div class="mui-card-header">
+                        <span class="l">编号：{{list.companycode}}</span>
+                        <span>{{list.error_time}}</span>
                     </div>
-                    <div class="route-body clearfix">
-                        <div class="route-body-message">
-                            <!--<div class="route-body-img">-->
-                                <!--<img :src="list.PATROL_FILE">-->
-                            <!--</div>-->
-                            <div class="route-body-content">
-                                <span class="r">{{list.PATROL_TITLE}}</span>
-                                <p class="route-body-content-title">
-                                    {{list.PATROL_TIME}}
-                                </p>
-                                <p class="route-body-content-title" style="color: #ec5c30;">
-                                    {{list.DATA_TYPE}} {{list.ERROR_NUM}}
-                                </p>
+                    <div class="mui-card-content">
+                        <div class="mui-card-content-inner">
+                            <div class="row">
+                                <span>取水户名称：{{list.watuser_name|titleSplit}}</span>
+                                <a class="banli" href="javascript:void(0);" @click="addPlan(list)">加入巡检</a>
+                            </div>
+                            <div class="row">
+                                <span>测点编号：{{list.error_point_num}}</span>
+                                <span class="mui-pull-right">异常类型：{{list.error_num}}</span>
                             </div>
                         </div>
-                        <div class="route-body-option">
-                            <span v-if="list.PATROL_STATE === '2'" class="done" @click="listClick(list)">查看详情</span>
-                            <span v-else class="undone" @click="listClick(list)">待处理</span>
+                    </div>
+                </div>
+                <!--
+                历史列表
+                  1.预警工单
+                  2.历史派单
+                -->
+                <div v-show="!listType" class="mui-table-view mt0" v-for="list in lists">
+                    <div class="mui-card-header">
+                        <span class="l">编号：{{list.station_id}}</span>
+                        <span>{{list.patrol_time}}</span>
+                    </div>
+                    <div class="mui-card-content">
+                        <div class="mui-card-content-inner">
+                            <div class="row">
+                                <span>工单标题：{{list.patrol_title|titleSplit}}</span>
+                                <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
+                                   @click="listClick(list)">查看详情</a>
+                                <a v-else class="banli" href="javascript:void(0);" @click="listClick(list)">待处理</a>
+                            </div>
+                            <div class="row">
+                                <span>测点编号：{{list.station_id}}</span>
+                                <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
+                                <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -132,11 +153,14 @@
 
 <script>
     import calendar from '../components/calendar'
+    import chooseTable from '../components/chooseTable'
+    import Vue from 'vue'
+    import layer from 'vue-layer'
     import * as API from '../store/api/api'
 
     export default {
         components: {
-            calendar
+            calendar, chooseTable
         },
         data() {
             return {
@@ -156,6 +180,8 @@
             }
         },
         mounted() {
+            //加载vue-layer组件
+            Vue.prototype.$layer = layer(Vue);
             if (this.userRole === 'admin') {
                 //初始化数据
                 this.getWarnList(this.time.selectedDate);
@@ -163,11 +189,25 @@
                 this.getPlanList(this.time.selectedDate);
             }
         },
+        filters: {
+            titleSplit(name) {
+                if (name === undefined) return
+                if (name.length > 10) return name.substring(0, 9) + '...'
+                else return name;
+
+            }
+        },
         methods: {
             handelChange: function (date, formatDate) {
                 this.time.selectedDate = dateFormat(date, "yyyy-MM-dd");
                 console.log(this.time.selectedDate);
-                this.getWarnList(this.time.selectedDate);
+                if (this.listType && this.userRole === 'admin') {
+                    this.getWarnList(this.time.selectedDate);
+                } else if (this.listType && this.userRole === 'xjy') {
+                    this.getPlanList(this.time.selectedDate);
+                } else {
+                    this.getPlanList(this.time.selectedDate);
+                }
                 // 这里查询数据库
             },
             openCal: function () {
@@ -180,7 +220,7 @@
                     this.getWarnList(this.time.selectedDate);
 
                 } else if (index == 1 && this.userRole === 'xjy') {
-                    this.listType = false;
+                    this.listType = true;
                     //管理员用户 加载巡检计划列表
                     this.getPlanList(this.time.selectedDate);
                 }
@@ -206,20 +246,26 @@
                 }
             },
             listClick: function (data) {
+                console.log(data);
                 if (this.userRole === 'admin') {
-                    if (this.menu1 == 2 && data.PATROL_STATE == 2)
-                        this.$router.push({name: 'routeView', params: {id: data.ID, t: 'pd'}});
+                    if (this.menu1 == 2 && data.patrol_state == 2 && data.bz !== 'yjgd')
+                        this.$router.push({name: 'routeView', params: {id: data.id, t: 'pd'}});
+                    else if (this.menu1 == 2 && data.patrol_state == 2 && data.bz == 'wtXjjl')
+                        this.$router.push({
+                            name: 'routeReback1View',
+                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd'}
+                        });
                 } else if (this.userRole === 'xjy') {
-                    if (this.menu1 == 2 && data.PATROL_STATE == 2)
-                        this.$router.push({name: 'routeView', params: {id: data.ID, t: 'pd'}});
+                    if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type !== 'yjgd')
+                        this.$router.push({name: 'routeView', params: {id: data.id, t: 'pd'}});
+                    else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'yjgd')
+                        this.$router.push({
+                            name: 'routeReback1View',
+                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd'}
+                        });
                     else
                         this.$router.push({name: 'routeReback2', params: {id: data.id, t: 'pd'}});
                 }
-                // if (this.menu1 == 1)
-                //     this.$router.push({name: 'routeReback1', params: {id: '', t: ''}});
-                //
-                // if (this.menu1 == 2 && data.PATROL_STATE == 0)
-                //     this.$router.push({name: 'routeReback2', params: {id: data.id, t: 'pd'}});
 
             },
             addPlan(val) {
@@ -263,9 +309,9 @@
                                 patrol_lat: '',
                                 patrol_x: '',
                                 patrol_y: '',
-                                patrol_user: localStorage.getItem("user"),
+                                patrol_user: localStorage.getItem("userName"),
                                 patrol_type: 'yjgd',
-                                create_user: localStorage.getItem("user"),
+                                create_user: localStorage.getItem("userName"),
                                 create_time: '',
                                 isin: '1',
                                 data_sources: '移动端',
@@ -281,7 +327,8 @@
                             response => {
                                 console.log(response.data.code);
                                 if (response.data.code === 0) {
-                                    this.getWarnList('2018-09-04');
+                                    this.getWarnList(this.time.selectedDate);
+                                    this.$layer.msg("加入巡检成功！");
                                 }
                                 // this.lists = response.data.data;
                             }, response => {
@@ -327,10 +374,10 @@
             },
             getPlanList(time) {
                 let paramData = {
-                    type: 'query',
-                    PATROL_STATE: ['0']
+                    type: 'query'
                 }
                 paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+                console.log(API.ROUTE_PLAN + '&params=' + paramData);
                 this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
                     response => {
                         this.lists = response.data.data;
@@ -338,6 +385,20 @@
                     }, response => {
                         console.log("error");
                     });
+            },
+            addPlanTable() {
+                //获取取水户信息
+                this.$layer.iframe({
+                    content: {
+                        content: chooseTable, //传递的组件对象
+                        parent: this,//当前的vue对象
+                        data: {
+                            //props
+                        }
+                    },
+                    area: ['45%', '30%'],
+                    title: '选择巡检内容'
+                });
             }
         }
     }
@@ -345,7 +406,7 @@
     function dateFormat(date, fmt) {
         var o = {
             "M+": date.getMonth() + 1,
-            "d+": date.getDate()-1
+            "d+": date.getDate()
         };
         if (/(y+)/.test(fmt))
             fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -357,6 +418,7 @@
 </script>
 
 <style>
+
     .route-fixed {
         width: 100%;
         position: fixed;
@@ -406,7 +468,7 @@
     }
 
     .route-body-img {
-        width: 100px;
+        width: 70px;
         margin: 0px !important;
         display: inline-block;
     }
@@ -428,12 +490,12 @@
 
     .route-lists {
         -webkit-overflow-scrolling: touch;
-        top: 93px;
+        top: 83px;
         position: relative;
     }
 
     .route-tabs {
-        line-height: 45px;
+        line-height: 35px;
         text-align: center;
         border-bottom: 1px solid #f1ecec;
         background: #fff;
@@ -441,7 +503,7 @@
     }
 
     .route-tabs a {
-        font-size: 18px;
+        font-size: 16px;
         display: inline-block;
         text-align: center;
         width: 49.2%;
@@ -521,6 +583,96 @@
         overflow: hidden;
         visibility: hidden;
         display: block;
+    }
+
+    .navbar-primary {
+        background: #086ED3 !important;
+        color: #fff;
+    }
+
+    .mui-table-view:first-child {
+        margin-top: 15px;
+    }
+
+    .mt0 {
+        margin-top: 0 !important;
+        font-size: 14px;
+    }
+
+    .mui-table-view:before {
+        position: absolute;
+        right: 0;
+        left: 0;
+        height: 1px;
+        content: '';
+        -webkit-transform: scaleY(.5);
+        transform: scaleY(.5);
+        background-color: #c8c7cc;
+        top: -1px;
+    }
+
+    .mui-card-header {
+        border-bottom: 1px #eae4e4 solid;
+    }
+
+    .mui-card-content {
+        margin-bottom: 0.5rem;
+        border-bottom: 1px #eae4e4 solid;
+    }
+
+    .mui-table-view {
+        position: relative;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 0;
+        list-style: none;
+        background-color: #fff;
+    }
+
+    .mui-card-content-inner {
+        padding: 10px 15px;
+    }
+
+    .mui-card-content-inner {
+        position: relative;
+        padding: 15px;
+    }
+
+    .mui-card-content-inner .row {
+        margin: 5px 0;
+    }
+
+    .banli {
+        position: absolute;
+        right: 15px;
+        font-size: 12px;
+        color: #fff;
+        background: #f39827;
+        border-radius: 12px;
+        padding: 1px 15px;
+    }
+
+    .success {
+        background: #3bb4f2 !important;
+    }
+
+    .mui-pull-right {
+        float: right;
+    }
+
+    .mui-card-footer, .mui-card-header {
+        position: relative;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        min-height: 44px;
+        padding: 10px 15px;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
     }
 </style>
 
