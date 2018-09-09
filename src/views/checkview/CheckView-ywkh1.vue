@@ -13,13 +13,13 @@
         <ul class="wtabs">
           <li class="ac"><router-link to="ywkh1">今日情况</router-link></li>
           <li><router-link to="ywkh2">取用水运维</router-link></li>
-          <li><router-link to="ywkh3">水质监测运维</router-link></li>
+          <!--<li><router-link to="ywkh3">水质监测运维</router-link></li>-->
         </ul>
       </div>
       <!--今日情况说明-->
-      <div style="text-align:center">
-          <h3 style="padding-top:10px;font-size:0.9125rem;color:#666">本日无巡检任务</h3>
-      </div>
+      <!--<div style="text-align:center">-->
+          <!--<h3 style="padding-top:10px;font-size:0.9125rem;color:#666">本日巡检任务:{{brxjrw}}</h3>-->
+      <!--</div>-->
       <grid>
            <cell cells="6" style="border-bottom:1px dotted #4444"></cell>
       </grid>
@@ -73,6 +73,8 @@ import * as API from '../../store/api/api'
 export default {
   data(){
      return {
+         brxjrw:0,
+
          zdzs:0,
          xjzs:0,
          xjl:0,
@@ -91,7 +93,7 @@ export default {
    },
   mounted(){
     this.getTime();
-    this.loadChart("");
+    //this.loadChart("");
       this.$http.jsonp(API.YWXJ_JR).then(
           response => {
               this.zdzs = response.data.zdxj.ZDZS;
@@ -102,6 +104,8 @@ export default {
               this.wcs = response.data.wcl.WCS;
               this.wcl = response.data.wcl.WCL;
 
+              this.brxjrw=response.data.jrxjrw;
+              this.loadChart("");
           }, response => {
               console.log("error");
           });
@@ -118,8 +122,8 @@ export default {
 
         let zdyx_myChart = echarts.init(document.getElementById("zdxj"));
         let ywrw_myChart = echarts.init(document.getElementById("ywrw"));
-        let zdyx = this.initChart("站点巡检","20","50","#de4751");
-        let ywrw = this.initChart("运维任务","20","50","#62ab00");
+        let zdyx = this.initChart("站点巡检",this.xjzs,this.zdzs,"#de4751");
+        let ywrw = this.initChart("运维任务",this.wcs, this.rwzs==0?1:this.rwzs,"#62ab00");
         zdyx_myChart.setOption(zdyx);
         ywrw_myChart.setOption(ywrw);
 

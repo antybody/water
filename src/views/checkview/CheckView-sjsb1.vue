@@ -117,6 +117,7 @@ export default {
               this.qshSbl=response.data.qsh.qshSbl;
               this.qshSbzd=response.data.qsh.qshSbzd;
               this.qshYbzd=response.data.qsh.qshYbzd;
+
               this.sgnqSbl=response.data.qsh.sgnqSbl;
               this.sgnqSbzd=response.data.qsh.sgnqSbzd;
               this.sgnqYbzd=response.data.qsh.sgnqYbzd;
@@ -145,10 +146,10 @@ export default {
         let ys_myChart = echarts.init(document.getElementById("ys"));
         let syd_myChart = echarts.init(document.getElementById("syd"));
         let sgnq_myChart = echarts.init(document.getElementById("sgnq"));
-         let qs = this.initChart("取水户",this.qshSbzd,this.qshYbzd,"#de4751");
-         let ys = this.initChart("用水户",this.yshSbzd,this.yshYbzd,"#62ab00");
-         let syd = this.initChart("水源地",this.sydSbzd,this.sydYbzd,"#0a9fde");
-         let sgnq = this.initChart("水功能区",this.sgnqSbzd,this.sgnqYbzd,"#FFBB00");
+         let qs = this.initChart("取水户",parseInt(this.qshSbl.replace('%','')),100-parseInt(this.qshSbl.replace('%','')),"#de4751");
+         let ys = this.initChart("用水户",parseInt(this.yshSbl.replace('%','')),100-parseInt(this.yshSbl.replace('%','')),"#62ab00");
+         let syd = this.initChart("水源地",parseInt(this.sydSbl.replace('%','')),100-parseInt(this.sydSbl.replace('%','')),"#0a9fde");
+         let sgnq = this.initChart("水功能区",parseInt(this.sgnqSbl.replace('%','')),100-parseInt(this.sgnqSbl.replace('%','')),"#FFBB00");
         qs_myChart.setOption(qs);
         ys_myChart.setOption(ys);
         syd_myChart.setOption(syd);
@@ -182,7 +183,7 @@ export default {
                 label : {
                     formatter : function (params){
                         if(params.name == '异常')
-                        return (x1/x2).toFixed(2)*100 +'%'
+                        return (x1/(x1+x2)).toFixed(2)*100 +'%'
                         else
                           return ''
                     },
@@ -232,8 +233,8 @@ export default {
                     radius: ['78%', '85%'],
                     itemStyle : labelFromatter,
                     data : [
-                        {name:'异常', value:x1, itemStyle : labelBottom},
-                        {name:'正常', value:x2,itemStyle : labelTop}
+                        {name:'异常', value:x2, itemStyle : labelBottom},
+                        {name:'正常', value:x1,itemStyle : labelTop}
                     ]
                 }
             ]

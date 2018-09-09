@@ -16,14 +16,14 @@
         </ul>
       </div>
       <!--日期选择-->
-      <div class="wttabs-second">
-         <ul>
-            <li><span :class="isClick4 == 1 ? 'wtac':''" @click="changeEvent('ml',1)">本日</span></li>
-            <li><span :class="isClick4 == 2 ? 'wtac':''" @click="changeEvent('ml',2)">本月</span></li>
-            <li><span :class="isClick4 == 3 ? 'wtac':''" @click="changeEvent('ml',3)">本年</span></li>
-         </ul>
-         <div class="clearfixed"></div>
-      </div>
+      <!--<div class="wttabs-second">-->
+         <!--<ul>-->
+            <!--<li><span :class="isClick4 == 1 ? 'wtac':''" @click="changeEvent('ml',1)">本日</span></li>-->
+            <!--<li><span :class="isClick4 == 2 ? 'wtac':''" @click="changeEvent('ml',2)">本月</span></li>-->
+            <!--<li><span :class="isClick4 == 3 ? 'wtac':''" @click="changeEvent('ml',3)">本年</span></li>-->
+         <!--</ul>-->
+         <!--<div class="clearfixed"></div>-->
+      <!--</div>-->
       <!--环形图-->
       <group header="饮用水源地" :footer="nowTime">
         <grid>
@@ -31,7 +31,12 @@
             </cell>
             <cell cells="7">
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in sydList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
+                  <li >水源地：<span class='forange'>{{sydSl}}</span>个</li>
+                  <li >监测数量：<span class='forange'>{{sydJcsl}}</span></li>
+                  <li >超标数量：<span class='forange'>{{sydCbsl}}</span></li>
+                  <li >超标比率：<span class='forange'>{{sydCbl}}</span></li>
+                  <li >超标项数：<span class='forange'>{{sydCbxs}}</span></li>
+                  <li >超标测站：<span class='forange'>{{sydCbcz}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -39,13 +44,18 @@
       <grid>
            <cell cells="6" style="border-bottom:1px solid #4444"></cell>
       </grid>
-      <group header="水文测站" :footer="nowTime">
+      <group header="水功能区" :footer="nowTime">
         <grid>
             <cell cells="3"><div class="pies" id="sgnq" :style="{width:'200px',height:'150px'}"></div>
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in sgnqList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
+                  <li >水功能区：<span class='forange'>{{sgnqSl}}</span></li>
+                  <li >监测数量：<span class='forange'>{{sgnqJcsl}}</span></li>
+                  <li >超标数量：<span class='forange'>{{sgnqCbsl}}</span></li>
+                  <li >超标比率：<span class='forange'>{{sgnqCbl}}</span></li>
+                  <li >超标项数：<span class='forange'>{{sgnqCbxs}}</span></li>
+                  <li >超标测站：<span class='forange'>{{sgnqCbcz}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -70,58 +80,127 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import * as API from '../../store/api/api'
 import echarUtil from '../../utils/echarUtil'
 export default {
   data(){
      return {
         isClick4:1,
         isClick2:1,
-        legend:['I类','II类','III类','IV类','V类','劣V类'],
+
+         sgnqSl:0,
+         sgnqJcsl:0,
+         sgnqCbsl:0,
+         sgnqCbl:0,
+         sgnqCbxs:0,
+         sgnqCbcz:0,
+
+         sydSl:0,
+         sydJcsl:0,
+         sydCbsl:0,
+         sydCbl:0,
+         sydCbxs:0,
+         sydCbcz:0,
+
+         legend:['I类','II类','III类','IV类','V类','劣V类'],
         ds:[[111,23,43,21,23],[211,323,143,121,423],[211,323,143,121,423]
            ,[211,323,143,121,423],[211,323,143,121,423]]
      }
   },
   computed:{
       ...mapState({
-          sydList: state => state.sjzl.sydList,
-          sgnqList: state => state.sjzl.sgnqList,
-          pjdList: state => state.sjzl.pjdList,
-          pjsList: state => state.sjzl.pjsList,
-          nowTime: state => state.sjzl.nowDate
+          // sydList: state => state.sjzl.sydList,
+          // sgnqList: state => state.sjzl.sgnqList,
+          // pjdList: state => state.sjzl.pjdList,
+          // pjsList: state => state.sjzl.pjsList,
+          // nowTime: state => state.sjzl.nowDate
     })
    },
   mounted(){
     this.getTime();
     this.loadChart("");
+    this.loadBar('');
   },
   methods:{
     ...mapActions([
         'getTime','getLists'
      ]),
     changeEvent:function(tag,index){
-        if(tag == 'ml') // 目录
-          this.isClick4 = index;
-        if(tag == 'zs') // 评价
-          this.isClick2 = index;
+        if(tag == 'ml'){
+            this.isClick4 = index;
+            this.loadBar('');
+        } // 目录
+        if(tag == 'zs'){
+            this.isClick2 = index;
+            this.loadChart('');
+        } // 评价
+
+
     },
     reback:function(e){
        this.$router.push({path:'/check'});
     },
      loadChart:function(val){
        // 这里先调用下 getLists 方法
+         let type=this.isClick2==1?'all':'two';
+         let params2 = {
+             date: "yue",
+             type: type,
+         };
+         let dsA=[];
+         let dsB=[];
+         params2 = encodeURI(encodeURI(JSON.stringify(params2)));
+         this.$http.jsonp(API.YWJG_SGNQ + "&params=" + params2).then(//运维
+             response => {
+                 for (let value of response.data.data) {
+                     dsA.push(value.NUM);
+                     dsB.push(value.DBPJ);
+                 }
+                 // 下面是柱状图
+                 let myChart = echarts.init(document.getElementById("myChart"));
+                 let options = echarUtil.initChart(dsB,dsA);
+                 myChart.setOption(options);
 
-        let qs_myChart = echarts.init(document.getElementById("syd"));
-        let cl_myChart = echarts.init(document.getElementById("sgnq"));
-        let qs = this.initChart("水源地","20","50","#de4751");
-        let cl = this.initChart("水文测站","20","50","#62ab00");
-        qs_myChart.setOption(qs);
-        cl_myChart.setOption(cl);
+             }, response => {
+                 console.log("error");
+             });
 
-        // 下面是柱状图
-         let myChart = echarts.init(document.getElementById("myChart"));
-         let options = echarUtil.initChart(this.legend,this.ds[0]);
-         myChart.setOption(options);
+
      },
+      loadBar:function(val){
+          let params2 = {
+              date: "",
+              type: 'all',
+          };
+          let dsA=[];
+          let dsB=[];
+          params2 = encodeURI(encodeURI(JSON.stringify(params2)));
+          this.$http.jsonp(API.YWJG_SZ + "&params=" + params2).then(//运维
+              response => {
+                  this.sgnqSl=response.data.sgnq.sgnqSl;
+                  this.sgnqJcsl=response.data.sgnq.sgnqJcsl;
+                  this.sgnqCbsl=response.data.sgnq.sgnqCbsl;
+                  this.sgnqCbl=response.data.sgnq.sgnqCbl;
+                  this.sgnqCbxs=response.data.sgnq.sgnqCbxs;
+                  this.sgnqCbcz=response.data.sgnq.sgnqCbcz;
+
+                  this.sydSl=response.data.syd.sydSl;
+                  this.sydJcsl=response.data.syd.sydJcsl;
+                  this.sydCbsl=response.data.syd.sydCbsl;
+                  this.sydCbl=response.data.syd.sydCbl;
+                  this.sydCbxs=response.data.syd.sydCbxs;
+                  this.sydCbcz=response.data.syd.sydCbcz;
+
+                  let qs_myChart = echarts.init(document.getElementById("syd"));
+                  let cl_myChart = echarts.init(document.getElementById("sgnq"));
+                  let qs = this.initChart("水源地",this.sydCbsl,this.sydJcsl,"#de4751");
+                  let cl = this.initChart("水功能区",this.sgnqCbsl,this.sgnqJcsl,"#62ab00");
+                  qs_myChart.setOption(qs);
+                  cl_myChart.setOption(cl);
+              }, response => {
+                  console.log("error");
+              });
+      },
      initChart:function(t,x1,x2,c){
 
         //文字

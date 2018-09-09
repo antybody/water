@@ -205,7 +205,7 @@ export default {
          };
          return option;
     },
-    initYwLine2(ds){
+    initYwLine2(legend,ds){
         var option = {
              grid: {
                  left: '3%',
@@ -216,7 +216,8 @@ export default {
              },
              xAxis : [
                  {
-                     type : 'category'
+                     type : 'category',
+                     data: legend
                  }
              ],
              yAxis : [
