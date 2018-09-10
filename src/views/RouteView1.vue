@@ -38,23 +38,26 @@
                   1.预警巡检计划列表
                   2.派单计划列表
                 -->
-                <div v-show="listType" class="mui-table-view mt0" v-for="list in lists" v-if="list.patrol_state === '0'">
+                <div v-show="listType" class="mui-table-view mt0" v-for="list in lists"
+                     v-if="list.patrol_state === '0'">
                     <div class="mui-card-header">
-                        <span class="l">编号：{{list.station_id}}</span>
+                        <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
+                        <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
                         <span>{{list.patrol_time}}</span>
                     </div>
                     <div class="mui-card-content">
                         <div class="mui-card-content-inner">
                             <div class="row">
+                                <img slot="img" src="http://lorempixel.com/160/160/people/"
+                                     style="width: 60px;height: 60px;" alt="">
                                 <span>工单标题：{{list.patrol_title|titleSplit}}</span>
-                                <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
-                                   @click="listClick(list)">查看详情</a>
-                                <a v-else class="banli" href="javascript:void(0);" @click="listClick(list)">办理</a>
+
                             </div>
                             <div class="row">
                                 <span>测点编号：{{list.station_id}}</span>
-                                <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
-                                <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
+                                <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
+                                   @click="listClick(list)">查看详情</a>
+                                <a v-else class="banli" href="javascript:void(0);" @click="listClick(list)">办理</a>
                             </div>
                         </div>
                     </div>
@@ -64,23 +67,24 @@
                   1.预警巡检计划列表
                   2.派单计划列表
                 -->
-                <div v-show="!listType" class="mui-table-view mt0" v-for="list in lists" v-if="list.patrol_state === '2'">
+                <div v-show="!listType" class="mui-table-view mt0" v-for="list in lists"
+                     v-if="list.patrol_state === '2'">
                     <div class="mui-card-header">
-                        <span class="l">编号：{{list.station_id}}</span>
+                        <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
+                        <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
                         <span>{{list.patrol_time}}</span>
                     </div>
                     <div class="mui-card-content">
                         <div class="mui-card-content-inner">
                             <div class="row">
+                                <img slot="img" src="http://lorempixel.com/160/160/people/" style="width: 60px;height: 60px;" alt="">
                                 <span>工单标题：{{list.patrol_title|titleSplit}}</span>
-                                <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
-                                   @click="listClick(list)">查看详情</a>
-                                <a v-else class="banli" href="javascript:void(0);" @click="listClick(list)">办理</a>
                             </div>
                             <div class="row">
                                 <span>测点编号：{{list.station_id}}</span>
-                                <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
-                                <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
+                                <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
+                                   @click="listClick(list)">查看详情</a>
+                                <a v-else class="banli" href="javascript:void(0);" @click="listClick(list)">办理</a>
                             </div>
                         </div>
                     </div>
@@ -96,18 +100,19 @@
                 -->
                 <div v-show="listType" class="mui-table-view mt0" v-for="list in lists">
                     <div class="mui-card-header">
-                        <span class="l">编号：{{list.companycode}}</span>
+                        <span class="mui-pull-right">异常类型：{{list.error_num}}</span>
                         <span>{{list.error_time}}</span>
                     </div>
                     <div class="mui-card-content">
                         <div class="mui-card-content-inner">
                             <div class="row">
+                                <img slot="img" src="http://lorempixel.com/160/160/people/" style="width: 60px;height: 60px;" alt="">
                                 <span>取水户名称：{{list.watuser_name|titleSplit}}</span>
-                                <a class="banli" href="javascript:void(0);" @click="addPlan(list)">加入巡检</a>
+
                             </div>
                             <div class="row">
                                 <span>测点编号：{{list.error_point_num}}</span>
-                                <span class="mui-pull-right">异常类型：{{list.error_num}}</span>
+                                <a class="banli" href="javascript:void(0);" @click="addPlan(list)">加入巡检</a>
                             </div>
                         </div>
                     </div>
@@ -119,21 +124,22 @@
                 -->
                 <div v-show="!listType" class="mui-table-view mt0" v-for="list in lists">
                     <div class="mui-card-header">
-                        <span class="l">编号：{{list.station_id}}</span>
+                        <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
+                        <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
                         <span>{{list.patrol_time}}</span>
                     </div>
                     <div class="mui-card-content">
                         <div class="mui-card-content-inner">
                             <div class="row">
+                                <img slot="img" src="../../statics/images/shanghai.png" style="width: 60px;height: 60px;" alt="">
                                 <span>工单标题：{{list.patrol_title|titleSplit}}</span>
-                                <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
-                                   @click="listClick(list)">查看详情</a>
-                                <a v-else class="banli" href="javascript:void(0);" @click="listClick(list)">待处理</a>
+
                             </div>
                             <div class="row">
                                 <span>测点编号：{{list.station_id}}</span>
-                                <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
-                                <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
+                                <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
+                                   @click="listClick(list)">查看详情</a>
+                                <a v-else class="banli" href="javascript:void(0);" @click="listClick(list)">待处理</a>
                             </div>
                         </div>
                     </div>
