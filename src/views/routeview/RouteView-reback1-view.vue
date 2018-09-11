@@ -11,7 +11,7 @@
         <tabs v-model="selected" style="margin-top: 0">
             <tabs-item slot="tabs" blue hollow>基础信息</tabs-item>
             <tabs-item slot="tabs" blue hollow>巡检记录</tabs-item>
-            <tabs-item slot="tabs" blue hollow>处理流程</tabs-item>
+            <tabs-item slot="tabs" blue hollow>现场图片</tabs-item>
             <tabs-desc slot="desc">
                 <div class="plan-map" style="height: 170px;">
                     <red-map ref="redmap" :points="mapPoints"></red-map>
@@ -21,13 +21,10 @@
                     </div>
                 </h5>
                 <list-item title="取水户名称">
-                    <a class="content" slot="after">宝信软件</a>
+                    <a class="content" slot="after">{{qshData.wname|strSplit}}</a>
                 </list-item>
                 <list-item title="取水站点">
-                    <a class="content" slot="after">宝信软件监测点</a>
-                </list-item>
-                <list-item title="取水许可证">
-                    <a class="content" slot="after">国长 字[2015]第01001号</a>
+                    <a class="content" slot="after">{{qshData.mp_nm|strSplit}}</a>
                 </list-item>
                 <list-item title="瞬时流量">
                     <a class="content" slot="after">120 m³/s</a>
@@ -41,7 +38,7 @@
                     </div>
                 </h5>
                 <list-item title="站点编号">
-                    <a class="content" slot="after">宝信软件测站</a>
+                    <a class="content" slot="after">{{qshData.mp_cd}}</a>
                 </list-item>
                 <list-item title="计量设施厂家">
                     <a class="content" slot="after">宝信软件</a>
@@ -63,66 +60,51 @@
                     </div>
                 </h5>
 
-                <list-item title="流量计通讯输出检查" after="正常"> </list-item>
-                <list-item title="流量计数据核对" after="正常"> </list-item>
-                <list-item title="通讯信号检查" after="正常"> </list-item>
-                <list-item title="检测柜内电子元器件及表面清洁工作" after="正常"> </list-item>
-                <list-item title="电源、避雷检查" after="正常"> </list-item>
-                <list-item title="接地测试" after="正常"> </list-item>
-                <list-item title="后台数据核对" after="正常"> </list-item>
-                <list-item title="PLC程序备份" after="正常"> </list-item>
+                <list-item title="流量计通讯输出检查" :after="xjjlData.db_lljtxscjc | typeFilter"></list-item>
+                <list-item title="流量计数据核对" :after="xjjlData.db_lljshhd | typeFilter"></list-item>
+                <list-item title="通讯信号检查" :after="xjjlData.db_txxhjc | typeFilter"></list-item>
+                <list-item title="检测柜内电子元器件及表面清洁工作" :after="xjjlData.db_dzyqjqj | typeFilter"></list-item>
+                <list-item title="电源、避雷检查" :after="xjjlData.db_dybljc | typeFilter"></list-item>
+                <list-item title="接地测试" :after="xjjlData.db_jdcs | typeFilter"></list-item>
+                <list-item title="后台数据核对" :after="xjjlData.db_htsjhd | typeFilter"></list-item>
+                <list-item title="PLC程序备份" :after="xjjlData.db_plccybf | typeFilter"></list-item>
                 <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
+                    <field-input type="textarea" style="background-color: #fff;" :value="xjjlData.db_bz"
+                                 disabled></field-input>
                 </field>
                 <h5 class="wt-title" style="padding:0.925rem 0">
                     <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>地下取水（回灌井）</span>
                         <span class="wt-bar-subtitle"></span>
                     </div>
                 </h5>
-                <list-item title="流量计通讯输出检查" after="正常"> </list-item>
-                <list-item title="流量计数据核对" after="正常"> </list-item>
-                <list-item title="通讯信号检查" after="正常"> </list-item>
-                <list-item title="检测柜内电子元器件及表面清洁工作" after="正常"> </list-item>
-                <list-item title="电源、避雷检查" after="正常"> </list-item>
-                <list-item title="接地测试" after="正常"> </list-item>
-                <list-item title="后台数据核对" after="正常"> </list-item>
-                <list-item title="PLC程序备份" after="正常"> </list-item>
-                <list-item title="防水接线处理检查" after="正常"> </list-item>
-                <list-item title="锂电池更换" after="正常"> </list-item>
+                <list-item title="流量计通讯输出检查" :after="xjjlData.dx_sbtxscjc | typeFilter"></list-item>
+                <list-item title="流量计数据核对" :after="xjjlData.dx_lljsjhd | typeFilter"></list-item>
+                <list-item title="通讯信号检查" :after="xjjlData.dx_txxhjc | typeFilter"></list-item>
+                <list-item title="检测柜内电子元器件及表面清洁工作" :after="xjjlData.dx_db_dzyqjqj | typeFilter"></list-item>
+                <list-item title="电源、避雷检查" :after="xjjlData.dx_dybljc | typeFilter"></list-item>
+                <list-item title="接地测试" :after="xjjlData.dx_jdcs | typeFilter"></list-item>
+                <list-item title="后台数据核对" :after="xjjlData.dx_htsjhd | typeFilter"></list-item>
+                <list-item title="PLC程序备份" :after="xjjlData.dx_plccybf | typeFilter"></list-item>
+                <list-item title="防水接线处理检查" :after="xjjlData.dx_fsjxcljc | typeFilter"></list-item>
+                <list-item title="锂电池更换" :after="xjjlData.dx_ldcgh | typeFilter"></list-item>
                 <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
-
+                    <field-input type="textarea" style="background-color: #fff;" :value="xjjlData.dx_bz"
+                                 disabled></field-input>
                 </field>
 
-                <list-item title="巡检员" after="巡检员1号"> </list-item>
-                <list-item title="巡检地点" after="江苏路389号"> </list-item>
-                <list-item title="巡检时间"  after="2018-09-04"> </list-item>
+                <list-item title="巡检员" :after="xjjlData.whry"></list-item>
+                <list-item title="巡检地点" :after="xjjlData.whry"></list-item>
+                <list-item title="巡检时间" :after="xjjlData.rq"></list-item>
 
             </tabs-desc>
             <tabs-desc slot="desc">
-                <ul class="route-timeline">
-                    <li v-if="index == 0" class="route-timeline-item cur" v-for="(tl,index) in timeline"
-                        :key="tl.index">
-                        <i class="wt-bar-i-16"></i>
-                        <div class="route-timline-h">
-                            <div class="desc">
-                                <h3 style="color:rgb(254, 155, 30)">{{tl.dealcompany}}
-                                    {{tl.dealperson}},{{tl.dealmsg}}</h3>
-                                <p>{{tl.dealtime}}</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li v-else class="route-timeline-item none">
-                        <i class="wt-bar-i-16"></i>
-                        <div class="route-timline-h">
-                            <div class="desc">
-                                <h3>{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>
-                                <p>{{tl.dealtime}}</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="route-timeline-item none">
-                        <i class="wt-bar-i-16"></i>
-                    </li>
+                <imgpreview :imgLists="imgLists" @closeImg="closeImg" :imgpreshow="imgpreshow"></imgpreview>
+                <ul class="upload-pre-img" v-show="imgLists.length >0">
+                    <span v-for="item in imgLists" :key="imgLists.index" class="wt-img-preview" @click="pre_Handle()">
+                            <img :src="item.url"/>
+                       </span>
                 </ul>
+
             </tabs-desc>
         </tabs>
     </vue-view>
@@ -135,23 +117,23 @@
     import * as API from '../../store/api/api'
     import VueView from "vue-amazeui/src/components/vueview/vueview";
     import redMap from '../../components/redmap'
+    import imgpreview from '../../components/imgpreview'
 
     export default {
         components: {
             redMap,
+            imgpreview,
             VueView
         },
         data() {
             return {
+                imgpreshow: false,
                 offcanvas5: false,
+                filesData: [],
+                xjjlData: [],
+                qshData: [],
                 imgLists: [],
-                imgUpload: false,
-                imgIndex: 0,
-                open2: false,
-                open3: false,
-                selectDel: -1,
-                PATROL_CONTENT: '',
-                BZ: '',
+                formData: new FormData(),
                 mapPoints: [
                     {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
                 ],
@@ -168,12 +150,59 @@
             })
         },
         mounted() {
+            this.mapPoints = [
+                {lng: this.$route.params.patrol_long, lat: this.$route.params.patrol_lat, name: ''}
+            ];
+            let id = this.$route.params.id;
+            let paramData = {
+                type: 'query',
+                mp_cd: '3101160003001',
+                id: id
+            }
+            paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+            console.log(API.SAVE_XJJL + '&params=' + paramData);
+            this.$http.jsonp(API.SAVE_XJJL + '&params=' + paramData).then(
+                response => {
+                    console.log(response.data);
+                    this.qshData = response.data.qshData[0];
+                    this.filesData = response.data.filesData;
+                    this.xjjlData = response.data.xjjlData[0];
+                    for (let i = 0; i < response.data.filesData.length; i++) {
+                        var path = response.data.filesData[i].file_adress;
+                        var arr = path.split("C:/FileServer/apacheFtpserver/res/home/");
+                        var url = "http://31.16.10.52:8000/" + arr[1];
+                        this.imgLists.push({url: url});
+                    }
+                    console.log(this.imgLists);
+
+                }, response => {
+                    console.log("error:" + response.data);
+                });
             //地图加载事件
             Vue.set(this.$store.state.redmap, "loading", false);
         },
         methods: {
             mapAddress: function (mapAddress) {
                 this.mapAddressNow = mapAddress;
+            },
+            closeImg: function () {
+                this.imgpreshow = false;
+            },
+            // 点击照片后切换到照片预览效果
+            pre_Handle: function () {
+                this.imgpreshow = true;
+            }
+        },
+        filters: {
+            typeFilter(value) {
+                if (value === '1') return '正常'
+                else return '异常'
+            },
+            strSplit(name) {
+                if (name === undefined) return
+                if (name.length > 20) return name.substring(0, 17) + '...'
+                else return name;
+
             }
         }
     }
@@ -185,7 +214,7 @@
     }
 
     .success {
-        color: #5d85ff !important;
+        /*color: #5d85ff !important;*/
     }
 
     .upload-pre-del {
@@ -203,9 +232,9 @@
         padding: 0;
     }
 
-    .upload-pre-img li img {
-        width: 76px;
-        height: 76px;
+    .upload-pre-img span img {
+        /*width: 90px;*/
+        /*height: 90px;*/
     }
 
     .upload-pre-img li {
@@ -297,6 +326,7 @@
         font-size: 0.812rem !important;
         font-weight: 400 !important;
     }
+
     .item-after {
         font-size: 0.812rem !important;
         font-weight: 400 !important;

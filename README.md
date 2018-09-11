@@ -140,6 +140,7 @@ vue2 + webapp
       地图组件
 
 
+
 # 组件BUG待解决
   + 1 tabbar在active和href并存的时候，有切换失灵的情况出现 ※ ※ ※ ※ [已找方法替代修正]
   + 2 vue-amazeui 样式不全满足，需要重新发布一个自己的

@@ -9,6 +9,9 @@ import 'vue-amazeui/dist/static/css/vue-amazeui.css'
 import '../statics/css/app.css'
 import store from './store'
 import FastClick from 'fastclick'
+//vue-laer弹框
+import layer from 'vue-layer'
+
 
 import {_beforeEnter} from '../src/libs/router'
 
@@ -22,6 +25,9 @@ Vue.use(VueRouter)
 Vue.use(vueResource)
 Vue.use(Indicator)
 
+Vue.prototype.$layer = layer(Vue, {
+    msgtime: 3,//目前只有一项，即msg方法的默认消失时间，单位：秒
+});
 
 // tab 切换
 

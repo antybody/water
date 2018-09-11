@@ -11,16 +11,10 @@
                 </h5>
                 <div class="wt-title-line"></div>
                 <div class="wt-list-info">
-                    <div class="wt-list-line">
-                        <label>颁证水量：</label>
-                        <p class="g-overflow">
-                            <span class="wt-list-red">{{qshContent.bzsl}}</span>
-                            万m³
-                        </p>
-                    </div>
+
                     <div class="wt-list-line">
                         <label>日&nbsp;&nbsp;水&nbsp;&nbsp;量：</label>
-                        <p class="g-overflow">{{qshContent.rsl}}（本年监测累计 {{qshContent.nsl}}）</p>
+                        <p class="g-overflow">{{qshContent.rsl}}（本年监测累计 {{rsl}}m³）</p>
                     </div>
                     <div class="wt-list-line">
                         <label>取水用途：</label>
@@ -81,7 +75,8 @@
                 qshContent: [],
                 jcInfo: [],
                 monthSl: [],
-                yearSl: []
+                yearSl: [],
+                rsl:''
             }
         },
         mounted() {
@@ -91,13 +86,14 @@
                 year: '2018'
             }
             paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-
             this.$http.jsonp(API.DYSH_CONTENT + "&params=" + paramData).then(
                 response => {
                     console.log(response.data);
                     this.jcInfo = response.data.jcxx;
                     this.yearSl = response.data.year;
                     this.monthSl = response.data.yue;
+                    this.rsl= this.yearSl[ this.yearSl.length-1].sum;
+                    this.tagChange('m');
                 }, response => {
                     console.log("error");
                 });
@@ -123,11 +119,11 @@
                     xyData = [], yyData = [];
                 for (let value of this.monthSl) {
                     xmData.push(value.dt);
-                    ymData.push(parseFloat(value.day_w));
+                    ymData.push(parseFloat(value.sum));
                 }
                 for (let value of this.yearSl) {
                     xyData.push(value.dt);
-                    yyData.push(parseFloat(value.day_w));
+                    yyData.push(parseFloat(value.sum));
                 }
 
                 // 切换图表
