@@ -10,6 +10,7 @@
     "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run deploy:prod"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "exif-js": "^2.3.0",
     "fastclick": "^1.0.6",
     "jquery": "^3.3.1",
