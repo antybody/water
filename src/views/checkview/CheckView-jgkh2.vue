@@ -193,8 +193,8 @@ export default {
 
                   let qs_myChart = echarts.init(document.getElementById("syd"));
                   let cl_myChart = echarts.init(document.getElementById("sgnq"));
-                  let qs = this.initChart("水源地",this.sydCbsl,this.sydJcsl,"#de4751");
-                  let cl = this.initChart("水功能区",this.sgnqCbsl,this.sgnqJcsl,"#62ab00");
+                  let qs = this.initChart("水源地",parseInt(this.sgnqCbl.replace('%','')),100-parseInt(this.sgnqCbl.replace('%','')),"#de4751");
+                  let cl = this.initChart("水功能区",parseInt(this.sydCbl.replace('%','')),100-parseInt(this.sydCbl.replace('%','')),"#62ab00");
                   qs_myChart.setOption(qs);
                   cl_myChart.setOption(cl);
               }, response => {
@@ -229,7 +229,7 @@ export default {
                 label : {
                     formatter : function (params){
                         if(params.name == '异常')
-                        return (x1/x2).toFixed(2)*100 +'%'
+                        return (x1/(x2+x1)).toFixed(2)*100 +'%'
                         else
                           return ''
                     },

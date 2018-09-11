@@ -171,7 +171,7 @@ export default {
             response => {
                 this.ywjg_qsh = response.data.data[0].QSH;
                 this.ywjg_ysh = response.data.data[0].YSH;
-                this.ywjg_yysyd = response.data.data[0].YYSYD;
+                this.ywjg_yysyd = response.data.data[0].SYD;
                 this.ywjg_sgnq = response.data.data[0].SGNQ;
             }, response => {
                 console.log("error");

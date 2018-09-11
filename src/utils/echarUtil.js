@@ -300,7 +300,8 @@ export default {
              xAxis : [
                  {
                      type : 'category',
-                     boundaryGap : false
+                     boundaryGap : false,
+                     data:ds[3]
                  }
              ],
              yAxis : [
@@ -364,7 +365,8 @@ export default {
              xAxis : [
                  {
                      type : 'category',
-                     boundaryGap : false
+                     boundaryGap : false,
+                     data:ds[2]
                  }
              ],
              yAxis : [

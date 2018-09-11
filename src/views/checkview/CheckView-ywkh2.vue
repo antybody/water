@@ -59,13 +59,14 @@
       <div>
          <div class="mod-head">
            <h3>运维问题排行榜</h3>
-           <!-- <ul>
-             <li :class="isClick3 == 1 ? 'cur':''" @click="changeEvent('ph',1)">高</li>
-             <li :class="isClick3 == 2 ? 'cur':''" @click="changeEvent('ph',2)">低</li>
-           </ul> -->
+           <ul>
+                <li :class="isClick3 == 1 ? 'cur':''" @click="changeEvent('ph',1)">本年</li>
+                <li :class="isClick3 == 2 ? 'cur':''" @click="changeEvent('ph',2)">近三年</li>
+                <li :class="isClick3 == 3 ? 'cur':''" @click="changeEvent('ph',3)">近五年</li>
+           </ul>
            <div class="clearfixed"></div>
          </div>
-         <ul class="sort-wrap" :style="isClick3 == 1 ?'display:block':'display:none'">
+         <ul class="sort-wrap" >
             <li v-for="(item,index) in sjListUp" :key="index">
                <span ><em>{{index+1}}.</em> {{item.NAME}}，故障次数 {{item.NUM}} </span>
             </li>
@@ -105,57 +106,9 @@ export default {
     })
    },
   mounted(){
-      let params1 = {
-          date: "year1",
-          jllx: '地表水取水',
-      };
-      let lxA=[];
-      let dtA=[];
-      params1 = encodeURI(encodeURI(JSON.stringify(params1)));
-      this.$http.jsonp(API.YWXJ_QY_LX + "&params=" + params1).then(//例行
-          response => {
-              for (let value of response.data.data) {
-                  lxA.push(value.NUM);
-                  dtA.push(value.DT);
-              }
-              this.ds1=(lxA);
-              this.dt1=(dtA);
-              this.loadChartLx();
-          }, response => {
-              console.log("error");
-          });
-
-      let params2 = {
-          date: "year1",
-          jllx: '地表水取水',
-      };
-      let ywA=[];
-      let ywAdt=[];
-      params2 = encodeURI(encodeURI(JSON.stringify(params2)));
-      this.$http.jsonp(API.YWXJ_QY_YW + "&params=" + params2).then(//运维
-          response => {
-              for (let value of response.data.data) {
-                  ywA.push(value.NUM);
-                  ywAdt.push(value.DT);
-              }
-              this.ds2=(ywA);
-              this.dt2=(ywAdt);
-              this.loadChartYw();
-          }, response => {
-              console.log("error");
-          });
-      //-------------------排行榜
-      let params3 = {
-          date: "year5",
-          jllx: '地表水取水',
-      };
-      params3 = encodeURI(encodeURI(JSON.stringify(params3)));
-      this.$http.jsonp(API.YWXJ_QY_PHB + "&params=" + params3).then(//运维
-          response => {
-              this.sjListUp=response.data.data;
-          }, response => {
-              console.log("error");
-          });
+      this.queryData1();
+      this.queryData2();
+      this.queryData3();
   },
   methods:{
     ...mapActions([
@@ -164,15 +117,135 @@ export default {
     reback:function(e){
        this.$router.push({path:'/check'});
     },
+      queryData1:function(){
+          var date='year1';
+          if(this.isClick1==1){
+              date='year1';
+          }else  if(this.isClick1==2){
+              date= 'year3';
+          }else  if(this.isClick1==3){
+              date= 'year5';
+          }
+          var jllx=['地表水取水'];
+          if(this.isClick4==1){
+              jllx='地表水取水';
+          }else  if(this.isClick4==2){
+              jllx='地下水';
+          }else if(this.isClick4==3){
+              jllx='用水户取水';
+          }else if(this.isClick4==4){
+              jllx='农业用水';
+          }
+          let params1 = {
+              date: date,
+              jllx: jllx,
+          };
+          let lxA=[];
+          let dtA=[];
+          params1 = encodeURI(encodeURI(JSON.stringify(params1)));
+          this.$http.jsonp(API.YWXJ_QY_LX + "&params=" + params1).then(//例行
+              response => {
+                  for (let value of response.data.data) {
+                      lxA.push(value.NUM);
+                      dtA.push(value.DT);
+                  }
+                  this.ds1=(lxA);
+                  this.dt1=(dtA);
+                  this.loadChartLx();
+              }, response => {
+                  console.log("error");
+              });
+      },
+      queryData2:function(){
+          var date='year1';
+          if(this.isClick2==1){
+              date='year1';
+          }else  if(this.isClick2==2){
+              date= 'year3';
+          }else  if(this.isClick2==3){
+              date= 'year5';
+          }
+          var jllx=['地表水取水'];
+          if(this.isClick4==1){
+              jllx='地表水取水';
+          }else  if(this.isClick4==2){
+              jllx='地下水';
+          }else if(this.isClick4==3){
+              jllx='用水户取水';
+          }else if(this.isClick4==4){
+              jllx='农业用水';
+          }
+          let params2 = {
+              date: date,
+              jllx: jllx,
+          };
+          let ywA=[];
+          let ywAdt=[];
+          params2 = encodeURI(encodeURI(JSON.stringify(params2)));
+          this.$http.jsonp(API.YWXJ_QY_YW + "&params=" + params2).then(//运维
+              response => {
+                  for (let value of response.data.data) {
+                      ywA.push(value.NUM);
+                      ywAdt.push(value.DT);
+                  }
+                  this.ds2=(ywA);
+                  this.dt2=(ywAdt);
+                  this.loadChartYw();
+              }, response => {
+                  console.log("error");
+              });
+      },
+      queryData3:function(){
+          var date='year1';
+          if(this.isClick3==1){
+              date='year1';
+          }else  if(this.isClick3==2){
+              date= 'year3';
+          }else  if(this.isClick3==3){
+              date= 'year5';
+          }
+
+          var jllx=['地表水取水'];
+          if(this.isClick4==1){
+              jllx='地表水取水';
+          }else  if(this.isClick4==2){
+              jllx='地下水';
+          }else if(this.isClick4==3){
+              jllx='用水户取水';
+          }else if(this.isClick4==4){
+              jllx='农业用水';
+          }
+
+          let params3 = {
+              date: date,
+              jllx: jllx,
+          };
+          params3 = encodeURI(encodeURI(JSON.stringify(params3)));
+          this.$http.jsonp(API.YWXJ_QY_PHB + "&params=" + params3).then(//运维
+              response => {
+                  this.sjListUp=response.data.data;
+              }, response => {
+                  console.log("error");
+              });
+      },
     changeEvent:function(tag,index){
-      if(tag == 'qk') // 情况
-       this.isClick1 = index;
-      if(tag == 'zs') // 走势
-       this.isClick2 = index;
+      if(tag == 'qk'){// 情况
+          this.isClick1 = index;
+          this.queryData1();
+      }
+      if(tag == 'zs'){// 走势
+          this.isClick2 = index;
+          this.queryData2();
+      }
       if(tag == 'ph'){ // 排行
-       this.isClick3 = index;
-      }if(tag == 'ml') // 目录
-       this.isClick4 = index;
+            this.isClick3 = index;
+            this.queryData3();
+      }if(tag == 'ml'){// 目录
+            this.isClick4 = index;
+            this.queryData1();
+            this.queryData2();
+            this.queryData3();
+      }
     },
     getYear: function(val) {
         console.log(val);

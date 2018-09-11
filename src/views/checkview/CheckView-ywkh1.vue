@@ -121,9 +121,9 @@ export default {
        // 这里先调用下 getLists 方法
 
         let zdyx_myChart = echarts.init(document.getElementById("zdxj"));
-        let ywrw_myChart = echarts.init(document.getElementById("ywrw"));
-        let zdyx = this.initChart("站点巡检",this.xjzs,this.zdzs,"#de4751");
-        let ywrw = this.initChart("运维任务",this.wcs, this.rwzs==0?1:this.rwzs,"#62ab00");
+        let ywrw_myChart = echarts.init(document.getElementById("ywrw"));//parseInt(this.xjzs),100-parseInt(this.xjzs)
+        let zdyx = this.initChart("站点巡检",parseInt(this.xjl.replace('%','')),100-parseInt(this.xjl.replace('%','')),"#de4751");
+        let ywrw = this.initChart("运维任务",parseInt(this.wcl.replace('%','')),100-parseInt(this.wcl.replace('%','')),"#62ab00");
         zdyx_myChart.setOption(zdyx);
         ywrw_myChart.setOption(ywrw);
 
@@ -156,7 +156,7 @@ export default {
                 label : {
                     formatter : function (params){
                         if(params.name == '异常')
-                        return (x1/x2).toFixed(2)*100 +'%'
+                        return (x1/(x1+x2)).toFixed(2)*100 +'%'
                         else
                           return ''
                     },
