@@ -21,7 +21,7 @@
                 this.$router.push({name: 'home'});
                 this.$layer.msg("请登录！");
             } else {
-                this.$router.push({name: 'redv1'});
+                // this.$router.push({name: 'redv1'});
                 console.log(this.$route);
             }
         },

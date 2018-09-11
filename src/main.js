@@ -388,6 +388,20 @@ const routeView = resolve => {
         // Indicator.close()
     }, 'group-route')
 }
+const routeReback3 = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-reback3.vue'))
+        // Indicator.close()
+    }, 'group-route')
+}
+const routeReback3View = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-reback3-view.vue'))
+        // Indicator.close()
+    }, 'group-route')
+}
 // import routeDone from './views/routeview/RouteView-done'
 const routeDone = resolve => {
     // Indicator.open();
@@ -622,6 +636,16 @@ const router = new VueRouter({
             path: '/routeReback1View',
             name: 'routeReback1View',
             component: routeReback1View
+        },
+        {
+            path: '/routeReback3',
+            name: 'routeReback3',
+            component: routeReback3
+        },
+        {
+            path: '/routeReback3View',
+            name: 'routeReback3View',
+            component: routeReback3View
         },
         {
             path: '/routeReback2',

@@ -48,8 +48,8 @@
                     <div class="mui-card-content">
                         <div class="mui-card-content-inner">
                             <div class="row">
-                                <img slot="img" src="http://lorempixel.com/160/160/people/"
-                                     style="width: 60px;height: 60px;" alt="">
+                                <img slot="img" src="../../statics/images/shanghai1.png"
+                                     style="width: 78px;height: 60px;" alt="">
                                 <span>工单标题：{{list.patrol_title|titleSplit}}</span>
 
                             </div>
@@ -77,7 +77,7 @@
                     <div class="mui-card-content">
                         <div class="mui-card-content-inner">
                             <div class="row">
-                                <img slot="img" src="http://lorempixel.com/160/160/people/" style="width: 60px;height: 60px;" alt="">
+                                <img slot="img" src="../../statics/images/shanghai1.png" style="width: 78px;height: 60px;" alt="">
                                 <span>工单标题：{{list.patrol_title|titleSplit}}</span>
                             </div>
                             <div class="row">
@@ -106,7 +106,7 @@
                     <div class="mui-card-content">
                         <div class="mui-card-content-inner">
                             <div class="row">
-                                <img slot="img" src="http://lorempixel.com/160/160/people/" style="width: 60px;height: 60px;" alt="">
+                                <img slot="img" src="../../statics/images/shanghai1.png" style="width: 78px;height: 60px;" alt="">
                                 <span>取水户名称：{{list.watuser_name|titleSplit}}</span>
 
                             </div>
@@ -131,7 +131,7 @@
                     <div class="mui-card-content">
                         <div class="mui-card-content-inner">
                             <div class="row">
-                                <img slot="img" src="../../statics/images/shanghai.png" style="width: 60px;height: 60px;" alt="">
+                                <img slot="img" src="../../statics/images/shanghai1.png" style="width: 78px;height: 60px;" alt="">
                                 <span>工单标题：{{list.patrol_title|titleSplit}}</span>
 
                             </div>
@@ -186,8 +186,6 @@
             }
         },
         mounted() {
-            //加载vue-layer组件
-            Vue.prototype.$layer = layer(Vue);
             if (this.userRole === 'admin') {
                 //初始化数据
                 this.getWarnList(this.time.selectedDate);
@@ -400,9 +398,10 @@
                         parent: this,//当前的vue对象
                         data: {
                             //props
+                            userRole: this.userRole
                         }
                     },
-                    area: ['45%', '30%'],
+                    area: ['45%', '25%'],
                     title: '选择巡检内容'
                 });
             }
