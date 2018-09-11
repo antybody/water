@@ -156,7 +156,7 @@
     .checkbox-active .checked-icon {
         display: block;
         position: absolute;
-        top: -10px;
+        top: -15px;
         left: -1px;
         font-size: 12px;
         color: #5d85ff;
