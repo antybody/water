@@ -1,20 +1,20 @@
 <!--获取取水户信息-->
 <template>
     <ul class="chooseTable">
-        <li @click="clickList()" title="" href="#">
+        <li @click="clickList('routeReback2')" v-show="userRole==='admin'" title="" href="#">
             <img title="选中取水户" style="text-align: center;" width="16" height="16"
                  src="../../statics/images/add.png"/>
             &nbsp;&nbsp;应急巡检
 
         </li>
-        <li @click="clickList('routeReback1')" title="" href="#">
+        <li @click="clickList('routeReback1')" v-show="userRole==='xjy'" title="" href="#">
             <img title="选中取水户" style="text-align: center;"
                  width="16" height="16"
                  src="../../statics/images/add.png"/>
             &nbsp;&nbsp;取水巡检
 
         </li>
-        <li @click="clickList()" title="" href="#">
+        <li @click="clickList('routeReback3')" v-show="userRole==='xjy'" title="" href="#">
             <img title="选中取水户" style="text-align: center;" width="16" height="16"
                  src="../../statics/images/add.png"/>
             &nbsp;&nbsp;流量计巡检
@@ -30,7 +30,7 @@
     import layer from 'vue-layer'
 
     export default {
-        props: ['layerid'],
+        props: ['layerid', 'userRole'],
         data() {
             return {
                 qshLists: [],
