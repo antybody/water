@@ -27,10 +27,10 @@
       <!--环形图-->
       <group header="取水量/许可量" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="qs" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="qs" :style="{width:'160px',height:'150px'}"></div>
             </cell>
             <cell cells="7">
-              <ul class="pieHead">
+              <ul class="pieHead" style="padding-left: 0px">
                   <!--<li :key="item.id" v-for="item in qsList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>-->
                   <li >取水户数：<span class='forange'>{{qshs}}</span>个</li>
                   <li >许可总量：<span class='forange'>{{xkzl}}</span></li>
@@ -45,10 +45,10 @@
       </grid>
       <group header="超量取水" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="cl" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="cl" :style="{width:'160px',height:'150px'}"></div>
             </cell>
             <cell>
-              <ul class="pieHead">
+              <ul class="pieHead" style="padding-left: 0px">
                   <!--<li :key="item.id" v-for="item in clList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>-->
                   <li >超量户数：<span class='forange'>{{clhs}}</span>个</li>
                   <li >超标水量：<span class='forange'>{{cbsl}}</span></li>
@@ -62,10 +62,10 @@
       </grid>
       <group header="许可证逾期" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="xkz" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="xkz" :style="{width:'160px',height:'150px'}"></div>
             </cell>
             <cell>
-              <ul class="pieHead">
+              <ul class="pieHead" style="padding-left: 0px">
                   <!--<li :key="item.id" v-for="item in xkzList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>-->
 
                   <li >证总数：<span class='forange'>{{xkzSum}}</span>个</li>
@@ -80,14 +80,14 @@
       </grid>
      <group header="大用水户用水" :footer="nowTime">
         <grid>
-            <cell cells="3"><div class="pies" id="dys" :style="{width:'200px',height:'150px'}"></div>
+            <cell cells="3"><div class="pies" id="dys" :style="{width:'160px',height:'150px'}"></div>
             </cell>
             <cell>
-              <ul class="pieHead">
+              <ul class="pieHead"  style="padding-left: 0px">
                   <!--<li :key="item.id" v-for="item in dysList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>-->
                   <li >用水户数：<span class='forange'>{{yshs}}</span>个</li>
                   <li >用水计划：<span class='forange'>{{ysjh}}</span>个</li>
-                  <li >用水总量：<span class='forange'>{{yszl}}</span>个</li>
+                  <li >用水总量：<span class='forange'>{{yszl}}</span>m³</li>
                   <li >计划比率：<span class='forange'>{{jhbl}}</span></li>
               </ul>
             </cell>
@@ -165,11 +165,11 @@ export default {
              response => {
                  this.qshs = response.data.data[0].qshs;
                  this.qsxkb = response.data.data[0].qsxkb;
-                 this.qszl = response.data.data[0].qszl;
-                 this.xkzl = response.data.data[0].xkzl;
+                 this.qszl = parseInt(response.data.data[0].qszl/10000);
+                 this.xkzl = parseInt(response.data.data[0].xkzl/10000);
 
                  this.clhs = response.data.data[1].clhs;
-                 this.cbsl = response.data.data[1].cbsl;
+                 this.cbsl = parseInt(response.data.data[1].cbsl/10000);
                  this.cbbl = response.data.data[1].cbbl
                  let bl=parseInt(this.cbbl.replace('%',''));
 
@@ -186,10 +186,10 @@ export default {
                  let cl_myChart = echarts.init(document.getElementById("cl"));
                  let xkz_myChart = echarts.init(document.getElementById("xkz"));
                  let dys_myChart = echarts.init(document.getElementById("dys"));
-                 let qs = this.initChart("取水/许可",this.xkzl,this.qszl,"#de4751");
-                 let cl = this.initChart("超量取水",bl,100,"#62ab00");
-                 let xkz = this.initChart("许可逾期",this.sxzs,this.xkzSum,"#0a9fde");
-                 let dys = this.initChart("大用水",this.ysjh,this.yszl,"#FFBB00");
+                 let qs = this.initChart("取水/许可",parseInt(this.qsxkb.replace('%','')) ,100-parseInt(this.qsxkb.replace('%','')),"#de4751");
+                 let cl = this.initChart("超量取水",bl,100-bl,"#62ab00");
+                 let xkz = this.initChart("许可逾期",parseInt(this.sxbl.replace('%','')),100-parseInt(this.sxbl.replace('%','')),"#0a9fde");
+                 let dys = this.initChart("大用水",parseInt(this.jhbl.replace('%','')),100-parseInt(this.jhbl.replace('%','')),"#FFBB00");
                  qs_myChart.setOption(qs);
                  cl_myChart.setOption(cl);
                  xkz_myChart.setOption(xkz);
@@ -227,7 +227,7 @@ export default {
                 label : {
                     formatter : function (params){
                         if(params.name == '异常')
-                        return (x1/x2).toFixed(2)*100 +'%'
+                        return (x1/(x2+x1)).toFixed(2)*100 +'%'
                         else
                           return ''
                     },

@@ -116,7 +116,7 @@ export default {
   mounted(){
     // this.loadChart();
     // 加载监测数据
-    this.getJcqsLists({type:'day',jllx:'地表水取水'}).then(
+    this.getJcqsLists({type:'day',jllx:['地表水取水']}).then(
        () => {this.loadChart();}
     )
     // 加载质量走势
@@ -134,8 +134,12 @@ export default {
        this.$router.push({path:'/check'});
     },
     changeEvent:function(tag,index){
-      if(tag == 'qk') // 情况
-       this.isClick1 = index;
+      if(tag == 'qk'){ // 情况
+          this.isClick1 = index;
+          this.getJcqsLists({type:this.isClick1,jllx:this.isClick4=='地下水开采'?['地下水开采','地下水取水']:this.isClick4.split(';')}).then(
+              () => {this.loadChart();}
+          );
+      }
       if(tag == 'zs'){ // 走势
        this.isClick2 = index;
        this.getZsqsLists({date:this.isClick2,jllx:this.isClick4,ycqk:this.isClick5}).then(
@@ -148,7 +152,7 @@ export default {
       }if(tag == 'ml'){ // 目录
        this.isClick4 = index;
        // 监测情况
-       this.getJcqsLists({type:this.isClick1,jllx:this.isClick4}).then(
+       this.getJcqsLists({type:this.isClick1,jllx:this.isClick4=='地下水开采'?['地下水开采','地下水回灌']:this.isClick4.split(';')}).then(
           () => {this.loadChart();}
        );
        this.getZsqsLists({date:this.isClick2,jllx:this.isClick4,ycqk:this.isClick5}).then(
