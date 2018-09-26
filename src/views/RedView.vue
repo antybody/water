@@ -23,7 +23,7 @@
            <cell>
                <router-link to="/redwater">
                    <!--<icon name="back"></icon>-->取水许可超期
-                   <div class="sk-icon-name text-truncate">10张</div>
+                   <div class="sk-icon-name text-truncate">64张</div>
                </router-link>
            </cell>
            <cell>

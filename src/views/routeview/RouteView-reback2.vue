@@ -63,7 +63,7 @@
                     </div>
                 </h5>
                 <textarea name="errormsg" readonly="readonly" v-model="xjList.errormsg"></textarea>
-                
+
                 <h5 class="wt-title" style="padding:0.925rem 0">
                     <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>巡检反馈</span>
                         <span class="wt-bar-subtitle"></span>
@@ -79,7 +79,7 @@
                         <span class="radio-name" @click="rClick(0)">无需</span>
                     </a>
                 </list-item>
-                
+
                 <div class="wt-list-info">
                     <div class="wt-list-lineover">
                         <label>现场照片：
@@ -90,7 +90,8 @@
                         <span class="js_add_img">
                              <i class="icon_add_gray" @click="open('offcanvas5')"></i>
                                  <span class="input-add-img-box">
-                                     <input id="imgupload" capture="camera" class="input-add-img" type="file" accept="image/*"/>
+                                     <input id="imgupload" capture="camera" class="input-add-img" type="file"
+                                            accept="image/*"/>
                                  </span>
                              </span>
                         <ul class="upload-pre-img" v-show="imgLists.length >0">
@@ -134,22 +135,24 @@
             </tabs-desc>
             <tabs-desc slot="desc">
                 <ul class="route-timeline">
-                    <li v-if="index == 0" class="route-timeline-item cur" v-for="(tl,index) in timeline" :key="tl.index">
+                    <li v-if="index == 0" class="route-timeline-item cur" v-for="(tl,index) in timeline"
+                        :key="tl.index">
                         <i class="wt-bar-i-16"></i>
                         <div class="route-timline-h">
-                        <div class="desc">
-                            <h3 style="color:rgb(254, 155, 30)">{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>
-                            <p>{{tl.dealtime}}</p>
-                        </div>
+                            <div class="desc">
+                                <h3 style="color:rgb(254, 155, 30)">{{tl.dealcompany}}
+                                    {{tl.dealperson}},{{tl.dealmsg}}</h3>
+                                <p>{{tl.dealtime}}</p>
+                            </div>
                         </div>
                     </li>
                     <li v-else class="route-timeline-item none">
                         <i class="wt-bar-i-16"></i>
                         <div class="route-timline-h">
-                        <div class="desc">
-                            <h3>{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>
-                            <p>{{tl.dealtime}}</p>
-                        </div>
+                            <div class="desc">
+                                <h3>{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>
+                                <p>{{tl.dealtime}}</p>
+                            </div>
                         </div>
                     </li>
                     <li class="route-timeline-item none">
@@ -170,7 +173,7 @@
     import VueView from "vue-amazeui/src/components/vueview/vueview";
     import redMap from '../../components/redmap'
     import * as util from '../../libs/utils'
-    import 'jquery' 
+    import 'jquery'
 
     export default {
         components: {
@@ -186,16 +189,18 @@
                 open2: false,
                 open3: false,
                 selectDel: -1,
-                qsh:{name:'宝信软件',station:'宝信监测点',xkz:'国长 字[2015]第01001号',
-                    ssll:'120',ljll:'2300'},
-                station:{bh:'宝信测站',cs:'宝信厂商',xh:'A0001',lx:'流量计',addtime:'2010-01-01'},
+                qsh: {
+                    name: '宝信软件', station: '宝信监测点', xkz: '国长 字[2015]第01001号',
+                    ssll: '120', ljll: '2300'
+                },
+                station: {bh: '宝信测站', cs: '宝信厂商', xh: 'A0001', lx: '流量计', addtime: '2010-01-01'},
                 PATROL_CONTENT: '',
                 BZ: '',
                 mapPoints: [
                     {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
                 ],
-                xjList:{errormsg:'111111'},
-                timeline:[]
+                xjList: {errormsg: '111111'},
+                timeline: []
             }
         },
         computed: {
@@ -269,16 +274,16 @@
                         console.log("error:" + response.data);
                     });
             },
-            rClick:function(v){
-                for(var i = 0 ; i < $("input[name='lljtxsc']").length; i++){
-                    $($("input[name='lljtxsc']")[i]).prop("checked",false);
+            rClick: function (v) {
+                for (var i = 0; i < $("input[name='lljtxsc']").length; i++) {
+                    $($("input[name='lljtxsc']")[i]).prop("checked", false);
                     console.log($("input[name='lljtxsc']")[i]);
-                    if($($("input[name='lljtxsc']")[i]).val() == v){
-                        $($("input[name='lljtxsc']")[i]).prop("checked","checked");
+                    if ($($("input[name='lljtxsc']")[i]).val() == v) {
+                        $($("input[name='lljtxsc']")[i]).prop("checked", "checked");
                     }
-                }       
+                }
             },
-            lateSumit:function(){
+            lateSumit: function () {
                 // 这里记录 收单人
                 let username = util.getJStore("userInfo")["user_info"];
                 console.log(username);
@@ -289,9 +294,10 @@
 </script>
 
 <style>
-    .clear{
-        clear:both
+    .clear {
+        clear: both
     }
+
     .upload-pre-del {
         position: relative;
         color: #000;
@@ -354,7 +360,6 @@
         background-color: #d9d9d9;
     }
 
-
     h3 {
         color: #3b3b3b;
         font-size: 0.875rem;
@@ -403,8 +408,6 @@
         font-weight: 300 !important;
     }
 
-    
-
     .item {
         padding-right: 0 !important;
     }
@@ -419,7 +422,8 @@
         font-size: 0.9rem !important;
         border-radius: 0.2rem;
     }
-    .advice{
+
+    .advice {
         height: 16px;
         width: 16px;
         display: inline-block;
@@ -429,7 +433,8 @@
         vertical-align: middle;
         margin-top: 5px;
     }
-    input[type="radio"]:checked + .advice{
+
+    input[type="radio"]:checked + .advice {
         background-image: url('../../../statics/images/radio_yes.png');
     }
 

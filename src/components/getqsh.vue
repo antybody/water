@@ -117,8 +117,8 @@
                     currentPage: 10000
                 };
                 // params = encodeURIComponent(JSON.stringify(params));
-                let params2 = encodeURI(encodeURI(JSON.stringify(params)));
-                this.$http.jsonp(API.QSH_LIST + "&params=" + params2).then(
+                params = encodeURI(encodeURI(JSON.stringify(params)));
+                this.$http.jsonp(API.QSH_LIST + "&params=" + params).then(
                     response => {
                         this.qshLists = response.data.data;
                         console.log(this.qshLists);

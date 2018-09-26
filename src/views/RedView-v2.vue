@@ -60,9 +60,9 @@
                         </cell>
                     </grid>
                     <grid avg="3" v-for="water in waters" align="center" :key="water.index">
-                        <cell class="cell-box">{{water.typen}}</cell>
-                        <cell class="cell-box wt-dblue">{{parseFloat(water.todayn)}} 万m³</cell>
-                        <cell class="cell-box wt-orange">{{water.yearn/10000 | numFilter}} 亿m³</cell>
+                        <cell style="text-align: left;padding-left: 1.5rem;" class="cell-box">{{water.typen}}</cell>
+                        <cell style="text-align: right;" class="cell-box wt-dblue">{{parseFloat(water.todayn)}} 万m³</cell>
+                        <cell style="text-align: right;" class="cell-box wt-orange">{{water.yearn/10000 | numFilter}} 亿m³</cell>
                     </grid>
                 </div>
             </div>

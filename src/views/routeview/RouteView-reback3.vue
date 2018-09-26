@@ -396,7 +396,7 @@
             },
             formSubmit() {
                 //必须上传图片
-                if (this.imgArray.length === 0) this.$layer.msg("请上传现场图片！"); return;
+                if (this.imgLists.length === 0) this.$layer.msg("请上传现场图片！"); return;
                 //获取所有checked的input
                 var radioH = document.getElementsByTagName("input");
                 console.log(radioH);

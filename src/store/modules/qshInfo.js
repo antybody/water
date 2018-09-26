@@ -39,8 +39,8 @@ const state = {
                 ]
         },{
         title: '监控级别', ol: '监控级别', select: '', key: 'jkjb', type: 'checkbox', children: [
-            {title: '不限', key: '-1', checked: true},
-            {title: '国控级在线', key: '00430001', checked: false},
+            {title: '不限', key: '-1', checked: false},
+            {title: '国控级在线', key: '00430001', checked: true},
             {title: '市控级在线', key: '00430002', checked: false},
             {title: '非在线', key: '00430003', checked: false},
             {title: '无计量', key: '00430004', checked: false},

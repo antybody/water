@@ -411,7 +411,7 @@
     function dateFormat(date, fmt) {
         var o = {
             "M+": date.getMonth() + 1,
-            "d+": date.getDate()
+            "d+": date.getDate() - 1
         };
         if (/(y+)/.test(fmt))
             fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
