@@ -7,6 +7,13 @@ const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
 
   //const BASE_URL = 'http://localhost:8080/wrmsApp'
 /**
+ *公用模板相关接口
+ * 以COMPONENTS开头
+ * */
+//获取取水户相关信息 取水户 站点 监测信息
+export const COMPONENTS_QSH = BASE_URL + '/app/water/getQysJcd?access_token=[b36680850768ff1b]';
+
+/**
  * @name 取水相关新闻列表
  * @param
  * */
