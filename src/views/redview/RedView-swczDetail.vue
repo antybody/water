@@ -84,9 +84,9 @@ export default {
     data(){
         return{
             sites: [
-                { hdst_nm: '青草沙',hdst_num:'1' },
-                { hdst_nm: 'Google',hdst_num:'2' },
-                { hdst_nm: 'Taobao',hdst_num:'3' }
+                //{ hdst_nm: '青草沙',hdst_num:'1' }//,
+                //{ hdst_nm: 'Google',hdst_num:'2' },
+                //{ hdst_nm: 'Taobao',hdst_num:'3' }
             ],
             tranDuration:600,
             tranX:0,

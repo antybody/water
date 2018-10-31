@@ -57,19 +57,19 @@ login
                     this.alertText = '请输入用户名';
                     return
                 } else if (!this.pwd) {
-                    this.open2 = true;
-                    this.alertText = '请输入密码';
-                    return
+                    // this.open2 = true;
+                    // this.alertText = '请输入密码';
+                    // return
                 }
                 var a;
-                var md5 = crypto.createHash("md5");
-                md5.update(this.pwd);
-                var pwdMd5 = md5.digest('hex');
-                console.log(pwdMd5);
+                // var md5 = crypto.createHash("md5");
+                // md5.update(this.pwd);
+                // var pwdMd5 = md5.digest('hex');
+                // console.log(pwdMd5);
                 //47bce5c74f589f4867dbd57e9ca9f808
                 let paramData = {
-                    user_code:this.username,    
-                    user_pwd: pwdMd5
+                    user_code:this.username,
+                    user_pwd:''// pwdMd5
                 }
                 paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
                 this.$http.jsonp(API.LOGIN + "&params=" + paramData).then(

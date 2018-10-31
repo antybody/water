@@ -199,13 +199,13 @@
                 let sydA = [];
                 let xA = [];
                 paramData2 = encodeURI(encodeURI(JSON.stringify(paramData2)));
-                this.$http.jsonp(API.GLKH_SJSB_QYSZS + "&params=" + paramData2).then(
+                this.$http.jsonp(API.GLKH_SJSB_SZJCZS + "&params=" + paramData2).then(
                     response => {
-                        for (let value1 of response.data.jczd) {
+                        for (let value1 of response.data.sqnq) {
                             xA.push(value1.time);
                             sgnqA.push(parseInt(value1.num.replace('%', '')));
                         }
-                        for (let value2 of response.data.rsl) {
+                        for (let value2 of response.data.syd) {
                             sydA.push(parseInt(value2.num.replace('%', '')));
                         }
                         this.ds = [];

@@ -97,10 +97,10 @@
                     // {type: '农业用水', today: '0.1', year: '60.34'}
                 ],
                 tablists: [
-                    {href: 'redwater', cl: 'wt-linear-purple', num: '60.34', text: '年度取水总量'},
-                    {href: '/cxksl', cl: 'wt-linear-blue', num: '3', text: '超许可取水'},
-                    {href: '/xkz', cl: 'wt-linear-red', num: '30', text: '取水许可超期'},
-                    {href: '/sgnq', cl: 'wt-linear-yellow', num: '30%', text: '水功能区达标率'}
+                    // {href: 'redwater', cl: 'wt-linear-purple', num: '60.34', text: '年度取水总量'},
+                    // {href: '/cxksl', cl: 'wt-linear-blue', num: '3', text: '超许可取水'},
+                    // {href: '/xkz', cl: 'wt-linear-red', num: '30', text: '取水许可超期'},
+                    // {href: '/sgnq', cl: 'wt-linear-yellow', num: '30%', text: '水功能区达标率'}
                 ],
                 rivers: [
                     {name: '黄浦江', type: '1', typeName: '优'},
@@ -130,6 +130,17 @@
             //     }, response => {
             //         console.log("error");
             //     });
+            //年度取水总量、超许可取水、取水许可超期、水功能区达标率
+            let params1 = {
+                //xzqh: ''
+            };
+            params1 = encodeURI(encodeURI(JSON.stringify(params1)));
+            this.$http.jsonp(API.QSXKCQDBL + "&params=" + params1).then(
+                response => {
+                    this.tablists = response.data.list;
+                }, response => {
+                    console.log("error");
+                });
             //取水户列表查询所需要的参数
             let params = {
                 //xzqh: ''

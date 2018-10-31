@@ -26,7 +26,7 @@
             </cell>
             <cell cells="7">
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in qshList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <li :key="item.id" v-for="item in qshList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -40,7 +40,7 @@
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in sgnqList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <li :key="item.id" v-for="item in sgnqList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -54,7 +54,7 @@
             </cell>
             <cell>
               <ul class="pieHead">
-                <li :key="item.id" v-for="item in sydList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>
+                <li :key="item.id" v-for="item in sydList">{{item.txt}}：<span class='forange'>{{item.value}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -105,7 +105,7 @@ export default {
         let syd_myChart = echarts.init(document.getElementById("syd"));
         let sgnq_myChart = echarts.init(document.getElementById("sgnq"));
         let qshO = this.initChart("取用水户",this.qshList[0].value,this.qshList[1].value,"#de4751");
-        let sydO = this.initChart("水源地",this.sydList[5].value,this.sydList[0].value-this.sydList[5].value,"#62ab00");
+        let sydO = this.initChart("水源地",this.sydList[2].value,this.sydList[0].value-this.sydList[2].value,"#62ab00");
         let sgnqO = this.initChart("水功能区",this.sgnqList[5].value,this.sgnqList[1].value-this.sgnqList[5].value,"#0a9fde");
         qsh_myChart.setOption(qshO);
         syd_myChart.setOption(sydO);

@@ -85,10 +85,10 @@
             <cell>
               <ul class="pieHead"  style="padding-left: 0px">
                   <!--<li :key="item.id" v-for="item in dysList">{{item.txt}}：<span class='forange'>{{item.value}}</span>个</li>-->
-                  <li >用水户数：<span class='forange'>{{yshs}}</span>个</li>
-                  <li >用水计划：<span class='forange'>{{ysjh}}</span>个</li>
-                  <li >用水总量：<span class='forange'>{{yszl}}</span>m³</li>
-                  <li >计划比率：<span class='forange'>{{jhbl}}</span></li>
+                  <li >应报户数：<span class='forange'>{{yshs}}</span>个</li>
+                  <li >实报户数：<span class='forange'>{{ysjh}}</span>个</li>
+                  <li >用水总量：<span class='forange'>{{yszl}}</span></li>
+                  <li >比率：<span class='forange'>{{jhbl}}</span></li>
               </ul>
             </cell>
         </grid>
@@ -119,7 +119,7 @@ export default {
          sxzs:0,
          xkzSum:0,
 
-         isClick4:1,
+         isClick4:3,
 
          clhs:0,
          cbsl:0,
@@ -179,7 +179,7 @@ export default {
 
                  this.yshs = response.data.data[3].yshs;
                  this.ysjh = response.data.data[3].ysjh;
-                 this.yszl = response.data.data[3].yszl;
+                 this.yszl = parseInt(response.data.data[3].yszl/10000);
                  this.jhbl = response.data.data[3].jhbl;
 
                  let qs_myChart = echarts.init(document.getElementById("qs"));

@@ -62,6 +62,7 @@ export default {
         initData(){
             if (this.userInfo && this.userInfo.user_id) {
                 this.username = this.userInfo.name;
+
             }else{
                 this.username = '登录';
             }
