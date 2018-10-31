@@ -35,18 +35,18 @@ export default {
     data(){
       return{
           listInfo:[
-              {
-                  "displayname": "长江崇明东滩保护区",
-                  "hdst_nm": "东团",
-                  "hdst_num": "63400012",
-                  "seg_nm": "东滩",
-                  "seg_numb": "184",
-                  "state": "",
-                  "szmb": "Ⅱ类",
-                  "wfz_nb": "F1103000321000",
-                  "x": "",
-                  "y": ""
-              }
+              // {
+              //     "displayname": "长江崇明东滩保护区",
+              //     "hdst_nm": "东团",
+              //     "hdst_num": "63400012",
+              //     "seg_nm": "东滩",
+              //     "seg_numb": "184",
+              //     "state": "",
+              //     "szmb": "Ⅱ类",
+              //     "wfz_nb": "F1103000321000",
+              //     "x": "",
+              //     "y": ""
+              // }
               ],
           listDetail:{name:'吴淞江',sz:'II',pj:'II',zdgn:'过渡区',
               addrwater:'吴淞江~苏州河',sdm:'嘉定汶',edm:'蕰藻浜',

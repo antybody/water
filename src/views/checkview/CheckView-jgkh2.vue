@@ -193,10 +193,10 @@ export default {
 
                   let qs_myChart = echarts.init(document.getElementById("syd"));
                   let cl_myChart = echarts.init(document.getElementById("sgnq"));
-                  let qs = this.initChart("水源地",parseInt(this.sgnqCbl.replace('%','')),100-parseInt(this.sgnqCbl.replace('%','')),"#de4751");
-                  let cl = this.initChart("水功能区",parseInt(this.sydCbl.replace('%','')),100-parseInt(this.sydCbl.replace('%','')),"#62ab00");
-                  qs_myChart.setOption(qs);
-                  cl_myChart.setOption(cl);
+                  let qs = this.initChart("水功能区",parseInt(this.sgnqCbl.replace('%','')),100-parseInt(this.sgnqCbl.replace('%','')),"#de4751");
+                  let cl = this.initChart("水源地",parseInt(this.sydCbl.replace('%','')),100-parseInt(this.sydCbl.replace('%','')),"#62ab00");
+                  qs_myChart.setOption(cl);
+                  cl_myChart.setOption(qs);
               }, response => {
                   console.log("error");
               });

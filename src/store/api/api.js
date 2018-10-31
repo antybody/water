@@ -208,8 +208,8 @@ export const YWJG_SZ = BASE_URL + '/app/ywjg/getSzpjjg?access_token=[b3668085076
  * */
 //首页取水详情
 export const QS_XQ = BASE_URL + '/app/water/getDayYearQs?access_token=[b36680850768ff1b]';
-
-
+//年度取水总量、超许可取水、取水许可超期、水功能区达标率
+export const QSXKCQDBL = BASE_URL + '/app/water/getRedLine?access_token=[b36680850768ff1b]';
 //巡检表单提交
 export const SAVE_XJJL = BASE_URL + '/app/route/wt_xjjlCrud?access_token=[b36680850768ff1b]';
 export const SAVE_LLY = BASE_URL + '/app/route/wt_lly_whbyCrud?access_token=[b36680850768ff1b]';

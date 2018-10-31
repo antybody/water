@@ -141,7 +141,7 @@ export default {
           // nowTime: state => state.sjzl.nowDate
     })
   },mounted(){
-        this.$http.jsonp(API.GLKH_SJSB).then(
+        this.$http.jsonp(API.GLKH_SJSB).then(//数据上报
             response => {
                 this.qsh = response.data.data.qsh;
                 this.qshzd = response.data.data.qsjcd;
@@ -151,7 +151,7 @@ export default {
             }, response => {
                 console.log("error");
             });
-        this.$http.jsonp(API.GLKH_SJZL).then(
+        this.$http.jsonp(API.GLKH_SJZL).then(//数据质量
             response => {
                 this.sjzl_jczd = response.data.zd;
                 this.sjzl_qssl = response.data.qsh;
@@ -160,14 +160,14 @@ export default {
             }, response => {
                 console.log("error");
             });
-        this.$http.jsonp(API.YWXJ_SY).then(
+        this.$http.jsonp(API.YWXJ_SY).then(//运维巡检
             response => {
                 this.ywxj_xjzd = response.data.data.XJZD;
                 this.ywxj_yxwhzd = response.data.data.YXWHZD;
             }, response => {
                 console.log("error");
             });
-        this.$http.jsonp(API.YWJG_SY).then(
+        this.$http.jsonp(API.YWJG_SY).then(//业务监管
             response => {
                 this.ywjg_qsh = response.data.data[0].QSH;
                 this.ywjg_ysh = response.data.data[0].YSH;

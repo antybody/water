@@ -117,7 +117,7 @@ export default {
                     this.sgnqList = response.data.data;
                     //循环设置跳转地址 href
                     for (let value of response.data.data) {
-                        value.href = "/qsxkzDetail/" + value.wfzNb;
+                        value.href = "/qsxkzDetail/" + value.id;
                         // console.log(value);
                     }
                 }, response => {

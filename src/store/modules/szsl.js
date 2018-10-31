@@ -66,8 +66,8 @@ const state = {
         {txt:'监测数量',value:'加载中',dw:''},
         {txt:'超标数量',value:'加载中',dw:''},
         {txt:'超标比率',value:'加载中',dw:''},
-        {txt:'超标项数',value:'加载中',dw:''},
-        {txt:'超标水源地',value:'加载中',dw:''}
+        {txt:'超标项数',value:'加载中',dw:''}
+        //{txt:'超标水源地',value:'加载中',dw:''}
     ],
     // updated using new data
     sgnqList:[

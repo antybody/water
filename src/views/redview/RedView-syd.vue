@@ -34,7 +34,7 @@ import * as API from '../../store/api/api'
 export default {
     data(){
       return{
-          listInfo:[{"gsgm": "777","href":'/sydDetail/63400011',"id": "63400011","name": "黄浦江上游水源地","state": "备用","dbqk": "达标","szmb": "Ⅲ类","x": "-14188.07939","y": "-24308.72585"}
+          listInfo:[//{"gsgm": "777","href":'/sydDetail/63400011',"id": "63400011","name": "黄浦江上游水源地","state": "备用","dbqk": "达标","szmb": "Ⅲ类","x": "-14188.07939","y": "-24308.72585"}
                   // {title:'长江口陈行水源地',href:'/sydDetail/2',tag1:'111',tag2:'不达标',tag3:'111',tag4:'33',x:'121.122',y:'31.065'}
                   // ,{title:'金泽水源地',href:'/sydDetail/5',tag1:'111',tag2:'221',tag3:'111',tag4:'33',x:'121.32',y:'31.35'}
                   // ,{title:'黄浦江上游',href:'/sydDetail/6',tag1:'111',tag2:'221',tag3:'111',tag4:'备用',x:'121.12',y:'31.5'}
