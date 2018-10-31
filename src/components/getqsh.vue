@@ -48,7 +48,8 @@
             };
             // params = encodeURIComponent(JSON.stringify(params));
             let params2 = encodeURI(encodeURI(JSON.stringify(params)));
-            this.$http.jsonp(API.QSH_LIST + "&params=" + params2).then(
+            // this.$http.jsonp(API.QSH_LIST + "&params=" + params2).then(
+            this.$http.jsonp(API.COMPONENTS_QSH + "&params=" + params2).then(
                 response => {
                     this.qshLists = response.data.data;
                     console.log(this.qshLists);
