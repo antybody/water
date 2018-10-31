@@ -4,7 +4,7 @@
         <navbar slot="header" class="wt-linear-blue">
             大用水户
             <icon name="left-nav" slot="left" titleRight="返回" back></icon>
-            <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/dbqsh"></icon>
+            <icon name="right-nav" titleLeft="地图" slot="right" href="/redmap/ysh"></icon>
         </navbar>
         <group noPadded class="group-clear" ref="viewbox">
 

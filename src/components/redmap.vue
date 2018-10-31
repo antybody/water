@@ -30,6 +30,7 @@
                 AMapUI: null,
                 AMap: null,
                 map: '',
+                infoWindow:null,
                 mapAddress: {
                     address: '获取地址中...',
                     lng: '',
@@ -68,7 +69,7 @@
                     if (this.lat && this.lng) {
                         mapConfig.center = [this.lng, this.lat]
                     }
-                    let infoWindow = new AMap.InfoWindow({
+                    this.infoWindow = new AMap.InfoWindow({
 //            isCustom: true,
                         offset: new AMap.Pixel(0, -30)
                     });
@@ -147,8 +148,8 @@
                         });
                         marker.content = this.getContent(this.points[i].name, this.points[i].desc).join("");
                         marker.on('click', markerClick => {
-                            infoWindow.setContent(markerClick.target.content);
-                            infoWindow.open(map, markerClick.target.getPosition());
+                            this.infoWindow.setContent(markerClick.target.content);
+                            this.infoWindow.open(map, markerClick.target.getPosition());
                         });
                         // marker.emit('click', {target: marker});
                     }
@@ -165,8 +166,8 @@
                     });
                     marker.content = this.getContent(this.points[i].name, this.points[i].desc).join("");
                     marker.on('click', markerClick => {
-                        infoWindow.setContent(markerClick.target.content);
-                        infoWindow.open(map, markerClick.target.getPosition());
+                        this.infoWindow.setContent(markerClick.target.content);
+                        this.infoWindow.open(this.map, markerClick.target.getPosition());
                     });
                     // marker.emit('click', {target: marker});
                 }

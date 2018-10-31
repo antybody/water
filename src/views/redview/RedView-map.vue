@@ -122,7 +122,32 @@
                         return '地表水取水';
                         break;
                     case 'ysh':
-
+                        let paramDataYsh = {
+                            stlx: '',
+                            mbsz: '',
+                            type: '1'//需要评价
+                        }
+                        paramDataYsh = encodeURIComponent(JSON.stringify(paramDataYsh));
+                        this.$http.jsonp(API.DYSH_LIST + "&params=" + paramDataYsh).then(
+                            response => {
+                                var sydArr = [];
+                                for (var i = 0; i < response.data.data.length; i++) {
+                                    if(response.data.data[i].companyname != '') {
+                                        sydArr.push(
+                                            {
+                                                lng: response.data.data[i].x,
+                                                lat: response.data.data[i].y,
+                                                name: response.data.data[i].companyname,
+                                                desc:""// "水质达标状况:"+response.data.data[i].dbzk,
+                                            }
+                                        )
+                                    }
+                                }
+                                this.mapPoints = sydArr;
+                                //this.mapPoints=[{lng:121.372882,lat:31.176523,name:'水源地1',desc:'地址：11111,监测水量：34343'}];
+                            }, response => {
+                                console.log("error");
+                            });
                         return '用水户';
                         break;
                     case 'syd':
@@ -188,16 +213,29 @@
                         let paramsXc = {
                             kzsyd: '',
                             state: '',
-                            name: '',
-                            type: ''
+                            name:'',
+                            currentPage: '10'
                         };
                         paramsXc = encodeURI(encodeURI(JSON.stringify(paramsXc)));
                         this.$http.jsonp(API.XC_LIST + "&params=" + paramsXc).then(
                             response => {
-                                this.mapPoints = response.data.data;
-                            }, response => {
-                                console.log("error");
-                            });
+                                var swczArr = [];
+                                for (var i = 0; i < response.data.data.length; i++) {
+                                    if(response.data.data[i].name != ''&&response.data.data[i].lng != null) {
+                                        swczArr.push(
+                                            {
+                                                lng: response.data.data[i].lng,
+                                                lat: response.data.data[i].lat,
+                                                name: response.data.data[i].name,
+                                                desc: '状态：'+response.data.data[i].state,
+                                            }
+                                        )
+                                    }
+                                }
+                                this.mapPoints = swczArr;
+                        }, response => {
+                            console.log("error");
+                        });
                         return '咸潮';
                         break;
                     case 'sgnq':
