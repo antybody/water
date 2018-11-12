@@ -40,7 +40,7 @@
             <cell>
               <ul class="pieHead">
                   <li >应报站点：<span class='forange'>{{yshYbzd}}</span></li>
-                  <li >实到站点：<span class='forange'>{{yshSbzd}}</span></li>
+                  <li >实报站点：<span class='forange'>{{yshSbzd}}</span></li>
                   <li >上报率：<span class='forange'>{{yshSbl}}</span></li>
               </ul>
             </cell>
@@ -56,7 +56,7 @@
             <cell>
               <ul class="pieHead">
                   <li >应报站点：<span class='forange'>{{sydYbzd}}</span></li>
-                  <li >实到站点：<span class='forange'>{{sydSbzd}}</span></li>
+                  <li >实报站点：<span class='forange'>{{sydSbzd}}</span></li>
                   <li >上报率：<span class='forange'>{{sydSbl}}</span></li>
               </ul>
             </cell>
@@ -72,7 +72,7 @@
             <cell>
               <ul class="pieHead">
                   <li >应报站点：<span class='forange'>{{sgnqYbzd}}</span></li>
-                  <li >实到站点：<span class='forange'>{{sgnqSbzd}}</span></li>
+                  <li >实报站点：<span class='forange'>{{sgnqSbzd}}</span></li>
                   <li >上报率：<span class='forange'>{{sgnqSbl}}</span></li>              </ul>
             </cell>
         </grid>

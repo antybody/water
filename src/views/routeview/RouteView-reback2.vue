@@ -62,7 +62,7 @@
                         <span class="wt-bar-subtitle"></span>
                     </div>
                 </h5>
-                <textarea name="errormsg" readonly="readonly" v-model="xjList.errormsg"></textarea>
+                <textarea name="errormsg" v-model="xjList.errormsg"></textarea>
 
                 <h5 class="wt-title" style="padding:0.925rem 0">
                     <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>巡检反馈</span>
@@ -199,7 +199,7 @@
                 mapPoints: [
                     {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
                 ],
-                xjList: {errormsg: '111111'},
+                xjList: {errormsg: '数据量异常'},
                 timeline: []
             }
         },
