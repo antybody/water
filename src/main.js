@@ -298,7 +298,7 @@ const xkz = resolve => {
 const qsxkz = resolve => {
     // Indicator.open();
     require.ensure([], () => {
-        resolve(require('./views/redview/RedView-qsxkz.vue'))
+        resolve(require('./views/redview/RedView-qsgqViewgqViewxkz.vue'))
         // Indicator.close()
     }, 'group-home')
 }
@@ -331,6 +331,22 @@ const dyshView = resolve => {
     // Indicator.open();
     require.ensure([], () => {
         resolve(require('./views/redview/RedView-dyshDetail.vue'))
+        // Indicator.close()
+    }, 'group-home')
+}
+
+//灌区--2018.12.03-huaibaoqi
+const gq = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-gq.vue'))
+        // Indicator.close()
+    }, 'group-home')
+}
+const gqView = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/redview/RedView-gqDetail.vue'))
         // Indicator.close()
     }, 'group-home')
 }
@@ -590,6 +606,16 @@ const router = new VueRouter({
         {
             path: '/qshDetail/:id',
             component: qshDetail
+        },
+        //灌区
+        {
+            path: '/gq',
+            component: gq
+        },
+
+        {
+            path: '/gqView/:id',
+            component: gqView
         },
         {
             path: '/sgnqDetail/:id',

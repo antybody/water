@@ -13,12 +13,13 @@ import login from './modules/login'
 import red from './modules/red'
 import homeview from './modules/homeview'
 import sjzl from './modules/szsl'
+import gqInfo from './modules/gqInfo'//1203--huai
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    redmap,qshInfo,dyshInfo,searchBar,login,red,homeview,sgnqInfo,sydInfo,xcInfo,sjzl,xkzInfo
+    redmap,qshInfo,dyshInfo,searchBar,login,red,homeview,sgnqInfo,sydInfo,xcInfo,sjzl,xkzInfo,gqInfo
   },
   proxyTable: {
         '/api': {

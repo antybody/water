@@ -80,7 +80,8 @@ const actions = {
                         {key:'syd',name:'水源地'},
                         {key:'sgnq',name:'水功能区'},
                        {key:'swcz',name:'水文测站'},
-                       {key:'xc',name:'咸潮'}
+                       {key:'xc',name:'咸潮'},
+                       {key:'gq',name:'灌区'}       //2018.12.03 hauibaoqi
                         ],
                    root:payload.root
                })

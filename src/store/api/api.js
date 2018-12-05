@@ -100,6 +100,16 @@ export const DYSH_LIST = BASE_URL + '/app/wateruser/getDysh?access_token=[b36680
 export const DYSH_CONTENT = BASE_URL + '/app/wateruser/getJcxx?access_token=[b36680850768ff1b]';
 
 /**
+ * @name 灌区
+ * @params
+ * 2018.12.03
+ * huaibaoqi
+ * */
+export const GQ_LIST = BASE_URL + '/app/nyys/getGq?access_token=[b36680850768ff1b]';
+export const GQ_CONTENT = BASE_URL + '/app/nyys/getGqxx?access_token=[b36680850768ff1b]';
+
+
+/**
  * @name 运维巡检
  * @params
  * */
