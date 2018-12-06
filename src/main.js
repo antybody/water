@@ -448,7 +448,7 @@ const person = () => import('./views/userview/person')
 const router = new VueRouter({
     mode: 'hash',  //不想看到#号则配置这个 (可以用来解决与html本身锚点冲突的问题)
     routes: [
-        {path: '/', redirect: '/home'},
+        {path: '/', redirect: '/redv1'},
         {
             path: '/home',
             name: 'home',

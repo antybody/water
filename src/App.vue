@@ -4,8 +4,12 @@
             <tabbar-item active icon="home" title="首页" @tabbarItemClick="tabbarItemClick('redv1')"></tabbar-item>
             <!-- <tabbar-item icon="bars" title="三条红线" href="/redv1"></tabbar-item> -->
             <tabbar-item icon="more" title="管理考核" @tabbarItemClick="tabbarItemClick('check')"></tabbar-item>
-            <tabbar-item icon="gear" title="巡检运维" @tabbarItemClick="tabbarItemClick('route')"></tabbar-item>
-            <tabbar-item icon="person" title="我的" @tabbarItemClick="tabbarItemClick('home')"></tabbar-item>
+            <!--
+              运维巡检部分需要指定 业务人员和巡检人员
+            -->
+            <!--<tabbar-item icon="gear" title="巡检运维" @tabbarItemClick="tabbarItemClick('route')"></tabbar-item>-->
+            <!--登陆部分集成了织语的框架-->
+            <!--<tabbar-item icon="person" title="我的" @tabbarItemClick="tabbarItemClick('home')"></tabbar-item>-->
         </tabbar>
     </container>
 </template>
@@ -89,14 +93,15 @@
             tabbarItemClick: function (e) {
                 console.log(this.$route);
                 console.log(localStorage.getItem("_isUse"));
-                //登陆验证
-                if (localStorage.getItem("_isUse") === 'false') {
-                    this.$router.push({name: 'home'});
-                    this.$layer.msg("请登录！");
-                    console.log(localStorage.getItem("_isUse"));
-                } else {
-                    this.$router.push({name: e});
-                }
+                // 登陆验证
+                // if (localStorage.getItem("_isUse") === 'false') {
+                //     this.$router.push({name: 'home'});
+                //     this.$layer.msg("请登录！");
+                //     console.log(localStorage.getItem("_isUse"));
+                // } else {
+                //     this.$router.push({name: e});
+                // }
+                this.$router.push({name: e});
             }
         }
     }
