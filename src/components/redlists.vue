@@ -33,6 +33,8 @@
             <span slot="subTitle">
                 <span class="list-label label-orange">{{item.calculatetype}}</span>
                 <span class="list-label label-white">{{item.irrscale}}</span>
+                <span class="list-label label-white">{{item.desirrarea}}</span>
+                <span class="list-label label-white">{{item.effirrarea}}</span>
                 <span class="list-label label-blue">{{item.irrsoiltype}}</span>
                 <span class="list-label label-blue">{{item.irrtype}}</span>
                 <span class="list-label label-blue">{{item.irrwatertype}}</span>

@@ -22,12 +22,20 @@
                         <p class="g-overflow">{{jcInfo.irrscale}}</p>
                     </div>
                     <div class="wt-list-line">
-                        <label>农田类型：</label>
-                        <p class="g-overflow">{{jcInfo.irrtype}}</p>
+                        <label>设计灌溉面积：</label>
+                        <p class="g-overflow">{{jcInfo.desirrarea}}</p>
                     </div>
                     <div class="wt-list-line">
-                        <label>是否样点灌区：</label>
-                        <p class="g-overflow">{{jcInfo.irrsample}}</p>
+                        <label>有效灌溉面积：</label>
+                        <p class="g-overflow">{{jcInfo.effirrarea}}</p>
+                    </div>
+                    <div class="wt-list-line">
+                        <label>计量方式：</label>
+                        <p class="g-overflow">{{jcInfo.calculatetype}}</p>
+                    </div>
+                    <div class="wt-list-line">
+                        <label>取水方式：</label>
+                        <p class="g-overflow">{{jcInfo.irrwatertype}}</p>
                     </div>
                     <div class="wt-list-line">
                         <label>灌区位置：</label>
@@ -40,9 +48,13 @@
                 <div class="wt-title-line"></div>
                 <div class="wt-list-info lpextend" v-show="isShow">
                     <div class="wt-list-line">
-                    <label>取水方式：</label>
-                    <p class="g-overflow">{{jcInfo.irrwatertype}}</p>
-                </div>
+                        <label>是否样点灌区：</label>
+                        <p class="g-overflow">{{jcInfo.irrsample}}</p>
+                    </div>
+                    <div class="wt-list-line">
+                        <label>农田类型：</label>
+                        <p class="g-overflow">{{jcInfo.irrtype}}</p>
+                    </div>
                     <div class="wt-list-line">
                         <label>土壤类型：</label>
                         <p class="g-overflow">{{jcInfo.irrsoiltype}}</p>
@@ -58,13 +70,15 @@
         <group class="group-top-10" noPadded>
             <div style="padding:5px 15px 0">
                 <h5 class="wt-title" style="padding:0.625rem 0 ">
-                    <div class="wt-title-center"><span>监测水量（亿m³）</span></div>
+                    <div class="wt-title-center"><span>监测水量（m³）</span></div>
                 </h5>
                 <div class="wt-title-line"></div>
                 <div class="classify-tags">
                     <div class="tags-wrap">
                         <a :class="{select:isSelect == 'm'}" @click="tagChange('m')">月水量</a>
                         <a :class="{select:isSelect == 'y'}" @click="tagChange('y')">年水量</a>
+                        <a :class="{select:isSelect == 'd'}" @click="tagChange('d')">日水量</a>
+                        <a :class="{select:isSelect == 'h'}" @click="tagChange('h')">小时水量</a>
                     </div>
                 </div>
                 <div id="myCharts" :style="{width:'410px',height:'300px'}"></div>
@@ -111,6 +125,7 @@
                     if(this.daySl= [null]){
                         this.daySl=0;
                     }
+                    //this.tagChange('m');
                     this.tagChange('m');
 
                 }, response => {
@@ -152,6 +167,12 @@
                         break;
                     case 'y':
                         this.loadChart({x: xyData, y: yyData, t: 'bar'});
+                        break;
+                    case 'd':
+                        this.loadChart({x: dyData, y: dyData, t: 'bar'});
+                        break;
+                    case 'h':
+                        this.loadChart({x: hyData, y: hyData, t: 'bar'});
                         break;
                 }
 
