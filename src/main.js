@@ -298,7 +298,7 @@ const xkz = resolve => {
 const qsxkz = resolve => {
     // Indicator.open();
     require.ensure([], () => {
-        resolve(require('./views/redview/RedView-qsgqViewgqViewxkz.vue'))
+        resolve(require('./views/redview/RedView-qsxkz.vue'))
         // Indicator.close()
     }, 'group-home')
 }
