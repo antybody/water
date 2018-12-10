@@ -428,6 +428,16 @@ const home = resolve => {
         // Indicator.close()
     }, 'group-user')
 }
+
+// import routeDone from './views/routeview/RouteView-done'
+const mapPath = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/MapPath.vue'))
+        // Indicator.close()
+    }, 'group-MapPath')
+}
+
 // import forbidden from './views/userview/forbidden'
 const forbidden = () => import('./views/userview/forbidden')
 // import error404 from './views/userview/404'
@@ -716,6 +726,11 @@ const router = new VueRouter({
             path: '/swczDetail/:id',
             name: 'swczDetail',
             component: swczDetail
+        },
+        {
+            path: '/mapPath',
+            name: 'mapPath',
+            component: mapPath
         }
     ]
 })
