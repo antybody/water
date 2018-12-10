@@ -75,7 +75,8 @@
                     // {href: '/redsyd', img: 'wt-bar-i-46 wt-bar-5', title: '水源地'},
                     {href: '/redsgnq', img: 'wt-bar-i-46 wt-bar-6', title: '水功能区'},
                     {href: '/redxc', img: 'wt-bar-i-46 wt-bar-7', title: '咸潮'},
-                    {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-4', title: '水质监测'}
+                    {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-4', title: '水质监测'},
+                    <!-- , -->
 
                 ],
                 tablists: [

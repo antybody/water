@@ -56,7 +56,7 @@ export default {
        return{
            searchItem:'',
            // lists:[{title:'上海宝信',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'},
-           //        {title:'北京宝信',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'}]
+           //       {title:'北京宝信',href:'/qshDetail/1',tag1:'测试',tag2:'测试',tag3:'测试'}]
        }
    },
    methods:{

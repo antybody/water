@@ -27,6 +27,20 @@
                 <span class="list-label label-blue">{{item.jclx}}</span>
             </span>
         </list-item>
+        <!--灌区  2018.12.03 huaibaoqi-->
+        <list-item v-if="routeName == '/gq'" v-for="item in lists" :key="item.id" :title="item.irrname" :href="item.href">
+            <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
+            <span slot="subTitle">
+                <span class="list-label label-orange">{{item.calculatetype}}</span>
+                <span class="list-label label-white">{{item.irrscale}}</span>
+                <span class="list-label label-white">{{item.desirrarea}}</span>
+                <span class="list-label label-white">{{item.effirrarea}}</span>
+                <span class="list-label label-blue">{{item.irrsoiltype}}</span>
+                <span class="list-label label-blue">{{item.irrtype}}</span>
+                <span class="list-label label-blue">{{item.irrwatertype}}</span>
+                <span class="list-label label-blue">{{item.irrcounty}}</span>
+            </span>
+        </list-item>
         <!--水功能区-->
         <list-item v-if="routeName == '/redsgnq'" v-for="item in lists" :key="item.wfzNb" :title="item.wfzNm" :href="item.href">
             <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->

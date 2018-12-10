@@ -3,8 +3,8 @@
  */
 import * as Url from "../url/url"
 //后台接口地址
-const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
-//const BASE_URL = 'http://localhost:8081/wrmsApp'
+//const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
+const BASE_URL = 'http://localhost:8081/wrmsApp'
 
   //const BASE_URL = 'http://localhost:8080/wrmsApp'
 /**
@@ -98,6 +98,16 @@ export const SYD_LIST = BASE_URL + '/app/waterred/getWaterSydList?access_token=[
  * */
 export const DYSH_LIST = BASE_URL + '/app/wateruser/getDysh?access_token=[b36680850768ff1b]';
 export const DYSH_CONTENT = BASE_URL + '/app/wateruser/getJcxx?access_token=[b36680850768ff1b]';
+
+/**
+ * @name 灌区
+ * @params
+ * 2018.12.03
+ * huaibaoqi
+ * */
+export const GQ_LIST = BASE_URL + '/app/nyys/getGq?access_token=[b36680850768ff1b]';
+export const GQ_CONTENT = BASE_URL + '/app/nyys/getGqxx?access_token=[b36680850768ff1b]';
+
 
 /**
  * @name 运维巡检
