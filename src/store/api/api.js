@@ -3,8 +3,8 @@
  */
 import * as Url from "../url/url"
 //后台接口地址
-//const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
-const BASE_URL = 'http://localhost:8081/wrmsApp'
+const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
+// const BASE_URL = 'http://localhost:8081/wrmsApp'
 
   //const BASE_URL = 'http://localhost:8080/wrmsApp'
 /**

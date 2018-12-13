@@ -25,6 +25,8 @@ Vue.use(VueRouter)
 Vue.use(vueResource)
 Vue.use(Indicator)
 
+Vue.prototype.a = 1;
+
 Vue.prototype.$layer = layer(Vue, {
     msgtime: 3,//目前只有一项，即msg方法的默认消失时间，单位：秒
 });
@@ -444,6 +446,24 @@ const home = resolve => {
         // Indicator.close()
     }, 'group-user')
 }
+
+const mapLocation = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/mapLocation.vue'))
+        // Indicator.close()
+    }, 'group-MapPath')
+}
+
+// import routeDone from './views/routeview/RouteView-done'
+const mapPath = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/MapPath.vue'))
+        // Indicator.close()
+    }, 'group-MapPath')
+}
+
 // import forbidden from './views/userview/forbidden'
 const forbidden = () => import('./views/userview/forbidden')
 // import error404 from './views/userview/404'
@@ -742,6 +762,16 @@ const router = new VueRouter({
             path: '/swczDetail/:id',
             name: 'swczDetail',
             component: swczDetail
+        },
+        {
+            path: '/mapPath',
+            name: 'mapPath',
+            component: mapPath
+        },
+        {
+            path: '/mapLocation',
+            name: 'mapLocation',
+            component: mapLocation
         }
     ]
 })

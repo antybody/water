@@ -30,7 +30,7 @@
                 AMapUI: null,
                 AMap: null,
                 map: '',
-                infoWindow:null,
+                infoWindow: null,
                 mapAddress: {
                     address: '获取地址中...',
                     lng: '',
