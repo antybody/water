@@ -15,7 +15,7 @@
 
                     <div class="wt-list-line">
                         <label>日&nbsp;&nbsp;水&nbsp;&nbsp;量：</label>
-                        <p class="g-overflow">{{daySl}}（本年监测累计 {{rsl}}m³）</p>
+                        <p class="g-overflow">{{dsl}}（本年监测累计 {{rsl}}m³）</p>
                     </div>
                     <div class="wt-list-line">
                         <label>灌区规模：</label>
@@ -75,10 +75,8 @@
                 <div class="wt-title-line"></div>
                 <div class="classify-tags">
                     <div class="tags-wrap">
-                        <a :class="{select:isSelect == 'm'}" @click="tagChange('m')">月水量</a>
                         <a :class="{select:isSelect == 'y'}" @click="tagChange('y')">年水量</a>
-                        <a :class="{select:isSelect == 'd'}" @click="tagChange('d')">日水量</a>
-                        <a :class="{select:isSelect == 'h'}" @click="tagChange('h')">小时水量</a>
+                        <a :class="{select:isSelect == 'm'}" @click="tagChange('m')">月水量</a>
                     </div>
                 </div>
                 <div id="myCharts" :style="{width:'410px',height:'300px'}"></div>
@@ -104,7 +102,9 @@
                 monthSl: [],
                 yearSl: [],
                 daySl:[],
-                rsl:''
+                hourSl:[],
+                rsl:'',       //本年水量
+                dsl:''        //当日水量
             }
         },
         mounted() {
@@ -120,13 +120,15 @@
                     this.jcInfo = response.data.jcxx;
                     this.yearSl = response.data.year;
                     this.monthSl = response.data.month;
-                    this.daySl = response.data.day.sum;
+                    this.daySl = response.data.day;
+                    this.hourSl = response.data.hour;
                     this.rsl= this.yearSl[ this.yearSl.length-1].sum;
-                    if(this.daySl= [null]){
-                        this.daySl=0;
+                    this.dsl= this.daySl[ this.daySl.length-1].sum;
+                    if(this.dsl= [null]){
+                        this.dsl=0;
                     }
                     //this.tagChange('m');
-                    this.tagChange('m');
+                    this.tagChange('y');
 
                 }, response => {
                     console.log("error");
@@ -150,34 +152,79 @@
             tagChange: function (val) {
                 this.isSelect = val;
                 let xmData = [], ymData = [],
-                    xyData = [], yyData = [];
-                for (let value of this.monthSl) {
-                    xmData.push(value.dt);
-                    ymData.push(parseFloat(value.sum));
-                }
+                    xyData = [], yyData = [],
+                    mdData = [], xdData = [], ydData = [],
+                    dhData = [], xhData = [], yhData = [];
                 for (let value of this.yearSl) {
                     xyData.push(value.dt);
                     yyData.push(parseFloat(value.sum));
                 }
-
-                // 切换图表
-                switch (val) {
-                    case 'm':
-                        this.loadChart({x: xmData, y: ymData, t: 'line'});
-                        break;
-                    case 'y':
-                        this.loadChart({x: xyData, y: yyData, t: 'bar'});
-                        break;
-                    case 'd':
-                        this.loadChart({x: dyData, y: dyData, t: 'bar'});
-                        break;
-                    case 'h':
-                        this.loadChart({x: hyData, y: hyData, t: 'bar'});
-                        break;
+                for (let value of this.monthSl) {
+                    xmData.push(value.dt);
+                    ymData.push(parseFloat(value.sum));
+                }
+                for (let value of this.daySl) {
+                    mdData.push(value.ydt);
+                    xdData.push(value.rdt);
+                    ydData.push(parseFloat(value.sum));
+                }
+                for (let value of this.hourSl) {
+                    dhData.push(value.ddt);
+                    xhData.push(value.hdt);
+                    yhData.push(parseFloat(value.sum));
                 }
 
+
+            switch(val){
+                case val='y':
+                    this.loadChart({x: xyData, y: yyData, t: 'bar'});
+                    break;
+                case val='m':
+                    this.loadChart2({x: xmData, y: ymData, t: 'bar'});
+                    break;
+            }
+                // 切换图表
             },
             loadChart: function (val) {
+                let myChart = echarts.init(document.getElementById('myCharts'));
+                     myChart.off('click')
+                var options = {
+                    color: ['#3398DB'],
+                    tooltip: {},
+                    clickable:false,
+                    legend: {
+                        show: false
+                    },
+                    grid: {
+                        left: '10%',
+                        right: '14%',
+                        bottom: '13%',
+                        top: '5%'
+                    },
+                    xAxis: {
+                        data: val.x
+                    },
+                    yAxis: {},
+                    series: [
+
+                        {
+                        name: '用水量',
+                        type: val.t,
+                        data: val.y,
+                    label: {
+                            normal: {
+
+                                show: true,
+                                position: 'top'
+                            }
+                        }
+                    }
+
+                    ]
+                };
+                myChart.setOption(options);
+            },
+            loadChart2: function (val) {
                 let myChart = echarts.init(document.getElementById('myCharts'));
                 var options = {
                     color: ['#3398DB'],
@@ -208,7 +255,139 @@
                     }]
                 };
                 myChart.setOption(options);
-            }
+                let _this=this;
+                myChart.on('click', function (params) {
+                    let xname = params.name,
+                        mdData = [], xdData = [], ydData = [];
+                    for (let i=0;i< _this.daySl.length;i++) {
+                       // mdData.push(value.ydt);
+                        mdData[i]= _this.daySl[i].ydt;
+                        //xdData.push(value.rdt);
+                        xdData[i]= _this.daySl[i].rdt;
+                       // ydData.push(parseFloat(value.sum));
+                        ydData[i]= _this.daySl[i].sum;
+                    }
+                    _this.$options.methods.loadChart3({x: xdData, y: ydData, z: mdData, xname,t: 'bar',_this});
+                });
+
+            },
+            loadChart3: function (val) {
+                let myChart = echarts.init(document.getElementById('myCharts'));
+                let m1,m2,
+                    xdata = [],ydata = [];
+
+                for( let i=0;i<=val.z.length;i++){
+                    if(val.z[i] === val.xname){
+                        m1 = i;
+                        break;
+                    }
+                }
+                for( let i =m1;i<=val.z.length;i++){
+                    if(val.z[i] !== val.xname){
+                        m2 = i;
+                        break;
+                    }
+                }
+                for(let j = 0,i = m1,k = m2;j < k-i ;j++ ){
+                    xdata[j] = val.x[i+j];
+                    ydata[j] = val.y[i+j];
+                }
+                var options = {
+                    color: ['#3398DB'],
+                    legend: {
+                        show: false
+                    },
+                    grid: {
+                        left: '10%',
+                        right: '14%',
+                        bottom: '13%',
+                        top: '5%'
+                    },
+                    xAxis: {
+                        data: xdata
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '用水量',
+                        type: val.t,
+                        data: ydata,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        }
+                    }]
+                };
+                myChart.setOption(options);
+                let _this=val._this;
+                myChart.on('click', function (params) {
+                    let xname = params.name,
+                        dhData = [], xhData = [], yhData = [];
+                    for (let i=0;i< _this.hourSl.length;i++) {
+                        //dhData.push(value.ddt);
+                        dhData[i]= _this.hourSl[i].ddt;
+                        //xhData.push(value.hdt);
+                        xhData[i]= _this.hourSl[i].hdt;
+                        //yhData.push(parseFloat(value.sum));
+                        yhData[i]= _this.hourSl[i].sum;
+                    }
+                    _this.$options.methods.loadChart4({x: xhData, y: yhData, z: dhData, xname,t: 'bar'})
+                });
+
+            },
+            loadChart4: function (val) {
+                let myChart = echarts.init(document.getElementById('myCharts'));
+                    myChart.off('click')
+                let m1,m2,
+                    xdata = [],ydata = [];
+                for( let i=0;i<=val.z.length;i++){
+                    if(val.z[i] === val.xname){
+                        m1 = i;
+                        break;
+                    }
+                }
+                for( let i =m1;i<=val.z.length;i++){
+                    if(val.z[i] !== val.xname){
+                        m2 = i;
+                        break;
+                    }
+                }
+                for(let j = 0,i = m1,k = m2;j < k-i ;j++ ){
+                    xdata[j] = val.x[i+j];
+                    ydata[j] = val.y[i+j];
+                }
+                var options = {
+                    color: ['#3398DB'],
+                    legend: {
+                        show: false
+                    },
+                    grid: {
+                        left: '10%',
+                        right: '14%',
+                        bottom: '13%',
+                        top: '5%'
+                    },
+                    xAxis: {
+                        data: xdata
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '用水量',
+                        type: val.t,
+                        data: ydata,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        }
+                    }]
+                };
+                myChart.on('click', function (params) {});
+                myChart.setOption(options);
+
+            },
         }
     }
 </script>
