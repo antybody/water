@@ -79,7 +79,7 @@
 
                     //定位
                     var _this = this;
-                    map.plugin('AMap.Geolocation', function() {
+                    map.plugin('AMap.Geolocation', function () {
                         var geolocation = new AMap.Geolocation({
                             // 是否使用高精度定位，默认：true
                             enableHighAccuracy: true,
@@ -97,7 +97,7 @@
                         AMap.event.addListener(geolocation, 'complete', onComplete);
                         AMap.event.addListener(geolocation, 'error', onError);
 
-                        function onComplete (data) {
+                        function onComplete(data) {
                             // data是具体的定位信息
                             console.log('地点：' + data.formattedAddress);
                             console.log('经度：' + data.position.getLng());
@@ -109,7 +109,8 @@
                                 type: 'success'
                             };
                         }
-                        function onError (data) {
+
+                        function onError(data) {
                             // 定位出错
                             console.log('定位失败' + data);
                             _this.mapAddress = {
@@ -177,27 +178,36 @@
                 console.log(t);
                 let content = [];
                 content.push('<div class="infowindow-content">');
-                content.push('<h4 class="amap-info-header">');
+                content.push('<h5 class="amap-info-header">');
                 content.push(points.name);
-                content.push('</h4>');
-                content.push('<div>计量方式:');
-                content.push(points.jlfs);
-                content.push('</div>');
-                content.push('<div>取水方式:');
-                content.push(points.qsfs);
-                content.push('</div>');
-                content.push('<div>设计灌溉面积（亩）:');
-                content.push(points.sjgg);
-                content.push('</div>');
-                content.push('<div>有效灌溉面积（亩）:');
-                content.push(points.yxgg);
-                content.push('</div>');
-                content.push('<div>灌区位置:');
-                content.push(points.desc);
-                content.push('</div>');
-                content.push('<div>管理单位:');
-                content.push(points.gldw);
-                content.push('</div>');
+                content.push('</h5>');
+                if (t === 'dbqsh') {
+                    content.push('<div>地址:')
+                    content.push(points.desc)
+                    content.push('</div>')
+
+                } else if (t === 'gq') {
+                    content.push('<div>计量方式:');
+                    content.push(points.jlfs);
+                    content.push('</div>');
+                    content.push('<div>取水方式:');
+                    content.push(points.qsfs);
+                    content.push('</div>');
+                    content.push('<div>设计灌溉面积（亩）:');
+                    content.push(points.sjgg);
+                    content.push('</div>');
+                    content.push('<div>有效灌溉面积（亩）:');
+                    content.push(points.yxgg);
+                    content.push('</div>');
+                    content.push('<div>灌区位置:');
+                    content.push(points.desc);
+                    content.push('</div>');
+                    content.push('<div>管理单位:');
+                    content.push(points.gldw);
+                    content.push('</div>');
+                } else {
+
+                }
                 content.push('</div>');
                 return content;
             }
