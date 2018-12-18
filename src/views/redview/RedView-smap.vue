@@ -31,6 +31,8 @@ export default {
            map = utils.buildJson(this.$route.params.list);
           if(t == 'sgnq')
            map = utils.buildSgnq(this.$route.params.list);
+          if(t =='gq')
+              map = utils.buildGq(this.$route.params.list);
           console.log(map);
           return map
       }

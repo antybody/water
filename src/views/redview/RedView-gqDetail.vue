@@ -22,11 +22,11 @@
                         <p class="g-overflow">{{jcInfo.irrscale}}</p>
                     </div>
                     <div class="wt-list-line">
-                        <label>设计灌溉面积：</label>
+                        <label>设计灌溉面积（亩）：</label>
                         <p class="g-overflow">{{jcInfo.desirrarea}}</p>
                     </div>
                     <div class="wt-list-line">
-                        <label>有效灌溉面积：</label>
+                        <label>有效灌溉面积（亩）：</label>
                         <p class="g-overflow">{{jcInfo.effirrarea}}</p>
                     </div>
                     <div class="wt-list-line">
@@ -136,7 +136,7 @@
         },
         computed: {
             ...mapState({
-                listInfo: state => state.gqInfo.listDetail
+                listInfo: state => state.gqInfo.listDetail     //state.gqInfo.listDetail
             })
         },
         methods: {
@@ -144,7 +144,21 @@
                 'getListsDetail'
             ]),
             toMap: function () {
-                this.$router.push({name: 'smap', params: {list: this.listInfo, t: 'qsh'}});
+                console.log(this.jcInfo);
+                let mapPoint = {
+                    addr: this.jcInfo.irrcity+this.jcInfo.irrtown+this.jcInfo.irrvillage,
+                    lng: this.jcInfo.irrlongtitude,
+                    lat: this.jcInfo.irrlatitude,
+                    name:this.jcInfo.irrname,
+                    jlfs:this.jcInfo.calculatetype,
+                    gqgm:this.jcInfo.irrscale,
+                    qsfs:this.jcInfo.irrwatertype,
+                    sjgg:this.jcInfo.desirrarea,
+                    yxgg:this.jcInfo.effirrarea,
+                    gldw:this.jcInfo.managementunit,
+                }
+                this.$router.push({name:'smap',params:{list: mapPoint, t:'gq'}});
+               // this.$router.push({name: 'smap', params: {list: this.listInfo, t: 'qsh'}});
             },
             isShowEvent: function () {
                 this.isShow = !this.isShow;
@@ -191,7 +205,6 @@
                 var options = {
                     color: ['#3398DB'],
                     tooltip: {},
-                    clickable:false,
                     legend: {
                         show: false
                     },

@@ -238,6 +238,41 @@
                         });
                         return '咸潮';
                         break;
+                    case 'gq':
+                        let paramsGq = {
+                            type: "query",
+                            gqgm: '' ,
+                            jllx: '' ,
+                            ntlx: '' ,
+                            xzqh: '' ,
+                        };
+                        paramsGq = encodeURI(encodeURI(JSON.stringify(paramsGq)));
+                        this.$http.jsonp(API.GQ_LIST + "&params=" + paramsGq).then(
+                            response => {
+                                var gqArr = [];
+                                for (var i = 0; i < response.data.data.length; i++) {
+                                    if(response.data.data[i].irrid != ''&&response.data.data[i].irrlongtitude != null) {
+                                        gqArr.push(
+                                            {
+                                                lng: response.data.data[i].irrlongtitude,
+                                                lat: response.data.data[i].irrlatitude,
+                                                name: response.data.data[i].irrname,
+                                                jlfs:response.data.data[i].calculatetype,
+                                                gqgm:response.data.data[i].irrscale,
+                                                qsfs:response.data.data[i].irrwatertype,
+                                                sjgg:response.data.data[i].desirrarea,
+                                                yxgg:response.data.data[i].effirrarea,
+                                                gldw:response.data.data[i].managementunit,
+                                                desc: response.data.data[i].irrcity + response.data.data[i].irrtown + response.data.data[i].irrvillage,
+                                            }
+                                        )
+                                    }
+                                }
+                                this.mapPoints = gqArr;
+                            }, response => {
+                                console.log("error");
+                            });
+                       return '灌区';
                     case 'sgnq':
 
                         return '水功能区';
@@ -272,6 +307,10 @@
                         case 'xc':
 
                             return '咸潮';
+                            break;
+                        case 'gq':
+
+                            return '灌区';
                             break;
                     }
                 } else {

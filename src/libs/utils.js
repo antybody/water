@@ -69,7 +69,35 @@ exports.buildSgnq = (str) => {
     return mapArr;
 }
 
+
 /**
+ *  转换灌区的坐标信息
+ */
+
+exports.buildGq = (str) => {
+
+    let mapArr = [];
+    let mapPoint = {};
+    if (!str) return [];
+        let kPoint = {};
+        kPoint.lng = str.lng;
+        kPoint.lat = str.lat;
+        kPoint.name = str.name;
+        kPoint.jlfs = str.jlfs;
+        kPoint.gqgm = str.gqgm;
+        kPoint.qsfs = str.qsfs;
+        kPoint.sjgg = str.sjgg;
+        kPoint.yxgg = str.yxgg;
+        kPoint.gldw = str.gldw;
+        kPoint.desc = '<div>'+str.addr+'</div>';
+        mapArr.push(kPoint);
+    return mapArr;
+
+}
+
+
+
+    /**
  * 存储localStorage
  */
 exports.setStore = (name, content) => {

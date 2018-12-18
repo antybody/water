@@ -146,7 +146,7 @@
                             map: map,
                             icon: this.points[i].icon,
                         });
-                        marker.content = this.getContent(this.points[i].name, this.points[i].desc).join("");
+                        marker.content = this.getContent(this.points[i]).join("");//this.points[i].name, this.points[i].desc
                         marker.on('click', markerClick => {
                             this.infoWindow.setContent(markerClick.target.content);
                             this.infoWindow.open(map, markerClick.target.getPosition());
@@ -164,7 +164,7 @@
                         map: this.map,
                         icon: this.points[i].icon,
                     });
-                    marker.content = this.getContent(this.points[i].name, this.points[i].desc).join("");
+                    marker.content = this.getContent(this.points[i]).join("");//his.points[i].name, this.points[i].desc
                     marker.on('click', markerClick => {
                         this.infoWindow.setContent(markerClick.target.content);
                         this.infoWindow.open(this.map, markerClick.target.getPosition());
@@ -172,16 +172,31 @@
                     // marker.emit('click', {target: marker});
                 }
             },
-            getContent(name, desc) {
+            getContent(points) {//name, desc
                 let t = this.type;
                 console.log(t);
                 let content = [];
                 content.push('<div class="infowindow-content">');
                 content.push('<h4 class="amap-info-header">');
-                content.push(name);
+                content.push(points.name);
                 content.push('</h4>');
-                content.push('<div>');
-                content.push(desc);
+                content.push('<div>计量方式:');
+                content.push(points.jlfs);
+                content.push('</div>');
+                content.push('<div>取水方式:');
+                content.push(points.qsfs);
+                content.push('</div>');
+                content.push('<div>设计灌溉面积（亩）:');
+                content.push(points.sjgg);
+                content.push('</div>');
+                content.push('<div>有效灌溉面积（亩）:');
+                content.push(points.yxgg);
+                content.push('</div>');
+                content.push('<div>灌区位置:');
+                content.push(points.desc);
+                content.push('</div>');
+                content.push('<div>管理单位:');
+                content.push(points.gldw);
                 content.push('</div>');
                 content.push('</div>');
                 return content;
