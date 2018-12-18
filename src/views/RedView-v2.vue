@@ -61,8 +61,11 @@
                     </grid>
                     <grid avg="3" v-for="water in waters" align="center" :key="water.index">
                         <cell style="text-align: left;padding-left: 1.5rem;" class="cell-box">{{water.typen}}</cell>
-                        <cell style="text-align: right;" class="cell-box wt-dblue">{{parseFloat(water.todayn)}} 万m³</cell>
-                        <cell style="text-align: right;" class="cell-box wt-orange">{{water.yearn/10000 | numFilter}} 亿m³</cell>
+                        <cell style="text-align: right;" class="cell-box wt-dblue">{{parseFloat(water.todayn)}} 万m³
+                        </cell>
+                        <cell style="text-align: right;" class="cell-box wt-orange">{{water.yearn/10000 | numFilter}}
+                            亿m³
+                        </cell>
                     </grid>
                 </div>
             </div>
@@ -87,7 +90,7 @@
                     {href: '/redsgnq', img: 'wt-bar-i-46 wt-bar-4', title: '水功能区'},
                     {href: '/redxc', img: 'wt-bar-i-46 wt-bar-5', title: '咸潮'},
                     {href: '/redsgnqjc', img: 'wt-bar-i-46 wt-bar-6', title: '水质监测'},
-                    {href: '/gq', img: 'wt-bar-i-46 wt-bar-8', title: '灌区'}
+                    {href: '/gq', img: 'wt-bar-i-46 wt-bar-8', title: '样点灌区'}
 
 
                 ],
@@ -120,6 +123,7 @@
             // })
         },
         mounted() {
+            this.$layer.msg('数据加载中...')
             // this.$http.jsonp(API.NEWS_LIST).then(
             //     response => {
             //         //循环设置跳转地址 href
@@ -139,8 +143,9 @@
             this.$http.jsonp(API.QSXKCQDBL + "&params=" + params1).then(
                 response => {
                     this.tablists = response.data.list;
+
                 }, response => {
-                    console.log("error");
+                    console.log("error")
                 });
             //取水户列表查询所需要的参数
             let params = {
@@ -151,6 +156,7 @@
                 response => {
                     console.log(response.data.yearSl);
                     this.waters = response.data.yearSl;
+                    this.$layer.closeAll()
                 }, response => {
                     console.log("error");
                 });
