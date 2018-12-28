@@ -202,12 +202,6 @@
                         <input type="radio" name="bsq_ssllz" id="dx_lljtxscjc_yes" value="1" hidden checked/>
                     </a>
                 </list-item>
-                <list-item title="检测累计流量值">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="bsq_ljllz" id="dx_lljtxscjc_yes" value="1" hidden checked/>
-
-                    </a>
-                </list-item>
                 <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
                     <field-input type="textarea" name="bsq_bz" placeholder="请填写情况说明及处理结果"></field-input>
                 </field>
@@ -224,13 +218,13 @@
                         <span class="js_add_img">
                              <i class="icon_add_gray" @click="open('offcanvas5')"></i>
                                  <span class="input-add-img-box">
-                                     <input id="imgupload" capture="camera" class="input-add-img" type="file" accept="image/*"/>
+                                     <input id="imgupload" capture="camera" @change="changeImg($event)" class="input-add-img" type="file" accept="image/*"/>
                                  </span>
                              </span>
-                        <ul class="upload-pre-img" v-show="imgLists.length >0">
+                        <ul class="upload-pre-img" v-show="imgLists.length >0" >
                             <li v-for="item in imgLists" :key="index">
                                 <div><img :src="item.url"></div>
-                                <span class="upload-pre-del"><i class="icons-e616" @click="delImg(item)"></i></span>
+                                <span class="upload-pre-del"><i class="icons-e616" @click="delImg(item)" @change="changeImg(item)"></i></span>
                             </li>
                             <div class="clear"></div>
                         </ul>
@@ -395,6 +389,8 @@
                 this.modalOutFun('open2');
             },
             formSubmit() {
+                console.log(this.imgLists.length)
+                console.log(this.imgArray + 'change');
                 //必须上传图片
                 if (this.imgLists.length === 0) this.$layer.msg("请上传现场图片！"); return;
                 //获取所有checked的input
@@ -456,7 +452,7 @@
                 let deviceFile = e.target.files;
                 this.imgArray.push(deviceFile[0]);
                 this.formData.append("fileArray", deviceFile[0]);
-                console.log(this.imgArray);
+                console.log(this.imgArray + 'change');
 
             },
             refreshMap() {
