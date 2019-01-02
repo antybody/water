@@ -21,6 +21,7 @@
                     <div class="sub" v-show="listType">
                         <span :class="{cur:menu2 === 1}" @click="menu2Click(1)">数据断开</span>
                         <span :class="{cur:menu2 === 2}" @click="menu2Click(2)">数据负值</span>
+                        <span :class="{cur:menu2 === 3}" @click="menu2Click(3)">水污染</span>
                     </div>
                     <div class="sub" v-show="!listType">
                         <span :class="{cur:menu2 === 1}" @click="menu2Click(1)">预警巡检</span>
@@ -42,6 +43,7 @@
                      v-if="list.patrol_state === '0'">
                     <div class="mui-card-header">
                         <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
+                        <span class="mui-pull-right" v-if="list.bz==='swrsj'">工单类型：水污染</span>
                         <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
                         <span>{{list.patrol_time}}</span>
                     </div>
@@ -71,6 +73,7 @@
                      v-if="list.patrol_state === '2'">
                     <div class="mui-card-header">
                         <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
+                        <span class="mui-pull-right" v-if="list.bz==='swrsj'">工单类型：水污染</span>
                         <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
                         <span>{{list.patrol_time}}</span>
                     </div>
@@ -125,6 +128,7 @@
                 <div v-show="!listType" class="mui-table-view mt0" v-for="list in lists">
                     <div class="mui-card-header">
                         <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
+                        <span class="mui-pull-right" v-if="list.bz==='swrsj'">工单类型：水污染</span>
                         <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
                         <span>{{list.patrol_time}}</span>
                     </div>
@@ -253,22 +257,42 @@
                 console.log(data);
                 if (this.userRole === 'admin') {
                     if (this.menu1 == 2 && data.patrol_state == 2 && data.bz !== 'yjgd')
-                        this.$router.push({name: 'routeView', params: {id: data.id, t: 'pd'}});
+                        this.$router.push({
+                            name: 'routeView',
+                            params: {id: data.id, t: 'pd'}
+                        });
                     else if (this.menu1 == 2 && data.patrol_state == 2 && data.bz == 'wtXjjl')
                         this.$router.push({
                             name: 'routeReback1View',
                             params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd'}
                         });
                 } else if (this.userRole === 'xjy') {
-                    if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type !== 'yjgd')
-                        this.$router.push({name: 'routeView', params: {id: data.id, t: 'pd'}});
-                    else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'yjgd')
+                    if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'yjgd'){
                         this.$router.push({
                             name: 'routeReback1View',
                             params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd'}
                         });
-                    else
-                        this.$router.push({name: 'routeReback2', params: {id: data.id, t: 'pd'}});
+                    }else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'swrsj'){//水污染事件查看
+                        this.$router.push({
+                            name: 'routeView4',
+                            params: {id: data.title_id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd',patrol_title: data.patrol_title,patrol_address: data.patrol_address,patrol_content: data.patrol_content,patrol_time: data.patrol_time}
+                        });
+                    }else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type !== 'yjgd'&& data.patrol_type !== 'swrsj'){
+                        this.$router.push({
+                            name: 'routeView',
+                            params: {id: data.id, t: 'pd'}
+                        });
+                    }else if (this.menu1 == 1 && data.patrol_state == 0 && data.patrol_type == 'swrsj'){//水污染事件办理
+                        this.$router.push({
+                            name: 'routeReback4',
+                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd',patrol_title: data.patrol_title,patrol_address: data.patrol_address,patrol_content: data.patrol_content,patrol_time: data.patrol_time}
+                        });
+                    }else{
+                        this.$router.push({
+                            name: 'routeReback2',
+                            params: {id: data.id, t: 'pd'}
+                        });
+                    }
                 }
 
             },

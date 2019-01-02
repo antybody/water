@@ -73,7 +73,7 @@
                     this.points.lat = data.position.lat;
                     this.$layer.msg('获取位置成功')
                     console.log(this.points);
-                    // this.walk();
+                    //this.walk();
                 }
                 //解析定位错误信息
                 let onError = (data) => {

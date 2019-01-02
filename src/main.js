@@ -174,6 +174,7 @@ const redmap = r => {
         }
         , 'group-qsh')
 }
+
 // import sredmap from './views/redview/RedView-smap'
 const sredmap = resolve => {
     // Indicator.open();
@@ -399,10 +400,24 @@ const routeReback2 = resolve => {
         // Indicator.close()
     }, 'group-route')
 }
+const routeReback4 = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-reback4.vue'))
+        // Indicator.close()
+    }, 'group-route')
+}
 const routeView = resolve => {
     // Indicator.open();
     require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-review.vue'))
+        // Indicator.close()
+    }, 'group-route')
+}
+const routeView4 = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-review4.vue'))
         // Indicator.close()
     }, 'group-route')
 }
@@ -623,6 +638,11 @@ const router = new VueRouter({
             name: 'redmap',
             component: redmap
         },
+        // {
+        //     path: '/redmapSwr/:kt',
+        //     name: 'redmapSwr',
+        //     component: redmapSwr
+        // },
         {
             path: '/qshDetail/:id',
             component: qshDetail
@@ -674,6 +694,11 @@ const router = new VueRouter({
             component: routeView
         },
         {
+            path: '/routeView4',
+            name: 'routeView4',
+            component: routeView4
+        },
+        {
             path: '/routeReback1',
             name: 'routeReback1',
             component: routeReback1
@@ -697,6 +722,11 @@ const router = new VueRouter({
             path: '/routeReback2',
             name: 'routeReback2',
             component: routeReback2
+        },
+        {
+            path: '/routeReback4',
+            name: 'routeReback4',
+            component: routeReback4
         },
         {
             path: '/routeDone',
