@@ -222,5 +222,6 @@ export const QS_XQ = BASE_URL + '/app/water/getDayYearQs?access_token=[b36680850
 export const QSXKCQDBL = BASE_URL + '/app/water/getRedLine?access_token=[b36680850768ff1b]';
 //巡检表单提交
 export const SAVE_XJJL = BASE_URL + '/app/route/wt_xjjlCrud?access_token=[b36680850768ff1b]';
+export const SAVE_XJJL_SWR = BASE_URL + '/app/route/wt_xjjlCrudSwr?access_token=[b36680850768ff1b]';
 export const SAVE_LLY = BASE_URL + '/app/route/wt_lly_whbyCrud?access_token=[b36680850768ff1b]';
 
