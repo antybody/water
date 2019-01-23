@@ -7,9 +7,9 @@
             <!--
               运维巡检部分需要指定 业务人员和巡检人员
             -->
-            <!--<tabbar-item icon="gear" title="巡检运维" @tabbarItemClick="tabbarItemClick('route')"></tabbar-item>-->
-            <!--&lt;!&ndash;登陆部分集成了织语的框架&ndash;&gt;-->
-            <!--<tabbar-item icon="person" title="我的" @tabbarItemClick="tabbarItemClick('home')"></tabbar-item>-->
+            <tabbar-item icon="gear" title="巡检运维" @tabbarItemClick="tabbarItemClick('route')"></tabbar-item>
+            <!--登陆部分集成了织语的框架-->
+            <tabbar-item icon="person" title="我的" @tabbarItemClick="tabbarItemClick('home')"></tabbar-item>
         </tabbar>
     </container>
 </template>
