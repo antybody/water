@@ -177,19 +177,20 @@
                 let t = this.type;
                 console.log(t);
                 let content = [];
-                content.push('<div class="infowindow-content">');
-                content.push('<h5 class="amap-info-header">');
-                content.push(points.name);
-                content.push('</h5>');
+                content.push('<table class="infowindow-content">');
+                content.push('<tr>');
+                // content.push('<td>名称</td>');
+                content.push('<td>' + points.name + '</td>');
+                content.push('</tr>');
                 if (t === 'dbqsh') {
-                    content.push('<div>地址:')
+                    content.push('<tr>地址:')
                     content.push(points.desc)
-                    content.push('</div>')
+                    content.push('</tr>')
 
                 } else if (t === 'gq') {
-                    content.push('<div>计量方式:');
+                    content.push('<tr>计量方式:');
                     content.push(points.jlfs);
-                    content.push('</div>');
+                    content.push('</tr>');
                     content.push('<div>取水方式:');
                     content.push(points.qsfs);
                     content.push('</div>');
@@ -205,10 +206,12 @@
                     content.push('<div>管理单位:');
                     content.push(points.gldw);
                     content.push('</div>');
-                } else {
-
+                } else if (t === 'yjgd') {
+                    content.push('<tr>地址:')
+                    content.push(points.desc)
+                    content.push('</tr>')
                 }
-                content.push('</div>');
+                content.push('</table>');
                 return content;
             }
 
@@ -271,5 +274,26 @@
         max-height: 300px;
         overflow: auto;
         margin-top: 10px;
+    }
+
+    .amap-info-content {
+        min-width: 14rem;
+        min-height: 5rem;
+        font-size: 0.8rem;
+        border: 1px solid #adadad;
+    }
+
+    .amap-info-content tr {
+        /*padding: 0 0.5rem;*/
+        min-width: 14rem;
+        border-bottom: #0b76ac solid 1px;
+    }
+
+    .amap-info-content td {
+        border: #0b76ac solid 0px;
+    }
+
+    .amap-info-header {
+        font-size: 0.8rem;
     }
 </style>

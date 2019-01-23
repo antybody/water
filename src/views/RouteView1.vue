@@ -290,7 +290,7 @@
                     }else{
                         this.$router.push({
                             name: 'routeReback2',
-                            params: {id: data.id, t: 'pd'}
+                            params: {id: data.id, t: 'pd', data: data}
                         });
                     }
                 }

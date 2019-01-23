@@ -479,6 +479,23 @@ const mapPath = resolve => {
     }, 'group-MapPath')
 }
 
+//农业用水模块
+const irrView = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/IrrView.vue'))
+        // Indicator.close()
+    }, 'group-IrrView')
+}
+
+const irrViewVillage = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/irrview/IrrView-village'))
+        // Indicator.close()
+    }, 'group-IrrView')
+}
+
 // import forbidden from './views/userview/forbidden'
 const forbidden = () => import('./views/userview/forbidden')
 // import error404 from './views/userview/404'
@@ -802,6 +819,16 @@ const router = new VueRouter({
             path: '/mapLocation',
             name: 'mapLocation',
             component: mapLocation
+        },
+        {
+            path: '/irrView',
+            name: 'irrView',
+            component: irrView
+        },
+        {
+            path: '/irrViewVillage',
+            name: 'irrViewVillage',
+            component: irrViewVillage
         }
     ]
 })

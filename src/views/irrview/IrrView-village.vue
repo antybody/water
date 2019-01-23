@@ -1,7 +1,3 @@
-/**
-流量计
-2018.1.15 by diana
-*/
 <template>
     <vue-view slot="offcanvas">
         <navbar slot="header" class="wt-linear-blue" style="z-index:1010;">
@@ -17,39 +13,48 @@
                     <red-map ref="redmap" :points="mapPoints" v-on:mapAddress="mapAddress"></red-map>
                 </div>
                 <h5 class="wt-title" style="padding:0.925rem 0">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>站点信息</span>
+                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>取水户信息</span>
                     </div>
                 </h5>
                 <list-item title="取水户名称">
                     <a class="content" slot="after" name="">
-                        {{chooseName.watuser_name}}
+                        {{chooseName.watuserName}}
                         <img title="选中取水户" style="text-align: center;" @click="getQsh()" width="16" height="16"
                              src="../../../statics/images/add.png"/>
                     </a>
+
                 </list-item>
                 <list-item title="取水站点">
-                    <a class="content" slot="after">{{this.cdInfo.mp_nm | trimStr}}</a>
+                    <a class="content" slot="after">宝信软件监测点</a>
                 </list-item>
+                <list-item title="取水许可证">
+                    <a class="content" slot="after">国长 字[2015]第01001号</a>
+                </list-item>
+                <list-item title="瞬时流量">
+                    <a class="content" slot="after">120 m³/s</a>
+                </list-item>
+                <list-item title="累计流量">
+                    <a class="content" slot="after">3000120 m³</a>
+                </list-item>
+                <h5 class="wt-title" style="padding:0.925rem 0">
+                    <div class="wt-title-center">
+                        <i class="wt-bar-i-16 red-c"></i><span>站点信息</span>
+                    </div>
+                </h5>
                 <list-item title="站点编号">
-                    <a class="content" slot="after">{{this.cdInfo.mp_cd | trimStr}}</a>
-                </list-item>
-                <list-item title="瞬时流量(m³/s)">
-                    <a class="content" slot="after">{{this.llInfo.mp_q | trimStr}}</a>
-                </list-item>
-                <list-item title="累计流量(m³)">
-                    <a class="content" slot="after">{{this.llInfo.acc_w | trimStr}}</a>
+                    <a class="content" slot="after">宝信软件测站</a>
                 </list-item>
                 <list-item title="计量设施厂家">
-                    <a class="content" slot="after">{{this.cdInfo.jsscnm | trimStr}}</a>
+                    <a class="content" slot="after">宝信软件</a>
                 </list-item>
                 <list-item title="计量设施型号">
-                    <a class="content" slot="after">{{this.cdInfo.jsxh | trimStr}}</a>
+                    <a class="content" slot="after">A001</a>
                 </list-item>
                 <list-item title="计量设施类型">
-                    <a class="content" slot="after">{{this.cdInfo.jslx | trimStr}}</a>
+                    <a class="content" slot="after">流量计</a>
                 </list-item>
                 <list-item title="安装时间">
-                    <a class="content" slot="after">{{this.cdInfo.dt | trimStr}}</a>
+                    <a class="content" slot="after">2018-01-01</a>
                 </list-item>
             </tabs-desc>
             <tabs-desc slot="desc">
@@ -193,6 +198,12 @@
                         <input type="radio" name="bsq_ssllz" id="dx_lljtxscjc_yes" value="1" hidden checked/>
                     </a>
                 </list-item>
+                <list-item title="检测累计流量值">
+                    <a class="radio" slot="after">
+                        <input type="radio" name="bsq_ljllz" id="dx_lljtxscjc_yes" value="1" hidden checked/>
+
+                    </a>
+                </list-item>
                 <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
                     <field-input type="textarea" name="bsq_bz" placeholder="请填写情况说明及处理结果"></field-input>
                 </field>
@@ -209,15 +220,14 @@
                         <span class="js_add_img">
                              <i class="icon_add_gray" @click="open('offcanvas5')"></i>
                                  <span class="input-add-img-box">
-                                     <input id="imgupload" capture="camera" @change="changeImg($event)"
-                                            class="input-add-img" type="file" accept="image/*"/>
+                                     <input id="imgupload" capture="camera" class="input-add-img" type="file"
+                                            accept="image/*"/>
                                  </span>
                              </span>
                         <ul class="upload-pre-img" v-show="imgLists.length >0">
                             <li v-for="item in imgLists" :key="index">
                                 <div><img :src="item.url"></div>
-                                <span class="upload-pre-del"><i class="icons-e616" @click="delImg(item)"
-                                                                @change="changeImg(item)"></i></span>
+                                <span class="upload-pre-del"><i class="icons-e616" @click="delImg(item)"></i></span>
                             </li>
                             <div class="clear"></div>
                         </ul>
@@ -270,6 +280,7 @@
 </template>
 
 <script>
+
     import {mapState, mapActions} from 'vuex'
     import ImageUpload from "../../libs/imageUpload"
     import Vue from 'vue'
@@ -291,8 +302,6 @@
             return {
                 offcanvas5: false,
                 chooseName: {},
-                cdInfo: {},
-                llInfo: {},
                 imgLists: [],
                 imgUpload: false,
                 imgIndex: 0,
@@ -327,15 +336,8 @@
             var _this = this;
             //非父子组件之间通过广播传递值
             VueEvent.$on('watuser', function (data) {
-                _this.chooseName = data.users[0];
-                _this.cdInfo = data.cd;
-                _this.llInfo = data.ll;
-                console.log(data);
-                _this.mapPoints = [
-                    {lng: data.users[0].jd, lat: data.users[0].wd, name: data.users[0].watuser_name}
-                ]
+                _this.chooseName = data;
             })
-
             var imgload = new ImageUpload({
                 inputEl: '#imgupload',
                 showEl: false,
@@ -391,13 +393,9 @@
                 this.modalOutFun('open2');
             },
             formSubmit() {
-                console.log(this.imgLists.length)
-                console.log(this.imgArray + 'change');
                 //必须上传图片
-                if (this.imgLists.length === 0) {
-                    this.$layer.msg("请上传现场图片！");
-                    return;
-                }
+                if (this.imgLists.length === 0) this.$layer.msg("请上传现场图片！");
+                return;
                 //获取所有checked的input
                 var radioH = document.getElementsByTagName("input");
                 console.log(radioH);
@@ -457,7 +455,7 @@
                 let deviceFile = e.target.files;
                 this.imgArray.push(deviceFile[0]);
                 this.formData.append("fileArray", deviceFile[0]);
-                console.log(this.imgArray + 'change');
+                console.log(this.imgArray);
 
             },
             refreshMap() {
@@ -480,27 +478,11 @@
                     shade: false
                 });
             }
-        },
-        filters: {
-            trimStr: function (e) {
-                if (e === '') {
-                    return '暂无数据'
-                } else {
-                    return e
-                }
-            },
-            subStr: function (e) {
-                if (e.length > 15) {
-                    return e.substr(0, 15) + '...'
-                } else {
-                    return e
-                }
-            }
         }
     }
 </script>
 
-<style>
+<style scoped>
     .error {
         color: red !important;
     }
@@ -664,5 +646,4 @@
     input[type="radio"]:checked + .advice {
         background-image: url('../../../statics/images/radio_yes.png');
     }
-
 </style>

@@ -5,15 +5,16 @@
             <field>
                 <field-input v-model="inputname" placeholder=""></field-input>
             </field>
-            <a @click="queryWatuser()">
+            <a @click="queryMpInfo()">
                 <icon slot="img" name="search"></icon>
             </a>
         </list-item>
         <!--取水户-->
         <div style="margin-top: 46px;">
-            <list-item v-for="list in qshLists">
-                <a class="content" slot="after" @click="getQshInfo(list)"> {{list.watuserName}}</a>
-            </list-item>
+            <!--<list-item v-for="list in qshLists">-->
+                <!--<a class="content" slot="after" @click="getQshInfo(list)"> {{list.watuserName}}</a>-->
+            <!--</list-item>-->
+            <a class="content" slot="after" @click="getQshInfo()"> {{this.mp_nm}}</a>
         </div>
 
     </list>
@@ -30,6 +31,7 @@
         data() {
             return {
                 qshLists: [],
+                mp_nm: '请输入监测点名称查询',
                 inputname: ''
             }
         },
@@ -127,10 +129,30 @@
                         console.log("error");
                     });
             },
-            getQshInfo(name) {
+            //根据监测点名称和监测点编码查询相关信息
+            queryMpInfo() {
+                //获取监测点信息
+                let params = {
+                    mp_cd: '',
+                    mp_nm: this.inputname
+                };
+                params = encodeURI(encodeURI(JSON.stringify(params)));
+                this.$http.jsonp(API.QUERY_LL + "&params=" + params).then(
+                    response => {
+                        console.log(response.data)
+                        this.mp_nm = response.data.cd.mp_nm
+                        this.qshLists = response.data
+
+                    }, response => {
+                        console.log("error");
+                    })
+
+            },
+            getQshInfo() {
+                console.log(this.qshLists)
                 //将选择的信息传递到parent
-                VueEvent.$emit('watuser', name);
-                console.log(this.layerid);
+                VueEvent.$emit('watuser', this.qshLists);
+                // console.log(this.layerid);
                 this.$layer.close(this.layerid);
             }
 

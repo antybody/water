@@ -11,49 +11,46 @@
         <tabs v-model="selected" style="margin-top: 0">
             <tabs-item slot="tabs" blue hollow>基础信息</tabs-item>
             <tabs-item slot="tabs" blue hollow>巡检记录</tabs-item>
-            <tabs-item slot="tabs" blue hollow>处理流程</tabs-item>
+            <!--<tabs-item slot="tabs" blue hollow>处理流程</tabs-item>-->
             <tabs-desc slot="desc">
                 <div class="plan-map" style="height: 170px;">
-                    <red-map :points="mapPoints"></red-map>
+                    <red-map :points="mapPoints" :type="yjgd"></red-map>
                 </div>
-                <h5 class="wt-title" style="padding:0.925rem 0">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>取水户信息</span>
-                    </div>
-                </h5>
-                <list-item title="取水户名称">
-                    <a class="content" slot="after">{{qsh.name}}</a>
-                </list-item>
-                <list-item title="取水站点">
-                    <a class="content" slot="after">{{qsh.station}}</a>
-                </list-item>
-                <list-item title="取水许可证">
-                    <a class="content" slot="after">{{qsh.xkz}}</a>
-                </list-item>
-                <list-item title="瞬时流量">
-                    <a class="content" slot="after">{{qsh.ssll}} m³/s</a>
-                </list-item>
-                <list-item title="累计流量（本年）">
-                    <a class="content" slot="after">{{qsh.ljll}} m³</a>
-                </list-item>
+
                 <h5 class="wt-title" style="padding:0.925rem 0">
                     <div class="wt-title-center">
                         <i class="wt-bar-i-16 red-c"></i><span>站点信息</span>
                     </div>
                 </h5>
+                <list-item title="所属取水户">
+                    <a class="content" slot="after">{{this.mpData.patrol_title | trimStr | subStr}}</a>
+                </list-item>
                 <list-item title="站点编号">
-                    <a class="content" slot="after">{{station.bh}}</a>
+                    <a class="content" slot="after">{{this.mpData.mp_cd | trimStr}}</a>
+                </list-item>
+                <list-item title="安装地址">
+                    <a class="content" slot="after">{{this.mapPoints[0].desc | trimStr}}</a>
+                </list-item>
+                <list-item title="取水站点">
+                    <a class="content" slot="after">{{this.mpData.mp_nm | trimStr | subStr}}</a>
+                </list-item>
+                <list-item title="瞬时流量(m³/s)">
+                    <a class="content" slot="after">{{this.userInfo.ll.mp_q | trimStr}} </a>
+                </list-item>
+                <list-item title="累计流量(m³)">
+                    <a class="content" slot="after">{{this.userInfo.ll.acc_w | trimStr}} </a>
                 </list-item>
                 <list-item title="计量设施厂家">
-                    <a class="content" slot="after">{{station.cs}}</a>
+                    <a class="content" slot="after">{{this.mpData.jsscnm | trimStr}}</a>
                 </list-item>
                 <list-item title="计量设施型号">
-                    <a class="content" slot="after">{{station.xh}}</a>
+                    <a class="content" slot="after">{{this.mpData.jsxh | trimStr}}</a>
                 </list-item>
                 <list-item title="计量设施类型">
-                    <a class="content" slot="after">{{station.lx}}</a>
+                    <a class="content" slot="after">{{this.mpData.jllx | trimStr}}</a>
                 </list-item>
                 <list-item title="安装时间">
-                    <a class="content" slot="after">{{station.addtime}}</a>
+                    <a class="content" slot="after">{{this.mpData.dt | trimStr}}</a>
                 </list-item>
             </tabs-desc>
             <tabs-desc slot="desc">
@@ -133,34 +130,34 @@
                 <modal role="confirm" title="提醒" :isOpen="open2" @Confirm="del()" @Close="modalOutFun('open2')">确定删除？
                 </modal>
             </tabs-desc>
-            <tabs-desc slot="desc">
-                <ul class="route-timeline">
-                    <li v-if="index == 0" class="route-timeline-item cur" v-for="(tl,index) in timeline"
-                        :key="tl.index">
-                        <i class="wt-bar-i-16"></i>
-                        <div class="route-timline-h">
-                            <div class="desc">
-                                <h3 style="color:rgb(254, 155, 30)">{{tl.dealcompany}}
-                                    {{tl.dealperson}},{{tl.dealmsg}}</h3>
-                                <p>{{tl.dealtime}}</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li v-else class="route-timeline-item none">
-                        <i class="wt-bar-i-16"></i>
-                        <div class="route-timline-h">
-                            <div class="desc">
-                                <h3>{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>
-                                <p>{{tl.dealtime}}</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="route-timeline-item none">
-                        <i class="wt-bar-i-16"></i>
-                        <div v-if="timeline.length == 0"> 暂未开始</div>
-                    </li>
-                </ul>
-            </tabs-desc>
+            <!--<tabs-desc slot="desc">-->
+            <!--<ul class="route-timeline">-->
+            <!--<li v-if="index == 0" class="route-timeline-item cur" v-for="(tl,index) in timeline"-->
+            <!--:key="tl.index">-->
+            <!--<i class="wt-bar-i-16"></i>-->
+            <!--<div class="route-timline-h">-->
+            <!--<div class="desc">-->
+            <!--<h3 style="color:rgb(254, 155, 30)">{{tl.dealcompany}}-->
+            <!--{{tl.dealperson}},{{tl.dealmsg}}</h3>-->
+            <!--<p>{{tl.dealtime}}</p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</li>-->
+            <!--<li v-else class="route-timeline-item none">-->
+            <!--<i class="wt-bar-i-16"></i>-->
+            <!--<div class="route-timline-h">-->
+            <!--<div class="desc">-->
+            <!--<h3>{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>-->
+            <!--<p>{{tl.dealtime}}</p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</li>-->
+            <!--<li class="route-timeline-item none">-->
+            <!--<i class="wt-bar-i-16"></i>-->
+            <!--<div v-if="timeline.length == 0"> 暂未开始</div>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</tabs-desc>-->
         </tabs>
     </vue-view>
 </template>
@@ -189,6 +186,8 @@
                 open2: false,
                 open3: false,
                 selectDel: -1,
+                mpData: {},
+                userInfo: {},
                 qsh: {
                     name: '宝信软件', station: '宝信监测点', xkz: '国长 字[2015]第01001号',
                     ssll: '120', ljll: '2300'
@@ -196,9 +195,8 @@
                 station: {bh: '宝信测站', cs: '宝信厂商', xh: 'A0001', lx: '流量计', addtime: '2010-01-01'},
                 PATROL_CONTENT: '',
                 BZ: '',
-                mapPoints: [
-                    {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
-                ],
+                mapPoints:
+                    [{lng: 121.372882, lat: 31.176523, name: '上海宝信', desc: ''}],
                 xjList: {errormsg: '数据量异常'},
                 timeline: []
             }
@@ -211,8 +209,28 @@
             })
         },
         mounted() {
-            let id = this.$route.params.id;
-
+            let id = this.$route.params.id
+            let data = this.$route.params.data
+            this.mpData = data
+            console.log(data)
+            //获取流量信息
+            let params = {
+                mp_cd: data.mp_cd
+            };
+            params = encodeURI(encodeURI(JSON.stringify(params)));
+            this.$http.jsonp(API.QUERY_LL + "&params=" + params).then(
+                response => {
+                    console.log(response.data)
+                    this.userInfo = response.data
+                    this.mapPoints = [{
+                        lng: this.userInfo.users[0].jd,
+                        lat: this.userInfo.users[0].wd,
+                        name: this.userInfo.users[0].watuser_name,
+                        desc: this.userInfo.users[0].watuser_addr
+                    }]
+                }, response => {
+                    console.log("error");
+                })
             var imgload = new ImageUpload({
                 inputEl: '#imgupload',
                 showEl: false,
@@ -288,6 +306,22 @@
                 let username = util.getJStore("userInfo")["user_info"];
                 console.log(username);
                 this.$router.go(-1);
+            }
+        },
+        filters: {
+            trimStr: function (e) {
+                if (e === '') {
+                    return '暂无数据'
+                } else {
+                    return e
+                }
+            },
+            subStr: function (e) {
+                if (e.length > 15) {
+                    return e.substr(0, 15) + '...'
+                } else {
+                    return e
+                }
             }
         }
     }

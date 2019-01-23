@@ -31,9 +31,9 @@
                 <list-item title="取水站点">
                     <a class="content" slot="after">宝信软件监测点</a>
                 </list-item>
-                <list-item title="取水许可证">
-                    <a class="content" slot="after">国长 字[2015]第01001号</a>
-                </list-item>
+                <!--<list-item title="取水许可证">-->
+                    <!--<a class="content" slot="after">国长 字[2015]第01001号</a>-->
+                <!--</list-item>-->
                 <list-item title="瞬时流量">
                     <a class="content" slot="after">120 m³/s</a>
                 </list-item>
@@ -454,7 +454,10 @@
             },
             formSubmit() {
                 //必须上传图片
-                if (this.imgLists.length === 0) this.$layer.msg("请上传现场图片！"); return;
+                if (this.imgLists.length === 0) {
+                    this.$layer.msg("请上传现场图片！");
+                    return;
+                }
                 //获取所有checked的input
                 var radioH = document.getElementsByTagName("input");
                 console.log(radioH);
