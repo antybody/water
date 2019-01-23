@@ -173,8 +173,12 @@
             numFilter(value) {
                 // 截取当前数据到小数点后两位
                 let realVal = Number(value).toFixed(2)
+                if (Number(realVal) === 0) {
+                    return '0.01'
+                } else {
+                    return Number(realVal)
+                }
                 // num.toFixed(2)获取的是字符串
-                return Number(realVal)
             }
         }
     }
