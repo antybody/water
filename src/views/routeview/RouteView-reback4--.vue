@@ -8,195 +8,63 @@
             巡检反馈
             <icon name="left-nav" slot="left" titleRight="返回" back></icon>
         </navbar>
-        <tabs v-model="selected" style="margin-top: 0">
+        <tabs v-model="selected" style="margin-top: 0;height: 100%">
             <tabs-item slot="tabs" blue hollow>基础信息</tabs-item>
             <tabs-item slot="tabs" blue hollow>巡检记录</tabs-item>
-            <tabs-item slot="tabs" blue hollow>现场图片</tabs-item>
-            <tabs-desc slot="desc">
-                <div class="plan-map" style="height: 170px;">
-                    <red-map ref="redmap" :points="mapPoints" v-on:mapAddress="mapAddress"></red-map>
-                </div>
-                <h5 class="wt-title" style="padding:0.925rem 0">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>站点信息</span>
+            <tabs-item slot="tabs" blue hollow>处理流程</tabs-item>
+            <tabs-desc slot="desc" style="height:100%">
+                <h5 class="wt-title h5add" style="padding:0.925rem 0">
+                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>地址确认</span>
                     </div>
                 </h5>
-                <list-item title="取水户名称">
-                    <a class="content" slot="after" name="">
-                        {{chooseName.watuser_name}}
-                        <img title="选中取水户" style="text-align: center;" @click="getQsh()" width="16" height="16"
-                             src="../../../statics/images/add.png"/>
-                    </a>
-                </list-item>
-                <list-item title="取水站点">
-                    <a class="content" slot="after">{{this.cdInfo.mp_nm | trimStr}}</a>
-                </list-item>
-                <list-item title="站点编号">
-                    <a class="content" slot="after">{{this.cdInfo.mp_cd | trimStr}}</a>
-                </list-item>
-                <list-item title="瞬时流量(m³/s)">
-                    <a class="content" slot="after">{{this.cdInfo.mp_q | trimStr}}</a>
-                </list-item>
-                <list-item title="累计流量(m³)">
-                    <a class="content" slot="after">{{this.cdInfo.acc_w | trimStr}}</a>
-                </list-item>
-                <list-item title="计量设施厂家">
-                    <a class="content" slot="after">{{this.cdInfo.jsscnm | trimStr}}</a>
-                </list-item>
-                <list-item title="计量设施型号">
-                    <a class="content" slot="after">{{this.cdInfo.jsxh | trimStr}}</a>
-                </list-item>
-                <list-item title="计量设施类型">
-                    <a class="content" slot="after">{{this.cdInfo.jslx | trimStr}}</a>
-                </list-item>
-                <list-item title="安装时间">
-                    <a class="content" slot="after">{{this.cdInfo.dt | trimStr}}</a>
-                </list-item>
+                <div class="plan-map" style="height: 170px;" >
+                    <red-map :points="mapPoints"></red-map>
+                </div>
+                <div style="width: 100%;height: auto">
+                    <div class="boxHand footerBoxHandle box active" @click="toMax()">
+                        <div class="active"></div>
+                    </div>
+                    <h5 class="wt-title" style="padding:0.925rem 0">
+                        <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>异常信息</span>
+                        </div>
+                    </h5>
+                    <list-item title="事件名称">
+                        <a class="content" slot="after">{{qsh.patrol_title}}</a>
+                    </list-item>
+                    <list-item title="事件地点">
+                        <a class="content" slot="after">{{qsh.patrol_address}}</a>
+                    </list-item>
+                    <list-item title="发生时间">
+                        <a class="content" slot="after">{{qsh.patrol_time}}</a>
+                    </list-item>
+                    <list-item title="情况描述">
+                        <a class="content" slot="after">{{qsh.patrol_content}}</a>
+                    </list-item>
+                </div>
             </tabs-desc>
             <tabs-desc slot="desc">
                 <h5 class="wt-title" style="padding:0.925rem 0">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>流量仪传感器部分</span>
+                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>情况描述</span>
                         <span class="wt-bar-subtitle"></span>
                     </div>
                 </h5>
-                <list-item title="检查外观是否正常">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="cgq_wgjc" id="cgq_wgjc_yes" value="1" hidden checked/>
-                        <label for="dx_lljtxscjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="cgq_wgjc" id="cgq_wgjc_no" value="2" hidden/>
-                        <label for="cgq_wgjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检测电极是否正常">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="cgq_djjc" id="cgq_djjc_yes" value="1" hidden checked/>
-                        <label for="cgq_djjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="cgq_djjc" id="cgq_djjc_no" value="2" hidden/>
-                        <label for="cgq_djjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检测精度">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="cgq_jdjc" id="cgq_jdjc_yes" value="1" hidden checked/>
-                        <label for="cgq_jdjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="cgq_jdjc" id="cgq_jdjc_no" value="2" hidden/>
-                        <label for="cgq_jdjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检查管径设定是否正确">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="cgq_gjjc" id="cgq_gjjc_yes" value="1" hidden checked/>
-                        <label for="cgq_gjjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="cgq_gjjc" id="cgq_gjjc_no" value="2" hidden/>
-                        <label for="cgq_gjjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检查传送信号是否正常">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="cgq_csxhjc" id="cgq_csxhjc_yes" value="1" hidden checked/>
-                        <label for="cgq_csxhjc_no" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="cgq_csxhjc" id="cgq_csxhjc_no" value="2" hidden/>
-                        <label for="cgq_csxhjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-
-                <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
-                    <field-input type="textarea" name="cgq_bz" placeholder="请填写情况说明及处理结果"></field-input>
-                </field>
+                <textarea  name="errormsg" v-model="xjList.errormsg"></textarea>
 
                 <h5 class="wt-title" style="padding:0.925rem 0">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>流量仪变送器部分</span>
+                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>巡检反馈</span>
                         <span class="wt-bar-subtitle"></span>
                     </div>
                 </h5>
-                <list-item title="检查外观是否完好">
+                <list-item title="是否您当前">
                     <a class="radio" slot="after">
-                        <input type="radio" name="bsq_wgjc" id="bsq_wgjc_yes" value="1" hidden checked/>
-                        <label for="bsq_wgjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="bsq_wgjc" id="bsq_wgjc_no" value="2" hidden/>
-                        <label for="bsq_wgjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
+                        <input type="radio" name="lljtxsc" id="lljtxsc_yes" value="1" hidden checked/>
+                        <label for="lljtxsc_yes" class="advice"></label>
+                        <span class="radio-name" @click="rClick(1)">去现场</span>
+                        <input type="radio" name="lljtxsc" id="lljtxsc_no" value="0" hidden/>
+                        <label for="lljtxsc_no" class="advice"></label>
+                        <span class="radio-name" @click="rClick(0)">无需</span>
                     </a>
                 </list-item>
-                <list-item title="检查量程设定参数">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="bsq_lcsdjc" id="bsq_lcsdjc_yes" value="1" hidden checked/>
-                        <label for="bsq_lcsdjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="bsq_lcsdjc" id="bsq_lcsdjc_no" value="2" hidden/>
-                        <label for="bsq_lcsdjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检测自检功能">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="bsq_zjgnjc" id="bsq_zjgnjc_yes" value="1" hidden checked/>
-                        <label for="bsq_zjgnjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="bsq_zjgnjc" id="bsq_zjgnjc_no" value="2" hidden/>
-                        <label for="bsq_zjgnjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检测输出脉冲">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="bsq_scmcjc" id="bsq_scmcjc_yes" value="1" hidden checked/>
-                        <label for="bsq_scmcjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="bsq_scmcjc" id="bsq_scmcjc_no" value="2" hidden/>
-                        <label for="bsq_scmcjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检测单项累计功能">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="bsq_dxljgnjc" id="bsq_dxljgnjc_yes" value="1" hidden checked/>
-                        <label for="bsq_dxljgnjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="dx_sbtxscjc" id="bsq_dxljgnjc_no" value="2" hidden/>
-                        <label for="bsq_dxljgnjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检测接收信号值是否正常">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="bsq_xhzjc" id="bsq_xhzjc_yes" value="1" hidden checked/>
-                        <label for="bsq_xhzjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="bsq_xhzjc" id="bsq_xhzjc_no" value="2" hidden/>
-                        <label for="bsq_xhzjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检测显示部分是否正常">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="bsq_xsjc" id="bsq_xsjc_yes" value="1" hidden checked/>
-                        <label for="bsq_xsjc_yes" class="advice"></label>
-                        <span class="radio-name">正常</span>
-                        <input type="radio" name="bsq_xsjc" id="bsq_xsjc_no" value="2" hidden/>
-                        <label for="bsq_xsjc_no" class="advice"></label>
-                        <span class="radio-name">异常</span>
-                    </a>
-                </list-item>
-                <list-item title="检测瞬时流量值">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="bsq_ssllz" id="dx_lljtxscjc_yes" value="1" hidden checked/>
-                    </a>
-                </list-item>
-                <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
-                    <field-input type="textarea" name="bsq_bz" placeholder="请填写情况说明及处理结果"></field-input>
-                </field>
-
             </tabs-desc>
             <tabs-desc slot="desc">
                 <div class="wt-list-info">
@@ -209,15 +77,13 @@
                         <span class="js_add_img">
                              <i class="icon_add_gray" @click="open('offcanvas5')"></i>
                                  <span class="input-add-img-box">
-                                     <input id="imgupload" capture="camera" @change="changeImg($event)"
-                                            class="input-add-img" type="file" accept="image/*"/>
+                                     <input id="imgupload" capture="camera" class="input-add-img" type="file" accept="image/*"/>
                                  </span>
                              </span>
                         <ul class="upload-pre-img" v-show="imgLists.length >0">
                             <li v-for="item in imgLists" :key="index">
                                 <div><img :src="item.url"></div>
-                                <span class="upload-pre-del"><i class="icons-e616" @click="delImg(item)"
-                                                                @change="changeImg(item)"></i></span>
+                                <span class="upload-pre-del"><i class="icons-e616" @click="delImg(item)"></i></span>
                             </li>
                             <div class="clear"></div>
                         </ul>
@@ -291,8 +157,6 @@
             return {
                 offcanvas5: false,
                 chooseName: {},
-                cdInfo: {},
-                llInfo: {},
                 imgLists: [],
                 imgUpload: false,
                 imgIndex: 0,
@@ -309,7 +173,7 @@
                     type: 'error'
                 },
                 mapPoints: [
-                    {lng: '', lat: '', name: '上海宝信'}
+                    {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
                 ],
                 timeline: [{dealtime: '2018-10-10 12:10', dealperson: '张三', dealmsg: '已处理并回复处理结果', dealcompany: '城投公司'}
                     , {dealtime: '2018-10-10 11:10', dealperson: '张三', dealmsg: '已前往处理', dealcompany: '城投公司'}
@@ -328,14 +192,7 @@
             //非父子组件之间通过广播传递值
             VueEvent.$on('watuser', function (data) {
                 _this.chooseName = data;
-                _this.cdInfo = data;
-                //_this.llInfo = data.ll;
-                //console.log(data);
-                _this.mapPoints = [
-                    {lng: data.x, lat: data.y, name: data.users[0].watuser_name}
-                ]
             })
-
             var imgload = new ImageUpload({
                 inputEl: '#imgupload',
                 showEl: false,
@@ -391,13 +248,8 @@
                 this.modalOutFun('open2');
             },
             formSubmit() {
-                console.log(this.imgLists.length)
-                console.log(this.imgArray + 'change');
                 //必须上传图片
-                if (this.imgLists.length === 0) {
-                    this.$layer.msg("请上传现场图片！");
-                    return;
-                }
+                if (this.imgLists.length === 0) this.$layer.msg("请上传现场图片！"); return;
                 //获取所有checked的input
                 var radioH = document.getElementsByTagName("input");
                 console.log(radioH);
@@ -457,7 +309,7 @@
                 let deviceFile = e.target.files;
                 this.imgArray.push(deviceFile[0]);
                 this.formData.append("fileArray", deviceFile[0]);
-                console.log(this.imgArray + 'change');
+                console.log(this.imgArray);
 
             },
             refreshMap() {
@@ -479,22 +331,6 @@
                     title: '获取取水户信息',
                     shade: false
                 });
-            }
-        },
-        filters: {
-            trimStr: function (e) {
-                if (e === '') {
-                    return '暂无数据'
-                } else {
-                    return e
-                }
-            },
-            subStr: function (e) {
-                if (e.length > 15) {
-                    return e.substr(0, 15) + '...'
-                } else {
-                    return e
-                }
             }
         }
     }

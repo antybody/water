@@ -22,23 +22,23 @@
                 </h5>
                 <list-item title="取水户名称">
                     <a class="content" slot="after" name="">
-                        {{chooseName.watuserName}}
+                        {{chooseName.watuser_name}}
                         <img title="选中取水户" style="text-align: center;" @click="getQsh()" width="16" height="16"
                              src="../../../statics/images/add.png"/>
                     </a>
 
                 </list-item>
                 <list-item title="取水站点">
-                    <a class="content" slot="after">宝信软件监测点</a>
+                    <a class="content" slot="after">{{this.cdInfo.mp_nm | trimStr}}</a>
                 </list-item>
                 <!--<list-item title="取水许可证">-->
                     <!--<a class="content" slot="after">国长 字[2015]第01001号</a>-->
                 <!--</list-item>-->
                 <list-item title="瞬时流量">
-                    <a class="content" slot="after">120 m³/s</a>
+                    <a class="content" slot="after">{{this.cdInfo.mp_q | trimStr}}</a>
                 </list-item>
                 <list-item title="累计流量">
-                    <a class="content" slot="after">3000120 m³</a>
+                    <a class="content" slot="after">{{this.cdInfo.acc_w | trimStr}}</a>
                 </list-item>
                 <h5 class="wt-title" style="padding:0.925rem 0">
                     <div class="wt-title-center">
@@ -46,19 +46,19 @@
                     </div>
                 </h5>
                 <list-item title="站点编号">
-                    <a class="content" slot="after">宝信软件测站</a>
+                    <a class="content" slot="after">{{this.cdInfo.mp_cd | trimStr}}</a>
                 </list-item>
                 <list-item title="计量设施厂家">
-                    <a class="content" slot="after">宝信软件</a>
+                    <a class="content" slot="after">{{this.cdInfo.jsscnm | trimStr}}</a>
                 </list-item>
                 <list-item title="计量设施型号">
-                    <a class="content" slot="after">A001</a>
+                    <a class="content" slot="after">{{this.cdInfo.jsxh | trimStr}}</a>
                 </list-item>
                 <list-item title="计量设施类型">
-                    <a class="content" slot="after">流量计</a>
+                    <a class="content" slot="after">{{this.cdInfo.jslx | trimStr}}</a>
                 </list-item>
                 <list-item title="安装时间">
-                    <a class="content" slot="after">2018-01-01</a>
+                    <a class="content" slot="after">{{this.cdInfo.dt | trimStr}}</a>
                 </list-item>
             </tabs-desc>
             <tabs-desc slot="desc">
@@ -356,6 +356,8 @@
             return {
                 offcanvas5: false,
                 chooseName: {},
+                cdInfo: {},
+                llInfo: {},
                 imgLists: [],
                 imgUpload: false,
                 imgIndex: 0,
@@ -390,11 +392,14 @@
             //非父子组件之间通过广播传递值
             VueEvent.$on('watuser', function (data) {
                 _this.chooseName = data;
+                //_this.chooseName = data.users[0];
+                _this.cdInfo = data;
+                //_this.llInfo = data.ll;
                 //获取地图信息
                 _this.mapPoints = [
-                    {lng: data.watuserLon, lat: data.watuserLat, name: data.watuserName}
+                    {lng: data.x, lat: data.y, name: data.watuser_ame}
                 ];
-                if (data.wiuTp === '地表水')  _this.wiuTp = true;
+                if (data.wiuTp === '地表水取水')  _this.wiuTp = true;
                 else  _this.wiuTp = false;
 
             })
@@ -539,6 +544,22 @@
                     title: '获取取水户信息',
                     shade: false
                 });
+            }
+        },
+        filters: {
+            trimStr: function (e) {
+                if (e === '') {
+                    return '暂无数据'
+                } else {
+                    return e
+                }
+            },
+            subStr: function (e) {
+                if (e.length > 15) {
+                    return e.substr(0, 15) + '...'
+                } else {
+                    return e
+                }
             }
         }
     }
