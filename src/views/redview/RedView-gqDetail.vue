@@ -75,8 +75,8 @@
                 <div class="wt-title-line"></div>
                 <div class="classify-tags">
                     <div class="tags-wrap">
-                        <a :class="{select:isSelect == 'y'}" @click="tagChange('y')">年水量</a>
-                        <a :class="{select:isSelect == 'm'}" @click="tagChange('m')">月水量</a>
+                         <a :class="{select:isSelect == 'y'}" @click="tagChange('y')">水量信息</a>
+                        <!--   <a :class="{select:isSelect == 'm'}" @click="tagChange('m')">月水量</a>-->
                     </div>
                 </div>
                 <div id="myCharts" :style="{width:'410px',height:'300px'}"></div>
@@ -111,7 +111,8 @@
             let id = this.$route.params.id;
             let paramData = {
                 id: id,
-                year: '2018'
+               //year: '2018'
+                year: new Date().getFullYear()
             }
             paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
             this.$http.jsonp(API.GQ_CONTENT + "&params=" + paramData).then(
@@ -121,7 +122,7 @@
                     this.yearSl = response.data.year;
                     this.monthSl = response.data.month;
                     this.daySl = response.data.day;
-                    this.hourSl = response.data.hour;
+                    //this.hourSl = response.data.hour;
                     this.rsl= this.yearSl[ this.yearSl.length-1].sum;
                     this.dsl= this.daySl[ this.daySl.length-1].sum;
                     if(this.dsl= [null]){
@@ -167,8 +168,9 @@
                 this.isSelect = val;
                 let xmData = [], ymData = [],
                     xyData = [], yyData = [],
-                    mdData = [], xdData = [], ydData = [],
-                    dhData = [], xhData = [], yhData = [];
+                   // mdData = [], xdData = [], ydData = [],
+                   // dhData = [], xhData = [], yhData = [],
+                    id=this.$route.params.id;
                 for (let value of this.yearSl) {
                     xyData.push(value.dt);
                     yyData.push(parseFloat(value.sum));
@@ -177,7 +179,7 @@
                     xmData.push(value.dt);
                     ymData.push(parseFloat(value.sum));
                 }
-                for (let value of this.daySl) {
+             /*   for (let value of this.daySl) {
                     mdData.push(value.ydt);
                     xdData.push(value.rdt);
                     ydData.push(parseFloat(value.sum));
@@ -186,22 +188,22 @@
                     dhData.push(value.ddt);
                     xhData.push(value.hdt);
                     yhData.push(parseFloat(value.sum));
-                }
+                }*/
 
 
             switch(val){
                 case val='y':
-                    this.loadChart({x: xyData, y: yyData, t: 'bar'});
+                    this.loadChart({x: xyData, y: yyData, id, t: 'bar'});
                     break;
-                case val='m':
-                    this.loadChart2({x: xmData, y: ymData, t: 'bar'});
-                    break;
+               /* case val='m':
+                    this.loadChart2({x: xmData, y: ymData, id, t: 'bar'});
+                    break;*/
             }
                 // 切换图表
             },
-            loadChart: function (val) {
+            loadChart: function (val) {//年水量
                 let myChart = echarts.init(document.getElementById('myCharts'));
-                     myChart.off('click')
+                   //  myChart.off('click')
                 var options = {
                     color: ['#3398DB'],
                     tooltip: {},
@@ -224,6 +226,7 @@
                         name: '用水量',
                         type: val.t,
                         data: val.y,
+                        barMaxWidth:30,
                     label: {
                             normal: {
 
@@ -236,8 +239,41 @@
                     ]
                 };
                 myChart.setOption(options);
+                //开始
+                let _this=this;
+                let  id=val.id;
+                myChart.on('click', function (params) {
+                    let xname = params.name,
+                        xData = [], yData = [],
+                        monthSl=[];
+                    let paramMdata={
+                        id:id,
+                        year:xname
+                    }
+                    paramMdata=encodeURI(encodeURI(JSON.stringify(paramMdata)));
+                    _this.$http.jsonp(API.GQ_CONTENT_M + "&params=" + paramMdata).then(
+                        response => {
+                            console.log(response.data);
+                            monthSl = response.data.month;
+                            for (let i=0;i< monthSl.length;i++) {
+                                xData[i]= monthSl[i].dt;
+                                yData[i]= monthSl[i].sum;
+                            }
+                            _this.$options.methods.loadChart2({x: xData, y: yData,id,t: 'bar',_this});
+                        }, response => {
+                            console.log("error");
+                        }
+                    );
+                   // for (let i=0;i< _this.monthSl.length;i++) {
+                   //     xData[i]= _this.monthSl[i].dt;
+                   //     yData[i]= _this.monthSl[i].sum;
+                   // }
+
+                    //_this.$options.methods.loadChart2({x: xData, y: yData,id,t: 'bar',_this});
+                });
+                //结束
             },
-            loadChart2: function (val) {
+            loadChart2: function (val) {//月水量
                 let myChart = echarts.init(document.getElementById('myCharts'));
                 var options = {
                     color: ['#3398DB'],
@@ -259,6 +295,7 @@
                         name: '用水量',
                         type: val.t,
                         data: val.y,
+                        barMaxWidth:30,
                         label: {
                             normal: {
                                 show: true,
@@ -268,7 +305,7 @@
                     }]
                 };
                 myChart.setOption(options);
-                let _this=this;
+            /*    let _this=this;
                 myChart.on('click', function (params) {
                     let xname = params.name,
                         mdData = [], xdData = [], ydData = [];
@@ -281,12 +318,43 @@
                         ydData[i]= _this.daySl[i].sum;
                     }
                     _this.$options.methods.loadChart3({x: xdData, y: ydData, z: mdData, xname,t: 'bar',_this});
+                });*/
+                let _this=val._this;
+                //let _this=this;
+                myChart.on('click', function (params) {
+                    let xname = params.name,
+                        id=val.id,
+                        xData = [], yData = [],
+                        daySl=[];
+                    let paramDdata={
+                        id:id,
+                        month:xname
+                    }
+                    paramDdata=encodeURI(encodeURI(JSON.stringify(paramDdata)));
+                    _this.$http.jsonp(API.GQ_CONTENT_D + "&params=" + paramDdata).then(
+                        response => {
+                            console.log(response.data);
+                            daySl = response.data.day;
+                            for (let i=0;i< daySl.length;i++) {
+                                xData[i]= daySl[i].dt;
+                                yData[i]= daySl[i].sum;
+                            }
+                            _this.$options.methods.loadChart3({x: xData, y: yData,id,t: 'bar',_this});
+                        }, response => {
+                            console.log("error");
+                        }
+                    );
+                  /*  for (let i=0;i< _this.daySl.length;i++) {
+                        xData[i]= _this.daySl[i].dt;
+                        yData[i]= _this.daySl[i].sum;
+                    }
+                    _this.$options.methods.loadChart3({x: xData, y: yData,id,t: 'bar',_this});*/
                 });
 
             },
-            loadChart3: function (val) {
+            loadChart3: function (val) {//日水量
                 let myChart = echarts.init(document.getElementById('myCharts'));
-                let m1,m2,
+               /* let m1,m2,
                     xdata = [],ydata = [];
 
                 for( let i=0;i<=val.z.length;i++){
@@ -304,7 +372,7 @@
                 for(let j = 0,i = m1,k = m2;j < k-i ;j++ ){
                     xdata[j] = val.x[i+j];
                     ydata[j] = val.y[i+j];
-                }
+                }*/
                 var options = {
                     color: ['#3398DB'],
                     legend: {
@@ -317,13 +385,14 @@
                         top: '5%'
                     },
                     xAxis: {
-                        data: xdata
+                        data: val.x
                     },
                     yAxis: {},
                     series: [{
                         name: '用水量',
                         type: val.t,
-                        data: ydata,
+                        data: val.y,
+                        barMaxWidth:30,
                         label: {
                             normal: {
                                 show: true,
@@ -334,7 +403,8 @@
                 };
                 myChart.setOption(options);
                 let _this=val._this;
-                myChart.on('click', function (params) {
+               // let _this=this;
+              /*  myChart.on('click', function (params) {
                     let xname = params.name,
                         dhData = [], xhData = [], yhData = [];
                     for (let i=0;i< _this.hourSl.length;i++) {
@@ -346,13 +416,41 @@
                         yhData[i]= _this.hourSl[i].sum;
                     }
                     _this.$options.methods.loadChart4({x: xhData, y: yhData, z: dhData, xname,t: 'bar'})
+                });*/
+                myChart.on('click', function (params) {
+                    let xname = params.name,
+                        id=val.id,
+                        xData = [], yData = [],
+                        hourSl=[];
+                    let paramHdata={
+                        id:id,
+                        day:xname
+                    }
+                    paramHdata=encodeURI(encodeURI(JSON.stringify(paramHdata)));
+                    _this.$http.jsonp(API.GQ_CONTENT_H + "&params=" + paramHdata).then(
+                        response => {
+                            console.log(response.data);
+                            hourSl = response.data.hour;
+                            for (let i=0;i< hourSl.length;i++) {
+                                xData[i]= hourSl[i].dt;
+                                yData[i]= hourSl[i].sum;
+                            }
+                            _this.$options.methods.loadChart4({x: xData, y: yData,t: 'bar',_this});
+                        }, response => {
+                            console.log("error");
+                        }
+                    );
+                  /*  for (let i=0;i< _this.hourSl.length;i++) {
+                        xData[i]= _this.hourSl[i].dt;
+                        yData[i]= _this.hourSl[i].sum;
+                    }
+                    _this.$options.methods.loadChart4({x: xData, y: yData,t: 'bar',_this});*/
                 });
-
             },
-            loadChart4: function (val) {
+            loadChart4: function (val) {//小时水量
                 let myChart = echarts.init(document.getElementById('myCharts'));
-                    myChart.off('click')
-                let m1,m2,
+                    myChart.off('click');
+               /* let m1,m2,
                     xdata = [],ydata = [];
                 for( let i=0;i<=val.z.length;i++){
                     if(val.z[i] === val.xname){
@@ -369,7 +467,7 @@
                 for(let j = 0,i = m1,k = m2;j < k-i ;j++ ){
                     xdata[j] = val.x[i+j];
                     ydata[j] = val.y[i+j];
-                }
+                }*/
                 var options = {
                     color: ['#3398DB'],
                     legend: {
@@ -382,13 +480,14 @@
                         top: '5%'
                     },
                     xAxis: {
-                        data: xdata
+                        data: val.x
                     },
                     yAxis: {},
                     series: [{
                         name: '用水量',
                         type: val.t,
-                        data: ydata,
+                        data: val.y,
+                        barMaxWidth:30,
                         label: {
                             normal: {
                                 show: true,

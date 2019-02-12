@@ -6,7 +6,6 @@ import * as Url from "../url/url"
 const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
 //const BASE_URL = 'http://localhost:8081/wrmsApp'
 
-  //const BASE_URL = 'http://localhost:8080/wrmsApp'
 /**
  *公用模板相关接口
  * 以COMPONENTS开头
@@ -107,6 +106,9 @@ export const DYSH_CONTENT = BASE_URL + '/app/wateruser/getJcxx?access_token=[b36
  * */
 export const GQ_LIST = BASE_URL + '/app/nyys/getGq?access_token=[b36680850768ff1b]';
 export const GQ_CONTENT = BASE_URL + '/app/nyys/getGqxx?access_token=[b36680850768ff1b]';
+export const GQ_CONTENT_M = BASE_URL + '/app/nyys/getGqMsl?access_token=[b36680850768ff1b]';
+export const GQ_CONTENT_D = BASE_URL + '/app/nyys/getGqDsl?access_token=[b36680850768ff1b]';
+export const GQ_CONTENT_H = BASE_URL + '/app/nyys/getGqHsl?access_token=[b36680850768ff1b]';
 
 
 /**

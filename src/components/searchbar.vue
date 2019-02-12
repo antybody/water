@@ -56,8 +56,9 @@
         data() {
             return {
                 searchItem: '',
-                lists: [{title: '上海宝信', href: '/qshDetail/1', tag1: '测试', tag2: '测试', tag3: '测试'},
-                    {title: '北京宝信', href: '/qshDetail/1', tag1: '测试', tag2: '测试', tag3: '测试'}]
+                lists:''
+                //  lists: [{title: '上海宝信', href: '/qshDetail/1', tag1: '测试', tag2: '测试', tag3: '测试'},
+                //    {title: '北京宝信', href: '/qshDetail/1', tag1: '测试', tag2: '测试', tag3: '测试'}]
             }
         },
         methods: {
@@ -68,44 +69,92 @@
                 console.log(this.searchItem);
                 if (this.searchItem.length === 0)
                     return false
-                let paramData = {
-                    type: 'query',
-                    wiuTp: '',
-                    watuserDivname: '',
-                    watuserCom: '',
-                    watuserWatapp: '',
-                    monitorlevel: '',
-                    watuserName: this.searchItem,
-                    currentPage: 10
-                }
-                console.log(paramData)
-                paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-                this.$http.jsonp(API.QSH_LIST + "&params=" + paramData).then(
-                    response => {
-                        this.lists = []
-                        console.log(response.data.data);
-                        if (response.data.data.length === 0) {
-                            this.lists.push({
-                                title: '暂无数据'
-                                // ,href: '',
-                                // tag1: '',
-                                // tag2: '',
-                                // tag3: ''
-                            })
-                        } else {
-                            for (let value of response.data.data) {
-                                this.lists.push({
-                                    title: value.watuserName,
-                                    href: '/qshDetail/' + value.watuserId,
-                                    tag1: value.watuserWorktype,
-                                    tag2: value.watuserWatapp,
-                                    tag3: value.wiuTp
-                                })
-                            }
+                //console.log(this.$route.params.t);
+                this.t = this.$route.params.t;
+                console.log(this.t);
+                switch (this.t){
+                    case "dbsqsh":
+                        let paramData1 = {
+                            type: 'query',
+                            wiuTp: '',
+                            watuserDivname: '',
+                            watuserCom: '',
+                            watuserWatapp: '',
+                            monitorlevel: '',
+                            watuserName: this.searchItem,
+                            currentPage: 10
                         }
-                    }, response => {
-                        console.log(response)
-                    });
+                        console.log(paramData1)
+                        paramData1 = encodeURI(encodeURI(JSON.stringify(paramData1)));
+                        this.$http.jsonp(API.QSH_LIST + "&params=" + paramData1).then(
+                            response => {
+                                this.lists = []
+                                console.log(response.data.data);
+                                if (response.data.data.length === 0) {
+                                    this.lists.push({
+                                        title: '暂无数据'
+                                        // ,href: '',
+                                        // tag1: '',
+                                        // tag2: '',
+                                        // tag3: ''
+                                    })
+                                } else {
+                                    for (let value of response.data.data) {
+                                        this.lists.push({
+                                            title: value.watuserName,
+                                            href: '/qshDetail/' + value.watuserId,
+                                            tag1: value.watuserWorktype,
+                                            tag2: value.watuserWatapp,
+                                            tag3: value.wiuTp
+                                        })
+                                    }
+                                }
+                            }, response => {
+                                console.log(response)
+                            })
+                        break;
+                    case "gq":
+                        let paramData2 = {
+                            type: 'query',
+                            gqgm :'',
+                            jllx :'',
+                            ntlx :'',
+                            xzqh :'',
+                            irrname: this.searchItem,
+                            currentPage: 10
+                        }
+                        console.log(paramData2)
+                        paramData2 = encodeURI(encodeURI(JSON.stringify(paramData2)));
+                        this.$http.jsonp(API.GQ_LIST + "&params=" + paramData2).then(
+                            response => {
+                                this.lists = []
+                                console.log(response.data.data);
+                                if (response.data.data.length === 0) {
+                                    this.lists.push({
+                                        title: '暂无数据'
+                                        // ,href: '',
+                                        // tag1: '',
+                                        // tag2: '',
+                                        // tag3: ''
+                                    })
+                                } else {
+                                    for (let value of response.data.data) {
+                                        this.lists.push({
+                                            title: value.irrname,
+                                            href: '/gqView/' + value.id,
+                                            tag1: value.irrscale,
+                                            tag2: value.calculatetype,
+                                            tag3: value.managementunit
+                                        })
+                                    }
+                                }
+                            }, response => {
+                                console.log(response)
+                            })
+                        break;
+
+                }
+
             }, 500),
             closeBar: function () {
                 this.$emit('closeBar');
