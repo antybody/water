@@ -6,6 +6,7 @@ import * as Url from "../url/url"
 const BASE_URL = 'http://101.230.199.221:7005/wrmsApp'
 //const BASE_URL = 'http://localhost:8081/wrmsApp'
 //const BASE_URL = 'http://localhost:8080/wrmsApp'
+
 /**
  *公用模板相关接口
  * 以COMPONENTS开头
@@ -229,4 +230,5 @@ export const SAVE_LLY = BASE_URL + '/app/route/wt_lly_whbyCrud?access_token=[b36
 
 //根据监测点获取取水相关信息
 export const QUERY_LL = BASE_URL + '/app/route/queryLl?access_token=[b36680850768ff1b]';
+export const QUERY_LLL = BASE_URL + '/app/route/queryLll?access_token=[b36680850768ff1b]';
 

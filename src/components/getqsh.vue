@@ -14,7 +14,10 @@
             <!--<list-item v-for="list in qshLists">-->
                 <!--<a class="content" slot="after" @click="getQshInfo(list)"> {{list.watuserName}}</a>-->
             <!--</list-item>-->
-            <a class="content" slot="after" @click="getQshInfo()"> {{this.mp_nm}}</a>
+            <!--<-->
+            <list-item v-for="list in mp_nm">
+                <a class="content" slot="after" @click="getQshInfo(list.watuser_name,list.mp_nm,list.mp_q,list.acc_w,list.mp_cd,list.jsscnm,list.jsxh,list.jslx,list.x,list.y,list.jllx)"> {{list.mp_nm}}</a>
+            </list-item>
         </div>
 
     </list>
@@ -31,7 +34,8 @@
         data() {
             return {
                 qshLists: [],
-                mp_nm: '请输入监测点名称查询',
+                mp_qsh:{},
+                mp_nm: '',
                 inputname: ''
             }
         },
@@ -137,10 +141,10 @@
                     mp_nm: this.inputname
                 };
                 params = encodeURI(encodeURI(JSON.stringify(params)));
-                this.$http.jsonp(API.QUERY_LL + "&params=" + params).then(
+                this.$http.jsonp(API.QUERY_LLL + "&params=" + params).then(
                     response => {
                         console.log(response.data)
-                        this.mp_nm = response.data.cd.mp_nm
+                        this.mp_nm = response.data.cd
                         this.qshLists = response.data
 
                     }, response => {
@@ -148,10 +152,22 @@
                     })
 
             },
-            getQshInfo() {
-                console.log(this.qshLists)
+            getQshInfo(watuser_name,mp_nm,mp_q,acc_w,mp_cd,jsscnm,jsxh,jslx,x,y,jllx) {
+                //console.log('测试：');
+                //console.log(tt);
+                this.mp_qsh.watuser_name=watuser_name;
+                this.mp_qsh.mp_nm=mp_nm;
+                this.mp_qsh.mp_q=mp_q;
+                this.mp_qsh.acc_w=acc_w;
+                this.mp_qsh.mp_cd=mp_cd;
+                this.mp_qsh.jsscnm=jsscnm;
+                this.mp_qsh.jsxh=jsxh;
+                this.mp_qsh.jslx=jslx;
+                this.mp_qsh.x=x;
+                this.mp_qsh.y=y;
+                this.mp_qsh.jllx=jllx;
                 //将选择的信息传递到parent
-                VueEvent.$emit('watuser', this.qshLists);
+                VueEvent.$emit('watuser', this.mp_qsh);
                 // console.log(this.layerid);
                 this.$layer.close(this.layerid);
             }

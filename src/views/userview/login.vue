@@ -31,6 +31,8 @@ login
 <script>
     import * as util from '../../libs/utils'
     import * as API from '../../store/api/api'
+    import Utils from '../../libs/util'
+    //import * as App from './App.vue'
     import crypto from "crypto"
 
     export default {
@@ -48,6 +50,7 @@ login
         mounted() {
             let p = this.urlParam()
             if (p) this.isShow = false;
+
         },
         methods: {
             // 登录验证
@@ -92,10 +95,24 @@ login
                             util.setStore('user', response.data.data.name); // 登录状态
                             util.setStore('userName', response.data.data.display_name); // 登录状态
                             var nextUrl = this.$route.params.next;
-                            if (!nextUrl)
-                                this.$router.go(-1);
+                            if (!nextUrl){
+                                if(response.data.data.name=='xjy'){
+                                    this.$router.push({name: 'route'});
+                                    Utils.$emit('demo','type1');
+                                }else if(response.data.data.name=='fuxs'){
+                                    this.$router.push({name: 'route'});
+                                    Utils.$emit('demo','type2');
+                                }else{
+                                    this.$router.push({name: 'redv1'});
+                                    Utils.$emit('demo','type3');
+                                }
+                                $('.tabbar-item').removeClass('active');
+
+                            }
+
                             else
                                 this.$router.push({path: nextUrl});
+
                         }else{
                             this.open2 = true;
                             this.alertText = '账号或密码错误'
