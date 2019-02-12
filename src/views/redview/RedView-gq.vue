@@ -40,8 +40,22 @@
                 openSearch: false,
                 topB: false,
                 listInfo: [],
-                currentPage: 1,
-                showMore: true
+               // currentPage: 1,
+                currentPage: 10,
+                showMore: true,
+                selectval:{
+                    gqgm:'',
+                    jllx:'',
+                    ntlx:'',
+                    xzqh:''
+                },parmas :{
+                    type:"query",
+                    gqgm:'',
+                    jllx:'',
+                    ntlx:'',
+                    xzqh:'',
+                    currentPage: 10
+            }
             }
         },
         mounted() {
@@ -82,10 +96,12 @@
                 this.$router.push({name: 'search', params: {text: '请搜索灌区名称', t: 'gq'}});
             },
             menuQuery: function (val) {
+                this.currentPage = 10;
+                this.selectVal = val;
                 var gqgm = val.gqgm,
                     jllx = val.jllx,
                     ntlx = val.ntlx,
-                    xzqh = val.xzqh
+                    xzqh = val.xzqh;
                 // 这里引用 带条件的查询
                 if (val.gqgm[0] === "-1" || val.gqgm.length === 0) {
                     gqgm = '';
@@ -99,17 +115,18 @@
                 if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
                     xzqh = '';
                 }
-                //取水户列表查询所需要的参数
-                let params = {
+                //灌区列表查询所需要的参数
+                 this.params = {
                     type: "query",
                     gqgm ,
                     jllx ,
                     ntlx ,
                     xzqh ,
+                     currentPage: this.currentPage
                 };
                 // params = encodeURIComponent(JSON.stringify(params));
-                params = encodeURI(encodeURI(JSON.stringify(params)));
-                this.$http.jsonp(API.GQ_LIST + "&params=" + params).then(
+                let params2 = encodeURI(encodeURI(JSON.stringify(this.params)));
+                this.$http.jsonp(API.GQ_LIST + "&params=" + params2).then(
                     response => {
                         console.log(response.data.data);
                         this.listInfo = response.data.data;
@@ -123,8 +140,50 @@
                     });
             },
             loadMore() {
-                this.currentPage += 1;
+                this.currentPage += 10;
+                console.log(this.currentPage);
                 console.log('下一页');
+                let val=this.selectVal;
+                var gqgm = val.gqgm,
+                    jllx = val.jllx,
+                    ntlx = val.ntlx,
+                    xzqh = val.xzqh;
+                // 这里引用 带条件的查询
+                if (val.gqgm[0] === "-1" || val.gqgm.length === 0) {
+                    gqgm = '';
+                }
+                if (val.jllx[0] === "-1" || val.jllx.length === 0) {
+                    jllx = '';
+                }
+                if (val.ntlx[0] === "-1" || val.ntlx.length === 0) {
+                    ntlx = '';
+                }
+                if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
+                    xzqh = '';
+                }
+                //灌区列表查询所需要的参数
+                let params = {
+                    type: "query",
+                    gqgm ,
+                    jllx ,
+                    ntlx ,
+                    xzqh ,
+                    currentPage: this.currentPage
+                };
+                // params = encodeURIComponent(JSON.stringify(params));
+                 params = encodeURI(encodeURI(JSON.stringify(params)));
+                this.$http.jsonp(API.GQ_LIST + "&params=" + params).then(
+                    response => {
+                        console.log(response.data.data);
+                        this.listInfo = response.data.data;
+                        //循环设置跳转地址 href
+                        for (let value of response.data.data) {
+                            value.href = "/gqView/" + value.irrid;
+                            // console.log(value);
+                        }
+                    }, response => {
+                        console.log("error");
+                    });
             }
         }
     }

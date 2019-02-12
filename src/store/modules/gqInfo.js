@@ -71,8 +71,8 @@ const state = {
                 {title: '金山区', key: '020300010', checked: false},
                 {title: '宝山区', key: '02030011', checked: false},
                 {title: '崇明区', key: '02030012', checked: false},
-                {title: '嘉定区', key: '020300017', checked: false},
-                {title: '奉贤区', key: '020300013', checked: false},
+                {title: '嘉定区', key: '02030017', checked: false},
+                {title: '奉贤区', key: '02030013', checked: false},
             ]
         }
     ],

@@ -245,6 +245,7 @@
                             jllx: '' ,
                             ntlx: '' ,
                             xzqh: '' ,
+                            currentPage: '200'
                         };
                         paramsGq = encodeURI(encodeURI(JSON.stringify(paramsGq)));
                         this.$http.jsonp(API.GQ_LIST + "&params=" + paramsGq).then(

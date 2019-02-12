@@ -174,7 +174,8 @@
                 }
             },
             getContent(points) {//name, desc
-                let t = this.type;
+                 let t = this.type;
+                //let t = points.type;
                 console.log(t);
                 let content = [];
                 content.push('<table class="infowindow-content">');
