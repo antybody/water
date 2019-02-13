@@ -256,21 +256,22 @@
             listClick: function (data) {
                 console.log(data);
                 if (this.userRole === 'admin') {
-                    if (this.menu1 == 2 && data.patrol_state == 2 && data.bz !== 'yjgd')
+                    if (this.menu1 == 2 && data.patrol_state == 2 && data.bz !== 'yjgd'){
                         this.$router.push({
                             name: 'routeView',
                             params: {id: data.id, t: 'pd'}
                         });
-                    else if (this.menu1 == 2 && data.patrol_state == 2 && data.bz == 'wtXjjl')
+                    } else if (this.menu1 == 2 && data.patrol_state == 2 && data.bz == 'wtXjjl'){
                         this.$router.push({
                             name: 'routeReback1View',
-                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd'}
+                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, mp_cd: data.mp_cd,t: 'pd'}
                         });
+                    }
                 } else if (this.userRole === 'xjy') {
                     if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'yjgd'){
                         this.$router.push({
                             name: 'routeReback1View',
-                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd'}
+                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long,  mp_cd: data.mp_cd,t: 'pd'}
                         });
                     }else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'swrsj'){//水污染事件查看
                         this.$router.push({

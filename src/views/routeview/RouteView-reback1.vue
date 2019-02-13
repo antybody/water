@@ -275,7 +275,7 @@
                         <span class="js_add_img">
                              <i class="icon_add_gray" @click="open('offcanvas5')"></i>
                                  <span class="input-add-img-box">
-                                     <input id="imgupload" capture="camera" class="input-add-img" type="file"
+                                     <input id="imgupload" capture="camera" class="input-add-img" type="file"  @change="changeImg($event)"
                                             accept="image/*"/>
                                  </span>
                              </span>
@@ -342,8 +342,10 @@
     import VueView from "vue-amazeui/src/components/vueview/vueview"
     import redMap from '../../components/redmap'
     import getqsh from '../../components/getqsh'
+    import * as util from '../../libs/utils'
     import axios from 'axios'
     import VueEvent from '../../libs/VueEvent.js'
+    import 'jquery'
 
     export default {
         components: {
@@ -399,7 +401,7 @@
                 _this.mapPoints = [
                     {lng: data.x, lat: data.y, name: data.watuser_ame}
                 ];
-                if (data.wiuTp === '地表水取水')  _this.wiuTp = true;
+                if (data.jllx === '地表水取水')  _this.wiuTp = true;
                 else  _this.wiuTp = false;
 
             })
@@ -459,6 +461,7 @@
             },
             formSubmit() {
                 //必须上传图片
+                var _this=this;
                 if (this.imgLists.length === 0) {
                     this.$layer.msg("请上传现场图片！");
                     return;
@@ -468,15 +471,35 @@
                 console.log(radioH);
                 var radioStr = "{";//初始化空数组，用来存放radio对象。
                 radioStr += '"id":"' + '1' + '",'
-                    + '"zdname":"' + '测试' + '",'
-                    + '"zdnum":"' + 'SH00001' + '",'
+                    + '"zdname":"' + this.cdInfo.mp_nm + '",'
+                    + '"zdnum":"' + this.cdInfo.mp_cd + '",'
+
                     + '"jlsb":"' + '类型' + '",'
                     + '"sbqdfs":"' + '类型' + '",'
+                    + '"sbqsfs":"' + this.wiuTp==true?'地表水':'地下水' + '",'
                     + '"xcsj":"' + '类型' + '",'
                     + '"htsj":"' + '类型' + '",'
-                    + '"db_bz": "' + document.getElementsByName("db_bz")[0].value + '",'
-                    + '"dx_bz":"' + document.getElementsByName("dx_bz")[0].value + '",'
+                    + '"db_lljtxscjc":"' + document.getElementsByName("db_lljtxscjc")[0].value + '",'
+                    + '"db_lljshhd":"' + document.getElementsByName("db_lljshhd")[0].value + '",'
+                    + '"db_txxhjc":"' + document.getElementsByName("db_txxhjc")[0].value + '",'
+                    + '"db_dzyqjqj":"' + document.getElementsByName("db_dzyqjqj")[0].value + '",'
+                    + '"db_dybljc":"' + document.getElementsByName("db_dybljc")[0].value + '",'
+                    + '"db_jdcs":"' + document.getElementsByName("db_jdcs")[0].value + '",'
+                    + '"db_htsjhd":"' + document.getElementsByName("db_htsjhd")[0].value + '",'
+                    + '"db_plccybf":"' + document.getElementsByName("db_plccybf")[0].value + '",'
+                    + '"db_bz":"' + document.getElementsByName("db_bz")[0].value + '",'
+                    + '"dx_sbtxscjc":"' + document.getElementsByName("dx_sbtxscjc")[0].value + '",'
+                    + '"dx_lljsjhd":"' + document.getElementsByName("dx_lljsjhd")[0].value + '",'
+                    + '"dx_txxhjc":"' + document.getElementsByName("dx_txxhjc")[0].value + '",'
+                    + '"dx_db_dzyqjqj":"' + document.getElementsByName("dx_db_dzyqjqj")[0].value + '",'
+                    + '"dx_dybljc":"' + document.getElementsByName("dx_dybljc")[0].value + '",'
+                    + '"dx_jdcs":"' + document.getElementsByName("dx_jdcs")[0].value + '",'
+                    + '"dx_htsjhd":"' + document.getElementsByName("dx_htsjhd")[0].value + '",'
+                    + '"dx_plccybf":"' + document.getElementsByName("dx_plccybf")[0].value + '",'
+                    + '"dx_fsjxcljc":"' + document.getElementsByName("dx_fsjxcljc")[0].value + '",'
+                    + '"dx_ldcgh":"' + document.getElementsByName("dx_ldcgh")[0].value + '",'
                     + '"whry":"' + document.getElementsByName("whry")[0].value + '",'
+                    + '"adress":"' + this.mapAddressNow.address + '",'
                     + '"rq":"' + document.getElementsByName("rq")[0].value + '",';
                 for (var i = 0; i < radioH.length; i++) {
                     var obj = radioH[i];
@@ -492,7 +515,7 @@
                     patrol_address: this.mapAddressNow.address,
                     patrol_long: this.mapAddressNow.lng,
                     patrol_lat: this.mapAddressNow.lat,
-                    patrol_title: '工单1',
+                    patrol_title: this.cdInfo.mp_nm,
                     patrol_content: '工单1',
                     patrol_x: '',
                     patrol_y: '',
@@ -513,8 +536,14 @@
                     contentType: false, //必须
                     data: this.formData
                 }).then(function (response) {
+                    if(response.data.code==0){
+                        _this.$layer.msg("提交成功！");
+                    }else{
+                        _this.$layer.msg("提交失败！");
+                    }
                     console.log(response);
                 }).catch(function (error) {
+                    _this.$layer.msg("提交失败！");
                     console.log(error);
                 });
             },

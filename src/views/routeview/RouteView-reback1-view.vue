@@ -54,6 +54,7 @@
                 </list-item>
             </tabs-desc>
             <tabs-desc slot="desc">
+                <div v-show="wiuTp">
                 <h5 class="wt-title">
                     <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>地表水取水</span>
                         <span class="wt-bar-subtitle"></span>
@@ -72,6 +73,8 @@
                     <field-input type="textarea" style="background-color: #fff;" :value="xjjlData.db_bz"
                                  disabled></field-input>
                 </field>
+                </div>
+                <div v-show="!wiuTp">
                 <h5 class="wt-title" style="padding:0.925rem 0">
                     <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>地下取水（回灌井）</span>
                         <span class="wt-bar-subtitle"></span>
@@ -91,9 +94,9 @@
                     <field-input type="textarea" style="background-color: #fff;" :value="xjjlData.dx_bz"
                                  disabled></field-input>
                 </field>
-
+                </div>
                 <list-item title="巡检员" :after="xjjlData.whry"></list-item>
-                <list-item title="巡检地点" :after="xjjlData.whry"></list-item>
+                <list-item title="巡检地点" :after="xjjlData.adress"></list-item>
                 <list-item title="巡检时间" :after="xjjlData.rq"></list-item>
 
             </tabs-desc>
@@ -133,6 +136,7 @@
                 xjjlData: [],
                 qshData: [],
                 imgLists: [],
+                wiuTp: true,
                 formData: new FormData(),
                 mapPoints: [
                     {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
@@ -154,9 +158,11 @@
                 {lng: this.$route.params.patrol_long, lat: this.$route.params.patrol_lat, name: ''}
             ];
             let id = this.$route.params.id;
+            let mp_cd = this.$route.params.mp_cd;
+
             let paramData = {
                 type: 'query',
-                mp_cd: '3101160003001',
+                mp_cd: mp_cd,
                 id: id
             }
             paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
