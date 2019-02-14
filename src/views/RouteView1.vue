@@ -18,14 +18,19 @@
                     <a :class="{cur:menu1 === 2}" @click="menu1Click(2)">历史巡检</a>
                 </div>
                 <div class="route-subtabs">
-                    <div class="sub" v-show="listType">
-                        <span :class="{cur:menu2 === 1}" @click="menu2Click(1)">数据断开</span>
-                        <span :class="{cur:menu2 === 2}" @click="menu2Click(2)">数据负值</span>
+                    <div class="sub" v-show="listType" v-if="userRole === 'xjy'">
+                        <span :class="{cur:menu2 === 1}" @click="menu2Click(1)">预警工单</span><!--数据断开-->
+                        <span :class="{cur:menu2 === 2}" @click="menu2Click(2)">巡检工单</span><!--数据负值-->
                         <span :class="{cur:menu2 === 3}" @click="menu2Click(3)">水污染</span>
                     </div>
+                    <div class="sub" v-show="listType" v-else-if="userRole === 'admin'">
+                        <span :class="{cur:menu2 === 1}" @click="menu2Click(4)">数据延时</span>
+                        <span :class="{cur:menu2 === 2}" @click="menu2Click(5)">监测值负值</span>
+                       <!-- <span :class="{cur:menu2 === 3}" @click="menu2Click(3)">水污染</span>-->
+                    </div>
                     <div class="sub" v-show="!listType">
-                        <span :class="{cur:menu2 === 1}" @click="menu2Click(1)">预警巡检</span>
-                        <span :class="{cur:menu2 === 2}" @click="menu2Click(2)">派单巡检</span>
+                        <span :class="{cur:menu2 === 1}" @click="menu2Click(6)">预警巡检</span>
+                        <span :class="{cur:menu2 === 2}" @click="menu2Click(7)">派单巡检</span>
                     </div>
                     <div class="selectTime">
                         <input type="text" readonly="readonly" @click="openCal" v-model="time.selectedDate">
@@ -36,14 +41,15 @@
             <div class="route-lists" v-show="userRole === 'xjy'">
                 <!--
                 待办列表
-                  1.预警巡检计划列表
-                  2.派单计划列表
+                  1.预警工单
+                  2.巡检工单
+                  3.水污染
                 -->
                 <div v-show="listType" class="mui-table-view mt0" v-for="list in lists"
                      v-if="list.patrol_state === '0'">
                     <div class="mui-card-header">
                         <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
-                        <span class="mui-pull-right" v-if="list.bz==='swrsj'">工单类型：水污染</span>
+                        <span class="mui-pull-right" v-else-if="list.bz==='swrsj'">工单类型：水污染</span>
                         <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
                         <span>{{list.patrol_time}}</span>
                     </div>
@@ -73,7 +79,7 @@
                      v-if="list.patrol_state === '2'">
                     <div class="mui-card-header">
                         <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
-                        <span class="mui-pull-right" v-if="list.bz==='swrsj'">工单类型：水污染</span>
+                        <span class="mui-pull-right" v-else-if="list.bz==='swrsj'">工单类型：水污染</span>
                         <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
                         <span>{{list.patrol_time}}</span>
                     </div>
@@ -128,7 +134,7 @@
                 <div v-show="!listType" class="mui-table-view mt0" v-for="list in lists">
                     <div class="mui-card-header">
                         <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
-                        <span class="mui-pull-right" v-if="list.bz==='swrsj'">工单类型：水污染</span>
+                        <span class="mui-pull-right" v-else-if="list.bz==='swrsj'">工单类型：水污染</span>
                         <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
                         <span>{{list.patrol_time}}</span>
                     </div>
@@ -210,11 +216,11 @@
                 this.time.selectedDate = dateFormat(date, "yyyy-MM-dd");
                 console.log(this.time.selectedDate);
                 if (this.listType && this.userRole === 'admin') {
-                    this.getWarnList(this.time.selectedDate);
+                    this.getWarnList(this.time.selectedDate,'','');
                 } else if (this.listType && this.userRole === 'xjy') {
-                    this.getPlanList(this.time.selectedDate);
+                    this.getPlanList(this.time.selectedDate,'','');
                 } else {
-                    this.getPlanList(this.time.selectedDate);
+                    this.getPlanList(this.time.selectedDate,'','');
                 }
                 // 这里查询数据库
             },
@@ -225,32 +231,69 @@
                 this.menu1 = index;
                 if (index == 1 && this.userRole === 'admin') {// 加载常规巡检列表
                     this.listType = true;
-                    this.getWarnList(this.time.selectedDate);
+                    this.getWarnList(this.time.selectedDate,'','');
 
                 } else if (index == 1 && this.userRole === 'xjy') {
                     this.listType = true;
                     //管理员用户 加载巡检计划列表
-                    this.getPlanList(this.time.selectedDate);
+                    this.getPlanList(this.time.selectedDate,'','');
                 }
                 if (index == 2) {
                     this.listType = false;
                     //管理员用户 加载巡检计划列表
-                    this.getPlanList(this.time.selectedDate);
+                    this.getPlanList(this.time.selectedDate,'','');
                 }
             },
             menu2Click: function (index) {
                 this.menu2 = index;
-                if (index == 1) {// 取水户
-
+                if (index == 1) {
+                  //巡检员用户  预警工单 加载待巡检列表
+                    this.listType = true;
+                   var bz='yjgd',
+                       errornum='';
+                    this.getPlanList(this.time.selectedDate,bz,errornum);
                 }
-                if (index == 2) {// 大用水户
-
+                if (index == 2) {
+                    //巡检员用户  巡检工单 加载待巡检列表  怎么回事
+                    this.listType = true;
+                    var bz='',
+                        errornum='';
+                    this.getPlanList(this.time.selectedDate,bz,errornum);
                 }
-                if (index == 3) {// 水源地
-
+                if (index == 3) {
+                    //巡检员用户  水污染 加载待巡检列表
+                    this.listType = true;
+                    var bz='swrsj',
+                        errornum='';
+                    this.getPlanList(this.time.selectedDate,bz,errornum);
                 }
-                if (index == 4) {// 水功能区
-
+                if (index == 4) {
+                    //管理员用户  数据延时 加载计划巡检列表
+                    this.listType = true;
+                    var bz='',
+                        errornum='数据延时';
+                    this.getWarnList(this.time.selectedDate,bz,errornum);
+                }
+                if (index == 5) {
+                    //管理员用户  监测值负值 加载计划巡检列表
+                    this.listType = true;
+                    var bz='',
+                        errornum='监测值负值';
+                    this.getWarnList(this.time.selectedDate,bz,errornum);
+                }
+                if (index == 6) {
+                    //  预警巡检 加载历史巡检列表
+                    this.listType = true;
+                    var bz='',
+                        errornum='';
+                    this.getPlanList(this.time.selectedDate,bz,errornum);
+                }
+                if (index == 7) {
+                    //  派单巡检 加载历史巡检列表
+                    this.listType = true;
+                    var bz='',
+                        errornum='';
+                    this.getPlanList(this.time.selectedDate,bz,errornum);
                 }
             },
             listClick: function (data) {
@@ -382,9 +425,11 @@
                 }
                 this.modalOutFun('open2');
             },
-            getWarnList(time) {
+            getWarnList(time,bz,errornum) {
                 let paramData = {
                     type: 'query',
+                    bz:bz,
+                    errornum:errornum,
                     beginTime: time,
                     endTime: time
                     // ,errornum: ['10201', '10102']
@@ -401,9 +446,13 @@
                         console.log("error");
                     });
             },
-            getPlanList(time) {
+            getPlanList(time,bz,errornum) {
                 let paramData = {
+                    bz:bz,
+                    errornum:errornum,
                     type: 'query'
+                    //beginTime: time,
+                    //endTime: time
                 }
                 paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
                 console.log(API.ROUTE_PLAN + '&params=' + paramData);
