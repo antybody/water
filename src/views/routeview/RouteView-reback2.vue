@@ -7,14 +7,13 @@
         <navbar slot="header" class="wt-linear-blue" style="z-index:1010;">
             巡检反馈
             <icon name="left-nav" slot="left" titleRight="返回" back></icon>
-        </navbar>
-        <tabs v-model="selected" style="margin-top: 0">
+        </navbar>        <tabs v-model="selected" style="margin-top: 0">
             <tabs-item slot="tabs" blue hollow>基础信息</tabs-item>
             <tabs-item slot="tabs" blue hollow>巡检记录</tabs-item>
             <!--<tabs-item slot="tabs" blue hollow>处理流程</tabs-item>-->
             <tabs-desc slot="desc">
                 <div class="plan-map" style="height: 170px;">
-                    <red-map :points="mapPoints" :type="yjgd"></red-map>
+                    <red-map ref="redmap" :points="mapPoints" v-on:mapAddress="mapAddress"></red-map>
                 </div>
 
                 <h5 class="wt-title" style="padding:0.925rem 0">
@@ -34,12 +33,12 @@
                 <list-item title="取水站点">
                     <a class="content" slot="after">{{this.mpData.mp_nm | trimStr | subStr}}</a>
                 </list-item>
-                <list-item title="瞬时流量(m³/s)">
-                    <a class="content" slot="after">{{this.userInfo.ll.mp_q | trimStr}} </a>
-                </list-item>
-                <list-item title="累计流量(m³)">
-                    <a class="content" slot="after">{{this.userInfo.ll.acc_w | trimStr}} </a>
-                </list-item>
+                <!--<list-item title="瞬时流量(m³/s)">-->
+                    <!--<a class="content" slot="after">{{this.userInfo.ll.mp_q | trimStr}} </a>-->
+                <!--</list-item>-->
+                <!--<list-item title="累计流量(m³)">-->
+                    <!--<a class="content" slot="after">{{this.userInfo.ll.acc_w | trimStr}} </a>-->
+                <!--</list-item>-->
                 <list-item title="计量设施厂家">
                     <a class="content" slot="after">{{this.mpData.jsscnm | trimStr}}</a>
                 </list-item>
@@ -87,7 +86,7 @@
                         <span class="js_add_img">
                              <i class="icon_add_gray" @click="open('offcanvas5')"></i>
                                  <span class="input-add-img-box">
-                                     <input id="imgupload" capture="camera" class="input-add-img" type="file"
+                                     <input id="imgupload" capture="camera" class="input-add-img" type="file"  @change="changeImg($event)"
                                             accept="image/*"/>
                                  </span>
                              </span>
@@ -105,6 +104,18 @@
                     <list-item nested="input">
                         <field label="巡检人员">
                             <field-input name="xjperson" placeholder="巡检人员"></field-input>
+                        </field>
+                    </list-item>
+                    <list-item nested="input">
+                        <field label="巡检地点">
+                            <span :class="mapAddressNow.type" id="address" style="width: 80%;padding-right: 0.625rem;">{{mapAddressNow.address}}</span>
+                            <span hidden id="lng">{{mapAddressNow.lng}}</span>
+                            <span hidden id="lat">{{mapAddressNow.lat}}</span>
+                            <span style="width: 10%">
+                                <img title="刷新" style="text-align: center;" @click="refreshMap()" width="16" height="16"
+                                     src="../../../statics/images/refresh.png"/>
+                            </span>
+
                         </field>
                     </list-item>
                     <list-item nested="input">
@@ -130,34 +141,6 @@
                 <modal role="confirm" title="提醒" :isOpen="open2" @Confirm="del()" @Close="modalOutFun('open2')">确定删除？
                 </modal>
             </tabs-desc>
-            <!--<tabs-desc slot="desc">-->
-            <!--<ul class="route-timeline">-->
-            <!--<li v-if="index == 0" class="route-timeline-item cur" v-for="(tl,index) in timeline"-->
-            <!--:key="tl.index">-->
-            <!--<i class="wt-bar-i-16"></i>-->
-            <!--<div class="route-timline-h">-->
-            <!--<div class="desc">-->
-            <!--<h3 style="color:rgb(254, 155, 30)">{{tl.dealcompany}}-->
-            <!--{{tl.dealperson}},{{tl.dealmsg}}</h3>-->
-            <!--<p>{{tl.dealtime}}</p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</li>-->
-            <!--<li v-else class="route-timeline-item none">-->
-            <!--<i class="wt-bar-i-16"></i>-->
-            <!--<div class="route-timline-h">-->
-            <!--<div class="desc">-->
-            <!--<h3>{{tl.dealcompany}} {{tl.dealperson}},{{tl.dealmsg}}</h3>-->
-            <!--<p>{{tl.dealtime}}</p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</li>-->
-            <!--<li class="route-timeline-item none">-->
-            <!--<i class="wt-bar-i-16"></i>-->
-            <!--<div v-if="timeline.length == 0"> 暂未开始</div>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</tabs-desc>-->
         </tabs>
     </vue-view>
 </template>
@@ -170,11 +153,13 @@
     import VueView from "vue-amazeui/src/components/vueview/vueview";
     import redMap from '../../components/redmap'
     import * as util from '../../libs/utils'
+    import axios from 'axios'
     import 'jquery'
 
     export default {
         components: {
             redMap,
+            axios,
             VueView
         },
         data() {
@@ -188,6 +173,8 @@
                 selectDel: -1,
                 mpData: {},
                 userInfo: {},
+                imgArray: [],
+                formData: new FormData(),
                 qsh: {
                     name: '宝信软件', station: '宝信监测点', xkz: '国长 字[2015]第01001号',
                     ssll: '120', ljll: '2300'
@@ -195,9 +182,13 @@
                 station: {bh: '宝信测站', cs: '宝信厂商', xh: 'A0001', lx: '流量计', addtime: '2010-01-01'},
                 PATROL_CONTENT: '',
                 BZ: '',
+                mapAddressNow: {
+                    address: '获取位置中...',
+                    type: 'error'
+                },
                 mapPoints:
                     [{lng: 121.372882, lat: 31.176523, name: '上海宝信', desc: ''}],
-                xjList: {errormsg: '数据量异常'},
+                xjList: {errormsg: ''},
                 timeline: []
             }
         },
@@ -257,10 +248,21 @@
                 this[value] = true
                 if (push) this[push] = true
             },
+            mapAddress: function (mapAddress) {
+                this.mapAddressNow = mapAddress;
+                console.log(mapAddress);
+            },
             delImg(item) { // 点击弹出回调
                 this.open2 = true
                 this.selectDel = item.id;
                 console.log(item);
+            },
+            changeImg(e) {
+                let deviceFile = e.target.files;
+                this.imgArray.push(deviceFile[0]);
+                this.formData.append("fileArray", deviceFile[0]);
+                console.log(this.imgArray);
+
             },
             modalOutFun(value) {
                 this[value] = false
@@ -275,22 +277,72 @@
 
                 this.modalOutFun('open2');
             },
+            refreshMap() {
+                console.log("刷新");
+                //重新获取位置
+                this.$refs.redmapSwr.initMap();
+            },
             formSubmit() {
+                //必须上传图片
+                var _this=this;
+                if (this.imgLists.length === 0) {
+                    this.$layer.msg("请上传现场图片！");
+                    return;
+                }
                 let ID = this.$route.params.id;
                 console.log(ID);
                 let paramData = {
-                    type: 'resultPlan',
-                    ID: ID,
-                    PATROL_CONTENT: this.PATROL_CONTENT,
-                    BZ: this.BZ
+                    type: 'update',
+                    user: localStorage.getItem("userName"),
+                    patrol_address: this.mapAddressNow.address,
+                    patrol_long: this.mapAddressNow.lng,
+                    patrol_lat: this.mapAddressNow.lat,
+                    //patrol_title: this.cdInfo.mp_nm,
+                    patrol_content: this.xjList.errormsg,
+                    // patrol_x: '',
+                    // patrol_y: '',
+                    //patrol_type: 'wtXjjl',
+                    id: ID
+                    // lx:'yj',
+                    // PATROL_CONTENT: this.PATROL_CONTENT,
+                    // BZ: this.BZ
                 }
-                paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-                this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
-                    response => {
-                        console.log(response.data);
-                    }, response => {
-                        console.log("error:" + response.data);
-                    });
+                console.log(paramData);
+                paramData = encodeURIComponent(JSON.stringify(paramData));
+                this.formData.append('params', paramData);
+                // this.formData.append('fileArray', this.imgArray);
+                axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+                Vue.prototype.$ajax = axios;
+                this.$ajax({
+                    method: 'post',
+                    url: API.SAVE_LLY_YJ,
+                    processData: false,//用于对data参数进行序列化处理 这里必须false
+                    contentType: false, //必须
+                    data: this.formData
+                }).then(function (response) {
+                    if(response.data.code==0){
+                        _this.$layer.msg("提交成功！");
+                        _this.$router.go(-1);
+                    }else{
+                        _this.$layer.msg("提交失败！");
+                    }
+                    console.log(response);
+                }).catch(function (error) {
+                    _this.$layer.msg("提交失败！");
+                    console.log(error);
+                });
+                // this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
+                //     response => {
+                //         if(response.data.code==0){
+                //             _this.$layer.msg("提交成功！");
+                //         }else{
+                //             _this.$layer.msg("提交失败！");
+                //         }
+                //         console.log(response);
+                //     }, response => {
+                //         _this.$layer.msg("提交失败！");
+                //         console.log(error);
+                //     });
             },
             rClick: function (v) {
                 for (var i = 0; i < $("input[name='lljtxsc']").length; i++) {
@@ -317,7 +369,7 @@
                 }
             },
             subStr: function (e) {
-                if (e.length > 15) {
+                if (e!=null && e.length > 15) {
                     return e.substr(0, 15) + '...'
                 } else {
                     return e

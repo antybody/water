@@ -24,13 +24,19 @@
                         <span :class="{cur:menu2 === 3}" @click="menu2Click(3)">水污染</span>
                     </div>
                     <div class="sub" v-show="listType" v-else-if="userRole === 'admin'">
-                        <span :class="{cur:menu2 === 1}" @click="menu2Click(4)">数据延时</span>
-                        <span :class="{cur:menu2 === 2}" @click="menu2Click(5)">监测值负值</span>
+                        <span :class="{cur:menu2 === 4}" @click="menu2Click(4)">数据延时</span>
+                        <span :class="{cur:menu2 === 5}" @click="menu2Click(5)">监测值负值</span>
                        <!-- <span :class="{cur:menu2 === 3}" @click="menu2Click(3)">水污染</span>-->
                     </div>
-                    <div class="sub" v-show="!listType">
-                        <span :class="{cur:menu2 === 1}" @click="menu2Click(6)">预警巡检</span>
-                        <span :class="{cur:menu2 === 2}" @click="menu2Click(7)">派单巡检</span>
+                    <div class="sub" v-show="!listType" v-if="userRole === 'xjy'">
+                        <span :class="{cur:menu2 === 6}" @click="menu2Click(6)">预警巡检</span>
+                        <span :class="{cur:menu2 === 7}" @click="menu2Click(7)">派单巡检</span>
+                        <span :class="{cur:menu2 === 8}" @click="menu2Click(8)">水污染</span>
+                    </div>
+                    <div class="sub" v-show="!listType" v-if="userRole === 'admin'">
+                        <span :class="{cur:menu2 === 9}" @click="menu2Click(9)">预警巡检</span>
+                        <span :class="{cur:menu2 === 10}" @click="menu2Click(10)">派单巡检</span>
+                        <span :class="{cur:menu2 === 11}" @click="menu2Click(11)">水污染</span>
                     </div>
                     <div class="selectTime">
                         <input type="text" readonly="readonly" @click="openCal" v-model="time.selectedDate">
@@ -200,7 +206,7 @@
                 //初始化数据
                 this.getWarnList(this.time.selectedDate);
             } else if (this.userRole === 'xjy') {
-                this.getPlanList(this.time.selectedDate);
+                this.getPlanList(this.time.selectedDate,'');
             }
         },
         filters: {
@@ -218,9 +224,9 @@
                 if (this.listType && this.userRole === 'admin') {
                     this.getWarnList(this.time.selectedDate,'','');
                 } else if (this.listType && this.userRole === 'xjy') {
-                    this.getPlanList(this.time.selectedDate,'','');
+                    this.getPlanList(this.time.selectedDate,'');
                 } else {
-                    this.getPlanList(this.time.selectedDate,'','');
+                    this.getPlanList(this.time.selectedDate,'');
                 }
                 // 这里查询数据库
             },
@@ -236,12 +242,12 @@
                 } else if (index == 1 && this.userRole === 'xjy') {
                     this.listType = true;
                     //管理员用户 加载巡检计划列表
-                    this.getPlanList(this.time.selectedDate,'','');
+                    this.getPlanList(this.time.selectedDate,'');
                 }
                 if (index == 2) {
                     this.listType = false;
                     //管理员用户 加载巡检计划列表
-                    this.getPlanList(this.time.selectedDate,'','');
+                    this.getPlanList(this.time.selectedDate,'');
                 }
             },
             menu2Click: function (index) {
@@ -249,23 +255,20 @@
                 if (index == 1) {
                   //巡检员用户  预警工单 加载待巡检列表
                     this.listType = true;
-                   var bz='yjgd',
-                       errornum='';
-                    this.getPlanList(this.time.selectedDate,bz,errornum);
+                   var patrol_type='yjgd';
+                    this.getPlanList(this.time.selectedDate,patrol_type);
                 }
                 if (index == 2) {
                     //巡检员用户  巡检工单 加载待巡检列表  怎么回事
                     this.listType = true;
-                    var bz='',
-                        errornum='';
-                    this.getPlanList(this.time.selectedDate,bz,errornum);
+                    var patrol_type='pd';
+                    this.getPlanList(this.time.selectedDate,patrol_type);
                 }
                 if (index == 3) {
                     //巡检员用户  水污染 加载待巡检列表
                     this.listType = true;
-                    var bz='swrsj',
-                        errornum='';
-                    this.getPlanList(this.time.selectedDate,bz,errornum);
+                    var patrol_type='swrsj';
+                    this.getPlanList(this.time.selectedDate,patrol_type);
                 }
                 if (index == 4) {
                     //管理员用户  数据延时 加载计划巡检列表
@@ -283,43 +286,101 @@
                 }
                 if (index == 6) {
                     //  预警巡检 加载历史巡检列表
-                    this.listType = true;
-                    var bz='',
-                        errornum='';
-                    this.getPlanList(this.time.selectedDate,bz,errornum);
+                    this.listType = false;
+                    var patrol_type='yjgd';
+                    this.getPlanList(this.time.selectedDate,patrol_type);
                 }
                 if (index == 7) {
                     //  派单巡检 加载历史巡检列表
-                    this.listType = true;
-                    var bz='',
-                        errornum='';
-                    this.getPlanList(this.time.selectedDate,bz,errornum);
+                    this.listType = false;
+                    var patrol_type='pd';
+                    this.getPlanList(this.time.selectedDate,patrol_type);
+                }
+                if (index == 8) {
+                    // 水污染
+                    this.listType = false;
+                    var patrol_type='swrsj';
+                    this.getPlanList(this.time.selectedDate,patrol_type);
+                }
+                if (index == 9) {
+                    //巡检员用户  预警工单 加载待巡检列表
+                    this.listType = false;
+                    var patrol_type='yjgd';
+                    this.getPlanList(this.time.selectedDate,patrol_type);
+                }
+                if (index == 10) {
+                    //巡检员用户  巡检工单 加载待巡检列表  怎么回事
+                    this.listType = false;
+                    var patrol_type='pd';
+                    this.getPlanList(this.time.selectedDate,patrol_type);
+                }
+                if (index == 11) {
+                    //巡检员用户  水污染 加载待巡检列表
+                    this.listType = false;
+                    var patrol_type='swrsj';
+                    this.getPlanList(this.time.selectedDate,patrol_type);
                 }
             },
             listClick: function (data) {
                 console.log(data);
                 if (this.userRole === 'admin') {
-                    if (this.menu1 == 2 && data.patrol_state == 2 && data.bz !== 'yjgd'){
-                        this.$router.push({
-                            name: 'routeView',
-                            params: {id: data.id, t: 'pd'}
-                        });
-                    } else if (this.menu1 == 2 && data.patrol_state == 2 && data.bz == 'wtXjjl'){
+                    // if (this.menu1 == 2 && data.patrol_state == 2 && data.bz !== 'yjgd'){
+                    //     this.$router.push({
+                    //         name: 'routeView',
+                    //         params: {id: data.id, t: 'pd'}
+                    //     });
+                    // } else if (this.menu1 == 2 && data.patrol_state == 2 && data.bz == 'wtXjjl'){
+                    //     this.$router.push({
+                    //         name: 'routeReback1View',
+                    //         params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, mp_cd: data.mp_cd,t: 'pd'}
+                    //     });
+                    // }
+                    if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'pd' && data.bz == 'qsxj'){
                         this.$router.push({
                             name: 'routeReback1View',
-                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, mp_cd: data.mp_cd,t: 'pd'}
+                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long,  mp_cd: data.mp_cd,t: 'pd'}
                         });
-                    }
-                } else if (this.userRole === 'xjy') {
-                    if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'yjgd'){
+                    }else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'pd' && data.bz == 'lljxj'){
                         this.$router.push({
-                            name: 'routeReback1View',
+                            name: 'routeReback3View',
                             params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long,  mp_cd: data.mp_cd,t: 'pd'}
                         });
                     }else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'swrsj'){//水污染事件查看
                         this.$router.push({
                             name: 'routeView4',
                             params: {id: data.title_id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd',patrol_title: data.patrol_title,patrol_address: data.patrol_address,patrol_content: data.patrol_content,patrol_time: data.patrol_time}
+                        });
+                    }else if (this.menu1 == 2 && data.patrol_state == 2 && data.bz == 'yjxj'){//预警巡检
+                        this.$router.push({
+                            name: 'routeView2',
+                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long,  mp_cd: data.mp_cd,t: 'pd'}
+                        });
+                    }else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type !== 'yjgd'&& data.patrol_type !== 'swrsj'){
+                        this.$router.push({
+                            name: 'routeView',
+                            params: {id: data.id, t: 'pd'}
+                        });
+                    }
+                } else if (this.userRole === 'xjy') {
+                    if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'pd' && data.bz == 'qsxj'){
+                        this.$router.push({
+                            name: 'routeReback1View',
+                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long,  mp_cd: data.mp_cd,t: 'pd'}
+                        });
+                    }else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'pd' && data.bz == 'lljxj'){
+                        this.$router.push({
+                            name: 'routeReback3View',
+                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long,  mp_cd: data.mp_cd,t: 'pd'}
+                        });
+                    }else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type == 'swrsj'){//水污染事件查看
+                        this.$router.push({
+                            name: 'routeView4',
+                            params: {id: data.title_id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd',patrol_title: data.patrol_title,patrol_address: data.patrol_address,patrol_content: data.patrol_content,patrol_time: data.patrol_time}
+                        });
+                    }else if (this.menu1 == 2 && data.patrol_state == 2 && data.bz == 'yjxj'){//预警巡检
+                        this.$router.push({
+                            name: 'routeView2',
+                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long,  mp_cd: data.mp_cd,t: 'pd'}
                         });
                     }else if (this.menu1 == 2 && data.patrol_state == 2 && data.patrol_type !== 'yjgd'&& data.patrol_type !== 'swrsj'){
                         this.$router.push({
@@ -329,9 +390,9 @@
                     }else if (this.menu1 == 1 && data.patrol_state == 0 && data.patrol_type == 'swrsj'){//水污染事件办理
                         this.$router.push({
                             name: 'routeReback4',
-                            params: {id: data.id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd',patrol_title: data.patrol_title,patrol_address: data.patrol_address,patrol_content: data.patrol_content,patrol_time: data.patrol_time}
+                            params: {id: data.title_id, patrol_lat: data.patrol_lat, patrol_long: data.patrol_long, t: 'pd',patrol_title: data.patrol_title,patrol_address: data.patrol_address,patrol_content: data.patrol_content,patrol_time: data.patrol_time}
                         });
-                    }else{
+                    }else if (this.menu1 == 1 && data.patrol_state == 0 && data.bz == 'yjxj'){
                         this.$router.push({
                             name: 'routeReback2',
                             params: {id: data.id, t: 'pd', data: data}
@@ -383,6 +444,7 @@
                                 patrol_y: '',
                                 patrol_user: localStorage.getItem("userName"),
                                 patrol_type: 'yjgd',
+                                patrol_t:val.error_num,
                                 create_user: localStorage.getItem("userName"),
                                 create_time: '',
                                 isin: '1',
@@ -390,7 +452,7 @@
                                 patrol_file: '',
                                 patrol_state: '0',
                                 station_id: val.mp_cd,
-                                bz: 'yjgd'
+                                bz: 'yjxj'
                             },
                             id: val.id
                         }
@@ -404,7 +466,7 @@
                                 }
                                 // this.lists = response.data.data;
                             }, response => {
-                                console.log("error");
+                                this.$layer.msg("加入巡检失败！");
                             });
 
                         break;
@@ -446,13 +508,13 @@
                         console.log("error");
                     });
             },
-            getPlanList(time,bz,errornum) {
+            getPlanList(time,patrol_type) {
                 let paramData = {
-                    bz:bz,
-                    errornum:errornum,
-                    type: 'query'
-                    //beginTime: time,
-                    //endTime: time
+                    //bz:bz,
+                    //errornum:errornum,
+                    type: 'query',
+                    patrol_type: patrol_type,
+                    endTime: time
                 }
                 paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
                 console.log(API.ROUTE_PLAN + '&params=' + paramData);

@@ -400,6 +400,13 @@ const routeReback2 = resolve => {
         // Indicator.close()
     }, 'group-route')
 }
+const routeReback5 = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-reback5.vue'))
+        // Indicator.close()
+    }, 'group-route')
+}
 const routeReback4 = resolve => {
     // Indicator.open();
     require.ensure([], () => {
@@ -418,6 +425,13 @@ const routeView4 = resolve => {
     // Indicator.open();
     require.ensure([], () => {
         resolve(require('./views/routeview/RouteView-review4.vue'))
+        // Indicator.close()
+    }, 'group-route')
+}
+const routeView2 = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/routeview/RouteView-reback2-view.vue'))
         // Indicator.close()
     }, 'group-route')
 }
@@ -716,6 +730,11 @@ const router = new VueRouter({
             component: routeView4
         },
         {
+            path: '/routeView2',
+            name: 'routeView2',
+            component: routeView2
+        },
+        {
             path: '/routeReback1',
             name: 'routeReback1',
             component: routeReback1
@@ -739,6 +758,11 @@ const router = new VueRouter({
             path: '/routeReback2',
             name: 'routeReback2',
             component: routeReback2
+        },
+        {
+            path: '/routeReback5',
+            name: 'routeReback5',
+            component: routeReback5
         },
         {
             path: '/routeReback4',

@@ -56,16 +56,16 @@
                         <span class="wt-bar-subtitle"></span>
                     </div>
                 </h5>
-                <list-item title="是否您当前">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="lljtxsc" id="lljtxsc_yes" value="1" hidden checked/>
-                        <label for="lljtxsc_yes" class="advice"></label>
-                        <span class="radio-name" @click="rClick(1)">去现场</span>
-                        <input type="radio" name="lljtxsc" id="lljtxsc_no" value="0" hidden/>
-                        <label for="lljtxsc_no" class="advice"></label>
-                        <span class="radio-name" @click="rClick(0)">无需</span>
-                    </a>
-                </list-item>
+                <!--<list-item title="是否您当前">-->
+                    <!--<a class="radio" slot="after">-->
+                        <!--<input type="radio" name="lljtxsc" id="lljtxsc_yes" value="1" hidden checked/>-->
+                        <!--<label for="lljtxsc_yes" class="advice"></label>-->
+                        <!--<span class="radio-name" @click="rClick(1)">去现场</span>-->
+                        <!--<input type="radio" name="lljtxsc" id="lljtxsc_no" value="0" hidden/>-->
+                        <!--<label for="lljtxsc_no" class="advice"></label>-->
+                        <!--<span class="radio-name" @click="rClick(0)">无需</span>-->
+                    <!--</a>-->
+                <!--</list-item>-->
 
                 <div class="wt-list-info" id="photoDiv">
                     <div class="wt-list-lineover">
@@ -118,7 +118,7 @@
                 <div class="bottom-button" style="text-align: center;margin-left: 0.88rem;margin-top: 1.625rem;">
                     <!--<vue-button amSize="xs" sblue @buttonClick="formSubmit(1)">阶段完成</vue-button>-->
                     <vue-button amSize="xs" sblue @buttonClick="formSubmit(2)">处理完成</vue-button>
-                    <vue-button amSize="xs" orange>稍后巡检</vue-button>
+                    <vue-button amSize="xs" orange @buttonClick="lateSumit()">稍后巡检</vue-button>
                     <!--<vue-button amSize="xs" orange @buttonClick="lateSumit()">稍后巡检</vue-button>-->
                 </div>
                 <!-- 从下向上 弹出框组件-->
@@ -285,6 +285,7 @@
             },
             formSubmit(v) {
                 //必须上传图片
+                var _this=this;
                 if (this.imgLists.length === 0) {
                     this.$layer.msg("请上传现场图片！");
                     return;
@@ -323,13 +324,14 @@
                     data: this.formData
                 }).then(function (response) {
                     if(response.data.code==0){
-                        this.$layer.msg("提交成功！");
+                        _this.$layer.msg("提交成功！");
+                        _this.$router.go(-1);
                     }else{
-                        this.$layer.msg("提交失败！");
+                        _this.$layer.msg("提交失败！");
                     }
                     console.log(response);
                 }).catch(function (error) {
-                    this.$layer.msg("提交失败！");
+                    _this.$layer.msg("提交失败！");
                     console.log(error);
                 });
 

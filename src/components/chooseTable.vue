@@ -1,7 +1,7 @@
 <!--获取取水户信息-->
 <template>
     <ul class="chooseTable">
-        <li @click="clickList('routeReback2')" v-show="userRole==='admin'" title="" href="#">
+        <li @click="clickList('routeReback5')" v-show="userRole==='admin'" title="" href="#">
             <img title="选中取水户" style="text-align: center;" width="16" height="16"
                  src="../../statics/images/add.png"/>
             &nbsp;&nbsp;应急巡检

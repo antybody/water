@@ -188,11 +188,11 @@
                         <span class="radio-name">异常</span>
                     </a>
                 </list-item>
-                <list-item title="检测瞬时流量值">
-                    <a class="radio" slot="after">
-                        <input type="radio" name="bsq_ssllz" id="dx_lljtxscjc_yes" value="1" hidden checked/>
-                    </a>
-                </list-item>
+                <!--<list-item title="检测瞬时流量值">-->
+                    <!--<a class="radio" slot="after">-->
+                        <!--<input type="radio" name="bsq_ssllz" id="dx_lljtxscjc_yes" value="1" hidden checked/>-->
+                    <!--</a>-->
+                <!--</list-item>-->
                 <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
                     <field-input type="textarea" name="bsq_bz" placeholder="请填写情况说明及处理结果"></field-input>
                 </field>
@@ -250,7 +250,7 @@
                 </list>
                 <div class="bottom-button" style="text-align: center;margin-left: 0.88rem;margin-top: 1.625rem;">
                     <vue-button amSize="xs" sblue @buttonClick="formSubmit()">完成提交</vue-button>
-                    <vue-button amSize="xs" orange>稍后巡检</vue-button>
+                    <vue-button amSize="xs" orange  @buttonClick="lateSumit()">稍后巡检</vue-button>
                 </div>
                 <!-- 从下向上 弹出框组件-->
                 <offcanvas style="height:4.375rem" sildewh="82%" silde="top" :open="offcanvas5"
@@ -391,6 +391,7 @@
                 this.modalOutFun('open2');
             },
             formSubmit() {
+                var _this=this;
                 console.log(this.imgLists.length)
                 console.log(this.imgArray + 'change');
                 //必须上传图片
@@ -403,16 +404,29 @@
                 console.log(radioH);
                 var radioStr = "{";//初始化空数组，用来存放radio对象。
                 radioStr += '"id":"' + '1' + '",'
-                    + '"sbazd":"' + '测试' + '",'
-                    + '"sbbh":"' + 'SH00001' + '",'
-                    + '"sbmc":"' + '类型' + '",'
+                    + '"sbazd":"' + this.cdInfo.mp_nm + '",'
+                    + '"sbbh":"' + this.cdInfo.mp_cd + '",'
+                    + '"sbmc":"' + this.cdInfo.mp_nm + '",'
+                    + '"sbxh":"' + '类型' + '",'
                     + '"whbysj":"' + '类型' + '",'
-                    + '"bsq_ssllz":"' + '类型' + '",'
-                    + '"bsq_ljllz":"' + '类型' + '",'
-                    + '"cgq_bz": "' + document.getElementsByName("cgq_bz")[0].value + '",'
-                    + '"bsq_bz":"' + document.getElementsByName("bsq_bz")[0].value + '",'
                     + '"whry":"' + document.getElementsByName("whry")[0].value + '",'
-                    + '"rq":"' + document.getElementsByName("rq")[0].value + '",';
+                    // + '"cgq_wgjc":"' + '类型' + '",'
+                    // + '"cgq_djjc":"' + '类型' + '",'
+                    // + '"cgq_jdjc":"' + '类型' + '",'
+                    // + '"cgq_gjjc":"' + '类型' + '",'
+                    // + '"cgq_csxhjc":"' + '类型' + '",'
+                    + '"cgq_bz":"' + document.getElementsByName("cgq_bz")[0].value + '",'
+                    // + '"bsq_wgjc":"' + '类型' + '",'
+                    // + '"bsq_lcsdjc":"' + '类型' + '",'
+                    // + '"bsq_zjgnjc":"' + '类型' + '",'
+                    // + '"bsq_scmcjc":"' + '类型' + '",'
+                    // + '"bsq_dxljgnjc":"' + '类型' + '",'
+                    // + '"bsq_xhzjc":"' + '类型' + '",'
+                    // + '"bsq_xsjc":"' + '类型' + '",'
+                     + '"bsq_ssllz":"' + '类型' + '",'
+                    + '"bsq_ljllz":"' + '类型' + '",'
+                    + '"bsq_bz":"' +document.getElementsByName("bsq_bz")[0].value + '",'
+                    + '"dt":"' + document.getElementsByName("rq")[0].value + '",';
                 for (var i = 0; i < radioH.length; i++) {
                     var obj = radioH[i];
                     if (obj.type === 'radio' && obj.checked === true) {
@@ -427,11 +441,12 @@
                     patrol_address: this.mapAddressNow.address,
                     patrol_long: this.mapAddressNow.lng,
                     patrol_lat: this.mapAddressNow.lat,
-                    patrol_title: '工单1',
-                    patrol_content: '工单1',
+                    patrol_title:this.cdInfo.mp_nm,
+                    patrol_content: '',
+                    patrol_type: 'pd',
                     patrol_x: '',
                     patrol_y: '',
-                    bz: 'wtXjjl',
+                    bz: 'lljxj',
                     wt_lly_whby: eval('(' + radioStr + ')')
                 };
                 paramData = encodeURIComponent(JSON.stringify(paramData))
@@ -443,13 +458,20 @@
 
                 this.$ajax({
                     method: 'post',
-                    url: API.SAVE_XJJL,
+                    url: API.SAVE_LLY,
                     processData: false,//用于对data参数进行序列化处理 这里必须false
                     contentType: false, //必须
                     data: this.formData
                 }).then(function (response) {
+                    if(response.data.code==0){
+                        _this.$layer.msg("提交成功！");
+                        _this.$router.go(-1);
+                    }else{
+                        _this.$layer.msg("提交失败！");
+                    }
                     console.log(response);
                 }).catch(function (error) {
+                    _this.$layer.msg("提交失败！");
                     console.log(error);
                 });
             },
@@ -479,6 +501,12 @@
                     title: '获取取水户信息',
                     shade: false
                 });
+            },
+            lateSumit: function () {
+                // 这里记录 收单人
+                let username = util.getJStore("userInfo")["user_info"];
+                console.log(username);
+                this.$router.go(-1);
             }
         },
         filters: {

@@ -315,7 +315,7 @@
                 </list>
                 <div class="bottom-button" style="text-align: center;margin-left: 0.88rem;margin-top: 1.625rem;">
                     <vue-button amSize="xs" sblue @buttonClick="formSubmit()">完成提交</vue-button>
-                    <vue-button amSize="xs" orange>稍后巡检</vue-button>
+                    <vue-button amSize="xs" orange @buttonClick="lateSumit()">稍后巡检</vue-button>
                 </div>
                 <!-- 从下向上 弹出框组件-->
                 <offcanvas style="height:4.375rem" sildewh="82%" silde="top" :open="offcanvas5"
@@ -469,6 +469,7 @@
                 //获取所有checked的input
                 var radioH = document.getElementsByTagName("input");
                 console.log(radioH);
+                var qsfs=this.wiuTp==true?'地表水':'地下水';
                 var radioStr = "{";//初始化空数组，用来存放radio对象。
                 radioStr += '"id":"' + '1' + '",'
                     + '"zdname":"' + this.cdInfo.mp_nm + '",'
@@ -476,28 +477,29 @@
 
                     + '"jlsb":"' + '类型' + '",'
                     + '"sbqdfs":"' + '类型' + '",'
-                    + '"sbqsfs":"' + this.wiuTp==true?'地表水':'地下水' + '",'
+                    + '"sbqsfs":"' + qsfs + '",'
                     + '"xcsj":"' + '类型' + '",'
                     + '"htsj":"' + '类型' + '",'
-                    + '"db_lljtxscjc":"' + document.getElementsByName("db_lljtxscjc")[0].value + '",'
-                    + '"db_lljshhd":"' + document.getElementsByName("db_lljshhd")[0].value + '",'
-                    + '"db_txxhjc":"' + document.getElementsByName("db_txxhjc")[0].value + '",'
-                    + '"db_dzyqjqj":"' + document.getElementsByName("db_dzyqjqj")[0].value + '",'
-                    + '"db_dybljc":"' + document.getElementsByName("db_dybljc")[0].value + '",'
-                    + '"db_jdcs":"' + document.getElementsByName("db_jdcs")[0].value + '",'
-                    + '"db_htsjhd":"' + document.getElementsByName("db_htsjhd")[0].value + '",'
-                    + '"db_plccybf":"' + document.getElementsByName("db_plccybf")[0].value + '",'
+                    // + '"db_lljtxscjc":"' + document.getElementsByName("db_lljtxscjc")[0].value + '",'
+                    // + '"db_lljshhd":"' + document.getElementsByName("db_lljshhd")[0].value + '",'
+                    // + '"db_txxhjc":"' + document.getElementsByName("db_txxhjc")[0].value + '",'
+                    // + '"db_dzyqjqj":"' + document.getElementsByName("db_dzyqjqj")[0].value + '",'
+                    // + '"db_dybljc":"' + document.getElementsByName("db_dybljc")[0].value + '",'
+                    // + '"db_jdcs":"' + document.getElementsByName("db_jdcs")[0].value + '",'
+                    // + '"db_htsjhd":"' + document.getElementsByName("db_htsjhd")[0].value + '",'
+                    // + '"db_plccybf":"' + document.getElementsByName("db_plccybf")[0].value + '",'
                     + '"db_bz":"' + document.getElementsByName("db_bz")[0].value + '",'
-                    + '"dx_sbtxscjc":"' + document.getElementsByName("dx_sbtxscjc")[0].value + '",'
-                    + '"dx_lljsjhd":"' + document.getElementsByName("dx_lljsjhd")[0].value + '",'
-                    + '"dx_txxhjc":"' + document.getElementsByName("dx_txxhjc")[0].value + '",'
-                    + '"dx_db_dzyqjqj":"' + document.getElementsByName("dx_db_dzyqjqj")[0].value + '",'
-                    + '"dx_dybljc":"' + document.getElementsByName("dx_dybljc")[0].value + '",'
-                    + '"dx_jdcs":"' + document.getElementsByName("dx_jdcs")[0].value + '",'
-                    + '"dx_htsjhd":"' + document.getElementsByName("dx_htsjhd")[0].value + '",'
-                    + '"dx_plccybf":"' + document.getElementsByName("dx_plccybf")[0].value + '",'
-                    + '"dx_fsjxcljc":"' + document.getElementsByName("dx_fsjxcljc")[0].value + '",'
-                    + '"dx_ldcgh":"' + document.getElementsByName("dx_ldcgh")[0].value + '",'
+                    // + '"dx_sbtxscjc":"' + document.getElementsByName("dx_sbtxscjc")[0].value + '",'
+                    // + '"dx_lljsjhd":"' + document.getElementsByName("dx_lljsjhd")[0].value + '",'
+                    // + '"dx_txxhjc":"' + document.getElementsByName("dx_txxhjc")[0].value + '",'
+                    // + '"dx_db_dzyqjqj":"' + document.getElementsByName("dx_db_dzyqjqj")[0].value + '",'
+                    // + '"dx_dybljc":"' + document.getElementsByName("dx_dybljc")[0].value + '",'
+                    // + '"dx_jdcs":"' + document.getElementsByName("dx_jdcs")[0].value + '",'
+                    // + '"dx_htsjhd":"' + document.getElementsByName("dx_htsjhd")[0].value + '",'
+                    // + '"dx_plccybf":"' + document.getElementsByName("dx_plccybf")[0].value + '",'
+                    // + '"dx_fsjxcljc":"' + document.getElementsByName("dx_fsjxcljc")[0].value + '",'
+                    // + '"dx_ldcgh":"' + document.getElementsByName("dx_ldcgh")[0].value + '",'
+                    + '"dx_bz":"' + document.getElementsByName("db_bz")[0].value + '",'
                     + '"whry":"' + document.getElementsByName("whry")[0].value + '",'
                     + '"adress":"' + this.mapAddressNow.address + '",'
                     + '"rq":"' + document.getElementsByName("rq")[0].value + '",';
@@ -516,13 +518,14 @@
                     patrol_long: this.mapAddressNow.lng,
                     patrol_lat: this.mapAddressNow.lat,
                     patrol_title: this.cdInfo.mp_nm,
-                    patrol_content: '工单1',
+                    patrol_content: '',
                     patrol_x: '',
                     patrol_y: '',
-                    bz: 'wtXjjl',
+                    patrol_type:'pd',
+                    bz: 'qsxj',
                     wt_xjjl: eval('(' + radioStr + ')')
                 };
-                paramData = encodeURIComponent(JSON.stringify(paramData))
+                paramData = encodeURIComponent(JSON.stringify(paramData));
                 // paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
                 this.formData.append('params', paramData);
                 // this.formData.append('fileArray', this.imgArray);
@@ -538,6 +541,7 @@
                 }).then(function (response) {
                     if(response.data.code==0){
                         _this.$layer.msg("提交成功！");
+                        _this.$router.go(-1);
                     }else{
                         _this.$layer.msg("提交失败！");
                     }
@@ -573,6 +577,12 @@
                     title: '获取取水户信息',
                     shade: false
                 });
+            },
+            lateSumit: function () {
+                // 这里记录 收单人
+                let username = util.getJStore("userInfo")["user_info"];
+                console.log(username);
+                this.$router.go(-1);
             }
         },
         filters: {

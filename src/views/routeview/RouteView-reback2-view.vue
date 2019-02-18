@@ -54,41 +54,41 @@
                 </list-item>
             </tabs-desc>
             <tabs-desc slot="desc">
-                <h5 class="wt-title" style="padding:0.925rem 0">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>流量仪传感器部分</span>
-                        <span class="wt-bar-subtitle"></span>
-                    </div>
-                </h5>
-                <list-item title="检查外观是否正常" :after="xjjlData.cgq_wgjc | typeFilter"></list-item>
-                <list-item title="检测电极是否正常" :after="xjjlData.cgq_djjc | typeFilter"></list-item>
-                <list-item title="检测精度" :after="xjjlData.cgq_jdjc | typeFilter"></list-item>
-                <list-item title="检查管径设定是否正确" :after="xjjlData.cgq_gjjc | typeFilter"></list-item>
-                <list-item title="检查传送信号是否正常" :after="xjjlData.cgq_csxhjc | typeFilter"></list-item>
-                <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
-                    <field-input type="textarea" style="background-color: #fff;" :value="xjjlData.cgq_bz"
-                                 disabled></field-input>
-                </field>
+                <!--<h5 class="wt-title" style="padding:0.925rem 0">-->
+                    <!--<div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>流量仪传感器部分</span>-->
+                        <!--<span class="wt-bar-subtitle"></span>-->
+                    <!--</div>-->
+                <!--</h5>-->
+                <!--<list-item title="检查外观是否正常" :after="xjjlData.cgq_wgjc | typeFilter"></list-item>-->
+                <!--<list-item title="检测电极是否正常" :after="xjjlData.cgq_djjc | typeFilter"></list-item>-->
+                <!--<list-item title="检测精度" :after="xjjlData.cgq_jdjc | typeFilter"></list-item>-->
+                <!--<list-item title="检查管径设定是否正确" :after="xjjlData.cgq_gjjc | typeFilter"></list-item>-->
+                <!--<list-item title="检查传送信号是否正常" :after="xjjlData.cgq_csxhjc | typeFilter"></list-item>-->
+                <!--<field label="备注" style="padding: 0.625rem 0 0 0.9375rem">-->
+                    <!--<field-input type="textarea" style="background-color: #fff;" :value="xjjlData.cgq_bz"-->
+                                 <!--disabled></field-input>-->
+                <!--</field>-->
 
-                <h5 class="wt-title" style="padding:0.925rem 0">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>流量仪变送器部分</span>
-                        <span class="wt-bar-subtitle"></span>
-                    </div>
-                </h5>
-                <list-item title="检查外观是否完好" :after="xjjlData.bsq_wgjc | typeFilter"></list-item>
-                <list-item title="检查量程设定参数" :after="xjjlData.bsq_lcsdjc | typeFilter"></list-item>
-                <list-item title="检测自检功能" :after="xjjlData.bsq_zjgnjc | typeFilter"></list-item>
-                <list-item title="检测输出脉冲" :after="xjjlData.bsq_scmcjc | typeFilter"></list-item>
-                <list-item title="检测单项累计功能" :after="xjjlData.bsq_zjgnjc | typeFilter"></list-item>
-                <list-item title="检测接收信号值是否正常" :after="xjjlData.bsq_xhzjc | typeFilter"></list-item>
-                <list-item title="检测显示部分是否正常" :after="xjjlData.bsq_xsjc | typeFilter"></list-item>
-                <list-item title="检测瞬时流量值" :after="xjjlData.bsq_ssllz | typeFilter"></list-item>
-                <field label="备注" style="padding: 0.625rem 0 0 0.9375rem">
-                    <field-input type="textarea" style="background-color: #fff;" :value="xjjlData.bsq_bz"
+                <!--<h5 class="wt-title" style="padding:0.925rem 0">-->
+                    <!--<div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>流量仪变送器部分</span>-->
+                        <!--<span class="wt-bar-subtitle"></span>-->
+                    <!--</div>-->
+                <!--</h5>-->
+                <!--<list-item title="检查外观是否完好" :after="xjjlData.bsq_wgjc | typeFilter"></list-item>-->
+                <!--<list-item title="检查量程设定参数" :after="xjjlData.bsq_lcsdjc | typeFilter"></list-item>-->
+                <!--<list-item title="检测自检功能" :after="xjjlData.bsq_zjgnjc | typeFilter"></list-item>-->
+                <!--<list-item title="检测输出脉冲" :after="xjjlData.bsq_scmcjc | typeFilter"></list-item>-->
+                <!--<list-item title="检测单项累计功能" :after="xjjlData.bsq_zjgnjc | typeFilter"></list-item>-->
+                <!--<list-item title="检测接收信号值是否正常" :after="xjjlData.bsq_xhzjc | typeFilter"></list-item>-->
+                <!--<list-item title="检测显示部分是否正常" :after="xjjlData.bsq_xsjc | typeFilter"></list-item>-->
+                <!--<list-item title="检测瞬时流量值" :after="xjjlData.bsq_ssllz | typeFilter"></list-item>-->
+                <field label="巡检反馈" style="padding: 0.625rem 0 0 0.9375rem">
+                    <field-input type="textarea" style="background-color: #fff;" :value="xjjlData.patrol_content"
                                  disabled></field-input>
                 </field>
-                <list-item title="巡检员" :after="xjjlData.whry"></list-item>
-                <list-item title="巡检地点" :after="xjjlData.whry"></list-item>
-                <list-item title="巡检时间" :after="xjjlData.rq"></list-item>
+                <list-item title="巡检员" :after="xjjlData.route_user"></list-item>
+                <list-item title="巡检地点" :after="xjjlData.patrol_address"></list-item>
+                <list-item title="巡检时间" :after="xjjlData.patrol_time"></list-item>
 
             </tabs-desc>
             <tabs-desc slot="desc">
@@ -156,13 +156,13 @@
                 id: id
             }
             paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
-            console.log(API.SAVE_LLY + '&params=' + paramData);
-            this.$http.jsonp(API.SAVE_LLY + '&params=' + paramData).then(
+            console.log(API.SAVE_LLY_YJ + '&params=' + paramData);
+            this.$http.jsonp(API.SAVE_LLY_YJ + '&params=' + paramData).then(
                 response => {
                     console.log(response.data);
                     this.qshData = response.data.qshData[0];
                     this.filesData = response.data.filesData;
-                    this.xjjlData = response.data.xjjlData[0];
+                    this.xjjlData = response.data.data;
                     for (let i = 0; i < response.data.filesData.length; i++) {
                         var path = response.data.filesData[i].file_adress;
                         var arr = path.split("C:/FileServer/apacheFtpserver/res/home/");
