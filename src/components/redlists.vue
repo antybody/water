@@ -60,14 +60,14 @@
             </span>
         </list-item>
         <!--超许可水量-->
-        <list-item v-if="routeName == '/cxksl'" v-for="item in lists" :key="item.watuser_id" :title="item.watuser_name" >
+        <list-item v-if="routeName == '/cxksl'" v-for="item in lists" :key="item.id" :title="item.qsqrmc" >
             <!-- <img slot="img" src="http://lorempixel.com/160/160/people/" width="48" alt=""> -->
             <span slot="subTitle">
                <cell>
                   <small>许可量：{{item.xksl}}</small>
                   </cell>
                   <cell>
-                  <small>取水量：{{item.qsl}}</small>
+                  <small>取水量：{{item.nsl}}</small>
                   </cell>
             </span>
         </list-item>

@@ -166,7 +166,7 @@
                     for (let i = 0; i < response.data.filesData.length; i++) {
                         var path = response.data.filesData[i].file_adress;
                         var arr = path.split("C:/FileServer/apacheFtpserver/res/home/");
-                        var url = "http://31.16.10.52:8000/" + arr[1];
+                        var url = "http://101.230.199.221:8081/" + arr[1];
                         this.imgLists.push({url: url});
                     }
                     console.log(this.imgLists);

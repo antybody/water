@@ -13,11 +13,11 @@
             <ul>
                 <li style="display:flex">
                     <div class="arrow bl-arrow"></div>
-                    <div class="bl-bottom">取水户 {{qsh}}，监测站点 {{qshzd}}</div>
+                    <div class="bl-bottom">取水户{{qsh}},监测站点 {{qshzd}}</div>
                 </li>
                 <li style="display:flex">
                     <div class="arrow bl-arrow"></div>
-                    <div class="bl-bottom">用水户 {{ysh}}，监测站点 {{yshzd}}</div>
+                    <div class="bl-bottom">用水户{{ysh}},监测站点 {{yshzd}}</div>
                 </li>
                 <li style="display:flex">
                     <div class="arrow bl-arrow"></div>

@@ -56,7 +56,7 @@
                                 <td>pH</td><td>{{ph}}</td>
                             </tr>
                             <tr>
-                                <td rowspan="2">必要指标</td><td>高猛酸盐指数</td><td>{{codmn}}</td>
+                                <td rowspan="2">必要指标</td><td>高锰酸盐指数</td><td>{{codmn}}</td>
                             </tr>
                             <tr>
                                 <td>氨氮</td><td>{{nh3n}}</td>

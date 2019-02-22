@@ -31,7 +31,13 @@
                     <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>红线指标</span></div>
                 </h5>
                 <div class="wt-tab-lists">
-                    <router-link :to="item.href" v-for="item in tablists" :key="item.id" :class="item.cl">
+                    <router-link :to="item.href" v-for="item in tablists1" :key="item.id" :class="item.cl">
+
+                        <span>{{item.text}}</span><br/>
+                        <span>{{item.num}}</span>
+                    </router-link>
+                    <br>
+                    <router-link :to="item.href" v-for="item in tablists2" :key="item.id" :class="item.cl">
 
                         <span>{{item.text}}</span><br/>
                         <span>{{item.num}}</span>
@@ -100,7 +106,13 @@
                     // {type: '大用水户', today: '0.1', year: '60.34'},
                     // {type: '农业用水', today: '0.1', year: '60.34'}
                 ],
-                tablists: [
+                tablists1: [
+                    // {href: 'redwater', cl: 'wt-linear-purple', num: '60.34', text: '年度取水总量'},
+                    // {href: '/cxksl', cl: 'wt-linear-blue', num: '3', text: '超许可取水'},
+                    // {href: '/xkz', cl: 'wt-linear-red', num: '30', text: '取水许可超期'},
+                    // {href: '/sgnq', cl: 'wt-linear-yellow', num: '30%', text: '水功能区达标率'}
+                ],
+                tablists2: [
                     // {href: 'redwater', cl: 'wt-linear-purple', num: '60.34', text: '年度取水总量'},
                     // {href: '/cxksl', cl: 'wt-linear-blue', num: '3', text: '超许可取水'},
                     // {href: '/xkz', cl: 'wt-linear-red', num: '30', text: '取水许可超期'},
@@ -142,8 +154,8 @@
             params1 = encodeURI(encodeURI(JSON.stringify(params1)));
             this.$http.jsonp(API.QSXKCQDBL + "&params=" + params1).then(
                 response => {
-                    this.tablists = response.data.list;
-
+                    this.tablists1 = response.data.list1;
+                    this.tablists2 = response.data.list2;
                 }, response => {
                     console.log("error")
                 });
