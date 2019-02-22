@@ -32,11 +32,12 @@
         mounted() {
             var _this=this;
             Utils.$on('demo', function (msg) {
+                console.log(msg)
                 if(msg=='type1'){
                     _this.isShowB1=false;
                     _this.isShowB2=false;
                     _this.isShowB3=true;
-                    this.isShowB4=true;
+                    _this.isShowB4=true;
                 }else if(msg=='type2'){
                     _this.isShowB4=false;
                     _this.isShowB1=true;
@@ -51,7 +52,8 @@
                 //that.functionB();
             })
             //登陆验证
-            if (localStorage.getItem("_isUse") === 'false') {
+            console.log(localStorage.getItem("_isUse"))
+            if (localStorage.getItem("_isUse") === 'false' || localStorage.getItem("_isUse") === null ) {
                 //this.$router.push({name: 'home'});
                 //
                 // let paramData = {

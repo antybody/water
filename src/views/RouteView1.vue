@@ -794,7 +794,7 @@
     }
 
     .success {
-        background: #3bb4f2 !important;
+        /*background: #3bb4f2 !important;*/
     }
 
     .mui-pull-right {

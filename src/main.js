@@ -28,7 +28,7 @@ Vue.use(Indicator)
 Vue.prototype.a = 1;
 
 Vue.prototype.$layer = layer(Vue, {
-    msgtime: 10,//目前只有一项，即msg方法的默认消失时间，单位：秒
+    msgtime: 3,//目前只有一项，即msg方法的默认消失时间，单位：秒
 });
 
 // tab 切换
@@ -510,6 +510,14 @@ const irrViewVillage = resolve => {
     }, 'group-IrrView')
 }
 
+const policy = resolve => {
+    // Indicator.open();
+    require.ensure([], () => {
+        resolve(require('./views/policy'))
+        // Indicator.close()
+    }, 'group-IrrView')
+}
+
 // import forbidden from './views/userview/forbidden'
 const forbidden = () => import('./views/userview/forbidden')
 // import error404 from './views/userview/404'
@@ -530,7 +538,7 @@ const person = () => import('./views/userview/person')
 const router = new VueRouter({
     mode: 'hash',  //不想看到#号则配置这个 (可以用来解决与html本身锚点冲突的问题)
     routes: [
-        {path: '/', redirect: '/redv1'},
+        {path: '/', redirect: '/home'},
         {
             path: '/home',
             name: 'home',
@@ -853,6 +861,11 @@ const router = new VueRouter({
             path: '/irrViewVillage',
             name: 'irrViewVillage',
             component: irrViewVillage
+        },
+        {
+            path: '/policy',
+            name: 'policy',
+            component: policy
         }
     ]
 })

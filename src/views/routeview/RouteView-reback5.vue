@@ -8,61 +8,56 @@
             巡检反馈
             <icon name="left-nav" slot="left" titleRight="返回" back></icon>
         </navbar>
-        <tabs v-model="selected" style="margin-top: 0">
-            <tabs-item slot="tabs" blue hollow>基础信息</tabs-item>
-            <!--<tabs-item slot="tabs" blue hollow>巡检记录</tabs-item>-->
-            <!--<tabs-item slot="tabs" blue hollow>现场图片</tabs-item>-->
-            <tabs-desc slot="desc">
-                <div class="plan-map" style="height: 170px;">
-                    <red-map ref="redmap" :points="mapPoints" v-on:mapAddress="mapAddress"></red-map>
+        <tabs v-model="selected" style="margin-top: 0;padding: 0 1rem 0 1rem;">
+            <div class="plan-map" style="height: 170px;">
+                <red-map ref="redmap" :points="mapPoints" v-on:mapAddress="mapAddress"></red-map>
+            </div>
+            <h5 class="wt-title" style="padding:0.925rem 0">
+                <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>站点信息</span>
                 </div>
-                <h5 class="wt-title" style="padding:0.925rem 0">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>站点信息</span>
-                    </div>
-                </h5>
-                <list-item title="取水户名称">
-                    <a class="content" slot="after" name="">
-                        {{chooseName.watuser_name}}
-                        <img title="选中取水户" style="text-align: center;" @click="getQsh()" width="16" height="16"
-                             src="../../../statics/images/add.png"/>
-                    </a>
-                </list-item>
-                <list-item title="取水站点">
-                    <a class="content" slot="after">{{this.cdInfo.mp_nm | trimStr}}</a>
-                </list-item>
-                <list-item title="站点编号">
-                    <a class="content" slot="after">{{this.cdInfo.mp_cd | trimStr}}</a>
-                </list-item>
-                <list-item title="瞬时流量(m³/s)">
-                    <a class="content" slot="after">{{this.cdInfo.mp_q | trimStr}}</a>
-                </list-item>
-                <list-item title="累计流量(m³)">
-                    <a class="content" slot="after">{{this.cdInfo.acc_w | trimStr}}</a>
-                </list-item>
-                <list-item title="计量设施厂家">
-                    <a class="content" slot="after">{{this.cdInfo.jsscnm | trimStr}}</a>
-                </list-item>
-                <list-item title="计量设施型号">
-                    <a class="content" slot="after">{{this.cdInfo.jsxh | trimStr}}</a>
-                </list-item>
-                <list-item title="计量设施类型">
-                    <a class="content" slot="after">{{this.cdInfo.jslx | trimStr}}</a>
-                </list-item>
-                <list-item title="安装时间">
-                    <a class="content" slot="after">{{this.cdInfo.dt | trimStr}}</a>
-                </list-item>
+            </h5>
+            <list-item title="取水户名称">
+                <a class="content" slot="after" name="">
+                    {{chooseName.watuser_name}}
+                    <img title="选中取水户" style="text-align: center;" @click="getQsh()" width="16" height="16"
+                         src="../../../statics/images/add.png"/>
+                </a>
+            </list-item>
+            <list-item title="取水站点">
+                <a class="content" slot="after">{{this.cdInfo.mp_nm | trimStr}}</a>
+            </list-item>
+            <list-item title="站点编号">
+                <a class="content" slot="after">{{this.cdInfo.mp_cd | trimStr}}</a>
+            </list-item>
+            <list-item title="瞬时流量(m³/s)">
+                <a class="content" slot="after">{{this.cdInfo.mp_q | trimStr}}</a>
+            </list-item>
+            <list-item title="累计流量(m³)">
+                <a class="content" slot="after">{{this.cdInfo.acc_w | trimStr}}</a>
+            </list-item>
+            <list-item title="计量设施厂家">
+                <a class="content" slot="after">{{this.cdInfo.jsscnm | trimStr}}</a>
+            </list-item>
+            <list-item title="计量设施型号">
+                <a class="content" slot="after">{{this.cdInfo.jsxh | trimStr}}</a>
+            </list-item>
+            <list-item title="计量设施类型">
+                <a class="content" slot="after">{{this.cdInfo.jslx | trimStr}}</a>
+            </list-item>
+            <list-item title="安装时间">
+                <a class="content" slot="after">{{this.cdInfo.dt | trimStr}}</a>
+            </list-item>
 
-                <h5 class="wt-title" style="padding:0.925rem 0">
-                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>异常信息</span>
-                        <span class="wt-bar-subtitle"></span>
-                    </div>
-                </h5>
-                <textarea name="errormsg" v-model="xjList.errormsg"></textarea>
-                <div class="bottom-button" style="text-align: center;margin-left: 0.88rem;margin-top: 1.625rem;">
-                    <vue-button amSize="xs" sblue @buttonClick="formSubmit()">完成提交</vue-button>
-                    <vue-button amSize="xs" orange  @buttonClick="lateSumit()">稍后派单</vue-button>
+            <h5 class="wt-title" style="padding:0.925rem 0">
+                <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>异常信息</span>
+                    <span class="wt-bar-subtitle"></span>
                 </div>
-            </tabs-desc>
+            </h5>
+            <textarea name="errormsg" v-model="xjList.errormsg"></textarea>
+            <div class="bottom-button" style="text-align: center;margin-left: 0.88rem;margin-top: 1.625rem;">
+                <vue-button amSize="xs" sblue @buttonClick="formSubmit()">完成提交</vue-button>
+                <vue-button amSize="xs" orange  @buttonClick="lateSumit()">稍后派单</vue-button>
+            </div>
         </tabs>
     </vue-view>
 </template>
