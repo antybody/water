@@ -162,6 +162,11 @@
                 </div>
             </div>
         </div>
+        <!--<yd-button-group>-->
+
+            <!--<yd-button @click.native="openLoading" size="large" type="hollow">Loading</yd-button>-->
+
+        <!--</yd-button-group>-->
         <modal role="confirm" title="提示信息" :isOpen="open2" @Confirm="confirm(patrolState, type)"
                @Close="modalOutFun('open2')">{{alertText}}
         </modal>
@@ -179,6 +184,7 @@
     import Vue from 'vue'
     import layer from 'vue-layer'
     import * as API from '../store/api/api'
+    //import { Confirm, Alert, Toast, Notify, Loading } from 'water/dist/lib.rem/dialog';
 
     export default {
         components: {
@@ -189,6 +195,7 @@
                 open2: false,
                 listType: true,
                 alertText: '123',
+                loadFlag:false,
                 menu1: 1,
                 menu2: 1,
                 time: {
@@ -232,6 +239,13 @@
             },
             openCal: function () {
                 this.time.calendarShow = true;
+            },
+            openLoading() {
+
+
+                setTimeout(() => {
+                    this.$dialog.loading.close();
+                }, 2000);
             },
             menu1Click: function (index) {
                 this.menu1 = index;
@@ -486,6 +500,8 @@
                         break;
                 }
                 this.modalOutFun('open2');
+            },loading:function(a){//是否显示加载动画
+                this.loadFlag=a;
             },
             getWarnList(time,bz,errornum) {
                 let paramData = {
@@ -509,6 +525,12 @@
                     });
             },
             getPlanList(time,patrol_type) {
+                var that=this;
+               // that.loading(true);
+                //this.$dialog.loading.open('很快加载好了');
+                //this.$layer.msg("提交成功！");
+                // let layuiLoad=
+                //this.$layer.load(2);
                 let paramData = {
                     //bz:bz,
                     //errornum:errornum,
@@ -521,6 +543,8 @@
                 this.$http.jsonp(API.ROUTE_PLAN + '&params=' + paramData).then(
                     response => {
                         this.lists = response.data.data;
+                        //that.loading(false);
+                        //this.layer.close(layuiLoad);
                         console.log(this.lists);
                     }, response => {
                         console.log("error");

@@ -45,7 +45,7 @@
                 currentPage:10,
                 selectVal: {
                     qslx: '',
-                    xzqh: '',
+                    //xzqh: '',
                     qsyt:''
                 }
             }
@@ -85,22 +85,22 @@
                 this.currentPage = 10;
                 this.selectVal = val;
                 var qslx= val.qslx[0],
-                    xzqh= val.xzqh,
-                    qsyt= val.qsyt;
+                    //xzqh= val.xzqh,
+                    qsyt= val.qsyt[0];
                 // 这里引用 带条件的查询
                 if (val.qslx[0] === "-1" || val.qslx.length === 0) {
                     qslx = '';
                 }
-                if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
-                    xzqh = '';
-                }
+                // if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
+                //     xzqh = '';
+                // }
                 if (val.qsyt[0] === "-1" || val.qsyt.length === 0) {
                     qsyt = '';
                 }
                 //取水户列表查询所需要的参数
                 let params = {
                     qslx: qslx,
-                    watuserDivname: xzqh,
+                    //watuserDivname: xzqh,
                     qsyt:qsyt,
                     currentPage: this.currentPage
                 };
@@ -134,22 +134,22 @@
 
                 let val = this.selectVal;
                 var qslx= val.qslx[0],
-                    xzqh= val.xzqh,
+                    //xzqh= val.xzqh,
                     qsyt= val.qsyt;
                 // 这里引用 带条件的查询
                 if (val.qslx[0] === "-1" || val.qslx.length === 0) {
                     qslx = '';
                 }
-                if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
-                    xzqh = '';
-                }
+                // if (val.xzqh[0] === "-1" || val.xzqh.length === 0) {
+                //     xzqh = '';
+                // }
                 if (val.qsyt[0] === "-1" || val.qsyt.length === 0) {
                     qsyt = '';
                 }
                 //取水户列表查询所需要的参数
                 let params = {
                     qslx: qslx,
-                    watuserDivname: xzqh,
+                    //watuserDivname: xzqh,
                     qsyt:qsyt,
                     currentPage: this.currentPage
                 };

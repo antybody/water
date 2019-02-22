@@ -38,38 +38,38 @@ const state = {
                 {title: '地下水', key: '地下水', checked: false},
                 ]
         },
+        // {
+        //     title: '行政区划', ol: '行政区划', select: '', key: 'xzqh', type: 'checkbox', children: [
+        //         {title: '不限', key: '-1', checked: true},
+        //         {title: '徐汇区', key: '徐汇区', checked: false},
+        //         {title: '闵行区', key: '闵行区', checked: false },
+        //         {title: '黄浦区', key: '黄浦区', checked: false },
+        //         {title: '静安区', key: '静安区', checked: false },
+        //         {title: '长宁区', key: '长宁区', checked: false },
+        //         {title: '浦东新区', key: '浦东新区', checked: false },
+        //         {title: '普陀区', key: '普陀区', checked: false },
+        //         {title: '青浦区', key: '青浦区', checked: false },
+        //         {title: '松江区', key: '松江区', checked: false },
+        //         {title: '金山区', key: '金山区', checked: false },
+        //         {title: '宝山区', key: '宝山区', checked: false },
+        //         {title: '崇明区', key: '崇明区', checked: false },
+        //         {title: '奉贤区', key: '奉贤区', checked: false },
+        //         {title: '虹口区', key: '虹口区', checked: false },
+        //         {title: '杨浦区', key: '杨浦区', checked: false },
+        //         {title: '嘉定区', key: '嘉定区', checked: false }
+        //         ]
+        // }
+        // ,
         {
-            title: '行政区划', ol: '行政区划', select: '', key: 'xzqh', type: 'checkbox', children: [
-                {title: '不限', key: '-1', checked: true},
-                {title: '徐汇区', key: '徐汇区', checked: false},
-                {title: '闵行区', key: '闵行区', checked: false },
-                {title: '黄浦区', key: '黄浦区', checked: false },
-                {title: '静安区', key: '静安区', checked: false },
-                {title: '长宁区', key: '长宁区', checked: false },
-                {title: '浦东新区', key: '浦东新区', checked: false },
-                {title: '普陀区', key: '普陀区', checked: false },
-                {title: '青浦区', key: '青浦区', checked: false },
-                {title: '松江区', key: '松江区', checked: false },
-                {title: '金山区', key: '金山区', checked: false },
-                {title: '宝山区', key: '宝山区', checked: false },
-                {title: '崇明区', key: '崇明区', checked: false },
-                {title: '奉贤区', key: '奉贤区', checked: false },
-                {title: '虹口区', key: '虹口区', checked: false },
-                {title: '杨浦区', key: '杨浦区', checked: false },
-                {title: '嘉定区', key: '嘉定区', checked: false }
-                ]
-        }
-        ,
-        {
-            title: '取水用途', ol: '取水用途', select: '', key: 'qsyt', type: 'checkbox', children: [
+            title: '取水用途', ol: '取水用途', select: '', key: 'qsyt', type: 'radio', children: [
                 {title: '不限', key: '-1', checked: true},
 
-                {title: '农业用水', key: '农业用水', checked: false},
-                {title: '公共供水', key: '公共供水', checked: false},
-                {title: '生活用水', key: '生活用水', checked: false},
-                {title: '工业用水', key: '工业用水', checked: false},
-                {title: '分质用水', key: '分质用水', checked: false},
-                {title: '应急备用', key: '应急备用', checked: false},
+                {title: '农业用水', key: '农业', checked: false},
+                {title: '公共供水', key: '公共', checked: false},
+                {title: '生活用水', key: '生活', checked: false},
+                {title: '工业用水', key: '工业', checked: false},
+                {title: '分质用水', key: '分质', checked: false},
+                {title: '应急备用', key: '应急', checked: false},
 
                 ]
         }
