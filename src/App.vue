@@ -32,12 +32,11 @@
         mounted() {
             var _this=this;
             Utils.$on('demo', function (msg) {
-                console.log(msg)
                 if(msg=='type1'){
                     _this.isShowB1=false;
                     _this.isShowB2=false;
                     _this.isShowB3=true;
-                    _this.isShowB4=true;
+                    this.isShowB4=true;
                 }else if(msg=='type2'){
                     _this.isShowB4=false;
                     _this.isShowB1=true;
@@ -52,8 +51,7 @@
                 //that.functionB();
             })
             //登陆验证
-            console.log(localStorage.getItem("_isUse"))
-            if (localStorage.getItem("_isUse") === 'false' || localStorage.getItem("_isUse") === null ) {
+            if (localStorage.getItem("_isUse") === 'false') {
                 //this.$router.push({name: 'home'});
                 //
                 // let paramData = {
@@ -116,7 +114,7 @@
                 }
             } else {
 
-                if(localStorage.getItem("user")=='xjy'){
+                if(localStorage.getItem("userRole")=='xjy'){
                     this.$router.push({name: 'route'});
                     Utils.$emit('demo','type1');
                 }else if(localStorage.getItem("user")=='fuxs'){

@@ -12,11 +12,13 @@
         <!--取水户-->
         <div style="margin-top: 46px;">
             <!--<list-item v-for="list in qshLists">-->
-                <!--<a class="content" slot="after" @click="getQshInfo(list)"> {{list.watuserName}}</a>-->
+            <!--<a class="content" slot="after" @click="getQshInfo(list)"> {{list.watuserName}}</a>-->
             <!--</list-item>-->
             <!--<-->
             <list-item v-for="list in mp_nm">
-                <a class="content" slot="after" @click="getQshInfo(list.watuser_name,list.mp_nm,list.mp_q,list.acc_w,list.mp_cd,list.jsscnm,list.jsxh,list.jslx,list.x,list.y,list.jllx)"> {{list.mp_nm}}</a>
+                <a class="content" slot="after"
+                   @click="getQshInfo(list.watuser_name,list.mp_nm,list.mp_q,list.acc_w,list.mp_cd,list.jsscnm,list.jsxh,list.jslx,list.x,list.y,list.jllx)">
+                    {{list.mp_nm}}</a>
             </list-item>
         </div>
 
@@ -34,7 +36,7 @@
         data() {
             return {
                 qshLists: [],
-                mp_qsh:{},
+                mp_qsh: {},
                 mp_nm: '',
                 inputname: ''
             }
@@ -49,7 +51,7 @@
                 watuserCom: "",
                 watuserWatapp: '',
                 monitorlevel: '',
-                watuserName:  '',
+                watuserName: '',
                 currentPage: 10
             };
             // params = encodeURIComponent(JSON.stringify(params));
@@ -152,20 +154,20 @@
                     })
 
             },
-            getQshInfo(watuser_name,mp_nm,mp_q,acc_w,mp_cd,jsscnm,jsxh,jslx,x,y,jllx) {
+            getQshInfo(watuser_name, mp_nm, mp_q, acc_w, mp_cd, jsscnm, jsxh, jslx, x, y, jllx) {
                 //console.log('测试：');
                 //console.log(tt);
-                this.mp_qsh.watuser_name=watuser_name;
-                this.mp_qsh.mp_nm=mp_nm;
-                this.mp_qsh.mp_q=mp_q;
-                this.mp_qsh.acc_w=acc_w;
-                this.mp_qsh.mp_cd=mp_cd;
-                this.mp_qsh.jsscnm=jsscnm;
-                this.mp_qsh.jsxh=jsxh;
-                this.mp_qsh.jslx=jslx;
-                this.mp_qsh.x=x;
-                this.mp_qsh.y=y;
-                this.mp_qsh.jllx=jllx;
+                this.mp_qsh.watuser_name = watuser_name;
+                this.mp_qsh.mp_nm = mp_nm;
+                this.mp_qsh.mp_q = mp_q;
+                this.mp_qsh.acc_w = acc_w;
+                this.mp_qsh.mp_cd = mp_cd;
+                this.mp_qsh.jsscnm = jsscnm;
+                this.mp_qsh.jsxh = jsxh;
+                this.mp_qsh.jslx = jslx;
+                this.mp_qsh.x = x;
+                this.mp_qsh.y = y;
+                this.mp_qsh.jllx = jllx;
                 //将选择的信息传递到parent
                 VueEvent.$emit('watuser', this.mp_qsh);
                 // console.log(this.layerid);

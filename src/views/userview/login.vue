@@ -32,7 +32,7 @@ login
     import * as util from '../../libs/utils'
     import * as API from '../../store/api/api'
     import Utils from '../../libs/util'
-    //import * as App from './App.vue'
+    //import * as App from './Appxj.vue'
     import crypto from "crypto"
 
     export default {
@@ -96,7 +96,7 @@ login
                             util.setStore('userName', response.data.data.display_name); // 登录状态
                             var nextUrl = this.$route.params.next;
                             if (!nextUrl){
-                                if(response.data.data.name=='xjy'){
+                                if(response.data.data.user_code=='xjy'){
                                     this.$router.push({name: 'route'});
                                     Utils.$emit('demo','type1');
                                 }else if(response.data.data.name=='fuxs'){
