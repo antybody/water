@@ -152,6 +152,159 @@
                                 console.log(response)
                             })
                         break;
+                    case "qsxkz":
+                        let paramData3 = {
+                            qslx: '',
+                            qsqrmc: this.searchItem,
+                            qsyt: '',
+                            currentPage: 10
+                        }
+                        console.log(paramData3)
+                        paramData3 = encodeURI(encodeURI(JSON.stringify(paramData3)));
+                        this.$http.jsonp(API.QSH_XKZ + "&params=" + paramData3).then(
+                            response => {
+                                this.lists = []
+                                console.log(response.data.data);
+                                if (response.data.data.length === 0) {
+                                    this.lists.push({
+                                        title: '暂无数据'
+                                        // ,href: '',
+                                        // tag1: '',
+                                        // tag2: '',
+                                        // tag3: ''
+                                    })
+                                } else {
+                                    for (let value of response.data.data) {
+                                        this.lists.push({
+                                            title: value.qsqrmc,
+                                            href: '/qsxkzDetail/' + value.id,
+                                            tag1: value.qsyt,
+                                            tag2: value.qsfs,
+                                            tag3: value.qsl
+                                        })
+                                    }
+                                }
+                            }, response => {
+                                console.log(response)
+                            })
+                        break;
+                    case "dysh":
+                        let paramData4 = {
+                            companyname: this.searchItem,
+                            type: "query",
+                            yslx: '',
+                            xzqh: '',
+                            jclx: '',
+                            szysjqmc: ''
+                        }
+                        console.log(paramData4)
+                        paramData4 = encodeURI(encodeURI(JSON.stringify(paramData4)));
+                        this.$http.jsonp(API.DYSH_LIST + "&params=" + paramData4).then(
+                            response => {
+                                this.lists = []
+                                console.log(response.data.data);
+                                if (response.data.data.length === 0) {
+                                    this.lists.push({
+                                        title: '暂无数据'
+                                        // ,href: '',
+                                        // tag1: '',
+                                        // tag2: '',
+                                        // tag3: ''
+                                    })
+                                } else {
+                                    for (let value of response.data.data) {
+                                        this.lists.push({
+                                            title: value.companyname,
+                                            href: '/dyshView/' + value.id,
+                                            tag1: value.szysjqmc,
+                                            tag2: value.yslx,
+                                            tag3: value.jclx
+                                        })
+                                    }
+                                }
+                            }, response => {
+                                console.log(response)
+                            })
+                        break;
+                    case "sgnq":
+                        let paramData5 = {
+                            wfzNm: this.searchItem,
+                            type: "query",
+                            wtType: '',
+                            tgWq: '',
+                            currentPage:10
+                        }
+                        console.log(paramData5)
+                        paramData5 = encodeURI(encodeURI(JSON.stringify(paramData5)));
+                        this.$http.jsonp(API.SGNQ_LIST + "&params=" + paramData5).then(
+                            response => {
+                                this.lists = []
+                                console.log(response.data.data);
+                                if (response.data.data.length === 0) {
+                                    this.lists.push({
+                                        title: '暂无数据'
+                                        // ,href: '',
+                                        // tag1: '',
+                                        // tag2: '',
+                                        // tag3: ''
+                                    })
+                                } else {
+                                    for (let value of response.data.data) {
+                                        this.lists.push({
+                                            title: value.wfzNm,
+                                            href: '/sgnqDetail/' + value.wfzNb,
+                                            tag1: value.wtType,
+                                            tag2: value.belRiv,
+                                            tag3: value.tgWq
+                                        })
+                                    }
+                                }
+                            }, response => {
+                                console.log(response)
+                            })
+                        break;
+                    case "xc":
+                        let paramData6 = {
+                            kzsyd: '',
+                            state: '',
+                            name:this.searchItem,
+                            currentPage:10
+                        }
+                        console.log(paramData6)
+                        paramData6 = encodeURI(encodeURI(JSON.stringify(paramData6)));
+                        this.$http.jsonp(API.XC_LIST + "&params=" + paramData6).then(
+                            response => {
+                                this.lists = []
+                                console.log(response.data.data);
+                                if (response.data.data.length === 0) {
+                                    this.lists.push({
+                                        title: '暂无数据'
+                                        // ,href: '',
+                                        // tag1: '',
+                                        // tag2: '',
+                                        // tag3: ''
+                                    })
+                                } else {
+                                    for (let value of response.data.data) {
+                                        this.lists.push({
+                                            title: value.name,
+                                           // href: '/sgnqDetail/' + value.id,
+                                            tag1: value.nm_salinity,
+                                            tag2: value.state,
+                                         //   tag3: value.tgWq
+                                        })
+                                    }
+                                }
+                            }, response => {
+                                console.log(response)
+                            })
+                        break;
+
+
+
+
+
+
 
                 }
 
