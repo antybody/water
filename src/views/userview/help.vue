@@ -16,7 +16,7 @@
                         <div class="wt-list-line">
                             <label>服务热线：</label>
                             <p class="g-overflow">
-                                <span class="wt-dblue">021-123345</span>
+                                <span class="wt-dblue">021-52397000-6612</span>
                             </p>
                         </div>
                 </div>
@@ -32,7 +32,7 @@
                         <div class="wt-list-line">
                             <label>账号密码：</label>
                             <p class="g-overflow">
-                                <span class="wt-dblue">请联系局内人员索取，不提供在线注册</span>
+                                <span class="wt-dblue">请联系局内人员注册，不提供在线注册</span>
                             </p>
                         </div>
                 </div>
