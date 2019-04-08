@@ -69,14 +69,14 @@ login
                     // return
                 }
                 var a;
-                // var md5 = crypto.createHash("md5");
-                // md5.update(this.pwd);
-                // var pwdMd5 = md5.digest('hex');
+                var md5 = crypto.createHash("md5");
+                md5.update(this.pwd);
+                var pwdMd5 = md5.digest('hex');
                 // console.log(pwdMd5);
                 //47bce5c74f589f4867dbd57e9ca9f808
                 let paramData = {
                     user_code:this.username,
-                    user_pwd:''// pwdMd5
+                    user_pwd:pwdMd5// pwdMd5
                 }
                 paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
                 this.$http.jsonp(API.LOGIN + "&params=" + paramData).then(
