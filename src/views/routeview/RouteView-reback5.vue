@@ -103,7 +103,7 @@
                 },
                 xjList: {errormsg: ''},
                 mapPoints: [
-                    {lng: '', lat: '', name: '上海宝信'}
+                    {lng: 0, lat: 0, name: '上海宝信'}
                 ],
                 timeline: [{dealtime: '2018-10-10 12:10', dealperson: '张三', dealmsg: '已处理并回复处理结果', dealcompany: '城投公司'}
                     , {dealtime: '2018-10-10 11:10', dealperson: '张三', dealmsg: '已前往处理', dealcompany: '城投公司'}

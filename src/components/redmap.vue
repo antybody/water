@@ -82,7 +82,7 @@
                     map.plugin('AMap.Geolocation', function () {
                         var geolocation = new AMap.Geolocation({
                             // 是否使用高精度定位，默认：true
-                            enableHighAccuracy: true,
+                            enableHighAccuracy: false,
                             // 设置定位超时时间，默认：无穷大
                             timeout: 10000,
                             // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
@@ -112,7 +112,8 @@
 
                         function onError(data) {
                             // 定位出错
-                            console.log('定位失败' + data);
+                            console.log('定位失败');
+                            console.log(data);
                             _this.mapAddress = {
                                 address: "获取位置失败",
                                 lng: "获取位置失败",

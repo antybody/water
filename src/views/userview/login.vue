@@ -6,6 +6,7 @@ login
         <navbar slot="header" class="wt-linear-blue">
             用户登录
             <icon v-show="isShow" name="left-nav" slot="left" titleRight="返回" back></icon>
+
         </navbar>
         <group class="group-clear group-top-10">
             <list>
@@ -32,10 +33,12 @@ login
     import * as util from '../../libs/utils'
     import * as API from '../../store/api/api'
     import Utils from '../../libs/util'
+
     //import * as App from './Appxj.vue'
     import crypto from "crypto"
 
     export default {
+
         data() {
             return {
                 open2: false,
@@ -54,6 +57,7 @@ login
         },
         methods: {
             // 登录验证
+
             login() {
                 if (!this.username) {
                     this.open2 = true;

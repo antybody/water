@@ -143,7 +143,7 @@
                 BZ: '',
                 xjList:{errormsg:'ceshi',ischeck:'已核查',clmsg:'ceshi',xjpersion:'张三',xjdate:'2018-01-01'},
                 mapPoints: [
-                    {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
+                    {lng: 0, lat: 0, name: ''}
                 ],
                 timeline:[{dealtime:'2018-10-31 16:10',dealperson:'巡检员1',dealmsg:'已处理并回复处理结果',dealcompany:'中国石化上海石油化...'}
                           ,{dealtime:'2018-10-31 11:10',dealperson:'巡检员1',dealmsg:'已前往处理',dealcompany:'中国石化上海石油化...'}

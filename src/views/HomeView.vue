@@ -4,6 +4,9 @@
           用户管理
         </navbar>
         <group noPadded class="group-clear">
+            <div class="plan-map" style="">
+                <red-map ref="redmap" :points="mapPoints"  v-on:mapAddress="mapAddress"></red-map>
+            </div>
             <!--上方的登录信息-->
             <div>
                 <router-link :to="userInfo? '/home' : '/login'" class="wt-login-link wt-linear-blue">
@@ -39,13 +42,19 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
+import redMap from '../components/redmap'
 import * as util from '../libs/utils'
 export default {
+    components: {
+        redMap
+    },
     data(){
         return {
             username:'登录',
             timer:'',
             show:false,
+            mapPoints:
+                [{lng: 121.372882, lat: 31.176523, name: '上海宝信', desc: ''}],
             // userInfo:[]
         }
     },
@@ -59,6 +68,10 @@ export default {
         })
     },
     methods:{
+        mapAddress: function (mapAddress) {
+            this.mapAddressNow = mapAddress;
+            console.log(mapAddress);
+        },
         initData(){
             if (this.userInfo && this.userInfo.user_id) {
                 this.username = this.userInfo.name;

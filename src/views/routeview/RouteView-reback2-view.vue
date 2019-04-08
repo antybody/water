@@ -129,7 +129,7 @@
                 imgLists: [],
                 formData: new FormData(),
                 mapPoints: [
-                    {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
+                    {lng: 0, lat:0, name: ''}
                 ],
                 timeline: [{dealtime: '2018-10-10 12:10', dealperson: '张三', dealmsg: '已处理并回复处理结果', dealcompany: '城投公司'}
                     , {dealtime: '2018-10-10 11:10', dealperson: '张三', dealmsg: '已前往处理', dealcompany: '城投公司'}
