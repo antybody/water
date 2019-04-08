@@ -106,6 +106,9 @@ login
                                 }else if(response.data.data.name=='fuxs'){
                                     this.$router.push({name: 'route'});
                                     Utils.$emit('demo','type2');
+                                }else if(response.data.data.name=='whb'||response.data.data.name=='fqs'||response.data.data.name=='hfl'){
+                                    this.$router.push({name: 'redv1'});
+                                    Utils.$emit('demo','type4');
                                 }else{
                                     this.$router.push({name: 'redv1'});
                                     Utils.$emit('demo','type3');

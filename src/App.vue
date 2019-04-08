@@ -47,6 +47,11 @@
                     _this.isShowB3=false;
                     _this.isShowB2=true;
                     _this.isShowB1=true;
+                }else if(msg=='type4'){
+                    _this.isShowB4=true;
+                    _this.isShowB3=true;
+                    _this.isShowB2=true;
+                    _this.isShowB1=true;
                 }
                 //that.functionB();
             })
@@ -120,6 +125,9 @@
                 }else if(localStorage.getItem("user")=='fuxs'){
                     this.$router.push({name: 'route'});
                     Utils.$emit('demo','type2');
+                }else if(localStorage.getItem("userRole")=='whb'||localStorage.getItem("userRole")=='fqs'||localStorage.getItem("userRole")=='hfl'){
+                    this.$router.push({name: 'redv1'});
+                    Utils.$emit('demo','type4');
                 }else{
                     this.$router.push({name: 'redv1'});
                     Utils.$emit('demo','type3');
