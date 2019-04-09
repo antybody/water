@@ -80,9 +80,11 @@
 </template>
 
 <script>
+    import * as util from './../libs/utils'
     import {mapState, mapActions} from 'vuex'
     import Vue from 'vue'
     import * as API from '../store/api/api'
+    import Utils from './../libs/util'
 
     export default {
         data() {
@@ -135,7 +137,102 @@
             // })
         },
         mounted() {
-            this.$layer.msg('数据加载中...')
+            if(localStorage.getItem("_isUse") === 'false'&&this.getQueryString('msgSignature')==null){
+                //this.$layer.msg(1);
+                this.$router.push({name: 'home'});
+                this.$layer.msg("请登录！");
+            }
+            else if(this.getQueryString('msgSignature')!=null){
+                //this.$layer.msg(2);
+                let paramData = {
+                    //'account': this.getQueryString('account'),
+                    'msgSignature': this.getQueryString('msgSignature'),
+                    'timeStamp': this.getQueryString('timeStamp'),
+                    'nonce': this.getQueryString('nonce'),
+                    'encrypt': this.getQueryString('encrypt')
+                }
+                // let paramData = {
+                //     'account': '',
+                //     'msgSignature': 'ef2ec5cecd12f8225ade228d6483dd8c1b57c480',
+                //     'timeStamp': '1538026804',
+                //     'nonce': 'cOlPTjIN',
+                //     'encrypt': 'PXQWtE3DOjAqbFbP1jn5wAkxalGMLjd9JCiC27vBmsIYo3p6eAFvlIrMqBiRrb1BIWpjg+ZX1mTYJy48wJwS2/5GVffTb8c2GC/aSsv/dN8='
+                // }
+                paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+                console.log(paramData);
+                this.$http.jsonp(API.LOGIN_N + "&params=" + paramData).then(
+                    response => {
+                        if(response.data.message=='SUCCESS'){
+                            console.log(response.data.data);
+                            this.userInfo = {
+                                user_id: response.data.data.name,
+                                name:response.data.data.display_name,
+                                phone:response.data.data.mobile_phone,
+                                tel:response.data.data.user_tel,
+                                mail:response.data.data.email,
+                                roleCode:response.data.data.org_code,
+                                roleName:response.data.data.org_code
+                            }
+                            // 记录信息
+                            util.setStore('userInfo', this.userInfo);
+                            util.setStore('userRole', response.data.data.user_code); // 用户角色
+                            util.setStore('_isUse', 'true'); // 登录状态
+                            util.setStore('user', response.data.data.name); // 登录状态
+                            util.setStore('userName', response.data.data.display_name); // 登录状态
+                            var nextUrl = this.$route.params.next;
+                            //alert(nextUrl);
+                            //alert(response.data.data.user_code);
+                            //alert(response.data.data.name);
+                            if (!nextUrl){
+                                //this.$router.go(-1);
+                                if(response.data.data.user_code=='xjy'){
+                                    this.$router.push({name: 'route'});
+                                    Utils.$emit('demo','type1');
+                                }else if(response.data.data.name=='fuxs'||response.data.data.name=='fqs'||response.data.data.name=='hfl'){
+                                    //this.$router.push({name: 'route'});
+                                    Utils.$emit('demo','type2');
+                                }else if(response.data.data.name=='whb'){
+                                    //this.$router.push({name: 'redv1'});
+                                    Utils.$emit('demo','type4');
+                                }else{
+                                    //this.$router.push({name: 'redv1'});
+                                    Utils.$emit('demo','type3');
+                                }
+                                $('.tabbar-item').removeClass('active');
+                            }
+                            else{
+                                this.$router.push({path: nextUrl});
+                            }
+                        }else{
+                            this.open2 = true;
+                            this.alertText = '账号或密码错误'
+                            this.$router.push({name: 'home'});
+                        }
+                    }, response => {
+                        console.log("error");
+                        this.$router.push({name: 'home'});
+                    });
+            }
+            else {
+                //this.$layer.msg(window.location.href);
+                // if(localStorage.getItem("userRole")=='xjy'){
+                //     this.$router.push({name: 'route'});
+                //     Utils.$emit('demo','type1');
+                // }else if(localStorage.getItem("user")=='fuxs'||localStorage.getItem("user")=='fqs'||localStorage.getItem("user")=='hfl'){
+                //     this.$router.push({name: 'route'});
+                //     Utils.$emit('demo','type2');
+                // }else if(localStorage.getItem("user")=='whb'){
+                //     this.$router.push({name: 'redv1'});
+                //     Utils.$emit('demo','type4');
+                // }else{
+                //     this.$router.push({name: 'redv1'});
+                //     Utils.$emit('demo','type3');
+                // }
+                // $('.tabbar-item').removeClass('active');
+                //
+                // console.log(this.$route);
+            }
+
             // this.$http.jsonp(API.NEWS_LIST).then(
             //     response => {
             //         //循环设置跳转地址 href
@@ -148,6 +245,7 @@
             //         console.log("error");
             //     });
             //年度取水总量、超许可取水、取水许可超期、水功能区达标率
+            //this.$layer.msg('数据加载中...')
             let params1 = {
                 //xzqh: ''
             };
@@ -179,7 +277,29 @@
         methods: {
             ...mapActions([
                 'getTabLists', 'getNewLists'
-            ])
+            ]),
+            getQueryString:function (key)
+            {
+                var after = window.location.search;
+                //alert(after);
+                if(after.indexOf('?') === -1){
+                    //key存在先通过search取值如果取不到就通过hash来取
+                    after =  window.location.hash.split("?")[1];
+                } //return null; //如果url中没有传参直接返回空
+                if(after)
+                {
+                    var reg = new RegExp("(^|&)"+ key +"=([^&]*)(&|$)");
+                    var r = after.match(reg);
+                    if(r != null)
+                    {
+                        return  decodeURIComponent(r[2]);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
         },
         filters: {
             numFilter(value) {

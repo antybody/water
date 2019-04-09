@@ -103,10 +103,10 @@ login
                                 if(response.data.data.user_code=='xjy'){
                                     this.$router.push({name: 'route'});
                                     Utils.$emit('demo','type1');
-                                }else if(response.data.data.name=='fuxs'){
+                                }else if(response.data.data.name=='fuxs'||response.data.data.name=='fqs'||response.data.data.name=='hfl'){
                                     this.$router.push({name: 'route'});
                                     Utils.$emit('demo','type2');
-                                }else if(response.data.data.name=='whb'||response.data.data.name=='fqs'||response.data.data.name=='hfl'){
+                                }else if(response.data.data.name=='whb'){
                                     this.$router.push({name: 'redv1'});
                                     Utils.$emit('demo','type4');
                                 }else{

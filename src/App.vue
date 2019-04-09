@@ -30,6 +30,7 @@
             }
         },
         mounted() {
+            //alert(22);
             var _this=this;
             Utils.$on('demo', function (msg) {
                 if(msg=='type1'){
@@ -54,21 +55,75 @@
                     _this.isShowB1=true;
                 }
                 //that.functionB();
-            })
+            });
+            _this.sessionCheck();
             //登陆验证
-            if (localStorage.getItem("_isUse") === 'false') {
+            //if (localStorage.getItem("_isUse") === 'false') {
                 //this.$router.push({name: 'home'});
                 //
                 // let paramData = {
                 //     user_code:this.username,
                 //     user_pwd:''// pwdMd5
                 // }
-                if(this.getQueryString('account')==null){
+
+
+        },
+        methods: {
+            getvl: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.hash.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+             },
+            /**
+             * 解析URL传参
+             * @param {Object} key
+             */
+            getQueryString:function (key)
+            {
+                var after = window.location.search;
+                if(after.indexOf('?') === -1){
+                    //key存在先通过search取值如果取不到就通过hash来取
+                    after =  window.location.hash.split("?")[1];
+                } //return null; //如果url中没有传参直接返回空
+                if(after)
+                {
+                    var reg = new RegExp("(^|&)"+ key +"=([^&]*)(&|$)");
+                    var r = after.match(reg);
+                    if(r != null)
+                    {
+                        return  decodeURIComponent(r[2]);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            },
+            tabbarItemClick: function (e) {
+                console.log(this.$route);
+                console.log(localStorage.getItem("_isUse"));
+                // 登陆验证
+                if (localStorage.getItem("_isUse") === 'false') {
+                    //this.$layer.msg(4);
                     this.$router.push({name: 'home'});
                     this.$layer.msg("请登录！");
-                }else{
+                    console.log(localStorage.getItem("_isUse"));
+                } else {
+                    this.$router.push({name: e});
+                }
+                //this.$router.push({name: e});
+            },
+            sessionCheck: function (e) {
+                if(localStorage.getItem("_isUse") === 'false'&&this.getQueryString('msgSignature')==null){
+                    //this.$layer.msg(1);
+                    this.$router.push({name: 'home'});
+                    this.$layer.msg("请登录！");
+                }
+                else if(this.getQueryString('msgSignature')!=null){
+                    //this.$layer.msg(2);
                     let paramData = {
-                        'account': this.getQueryString('account'),
+                        //'account': this.getQueryString('account'),
                         'msgSignature': this.getQueryString('msgSignature'),
                         'timeStamp': this.getQueryString('timeStamp'),
                         'nonce': this.getQueryString('nonce'),
@@ -103,10 +158,30 @@
                                 util.setStore('user', response.data.data.name); // 登录状态
                                 util.setStore('userName', response.data.data.display_name); // 登录状态
                                 var nextUrl = this.$route.params.next;
-                                if (!nextUrl)
+                                //alert(nextUrl);
+                                //alert(response.data.data.user_code);
+                                //alert(response.data.data.name);
+                                if (!nextUrl){
                                     this.$router.go(-1);
-                                else
+                                    if(response.data.data.user_code=='xjy'){
+                                        this.$router.push({name: 'route'});
+                                        Utils.$emit('demo','type1');
+                                    }else if(response.data.data.name=='fuxs'||response.data.data.name=='fqs'||response.data.data.name=='hfl'){
+                                        this.$router.push({name: 'route'});
+                                        Utils.$emit('demo','type2');
+                                    }else if(response.data.data.name=='whb'){
+                                        this.$router.push({name: 'redv1'});
+                                        Utils.$emit('demo','type4');
+                                    }else{
+                                        this.$router.push({name: 'redv1'});
+                                        Utils.$emit('demo','type3');
+                                    }
+                                    $('.tabbar-item').removeClass('active');
+
+                                }
+                                else{
                                     this.$router.push({path: nextUrl});
+                                }
                             }else{
                                 this.open2 = true;
                                 this.alertText = '账号或密码错误'
@@ -117,72 +192,25 @@
                             this.$router.push({name: 'home'});
                         });
                 }
-            } else {
-
-                if(localStorage.getItem("userRole")=='xjy'){
-                    this.$router.push({name: 'route'});
-                    Utils.$emit('demo','type1');
-                }else if(localStorage.getItem("user")=='fuxs'){
-                    this.$router.push({name: 'route'});
-                    Utils.$emit('demo','type2');
-                }else if(localStorage.getItem("userRole")=='whb'||localStorage.getItem("userRole")=='fqs'||localStorage.getItem("userRole")=='hfl'){
-                    this.$router.push({name: 'redv1'});
-                    Utils.$emit('demo','type4');
-                }else{
-                    this.$router.push({name: 'redv1'});
-                    Utils.$emit('demo','type3');
-                }
-                $('.tabbar-item').removeClass('active');
-
-                console.log(this.$route);
-            }
-
-        },
-        methods: {
-            getvl: function (name) {
-                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-                var r = window.location.hash.substr(1).match(reg);
-                if (r != null) return unescape(r[2]);
-                return null;
-             },
-            /**
-             * 解析URL传参
-             * @param {Object} key
-             */
-
-            getQueryString:function (key)
-            {
-                var after = window.location.search;
-                if(after.indexOf('?') === -1){
-                    //key存在先通过search取值如果取不到就通过hash来取
-                    after =  window.location.hash.split("?")[1];
-                } //return null; //如果url中没有传参直接返回空
-                if(after)
-                {
-                    var reg = new RegExp("(^|&)"+ key +"=([^&]*)(&|$)");
-                    var r = after.match(reg);
-                    if(r != null)
-                    {
-                        return  decodeURIComponent(r[2]);
+                else {
+                    //this.$layer.msg(3);
+                    if(localStorage.getItem("userRole")=='xjy'){
+                        this.$router.push({name: 'route'});
+                        Utils.$emit('demo','type1');
+                    }else if(localStorage.getItem("user")=='fuxs'||localStorage.getItem("user")=='fqs'||localStorage.getItem("user")=='hfl'){
+                        this.$router.push({name: 'route'});
+                        Utils.$emit('demo','type2');
+                    }else if(localStorage.getItem("user")=='whb'){
+                        this.$router.push({name: 'redv1'});
+                        Utils.$emit('demo','type4');
+                    }else{
+                        this.$router.push({name: 'redv1'});
+                        Utils.$emit('demo','type3');
                     }
-                    else
-                    {
-                        return null;
-                    }
+                    $('.tabbar-item').removeClass('active');
+
+                    console.log(this.$route);
                 }
-            },
-            tabbarItemClick: function (e) {
-                console.log(this.$route);
-                console.log(localStorage.getItem("_isUse"));
-                // 登陆验证
-                if (localStorage.getItem("_isUse") === 'false') {
-                    this.$router.push({name: 'home'});
-                    this.$layer.msg("请登录！");
-                    console.log(localStorage.getItem("_isUse"));
-                } else {
-                    this.$router.push({name: e});
-                }
-                //this.$router.push({name: e});
             }
         }
     }
