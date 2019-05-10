@@ -60,6 +60,7 @@
                 // 加载PositionPicker，loadUI的路径参数为模块名中 'ui/' 之后的部分
                 let AMapUI = this.AMapUI = window.AMapUI
                 let AMap = this.AMap = window.AMap
+
                 AMapUI.loadUI(['misc/PositionPicker'], PositionPicker => {
                     let mapConfig = {
                         zoom: 9,
@@ -76,51 +77,63 @@
                     let map = new AMap.Map('js-container', mapConfig)
                     this.map = map;
                     console.log(map);
-
+                    var lnglatXY = [];
                     //定位
                     var _this = this;
-                    map.plugin('AMap.Geolocation', function () {
-                        var geolocation = new AMap.Geolocation({
-                            // 是否使用高精度定位，默认：true
-                            enableHighAccuracy: true,
-                            // 设置定位超时时间，默认：无穷大
-                            timeout: 10000,
-                            // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
-                            buttonOffset: new AMap.Pixel(10, 20),
-                            //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-                            zoomToAccuracy: true,
-                            //  定位按钮的排放位置,  RB表示右下
-                            buttonPosition: 'RB'
-                        })
+                    if (localStorage.getItem('type') === '0') {
+                        _this.mapAddress = {
+                            address: localStorage.getItem("address"),
+                            lng: localStorage.getItem("longitude"),
+                            lat: localStorage.getItem("latitude"),
+                            type: 'success'
+                        };
+                    } else {
+                        map.plugin('AMap.Geolocation', function () {
+                            var geolocation = new AMap.Geolocation({
+                                // 是否使用高精度定位，默认：true
+                                enableHighAccuracy: true,
+                                // 设置定位超时时间，默认：无穷大
+                                timeout: 10000,
+                                // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+                                buttonOffset: new AMap.Pixel(10, 20),
+                                //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                                zoomToAccuracy: true,
+                                //  定位按钮的排放位置,  RB表示右下
+                                buttonPosition: 'RB'
+                            })
 
-                        geolocation.getCurrentPosition();
-                        AMap.event.addListener(geolocation, 'complete', onComplete);
-                        AMap.event.addListener(geolocation, 'error', onError);
+                            geolocation.getCurrentPosition();
+                            AMap.event.addListener(geolocation, 'complete', onComplete);
+                            AMap.event.addListener(geolocation, 'error', onError);
 
-                        function onComplete(data) {
-                            // data是具体的定位信息
-                            console.log('地点：' + data.formattedAddress);
-                            console.log('经度：' + data.position.getLng());
-                            console.log('纬度：' + data.position.getLat());
-                            _this.mapAddress = {
-                                address: data.formattedAddress,
-                                lng: data.position.getLng(),
-                                lat: data.position.getLat(),
-                                type: 'success'
-                            };
-                        }
 
-                        function onError(data) {
-                            // 定位出错
-                            console.log('定位失败' + data);
-                            _this.mapAddress = {
-                                address: "获取位置失败",
-                                lng: "获取位置失败",
-                                lat: "获取位置失败",
-                                type: 'error'
-                            };
-                        }
-                    });
+                            function onComplete(data) {
+                                // data是具体的定位信息
+                                console.log('地点：' + data.formattedAddress);
+                                console.log('经度：' + data.position.getLng());
+                                console.log('纬度：' + data.position.getLat());
+                                _this.mapAddress = {
+                                    address: data.formattedAddress,
+                                    lng: data.position.getLng(),
+                                    lat: data.position.getLat(),
+                                    type: 'success'
+                                };
+                            }
+
+                            function onError(data) {
+                                // 定位出错
+                                console.log('定位失败' + data);
+                                _this.mapAddress = {
+                                    address: localStorage.getItem("address"),
+                                    lng: localStorage.getItem("longitude"),
+                                    lat: localStorage.getItem("latitude"),
+                                    type: 'success'
+                                };
+                            }
+
+                        });
+                    }
+
                     // 加载地图搜索插件
                     AMap.service('AMap.PlaceSearch', () => {
                         this.placeSearch = new AMap.PlaceSearch({
@@ -174,7 +187,7 @@
                 }
             },
             getContent(points) {//name, desc
-                 let t = this.type;
+                let t = this.type;
                 //let t = points.type;
                 console.log(t);
                 let content = [];

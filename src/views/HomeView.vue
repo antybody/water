@@ -60,6 +60,7 @@ export default {
     },
     methods:{
         initData(){
+            console.log(this.userInfo)
             if (this.userInfo && this.userInfo.user_id) {
                 this.username = this.userInfo.name;
 

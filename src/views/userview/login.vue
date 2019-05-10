@@ -65,55 +65,55 @@ login
                     // return
                 }
                 var a;
-                // var md5 = crypto.createHash("md5");
-                // md5.update(this.pwd);
-                // var pwdMd5 = md5.digest('hex');
-                // console.log(pwdMd5);
+                var md5 = crypto.createHash("md5");
+                md5.update(this.pwd);
+                var pwdMd5 = md5.digest('hex');
+                console.log(pwdMd5);
                 //47bce5c74f589f4867dbd57e9ca9f808
                 let paramData = {
-                    user_code:this.username,
-                    user_pwd:''// pwdMd5
+                    user_code: this.username,
+                    user_pwd: pwdMd5// pwdMd5
                 }
                 paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
                 this.$http.jsonp(API.LOGIN + "&params=" + paramData).then(
                     response => {
-                        if(response.data.message=='SUCCESS'){
+                        if (response.data.message == 'SUCCESS') {
                             console.log(response.data.data);
                             this.userInfo = {
                                 user_id: response.data.data.name,
-                                name:response.data.data.display_name,
-                                phone:response.data.data.mobile_phone,
-                                tel:response.data.data.user_tel,
-                                mail:response.data.data.email,
-                                roleCode:response.data.data.org_code,
-                                roleName:response.data.data.org_code
+                                name: response.data.data.display_name,
+                                phone: response.data.data.mobile_phone,
+                                tel: response.data.data.user_tel,
+                                mail: response.data.data.email,
+                                roleCode: response.data.data.org_code,
+                                roleName: response.data.data.org_code
                             }
+                            console.log(this.userInfo)
+                            console.log("ceshi1111111")
                             // 记录信息
                             util.setStore('userInfo', this.userInfo);
-                            util.setStore('userRole', response.data.data.user_code); // 用户角色
-                            util.setStore('_isUse', 'true'); // 登录状态
-                            util.setStore('user', response.data.data.name); // 登录状态
-                            util.setStore('userName', response.data.data.display_name); // 登录状态
+                            localStorage.setItem('userRole', response.data.data.user_code); // 用户角色
+                            localStorage.setItem('_isUse', 'true'); // 登录状态
+                            localStorage.setItem('user', response.data.data.name); // 登录状态
+                            localStorage.setItem('userName', response.data.data.display_name); // 登录状态
                             var nextUrl = this.$route.params.next;
-                            if (!nextUrl){
-                                if(response.data.data.user_code=='xjy'){
+                            if (!nextUrl) {
+                                if (response.data.data.user_code == 'xjy') {
                                     this.$router.push({name: 'route'});
-                                    Utils.$emit('demo','type1');
-                                }else if(response.data.data.name=='fuxs'){
+                                    Utils.$emit('demo', 'type1');
+                                } else if (response.data.data.name == 'fuxs') {
                                     this.$router.push({name: 'route'});
-                                    Utils.$emit('demo','type2');
-                                }else{
+                                    Utils.$emit('demo', 'type2');
+                                } else {
                                     this.$router.push({name: 'redv1'});
-                                    Utils.$emit('demo','type3');
+                                    Utils.$emit('demo', 'type3');
                                 }
                                 $('.tabbar-item').removeClass('active');
 
-                            }
-
-                            else
+                            } else
                                 this.$router.push({path: nextUrl});
 
-                        }else{
+                        } else {
                             this.open2 = true;
                             this.alertText = '账号或密码错误'
                         }

@@ -518,6 +518,17 @@ const policy = resolve => {
     }, 'group-IrrView')
 }
 
+const qsgcHome = resolve => {
+    require.ensure([], () => {
+        resolve(require('./views/qsgcHome'))
+    }, 'group-qsgc')
+}
+const qsgcTable = resolve => {
+    require.ensure([], () => {
+        resolve(require('./views/qsgc/qsgcTable'))
+    }, 'group-qsgc')
+}
+
 // import forbidden from './views/userview/forbidden'
 const forbidden = () => import('./views/userview/forbidden')
 // import error404 from './views/userview/404'
@@ -866,6 +877,16 @@ const router = new VueRouter({
             path: '/policy',
             name: 'policy',
             component: policy
+        },
+        {
+            path: '/qsgcHome',
+            name: 'qsgcHome',
+            component: qsgcHome
+        },
+        {
+            path: '/qsgcTable',
+            name: 'qsgcTable',
+            component: qsgcTable
         }
     ]
 })
