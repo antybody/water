@@ -78,7 +78,7 @@
                 <list-item title="检查量程设定参数" :after="xjjlData.bsq_lcsdjc | typeFilter"></list-item>
                 <list-item title="检测自检功能" :after="xjjlData.bsq_zjgnjc | typeFilter"></list-item>
                 <list-item title="检测输出脉冲" :after="xjjlData.bsq_scmcjc | typeFilter"></list-item>
-                <list-item title="检测单项累计功能" :after="xjjlData.bsq_zjgnjc | typeFilter"></list-item>
+                <list-item title="检测单项累计功能" :after="xjjlData.bsq_dxljgnjc | typeFilter"></list-item>
                 <list-item title="检测接收信号值是否正常" :after="xjjlData.bsq_xhzjc | typeFilter"></list-item>
                 <list-item title="检测显示部分是否正常" :after="xjjlData.bsq_xsjc | typeFilter"></list-item>
                 <list-item title="检测瞬时流量值" :after="xjjlData.bsq_ssllz | typeFilter"></list-item>
@@ -129,7 +129,7 @@
                 imgLists: [],
                 formData: new FormData(),
                 mapPoints: [
-                    {lng: 121.372882, lat: 31.176523, name: '上海宝信'}
+                    {lng: 0, lat: 0, name: ''}
                 ],
                 timeline: [{dealtime: '2018-10-10 12:10', dealperson: '张三', dealmsg: '已处理并回复处理结果', dealcompany: '城投公司'}
                     , {dealtime: '2018-10-10 11:10', dealperson: '张三', dealmsg: '已前往处理', dealcompany: '城投公司'}

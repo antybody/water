@@ -27,7 +27,7 @@ export default {
     methods:{
         searchBar:function(){
            this.openSearch = true;
-           alert();
+           //alert();
        },
        closeBar(){
             // this.openSearch = false;

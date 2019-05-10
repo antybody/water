@@ -91,7 +91,7 @@
                         map.plugin('AMap.Geolocation', function () {
                             var geolocation = new AMap.Geolocation({
                                 // 是否使用高精度定位，默认：true
-                                enableHighAccuracy: true,
+                                enableHighAccuracy: false,
                                 // 设置定位超时时间，默认：无穷大
                                 timeout: 10000,
                                 // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
@@ -134,40 +134,51 @@
                         });
                     }
 
-                    // 加载地图搜索插件
-                    AMap.service('AMap.PlaceSearch', () => {
-                        this.placeSearch = new AMap.PlaceSearch({
-                            pageSize: 5,
-                            pageIndex: 1,
-                            citylimit: true,
-                            city: MapCityName,
-                            map: map,
-                            panel: 'js-result'
-                        })
-                    })
-                    // 启用工具条
-                    AMap.plugin(['AMap.ToolBar'], function () {
-                        map.addControl(new AMap.ToolBar({
-                            position: 'RB'
-                        }))
-                    })
-                    // 创建地图上的点
-                    for (var i = 0; i < this.points.length; i++) {
-                        console.log(this.points);
-                        let marker = new AMap.Marker({
-                            position: [this.points[i].lng, this.points[i].lat],
-                            title: this.points.name,
-                            map: map,
-                            icon: this.points[i].icon,
-                        });
-                        marker.content = this.getContent(this.points[i]).join("");//this.points[i].name, this.points[i].desc
-                        marker.on('click', markerClick => {
-                            this.infoWindow.setContent(markerClick.target.content);
-                            this.infoWindow.open(map, markerClick.target.getPosition());
-                        });
-                        // marker.emit('click', {target: marker});
+                    function onError(data) {
+                        // 定位出错
+                        console.log('定位失败');
+                        console.log(data);
+                        _this.mapAddress = {
+                            address: "获取位置失败",
+                            lng: "获取位置失败",
+                            lat: "获取位置失败",
+                            type: 'error'
+                        };
                     }
+                });
+                // 加载地图搜索插件
+                AMap.service('AMap.PlaceSearch', () => {
+                    this.placeSearch = new AMap.PlaceSearch({
+                        pageSize: 5,
+                        pageIndex: 1,
+                        citylimit: true,
+                        city: MapCityName,
+                        map: map,
+                        panel: 'js-result'
+                    })
                 })
+                // 启用工具条
+                AMap.plugin(['AMap.ToolBar'], function () {
+                    map.addControl(new AMap.ToolBar({
+                        position: 'RB'
+                    }))
+                })
+                // 创建地图上的点
+                for (var i = 0; i < this.points.length; i++) {
+                    console.log(this.points);
+                    let marker = new AMap.Marker({
+                        position: [this.points[i].lng, this.points[i].lat],
+                        title: this.points.name,
+                        map: map,
+                        icon: this.points[i].icon,
+                    });
+                    marker.content = this.getContent(this.points[i]).join("");//this.points[i].name, this.points[i].desc
+                    marker.on('click', markerClick => {
+                        this.infoWindow.setContent(markerClick.target.content);
+                        this.infoWindow.open(map, markerClick.target.getPosition());
+                    });
+                    // marker.emit('click', {target: marker});
+                }
             },
             refreshMap() {
                 // 创建地图上的点
@@ -185,7 +196,8 @@
                     });
                     // marker.emit('click', {target: marker});
                 }
-            },
+            }
+            ,
             getContent(points) {//name, desc
                 let t = this.type;
                 //let t = points.type;

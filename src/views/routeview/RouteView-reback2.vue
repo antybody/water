@@ -11,11 +11,18 @@
             <tabs-item slot="tabs" blue hollow>基础信息</tabs-item>
             <tabs-item slot="tabs" blue hollow>巡检记录</tabs-item>
             <!--<tabs-item slot="tabs" blue hollow>处理流程</tabs-item>-->
-            <tabs-desc slot="desc">
+            <tabs-desc slot="desc"   style="margin-top: 0;height: 100%">
+                <h5 class="wt-title h5add" style="padding:0.925rem 0">
+                    <div class="wt-title-center"><i class="wt-bar-i-16 red-c"></i><span>异常地址</span>
+                    </div>
+                </h5>
                 <div class="plan-map" style="height: 170px;">
                     <red-map ref="redmap" :points="mapPoints" v-on:mapAddress="mapAddress"></red-map>
                 </div>
-
+                <div style="width: 100%;height: auto">
+                    <div class="boxHand footerBoxHandle box active" @click="toMax()">
+                        <div class="active"></div>
+                    </div>
                 <h5 class="wt-title" style="padding:0.925rem 0">
                     <div class="wt-title-center">
                         <i class="wt-bar-i-16 red-c"></i><span>站点信息</span>
@@ -51,6 +58,7 @@
                 <list-item title="安装时间">
                     <a class="content" slot="after">{{this.mpData.dt | trimStr}}</a>
                 </list-item>
+                </div>
             </tabs-desc>
             <tabs-desc slot="desc">
                 <h5 class="wt-title" style="padding:0.925rem 0">
@@ -187,7 +195,7 @@
                     type: 'error'
                 },
                 mapPoints:
-                    [{lng: 121.372882, lat: 31.176523, name: '上海宝信', desc: ''}],
+                    [{lng: 0, lat: 0, name: '上海宝信', desc: ''}],
                 xjList: {errormsg: ''},
                 timeline: []
             }
@@ -358,6 +366,17 @@
                 let username = util.getJStore("userInfo")["user_info"];
                 console.log(username);
                 this.$router.go(-1);
+            },
+            toMax: function (v) {
+                if($('.footerBoxHandle').hasClass('active')){
+                    $('.footerBoxHandle').removeClass('active');
+                    var hStr=document.getElementsByClassName('tabs')[0].offsetHeight-document.getElementsByClassName('tabs-nav')[0].offsetHeight-document.getElementsByClassName('h5add')[0].offsetHeight-20;
+                    $('.plan-map').css('height',hStr)
+                }
+                else{
+                    $('.footerBoxHandle').addClass('active');
+                    $('.plan-map').css('height','170px')
+                }
             }
         },
         filters: {
@@ -522,6 +541,50 @@
 
     input[type="radio"]:checked + .advice {
         background-image: url('../../../statics/images/radio_yes.png');
+    }
+
+
+    .boxHand {
+        cursor: pointer;
+    }
+    .footerBoxHandle {
+        width: 75px;
+        height: 20px;
+        position: absolute;
+        margin-top: -21px;
+        right: 50%;
+        margin-left: -32px;
+        border-bottom: none;
+        border-radius: 4px 4px 0 0;
+    }
+    .box {
+        position: absolute;
+        border: 1px solid rgba(255,255,255, 1);
+        border-radius: 4px;
+        background: rgba(255,255,255, .8);
+        color: rgb(230,230,230);
+        font-size: 12px;
+    }
+    .footerBoxHandle.active div {
+        -webkit-transform: rotate(225deg);
+        transform: rotate(225deg);
+        top: 5px;
+    }
+    .footerBoxHandle div {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border: 1px solid #CCC;
+        top: 50%;
+        left: 50%;
+        border-bottom: none;
+        border-right: none;
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+        margin: -2px -5px;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        top: 11px;
     }
 
 </style>
