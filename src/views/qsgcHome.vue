@@ -15,26 +15,24 @@
                     </div>
                 </div>
                 <div class="route-lists">
-                    <div v-show="listType" class="mui-table-view mt0" v-for="list in lists">
-                        <div class="mui-card-header">
-                            <span class="mui-pull-right" v-if="list.bz==='yjgd'">工单类型：预警工单</span>
-                            <span class="mui-pull-right" v-else-if="list.bz==='swrsj'">工单类型：水污染</span>
-                            <span class="mui-pull-right" v-else>工单类型：巡检工单</span>
-                            <span>{{list.patrol_time}}</span>
+                    <div  class="mui-table-view mt0" v-for="list in lists">
+                       <div class="mui-card-header">
+                            <span class="mui-pull-right">工单类型：工程核查</span>
+                           <span>{{list.xchcrq}}</span>
                         </div>
                         <div class="mui-card-content">
                             <div class="mui-card-content-inner">
                                 <div class="row">
                                     <img slot="img" src="../../statics/images/shanghai1.png"
                                          style="width: 78px;height: 60px;" alt="">
-                                    <span>工单标题：{{list.patrol_title|titleSplit}}</span>
+                                    <span>项目名称：{{list.xmmc}}</span>
 
                                 </div>
                                 <div class="row">
-                                    <span>测点编号：{{list.station_id}}</span>
-                                    <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
-                                       @click="listClick(list)">查看详情</a>
-                                    <a v-else class="banli" href="javascript:void(0);" @click="listClick(list)">办理</a>
+                                    <span>项目编号：{{list.xmbh}}</span>
+                                  <!--  <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
+                                       @click="listClick(list)">查看详情</a>-->
+                                    <a  class="banli" href="javascript:void(0);" @click="listClick(list)">查看</a>
                                 </div>
                             </div>
                         </div>
@@ -74,15 +72,15 @@
             }
         },
         mounted() {
-            this.lists = [{
+        /*    this.lists = [{
                 bz: 'yjgd',
                 patrol_state: '0',
                 patrol_time: '2019-04-15',
                 patrol_title: 'ceshi',
                 station_id: '001',
             }];
-            console.log(this.lists);
-
+            console.log(this.lists);*/
+            this.getGchcList("","");
         },
         filters: {
             titleSplit(name) {
@@ -94,7 +92,7 @@
         methods: {
             searchBar: function () {
                 //    this.openSearch = true;
-                this.$router.push({name: 'search', params: {text: '请搜索核查列表', t: 'hclb'}});
+                this.$router.push({name: 'search',path:'hclb', params: {text: '请搜索核查列表', t: 'hclb'}});
             },
             newQsgcTable () {
                 this.$router.push({name: 'qsgcTable'})
@@ -110,12 +108,30 @@
             },
             listClick: function (data) {
                 this.$router.push({
-                    name: 'qsgcTable',
-                    params: {id: '123'}
+                    name: 'qsgcTableView',
+                    params: {id: data.id}
                 });
             },
             openCal: function () {
                 this.time.calendarShow = true;
+            },
+            getGchcList(id,xmmc) {
+                let paramData = {
+                    type: 'query',
+                    id:id,
+                    xmmc:xmmc
+                }
+                //获取预警信息列表
+                paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+                console.log( API.QSGC_XCHC + '&params=' + paramData);
+                this.$http.jsonp(API.QSGC_XCHC + '&params=' + paramData).then(
+                    response => {
+                        console.log(response);
+                        this.lists = response.data.jcxx;
+                        console.log(this.lists);
+                    }, response => {
+                        console.log("error");
+                    });
             }
         }
     }

@@ -63,6 +63,7 @@
         },
         methods: {
             // 这里有个阻止继续操作的事件，防止多次点击
+
             itemQuery: debounce(function () {
                 // 这里引用 带条件的查询
                 console.log("----- 查询了我-----");
@@ -300,11 +301,39 @@
                             })
                         break;
 
+                    case "hclb":
+                        let paramData7 = {
+                            type: 'query',
+                            id:"",
+                            xmmc:this.searchItem,
+                            currentPage:10
+                        }
+                        console.log(paramData7);
+                        paramData7 = encodeURI(encodeURI(JSON.stringify(paramData7)));
+                        this.$http.jsonp(API.QSGC_XCHC + "&params=" + paramData7).then(
+                            response => {
+                                this.lists = []
+                                console.log(response.data.jcxx);
+                                if (response.data.jcxx.length === 0) {
+                                    this.lists.push({
+                                        title: '暂无数据'
+                                    })
+                                } else {
+                                    for (let value of response.data.jcxx) {
+                                        this.lists.push({
+                                            title: value.xmmc,
+                                            href: '/qsgcTableView',
+                                            tag1: value.isblxkz=='1'?'是':'否',//是否办理许可证
+                                            tag2: value.hczzqm,//核查人
+                                            tag3: value.xchcrq,
 
-
-
-
-
+                                        })
+                                    }
+                                }
+                            }, response => {
+                                console.log(response)
+                            })
+                        break;
 
                 }
 

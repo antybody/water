@@ -2,7 +2,6 @@
 import VueRouter from 'vue-router'
 import vueResource from 'vue-resource'
 
-
 import App from './App.vue'
 import VueAmazeui from 'vue-amazeui'
 import 'vue-amazeui/dist/static/css/vue-amazeui.css'
@@ -12,11 +11,9 @@ import FastClick from 'fastclick'
 //vue-laer弹框
 import layer from 'vue-layer'
 
-
 import {_beforeEnter} from '../src/libs/router'
 
 import Indicator from 'vue-indicator';
-
 
 FastClick.attach(document.body);
 Vue.use(VueAmazeui)
@@ -529,6 +526,11 @@ const qsgcTable = resolve => {
     }, 'group-qsgc')
 }
 
+const qsgcTableView = resolve => {
+    require.ensure([], () => {
+        resolve(require('./views/qsgc/qsgcTableView'))
+    }, 'group-qsgc')
+}
 // import forbidden from './views/userview/forbidden'
 const forbidden = () => import('./views/userview/forbidden')
 // import error404 from './views/userview/404'
@@ -887,6 +889,11 @@ const router = new VueRouter({
             path: '/qsgcTable',
             name: 'qsgcTable',
             component: qsgcTable
+        },
+        {
+            path: '/qsgcTableView',
+            name: 'qsgcTableView',
+            component: qsgcTableView
         }
     ]
 })

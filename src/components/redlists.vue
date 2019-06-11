@@ -79,7 +79,30 @@
                 <span class="list-label label-blue">{{item.state}}</span>
             </span>
         </list-item>
+        <list-item v-if="routeName == '/hclb'" v-for="list in lists" :key="list.id" :title="list.name" >
+            <div  class="mui-table-view mt0" >
+                <div class="mui-card-header">
+                    <span class="mui-pull-right">工单类型：工程核查</span>
+                    <span>{{list.xchcrq}}</span>
+                </div>
+                <div class="mui-card-content">
+                    <div class="mui-card-content-inner">
+                        <div class="row">
+                            <img slot="img" src="../../statics/images/shanghai1.png"
+                                 style="width: 78px;height: 60px;" alt="">
+                            <span>项目名称：{{list.xmmc}}</span>
 
+                        </div>
+                        <div class="row">
+                            <span>项目编号：{{list.xmbh}}</span>
+                            <!--  <a v-if="list.patrol_state === '2'" class="banli success" href="javascript:void(0);"
+                                 @click="listClick(list)">查看详情</a>-->
+                            <a  class="banli" href="javascript:void(0);" @click="listClick(list)">查看</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </list-item>
         <!--底部操作栏-->
         <list-item v-show='showMore'>
             <div slot="subTitle" @click="loadMore()" class="wt-desc">
@@ -110,10 +133,10 @@ export default {
         console.log(this.$refs.viewBox);
         // this.target = this.$el.parentNode
         this.target = this.$el.parentNode.parentNode.parentElement
-        this.target.addEventListener('scroll', this.showIcon,true)
+        this.target.addEventListener('scroll', this.showIcon,true);
         // 如果超过了，那么修正文字
-        this.judgePage()
-        this.routeName = this.$route.path
+        this.judgePage();
+        this.routeName = this.$route.path;
     },
     watch:{
         next(val,old){

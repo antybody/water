@@ -233,3 +233,5 @@ export const SAVE_LLY_YJ = BASE_URL + '/app/route/wt_xjjlCrudYj?access_token=[b3
 export const QUERY_LL = BASE_URL + '/app/route/queryLl?access_token=[b36680850768ff1b]';
 export const QUERY_LLL = BASE_URL + '/app/route/queryLll?access_token=[b36680850768ff1b]';
 
+//取水工程
+export const QSGC_XCHC = BASE_URL + '/app/qsgc/qsgcXchc?access_token=[b36680850768ff1b]';

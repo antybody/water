@@ -19,18 +19,19 @@
                 </h5>
                 <list-item nested="input">
                     <field label="项目名称">
-                        <field-input type="text" placeholder="项目名称" id="xmmc"></field-input>
+                        <field-input type="text" placeholder="项目名称" id="xmmc" :value="gchcInfo.xmmc"></field-input>
+
                     </field>
                 </list-item>
                 <list-item nested="input">
                     <!--<a class="content" slot="after">{{this.cdInfo.mp_nm | trimStr}}</a>-->
                     <field label="项目编号">
-                        <field-input type="text" placeholder="项目编号" id="xmbh"></field-input>
+                        <field-input type="text" placeholder="项目编号" id="xmbh" :value="gchcInfo.xmbh"></field-input>
                     </field>
                 </list-item>
                 <list-item nested="input">
                     <field label="投运时间">
-                        <field-input type="date" name="tysj" placeholder="选择投运时间" id="tysj"></field-input>
+                        <field-input type="text" name="tysj" placeholder="选择投运时间" id="tysj" :value="gchcInfo.tysj"></field-input>
                     </field>
                 </list-item>
                 <h6 class="wt-title">
@@ -39,15 +40,15 @@
                         <span>是否办理取水许可</span>
                         <span class="wt-bar-subtitle"></span>
                     </div>
-                </h6>
+                </h6><!--v-show="gchcInfo.isblxkz=='1'"-->
                 <list-item nested="radio">
-                    <field label="未许可" check>
-                        <field-input name="sfxk" type="radio" val="1"></field-input>
+                    <field label="未许可" check >
+                        <field-input name="sfxk" type="radio" val="1"  :value="gchcInfo.isblxkz=='1'?'true':'false'"></field-input>
                     </field>
                 </list-item>
-                <list-item nested="radio">
+                <list-item nested="radio" >
                     <field label="已许可" check>
-                        <field-input name="sfxk" type="radio" val="2"></field-input>
+                        <field-input name="sfxk" type="radio" val="2" :value="gchcInfo.isblxkz=='2'?'true':'false'"></field-input>
                     </field>
                 </list-item>
                 <h6 class="wt-title">
@@ -57,14 +58,14 @@
                         <span class="wt-bar-subtitle"></span>
                     </div>
                 </h6>
-                <list-item nested="radio">
+                <list-item nested="radio" >
                     <field label="未发证" check>
-                        <field-input name="fzzt" type="radio" val="1"></field-input>
+                        <field-input name="fzzt" type="radio" val="1" :value="gchcInfo.isfz=='2'?'true':'false'"></field-input>
                     </field>
                 </list-item>
                 <list-item nested="radio">
                     <field label="已发证" check>
-                        <field-input name="fzzt" type="radio" val="2"></field-input>
+                        <field-input name="fzzt" type="radio" val="2" :value="gchcInfo.isfz=='2'?'true':'false'"></field-input>
                     </field>
                 </list-item>
                 <h5 class="wt-title" style="padding:0.925rem 0">
@@ -74,7 +75,7 @@
                 <list-item nested="input">
                     <!--<a class="content" slot="after">{{this.cdInfo.mp_nm | trimStr}}</a>-->
                     <field label="">
-                        <field-input type="text" placeholder="建议核查内容" id="jyhcnn"></field-input>
+                        <field-input type="text" placeholder="建议核查内容" id="jyhcnn" :value="gchcInfo.jyhcnn"></field-input>
                     </field>
                 </list-item>
                 <h5 class="wt-title" style="padding:0.925rem 0">
@@ -84,7 +85,7 @@
                 <list-item nested="input">
                     <!--<a class="content" slot="after">{{this.cdInfo.mp_nm | trimStr}}</a>-->
                     <field label="">
-                        <field-input type="text" placeholder="现场核查结果" id="xchcjg"></field-input>
+                        <field-input type="text" placeholder="现场核查结果" id="xchcjg" :value="gchcInfo.xchcjg"></field-input>
                     </field>
                 </list-item>
 
@@ -101,22 +102,22 @@
                         </h6>
                         <list-item nested="radio">
                             <field label="情况一致" check>
-                                <field-input :name="list.param" type="radio" val="1" ></field-input>
+                                <field-input :name="list.param" type="radio" val="1" :value="list.value=='1'?'true':'false'"></field-input>
                             </field>
                         </list-item>
                         <list-item nested="radio">
                             <field label="情况不一致" check>
-                                <field-input :name="list.param" type="radio" val="2"></field-input>
+                                <field-input :name="list.param" type="radio" val="2" :value="list.value=='2'?'true':'false'"></field-input>
                             </field>
                         </list-item>
                         <list-item nested="radio">
                             <field label="情况无法判断" check>
-                                <field-input :name="list.param" type="radio" val="3"></field-input>
+                                <field-input :name="list.param" type="radio" val="3" :value="list.value=='3'?'true':'false'"></field-input>
                             </field>
                         </list-item>
                         <list-item nested="input">
                             <field label="备     注">
-                                <field-input :id="list.param + '_bz'" placeholder="情况说明" ></field-input>
+                                <field-input :id="list.param + '_bz'" placeholder="情况说明" :value="list.bz"></field-input>
                             </field>
                         </list-item>
                     </list>
@@ -124,85 +125,76 @@
             </tabs-desc>
             <tabs-desc slot="desc">
                 <div id="jcdInfo">
-                    <card :title="'取水监测点-' + num" :id="'jcd_card_' + num" v-for="num in jcdNum">
+                    <card :title="'取水监测点-' + (parseInt(index)+1)" v-for="(jcd,index) in jcdInfo">
                         <!--<slot slot="header" name="header" >-->
                         <!--<icon name="close" @click.native="deleteCard('jcd_card_' + num)"></icon>-->
                         <!--</slot>-->
                         <list-item nested="input">
                             <field label="监测点名称">
-                                <field-input type="text" :name="'jcd_name_' + num" :id="'jcd_name_' + num" placeholder="监测点名称"></field-input>
+                                <field-input type="text" :value="jcd.jcdmc" placeholder="监测点名称"></field-input>
                             </field>
                         </list-item>
                         <list-item nested="input">
                             <field label="监测点编号">
-                                <field-input type="text" :name="'jcd_num_' + num" :id="'jcd_num_' + num" placeholder="监测点编号"></field-input>
+                                <field-input type="text"  :value="jcd.jcddm" placeholder="监测点编号"></field-input>
                             </field>
                         </list-item>
                         <list-item nested="input">
                             <field label="取水用途">
-                                <field-input type="text" :name="'jcd_qsyt_' + num" :id="'jcd_qsyt_' + num" placeholder="取水用途"></field-input>
+                                <field-input type="text" :value="jcd.jcdqsyt" placeholder="取水用途"></field-input>
                             </field>
                         </list-item>
                     </card>
                 </div>
-                <div class="bottom-button" style="text-align: center;margin-left: 0.88rem;margin-top: 1.625rem;">
+             <!--   <div class="bottom-button" style="text-align: center;margin-left: 0.88rem;margin-top: 1.625rem;">
                     <vue-button amSize="xs" orange @buttonClick="deleteCard(1)">删除</vue-button>
                     <vue-button amSize="xs" sblue @buttonClick="addJcdInfo()">新增</vue-button>
-                </div>
+                </div>-->
             </tabs-desc>
             <tabs-desc slot="desc">
                 <div class="wt-list-info">
                     <div class="wt-list-lineover">
                         <label>现场照片：
-                            <span class="wt-lits-subtilte">最多上传6张</span>
-                            <span style="float:right">{{imgLists.length}}/6</span>
+                            <span class="wt-lits-subtilte">{{imgLists.length}}张</span>
                         </label>
                         <p class="g-overflow">
-                        <span class="js_add_img">
-                             <i class="icon_add_gray" @click="open('offcanvas5')"></i>
-                                 <span class="input-add-img-box">
-                                     <input id="imgupload" capture="camera" class="input-add-img" type="file"
-                                            @change="changeImg($event)"
-                                            accept="image/*"/>
-                                 </span>
-                             </span>
+                            <imgpreview :imgLists="imgLists" @closeImg="closeImg" :imgpreshow="imgpreshow"></imgpreview>
                         <ul class="upload-pre-img" v-show="imgLists.length >0">
-                            <li v-for="item in imgLists" :key="index">
-                                <div><img :src="item.url"></div>
-                                <span class="upload-pre-del"><i class="icons-e616" @click="delImg(item)"></i></span>
-                            </li>
-                            <div class="clear"></div>
+                         <span v-for="item in imgLists" :key="imgLists.index" class="wt-img-preview" @click="pre_Handle()">
+                            <img :src="item.url"/>
+                       </span>
                         </ul>
                         </p>
+
                     </div>
                 </div>
                 <list>
                     <list-item nested="input">
                         <field label="核查人员">
-                            <field-input name="whry" placeholder="核查人员" id="hcry"></field-input>
+                            <field-input name="whry" placeholder="核查人员" id="hcry" :value="gchcInfo.hczzqm"></field-input>
                         </field>
                     </list-item>
                     <list-item nested="input">
                         <field label="核查地点">
-                            <span :class="mapAddressNow.type" style="width: 80%;padding-right: 0.625rem;" id="add">{{mapAddressNow.address}}</span>
-                            <span hidden id="lng">{{mapAddressNow.lng}}</span>
-                            <span hidden id="lat">{{mapAddressNow.lat}}</span>
+                            <span :class="success" style="width: 80%;padding-right: 0.625rem;" id="add">{{gchcInfo.hcdd}}</span>
+                            <span hidden id="lng">{{gchcInfo.lng}}</span>
+                            <span hidden id="lat">{{gchcInfo.lat}}</span>
                             <span style="width: 10%">
-                                <img title="刷新" style="text-align: center;" @click="refreshMap()" width="16" height="16"
-                                     src="../../../statics/images/refresh.png"/>
+                           <!--<img title="刷新" style="text-align: center;" @click="refreshMap()" width="16" height="16"
+                                     src="../../../statics/images/refresh.png"/>-->
                             </span>
 
                         </field>
                     </list-item>
                     <list-item nested="input">
                         <field label="核查时间">
-                            <field-input type="date" name="rq" placeholder="选择核查时间" id="hcsj"></field-input>
+                            <field-input type="text" name="rq" placeholder="选择核查时间" id="hcsj" :value="gchcInfo.xchcrq"></field-input>
                         </field>
                     </list-item>
                 </list>
                 <div class="bottom-button" style="text-align: center;margin-left: 0.88rem;margin-top: 1.625rem;">
-                    <vue-button amSize="xs" sblue @buttonClick="formSubmit()">完成提交</vue-button>
-                    <vue-button amSize="xs" orange @buttonClick="lateSumit()">稍后巡检</vue-button>
+                    <vue-button amSize="xs" sblue @buttonClick="lateSumit()">返回</vue-button>
+                   <!-- <vue-button amSize="xs" orange @buttonClick="lateSumit()">稍后巡检</vue-button>-->
                 </div>
                 <!-- 从下向上 弹出框组件-->
                 <offcanvas style="height:4.375rem" sildewh="82%" silde="top" :open="offcanvas5"
@@ -232,15 +224,18 @@
     import axios from 'axios'
     import VueEvent from '../../libs/VueEvent.js'
     import 'jquery'
+    import imgpreview from '../../components/imgpreview'
 
     export default {
         components: {
             redMap,
             axios,
-            VueView
+            VueView,
+            imgpreview
         },
         data() {
             return {
+                imgpreshow: false,
                 offcanvas5: false,
                 chooseName: {},
                 cdInfo: {},
@@ -256,23 +251,7 @@
                 wiuTp: true,
                 PATROL_CONTENT: '',
                 BZ: '',
-                listInfo: [
-                    {title: '项目实际建设规模是否与填报信息一致', param: 'sjjs'},
-                    {title: '取水工程（设施）数量与类型是否与填报信息一致', param: 'gcsl'},
-                    {title: '取水口地点及坐标是否与填报信息一致', param: 'ddzb'},
-                    {title: '取水用途是否与填报信息一致', param: 'qsyt'},
-                    {title: '实际取水量是否与填报信息一致', param: 'sjqsl'},
-                    {title: '取水工程（设施）共用情况是否与填报信息一致', param: 'gyqk'},
-                    {title: '填报单位上传的视频、图片材料是否符合要求', param: 'sptp'},
-                    {title: '（虹吸管、泵站、水井等取水工程（设施））取水计量设施是否已安装使用', param: 'jlss'},
-                    {title: '（闸、渠道、坝、人工河道、水电站等取水工程（设施））断面流量监测设施是否安装使用', param: 'dmll'},
-                    {title: '（拦河闸坝等蓄水工程）最小下泄流量管控措施是否到位', param: 'xxll'},
-                    {title: '（拦河闸坝等蓄水工程）是否对水生态环境造成损害', param: 'sthj'},
-                    {title: '（拦河闸坝等蓄水工程）是否按批复方案进行蓄水调度运行', param: 'xsdd'},
-                    {title: '计划用水管理是否落实', param: 'jhys'},
-                    {title: '水资源费（税）征收是否落实', param: 'szyf'},
-                    {title: '延续取水管理是否规范', param: 'yxqs'}
-                ],
+                listInfo: [],
                 formData: new FormData(),
                 mapAddressNow: {
                     address: '获取位置中...',
@@ -281,7 +260,9 @@
                     lat: ''
                 },
                 mapPoints: [],
-                jcdNum: 1
+                jcdNum: 1,
+                gchcInfo: {},
+                jcdInfo:[]
             }
         },
         computed: {
@@ -292,7 +273,7 @@
             })
         },
         mounted() {
-            var imgload = new ImageUpload({
+/*            var imgload = new ImageUpload({
                 inputEl: '#imgupload',
                 showEl: false,
                 isCompress: true,
@@ -304,9 +285,94 @@
                 }
                 else
                     this.open3 = true;
-            });
+            });*/
             //地图加载事件
             Vue.set(this.$store.state.redmap, "loading", false);
+
+            this.getGchcList(this.$route.params.id);
+            let list=[
+                {title: '项目实际建设规模是否与填报信息一致', param: 'sjjs',value:'',bz:""},
+                {title: '取水工程（设施）数量与类型是否与填报信息一致', param: 'gcsl',value:'',bz:""},
+                {title: '取水口地点及坐标是否与填报信息一致', param: 'ddzb',value:'',bz:""},
+                {title: '取水用途是否与填报信息一致', param: 'qsyt',value:'',bz:""},
+                {title: '实际取水量是否与填报信息一致', param: 'sjqsl',value:''},
+                {title: '取水工程（设施）共用情况是否与填报信息一致', param: 'gyqk',value:'',bz:""},
+                {title: '填报单位上传的视频、图片材料是否符合要求', param: 'sptp',value:'',bz:""},
+                {title: '（虹吸管、泵站、水井等取水工程（设施））取水计量设施是否已安装使用', param: 'jlss',value:'',bz:""},
+                {title: '（闸、渠道、坝、人工河道、水电站等取水工程（设施））断面流量监测设施是否安装使用', param: 'dmll',value:'',bz:""},
+                {title: '（拦河闸坝等蓄水工程）最小下泄流量管控措施是否到位', param: 'xxll',value:'',bz:""},
+                {title: '（拦河闸坝等蓄水工程）是否对水生态环境造成损害', param: 'sthj',value:'',bz:""},
+                {title: '（拦河闸坝等蓄水工程）是否按批复方案进行蓄水调度运行', param: 'xsdd',value:'',bz:""},
+                {title: '计划用水管理是否落实', param: 'jhys',value:'',bz:""},
+                {title: '水资源费（税）征收是否落实', param: 'szyf',value:'',bz:""},
+                {title: '延续取水管理是否规范', param: 'yxqs',value:'',bz:""}
+            ];
+            for(let i=0;i< list.length;i++){
+                switch (list[i].param){
+                    case "sjjs":
+                        list[i].value=this.gchcInfo.isgmyz;
+                        list[i].bz=this.gchcInfo.isgmyzbz;
+                    break;
+                    case "gcsl":
+                        list[i].value=this.gchcInfo.issllx;
+                        list[i].bz=this.gchcInfo.issllxbz;
+                        break;
+                    case "ddzb":
+                        list[i].value=this.gchcInfo.isddzb;
+                        list[i].bz=this.gchcInfo.isddzbbz;
+                        break;
+                    case "qsyt":
+                        list[i].value=this.gchcInfo.isqsyt;
+                        list[i].bz=this.gchcInfo.isqsytbz;
+                        break;
+                    case "sjqsl":
+                        list[i].value=this.gchcInfo.issjqsl;
+                        list[i].bz=this.gchcInfo.issjqslbz;
+                        break;
+                    case "gyqk":
+                        list[i].value=this.gchcInfo.isgyqk;
+                        list[i].bz=this.gchcInfo.isgyqkbz;
+                        break;
+                    case "sptp":
+                        list[i].value=this.gchcInfo.iscl;
+                        list[i].bz=this.gchcInfo.isclbz;
+                        break;
+                    case "jlss":
+                        list[i].value=this.gchcInfo.isjlss;
+                        list[i].bz=this.gchcInfo.isjlssbz;
+                        break;
+                    case "dmll":
+                        list[i].value=this.gchcInfo.isdmlljcss;
+                        list[i].bz=this.gchcInfo.isdmlljcssbz;
+                        break;
+                    case "xxll":
+                        list[i].value=this.gchcInfo.iszxxxllgkss;
+                        list[i].bz=this.gchcInfo.iszxxxllgkssbz;
+                        break;
+                    case "sthj":
+                        list[i].value=this.gchcInfo.issst;
+                        list[i].bz=this.gchcInfo.issstbz;
+                        break;
+                    case "xsdd":
+                        list[i].value=this.gchcInfo.ispffa;
+                        list[i].bz=this.gchcInfo.ispffabz;
+                        break;
+                    case "jhys":
+                        list[i].value=this.gchcInfo.isjhys;
+                        list[i].bz=this.gchcInfo.isjhysbz;
+                        break;
+                    case "szyf":
+                        list[i].value=this.gchcInfo.isszyf;
+                        list[i].bz=this.gchcInfo.isszyfbz;
+                        break;
+                    case "yxqs":
+                        list[i].value=this.gchcInfo.isyxqsgl;
+                        list[i].bz=this.gchcInfo.isyxqsglbz;
+                        break;
+                }
+            }
+            this.listInfo=list;
+            $("input").attr("disabled",true);
         },
         methods: {
             refreshName(data) {
@@ -369,113 +435,122 @@
                 this.jcdNum = this.jcdNum - 1;
                 console.log(id);
             },
-            formSubmit() {
-                //必须上传图片
-                var _this=this;
-                if (this.imgLists.length === 0) {
-                    this.$layer.msg("请上传现场图片！");
-                    return;
-                }
-                let timestamp = (new Date().getTime()).toString();
-                let id = "QSGCXCHC0536" + timestamp.substring(timestamp.length - 6, timestamp.length);
-                let jcdNum=this.jcdNum;
-                let arr=[];
-                for(let i=1;i<=this.jcdNum;i++){
-                    arr.push({
-                        jcdmc:$("#jcd_name_"+i).val(),			//监测点名称
-                        jcddm:$("#jcd_num_"+i).val(),			//监测点代码
-                        jcdqsyt:$("#jcd_qsyt_"+i).val(),			//监测点取水用途
-                        pid:id,			//对应主表id
-                        createtime:nowtime()
-
-                })
-                }
-                console.log(arr);
-                let paramData = {
-                    type: 'add',
-                    wt_qsgc_xchc: {
-                        id:id,
-                        xchcrq: $("#hcsj").val(),		      //现场核查日期
-                        xmbh: $("#xmbh").val(),				  //项目编号
-                        xmmc: $("#xmmc").val(),			      //项目名称
-                        jyhcnn: $("#jyhcnn").val(),		  //建议核查内容
-                        xchcjg: $("#xchcjg").val(),		  //现场核查结果
-                        tysj: $("#tysj").val(),				  //项目投运时间
-                        isblxkz: typeof($("input[name='sfxk']:checked").attr("val"))=="undefined"?"":$("input[name='sfxk']:checked").attr("val"), //是否办理许可证 1 未许可 2已许可
-                        spjb: "",	                                             //审批级别 1县审批 2市审批 3省审批 4长江委审批
-                        isfz: typeof($("input[name='fzzt']:checked").attr("val"))=="undefined"?"":$("input[name='fzzt']:checked").attr("val"),	//是否发证 1未发证 2已发证
-                        zh: "",			                                       //字号
-                        nh: "",			                                       //年号
-                        sxh: "",	                                           //顺序号
-                        isgmyz: typeof($("input[name='sjjs']:checked").attr("val"))=="undefined"?"":$("input[name='sjjs']:checked").attr("val"),    //规模是否一致 1是 2否 3无法判断
-                        issllx: typeof($("input[name='gcsl']:checked").attr("val"))=="undefined"?"":$("input[name='gcsl']:checked").attr("val"),	  //数量与类型是否一致 1是 2否 3无法判断
-                        isddzb: typeof($("input[name='ddzb']:checked").attr("val"))=="undefined"?"":$("input[name='ddzb']:checked").attr("val"),    //地点与坐标是否一致 1是 2否 3无法判断
-                        isqsyt: typeof($("input[name='qsyt']:checked").attr("val"))=="undefined"?"":$("input[name='qsyt']:checked").attr("val"),	  //取水用途是否一致 1是 2否 3无法判断
-                        issjqsl: typeof($("input[name='sjqsl']:checked").attr("val"))=="undefined"?"":$("input[name='sjqsl']:checked").attr("val"),	 //实际取水量是否一致 1是 2否 3无法判断
-                        isgyqk: typeof($("input[name='gyqk']:checked").attr("val"))=="undefined"?"":$("input[name='gyqk']:checked").attr("val"),		//共用情况是否一致 1是 2否 3无法判断
-                        iscl: typeof($("input[name='sptp']:checked").attr("val"))=="undefined"?"":$("input[name='sptp']:checked").attr("val"),		//材料是否一致 1是 2否 3无法判断
-                        isjlss: typeof($("input[name='jlss']:checked").attr("val"))=="undefined"?"":$("input[name='jlss']:checked").attr("val"),		//计量设施是否安装 1是 2否 3无法判断
-                        isdmlljcss: typeof($("input[name='dmll']:checked").attr("val"))=="undefined"?"":$("input[name='dmll']:checked").attr("val"),	//断面流量监测设施是否安装 1是 2否 3无法判断
-                        iszxxxllgkss: typeof($("input[name='xxll']:checked").attr("val"))=="undefined"?"":$("input[name='xxll']:checked").attr("val"),//最小下泄流量管控设施  1是 2否 3无法判断
-                        issst: typeof($("input[name='sthj']:checked").attr("val"))=="undefined"?"":$("input[name='sthj']:checked").attr("val"),		//是否对水生态环境造成损害 1是 2否 3无法判断
-                        ispffa: typeof($("input[name='xsdd']:checked").attr("val"))=="undefined"?"":$("input[name='xsdd']:checked").attr("val"),		//是否按批复方案进行蓄水 1是 2否 3无法判断
-                        isjhys: typeof($("input[name='jhys']:checked").attr("val"))=="undefined"?"":$("input[name='jhys']:checked").attr("val"),		//计划用水是否落实  1是 2否 3无法判断
-                        isszyf: typeof($("input[name='szyf']:checked").attr("val"))=="undefined"?"":$("input[name='szyf']:checked").attr("val"),		//水资源费征收是否落实 1是 2否 3无法判断
-                        isyxqsgl: typeof($("input[name='yxqs']:checked").attr("val"))=="undefined"?"":$("input[name='yxqs']:checked").attr("val"),	//延续取水管理是否规范 1是 2否 3无法判断
-                        isgmyzbz: $("#sjjs_bz").val(),			                    //规模是否一致 备注
-                        issllxbz: $("#gcsl_bz").val(),		                        //数量与类型是否一致备注
-                        isddzbbz: $("#ddzb_bz").val(),			                    //地点与坐标是否一致备注
-                        isqsytbz: $("#qsyt_bz").val(),			                    //取水用途是否一致 备注
-                        issjqslbz: $("#sjqsl_bz").val(),			               //实际取水量是否一致备注
-                        isgyqkbz: $("#gyqk_bz").val(),		                       //共用情况是否一致备注
-                        isclbz: $("#sptp_bz").val(),		                        //材料是否一致备注
-                        isjlssbz: $("#jlss_bz").val(),		                         //计量设施是否安装备注
-                        isdmlljcssbz: $("#dmll_bz").val(),				            //断面流量监测设施是否安装 备注
-                        iszxxxllgkssbz: $("#xxll_bz").val(),		                 //最小下泄流量管控设施备注
-                        issstbz: $("#sthj_bz").val(),			                      //是否对水生态环境造成损害备注
-                        ispffabz: $("#xsdd_bz").val(),				                  //是否按批复方案进行蓄水 备注
-                        isjhysbz: $("#jhys_bz").val(),					              //计划用水是否落实备注
-                        isszyfbz: $("#szyf_bz").val(),					              //水资源费征收是否落实备注
-                        isyxqsglbz: $("#yxqs_bz").val(),			                  //延续取水管理是否规范备注
-                        isxgwh: "",		                                               //是否在系统中完成信息修改与完善 1是 2否
-                        isxgwhbcsm: "",			                                   //是否在系统中完成信息修改与完善 补冲说明
-                        hczzqm: $("#hcry").val(),			                           //核查组长签名
-                        lxdh: "",			                                            //联系电话
-                        createtime: nowtime(),			                                //创建时间
-                        createuser: localStorage.getItem("user"),			           //创建人
-                        hcdd:$("#add").text(),
-                        lng:$("#lng").text(),
-                        lat:$("#lat").text()
-
+            closeImg: function () {
+                this.imgpreshow = false;
             },
-                    wt_qsgc_xchc_jcd:arr,
-                    user:localStorage.getItem("user")
+            pre_Handle: function () {
+                this.imgpreshow = true;
+            },
+            getGchcList(id){
+                let paramData = {
+                    type: 'query',
+                    id:id
                 }
-                paramData = encodeURIComponent(JSON.stringify(paramData));
-                this.formData.append('params', paramData);
-                //console.log(this.imgArray);
-                this.formData.append('fileArray', this.imgArray);
-                axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-                Vue.prototype.$ajax = axios;
-                this.$ajax({
-                    method: 'post',
-                    url: API.QSGC_XCHC,
-                    processData: false,//用于对data参数进行序列化处理 这里必须false
-                    contentType: false, //必须
-                    data: this.formData
-                }).then(function (response) {
-                    if(response.data.code==0){
-                        _this.$layer.msg("提交成功！");
-                        _this.$router.go(-1);
-                    }else{
-                        _this.$layer.msg("提交失败！");
-                    }
-                    console.log(response);
-                }).catch(function (error) {
-                    _this.$layer.msg("提交失败！");
-                    console.log(error);
-                });
+                paramData = encodeURI(encodeURI(JSON.stringify(paramData)));
+                console.log( API.QSGC_XCHC + '&params=' + paramData);
+                this.$http.jsonp(API.QSGC_XCHC + '&params=' + paramData).then(
+                    response => {
+                        console.log(response);
+                        this.gchcInfo = (response.data.jcxx)[0];
+                        this.jcdInfo = (response.data.jcdxx);
+                        for (let i = 0; i < response.data.fjxx.length; i++) {
+                            var path = response.data.fjxx[i].file_adress;
+                            var arr = path.split("C:/FileServer/apacheFtpserver/res/home/");
+                            var url = "31.16.10.52:8000/" + arr[1];//31.16.10.52:8000
+                            this.imgLists.push({url: url});
+                        }
+                        this.getList();
+                        console.log(this.gchcInfo);
 
+                    }, response => {
+                        console.log("error");
+                    });
+            },
+            getList(){
+                let list=[
+                    {title: '项目实际建设规模是否与填报信息一致', param: 'sjjs',value:'',bz:""},
+                    {title: '取水工程（设施）数量与类型是否与填报信息一致', param: 'gcsl',value:'',bz:""},
+                    {title: '取水口地点及坐标是否与填报信息一致', param: 'ddzb',value:'',bz:""},
+                    {title: '取水用途是否与填报信息一致', param: 'qsyt',value:'',bz:""},
+                    {title: '实际取水量是否与填报信息一致', param: 'sjqsl',value:''},
+                    {title: '取水工程（设施）共用情况是否与填报信息一致', param: 'gyqk',value:'',bz:""},
+                    {title: '填报单位上传的视频、图片材料是否符合要求', param: 'sptp',value:'',bz:""},
+                    {title: '（虹吸管、泵站、水井等取水工程（设施））取水计量设施是否已安装使用', param: 'jlss',value:'',bz:""},
+                    {title: '（闸、渠道、坝、人工河道、水电站等取水工程（设施））断面流量监测设施是否安装使用', param: 'dmll',value:'',bz:""},
+                    {title: '（拦河闸坝等蓄水工程）最小下泄流量管控措施是否到位', param: 'xxll',value:'',bz:""},
+                    {title: '（拦河闸坝等蓄水工程）是否对水生态环境造成损害', param: 'sthj',value:'',bz:""},
+                    {title: '（拦河闸坝等蓄水工程）是否按批复方案进行蓄水调度运行', param: 'xsdd',value:'',bz:""},
+                    {title: '计划用水管理是否落实', param: 'jhys',value:'',bz:""},
+                    {title: '水资源费（税）征收是否落实', param: 'szyf',value:'',bz:""},
+                    {title: '延续取水管理是否规范', param: 'yxqs',value:'',bz:""}
+                ];
+                for(let i=0;i< list.length;i++){
+                    switch (list[i].param){
+                        case "sjjs":
+                            list[i].value=this.gchcInfo.isgmyz;
+                            list[i].bz=this.gchcInfo.isgmyzbz;
+                            break;
+                        case "gcsl":
+                            list[i].value=this.gchcInfo.issllx;
+                            list[i].bz=this.gchcInfo.issllxbz;
+                            break;
+                        case "ddzb":
+                            list[i].value=this.gchcInfo.isddzb;
+                            list[i].bz=this.gchcInfo.isddzbbz;
+                            break;
+                        case "qsyt":
+                            list[i].value=this.gchcInfo.isqsyt;
+                            list[i].bz=this.gchcInfo.isqsytbz;
+                            break;
+                        case "sjqsl":
+                            list[i].value=this.gchcInfo.issjqsl;
+                            list[i].bz=this.gchcInfo.issjqslbz;
+                            break;
+                        case "gyqk":
+                            list[i].value=this.gchcInfo.isgyqk;
+                            list[i].bz=this.gchcInfo.isgyqkbz;
+                            break;
+                        case "sptp":
+                            list[i].value=this.gchcInfo.iscl;
+                            list[i].bz=this.gchcInfo.isclbz;
+                            break;
+                        case "jlss":
+                            list[i].value=this.gchcInfo.isjlss;
+                            list[i].bz=this.gchcInfo.isjlssbz;
+                            break;
+                        case "dmll":
+                            list[i].value=this.gchcInfo.isdmlljcss;
+                            list[i].bz=this.gchcInfo.isdmlljcssbz;
+                            break;
+                        case "xxll":
+                            list[i].value=this.gchcInfo.iszxxxllgkss;
+                            list[i].bz=this.gchcInfo.iszxxxllgkssbz;
+                            break;
+                        case "sthj":
+                            list[i].value=this.gchcInfo.issst;
+                            list[i].bz=this.gchcInfo.issstbz;
+                            break;
+                        case "xsdd":
+                            list[i].value=this.gchcInfo.ispffa;
+                            list[i].bz=this.gchcInfo.ispffabz;
+                            break;
+                        case "jhys":
+                            list[i].value=this.gchcInfo.isjhys;
+                            list[i].bz=this.gchcInfo.isjhysbz;
+                            break;
+                        case "szyf":
+                            list[i].value=this.gchcInfo.isszyf;
+                            list[i].bz=this.gchcInfo.isszyfbz;
+                            break;
+                        case "yxqs":
+                            list[i].value=this.gchcInfo.isyxqsgl;
+                            list[i].bz=this.gchcInfo.isyxqsglbz;
+                            break;
+                    }
+                }
+                this.listInfo=list;
+            },
+            formSubmit() {
             }
         },
         filters: {
@@ -691,5 +766,8 @@
 
     .card-body {
         padding: 0 !important;
+    }
+    input[disabled],input:disabled,input.disabled{
+        background-color: white;
     }
 </style>
